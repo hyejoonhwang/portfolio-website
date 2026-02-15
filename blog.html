@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Summer</title>
+    <style>
+        @font-face {
+            font-family: 'Boska';
+            src: url('fonts/Boska-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Boska';
+            src: url('fonts/Boska-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'General Sans';
+            src: url('fonts/GeneralSans-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'General Sans';
+            src: url('fonts/GeneralSans-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #FFFFFF;
+            --text: #1C1917;
+            --text-muted: #847F7A;
+            --text-faint: #B8B3AD;
+            --border: #EEEDEB;
+            --accent: #D4A68C;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'General Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══ NAV ═══ */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 64px;
+        }
+        .logo {
+            font-family: 'Boska', Georgia, serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1.45rem;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s ease;
+        }
+        .logo:hover { opacity: 0.45; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a.active { color: var(--text); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: var(--text);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .nav-links a.active::after { transform: scaleX(1); }
+
+        /* ═══ BLOG LAYOUT ═══ */
+        .blog {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 48px 24px 100px;
+        }
+
+        /* ═══ FEATURED POST ═══ */
+        .featured {
+            margin-bottom: 56px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .featured-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #E8EDE4, #D6DFE9);
+            border-radius: 4px;
+            margin-bottom: 28px;
+        }
+
+        .featured h1 {
+            font-family: 'Boska', Georgia, serif;
+            font-weight: 300;
+            font-size: 2rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .featured-date {
+            font-size: 0.82rem;
+            color: var(--text-faint);
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .featured-excerpt {
+            font-family: 'Boska', Georgia, serif;
+            font-weight: 300;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .continue-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 6px 16px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .continue-link:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ═══ ALL POSTS ═══ */
+        .all-posts {
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        }
+
+        .all-posts h2 {
+            font-family: 'Boska', Georgia, serif;
+            font-weight: 300;
+            font-size: 1.3rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+        }
+
+        .post-list {
+            list-style: none;
+        }
+
+        .post-item {
+            border-top: 1px solid var(--border);
+        }
+
+        .post-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .post-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 24px;
+            padding: 14px 0;
+            text-decoration: none;
+            color: var(--text);
+            transition: opacity 0.3s ease;
+        }
+
+        .post-link:hover {
+            opacity: 0.55;
+        }
+
+        .post-title {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 400;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .post-date {
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            font-weight: 300;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ═══ ANIMATIONS ═══ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══ MOBILE ═══ */
+        @media (max-width: 640px) {
+            nav { padding: 0 16px; height: 56px; }
+            .logo { font-size: 1.3rem; }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 0.8rem; }
+
+            .blog { padding: 32px 20px 64px; }
+            .featured h1 { font-size: 1.6rem; }
+            .featured-excerpt { font-size: 0.98rem; }
+            .post-title { font-size: 0.87rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">summer</a>
+        <div class="nav-links">
+            <a href="/">work</a>
+            <a href="/about.html">about</a>
+            <a href="/blog.html" class="active">blog</a>
+        </div>
+    </nav>
+
+    <main class="blog">
+
+        <article class="featured">
+            <div class="featured-image"></div>
+            <h1>Final Project — Moss Garden (Touch of Moss)</h1>
+            <p class="featured-date">Dec 2025</p>
+            <p class="featured-excerpt">An interactive physical computing installation exploring the relationship between touch, nature, and digital feedback — blending organic materials with sensor-driven responses to create a meditative, tactile experience.</p>
+            <a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="continue-link" target="_blank">Continue reading &rarr;</a>
+        </article>
+
+        <section class="all-posts">
+            <h2>All Posts</h2>
+            <ul class="post-list">
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week3" target="_blank"><span class="post-title">Dynamic Web Dev — Week 3</span><span class="post-date">Feb 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Live-Web/week-2" target="_blank"><span class="post-title">Live Web — Week 2</span><span class="post-date">Feb 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Dumbo/week-3" target="_blank"><span class="post-title">Dumbo — Week 3</span><span class="post-date">Feb 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Reconstructing-Lost-Spaces/Week-1" target="_blank"><span class="post-title">Reconstructing Lost Spaces — Week 1</span><span class="post-date">Jan 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week2" target="_blank"><span class="post-title">Dynamic Web Dev — Week 2</span><span class="post-date">Jan 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Live-Web/Week-1" target="_blank"><span class="post-title">Live Web — Week 1</span><span class="post-date">Jan 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week-1" target="_blank"><span class="post-title">Dynamic Web Dev — Week 1</span><span class="post-date">Jan 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Dumbo/week-1" target="_blank"><span class="post-title">Dumbo — Week 1</span><span class="post-date">Jan 2026</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-Final" target="_blank"><span class="post-title">ICM Final</span><span class="post-date">Dec 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Hedonomics-VR-Design/HedoVRdesign---Final" target="_blank"><span class="post-title">Hedonomics VR Design — Final</span><span class="post-date">Dec 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" target="_blank"><span class="post-title">Moss Garden (Touch of Moss) — PComp Final</span><span class="post-date">Dec 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project" target="_blank"><span class="post-title">PComp Final Project</span><span class="post-date">Dec 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Reflection" target="_blank"><span class="post-title">PComp — Reflection</span><span class="post-date">Dec 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-Wk-6-7" target="_blank"><span class="post-title">MoCap for Archive — Weeks 6–7</span><span class="post-date">Nov 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-9---CREATE-•-BODY" target="_blank"><span class="post-title">ICM — Create: Body</span><span class="post-date">Nov 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-8---CREATE-•-PARTS-OF-A-WHOLE" target="_blank"><span class="post-title">ICM — Create: Parts of a Whole</span><span class="post-date">Nov 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-7" target="_blank"><span class="post-title">PComp — Week 7</span><span class="post-date">Nov 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-5" target="_blank"><span class="post-title">MoCap for Archive — Week 5</span><span class="post-date">Nov 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-7---CREATE-•-ITERATION" target="_blank"><span class="post-title">ICM — Create: Iteration</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-6---CREATE-•-SIMULATION" target="_blank"><span class="post-title">ICM — Create: Simulation</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Midterm-Project---Mystery-Die" target="_blank"><span class="post-title">Mystery Die — PComp Midterm</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Hedonomics-VR-Design/HedoVRdesign-Midterm" target="_blank"><span class="post-title">Hedonomics VR Design — Midterm</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-4" target="_blank"><span class="post-title">MoCap for Archive — Week 4</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-5" target="_blank"><span class="post-title">PComp — Week 5</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-5---CREATE-•-TIME" target="_blank"><span class="post-title">ICM — Create: Time</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-3" target="_blank"><span class="post-title">MoCap for Archive — Week 3</span><span class="post-date">Oct 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-4---CREATE-•-PATTERNS" target="_blank"><span class="post-title">ICM — Create: Patterns</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-4" target="_blank"><span class="post-title">PComp — Week 4</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Hedonomics-VR-Design/HedoVRdesign-wk4" target="_blank"><span class="post-title">Hedonomics VR Design — Week 4</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-3---CREATE-•-CHOICES" target="_blank"><span class="post-title">ICM — Create: Choices</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-3" target="_blank"><span class="post-title">PComp — Week 3</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-2" target="_blank"><span class="post-title">MoCap for Archive — Week 2</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-2---CREATE-•-OPPOSITES" target="_blank"><span class="post-title">ICM — Create: Opposites</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-2" target="_blank"><span class="post-title">PComp — Week 2</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-1" target="_blank"><span class="post-title">MoCap for Archive — Week 1</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-1---CREATE-•-SELF-PORTRAIT" target="_blank"><span class="post-title">ICM — Create: Self-Portrait</span><span class="post-date">Sep 2025</span></a></li>
+                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-1" target="_blank"><span class="post-title">PComp — Week 1</span><span class="post-date">Sep 2025</span></a></li>
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+</html>

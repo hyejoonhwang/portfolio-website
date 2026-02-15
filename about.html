@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Summer</title>
+    <style>
+        @font-face {
+            font-family: 'Boska';
+            src: url('fonts/Boska-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Boska';
+            src: url('fonts/Boska-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'General Sans';
+            src: url('fonts/GeneralSans-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'General Sans';
+            src: url('fonts/GeneralSans-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #FFFFFF;
+            --text: #1C1917;
+            --text-muted: #847F7A;
+            --text-faint: #B8B3AD;
+            --accent: #D4A68C;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'General Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ═══ NAV ═══ */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 64px;
+        }
+
+        .logo {
+            font-family: 'Boska', Georgia, serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1.45rem;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover { opacity: 0.45; }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            position: relative;
+            padding-bottom: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--text);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .nav-links a.active::after { transform: scaleX(1); }
+
+        /* ═══ ABOUT LAYOUT ═══ */
+        .about {
+            display: flex;
+            gap: 80px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 48px 100px;
+        }
+
+        .about-left {
+            flex: 0 0 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .about-right {
+            flex: 1;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+        }
+
+        /* ═══ PHOTO CARD ═══ */
+        .photo-card {
+            background: #F8F7F5;
+            border-radius: 4px;
+            padding: 14px 14px 20px;
+            transform: rotate(-1.5deg);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: linear-gradient(135deg, #E8EDE4, #D6DFE9);
+            border-radius: 2px;
+        }
+
+        .photo-caption {
+            margin-top: 12px;
+            font-size: 0.78rem;
+            color: var(--text-faint);
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        /* ═══ TAGLINE ═══ */
+        .tagline {
+            font-family: 'Boska', Georgia, serif;
+            font-weight: 300;
+            font-size: 1.5rem;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            color: var(--text);
+        }
+
+        /* ═══ CURRENTLY ═══ */
+        .currently {
+            border-top: 1px solid #EEEDEB;
+            padding-top: 24px;
+        }
+
+        .currently-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 16px;
+        }
+
+        .currently-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .currently-item {
+            display: flex;
+            gap: 16px;
+            align-items: baseline;
+        }
+
+        .currently-item dt {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            min-width: 72px;
+        }
+
+        .currently-item dd {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--text);
+        }
+
+        /* ═══ RIGHT COLUMN ═══ */
+        .about-heading {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 32px;
+        }
+
+        .about-text p {
+            font-family: 'Boska', Georgia, serif;
+            font-weight: 300;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            color: var(--text);
+            margin-bottom: 28px;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-text a {
+            color: var(--text);
+            text-decoration-color: var(--accent);
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1.5px;
+            transition: text-decoration-color 0.3s ease;
+        }
+
+        .about-text a:hover {
+            text-decoration-color: var(--text);
+        }
+
+        .about-text em {
+            font-style: italic;
+        }
+
+        .about-text strong {
+            font-weight: 500;
+        }
+
+        /* ═══ LINKS ═══ */
+        .about-links {
+            display: flex;
+            gap: 28px;
+            margin-top: 48px;
+            padding-top: 28px;
+            border-top: 1px solid #EEEDEB;
+        }
+
+        .about-links a {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .about-links a:hover {
+            color: var(--text);
+        }
+
+        /* ═══ ANIMATIONS ═══ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══ TABLET ═══ */
+        @media (max-width: 900px) {
+            .about {
+                gap: 48px;
+                padding: 40px 32px 80px;
+            }
+
+            .about-left {
+                flex: 0 0 280px;
+            }
+
+            .about-text p {
+                font-size: 1.15rem;
+            }
+        }
+
+        /* ═══ MOBILE ═══ */
+        @media (max-width: 640px) {
+            nav {
+                padding: 0 16px;
+                height: 56px;
+            }
+
+            .logo { font-size: 1.3rem; }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 0.8rem; }
+
+            .about {
+                flex-direction: column;
+                padding: 24px 20px 64px;
+                gap: 40px;
+            }
+
+            .about-left {
+                flex: none;
+                max-width: 320px;
+            }
+
+            .photo-card {
+                transform: rotate(-1deg);
+            }
+
+            .tagline {
+                font-size: 1.3rem;
+            }
+
+            .about-text p {
+                font-size: 1.1rem;
+            }
+
+            .about-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo">summer</a>
+        <div class="nav-links">
+            <a href="/">work</a>
+            <a href="/about.html" class="active">about</a>
+            <a href="/blog">blog</a>
+        </div>
+    </nav>
+
+    <main class="about">
+        <aside class="about-left">
+            <div class="photo-card">
+                <div class="photo-placeholder"></div>
+                <p class="photo-caption">placeholder — add your photo here</p>
+            </div>
+
+            <h2 class="tagline">Finding joy in designing things that feel like they should already exist.</h2>
+
+            <div class="currently">
+                <p class="currently-label">Currently</p>
+                <dl class="currently-items">
+                    <div class="currently-item">
+                        <dt>Reading</dt>
+                        <dd>Designing Design by Kenya Hara</dd>
+                    </div>
+                    <div class="currently-item">
+                        <dt>Exploring</dt>
+                        <dd>Generative interfaces & spatial UI</dd>
+                    </div>
+                    <div class="currently-item">
+                        <dt>Listening</dt>
+                        <dd>Placeholder album or podcast</dd>
+                    </div>
+                </dl>
+            </div>
+        </aside>
+
+        <section class="about-right">
+            <p class="about-heading">About</p>
+
+            <div class="about-text">
+                <p>
+                    Hi, I'm Summer — a <strong>product designer</strong> currently pursuing graduate studies where I'm exploring how <em>emerging technologies</em>, particularly AI, can reshape the way we design and interact with digital experiences.
+                </p>
+
+                <p>
+                    I believe the best interfaces feel invisible — they anticipate what you need before you know you need it. I'm drawn to the messy, ambiguous space where <strong>human intuition meets machine intelligence</strong>, and I love turning that tension into something that feels effortless.
+                </p>
+
+                <p>
+                    My work sits at the intersection of <em>interaction design</em>, prototyping, and systems thinking. I care deeply about craft, about the details that make an experience feel considered rather than assembled. Whether it's a generative UI pattern or a new way to navigate information, I'm always asking: <em>how should this feel?</em>
+                </p>
+
+                <p>
+                    Outside of design, you'll find me placeholder text about hobbies, interests, and the things that keep life interesting beyond the screen.
+                </p>
+            </div>
+
+            <div class="about-links">
+                <a href="mailto:hello@summer.design">Email</a>
+                <a href="#" target="_blank">Resume</a>
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">Twitter</a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

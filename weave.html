@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weave — Summer</title>
+    <style>
+        @font-face { font-family: 'Boska'; src: url('fonts/Boska-Variable.ttf') format('truetype'); font-weight: 100 900; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Boska'; src: url('fonts/Boska-VariableItalic.ttf') format('truetype'); font-weight: 100 900; font-style: italic; font-display: swap; }
+        @font-face { font-family: 'General Sans'; src: url('fonts/GeneralSans-Variable.ttf') format('truetype'); font-weight: 100 900; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'General Sans'; src: url('fonts/GeneralSans-VariableItalic.ttf') format('truetype'); font-weight: 100 900; font-style: italic; font-display: swap; }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #FFFFFF;
+            --text: #1C1917;
+            --text-muted: #847F7A;
+            --text-faint: #B8B3AD;
+            --border: #E8E5E1;
+            --accent: #3B5BF5;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'General Sans', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══ NAV ═══ */
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 64px; }
+        .logo { font-family: 'Boska', serif; font-style: italic; font-weight: 300; font-size: 1.45rem; color: var(--text); text-decoration: none; transition: opacity 0.3s; }
+        .logo:hover { opacity: 0.45; }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a { font-size: 0.85rem; font-weight: 400; color: var(--text-muted); text-decoration: none; padding-bottom: 2px; position: relative; transition: color 0.3s; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--text); transform: scaleX(0); transform-origin: center; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        /* ═══ CASE STUDY LAYOUT ═══ */
+        .case-study { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+        .wide { max-width: 960px; margin-left: auto; margin-right: auto; padding: 0 24px; }
+
+        /* ═══ HERO ═══ */
+        .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero-logo { height: 40px; margin-bottom: 20px; }
+        .hero h1 {
+            font-family: 'Boska', serif;
+            font-weight: 300;
+            font-size: 2.4rem;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin-bottom: 16px;
+        }
+        .hero-sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto 36px;
+        }
+        .meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .meta-item { text-align: center; }
+        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); max-width: 180px; }
+
+        /* ═══ IMAGES ═══ */
+        .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; }
+        .img-caption { font-size: 0.75rem; color: var(--text-faint); text-align: center; margin-top: 10px; font-weight: 300; }
+
+        /* ═══ SECTIONS ═══ */
+        .section { padding: 80px 0; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .section-heading {
+            font-family: 'Boska', serif;
+            font-weight: 300;
+            font-size: 1.65rem;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+        .section-body {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .divider { border: none; border-top: 1px dashed var(--border); margin: 0; }
+
+        /* ═══ OUTCOMES ROW ═══ */
+        .outcomes { display: flex; gap: 32px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+        .outcome { text-align: center; flex: 1; min-width: 180px; max-width: 220px; }
+        .outcome-num { font-family: 'Boska', serif; font-weight: 300; font-size: 1.1rem; color: var(--accent); margin-bottom: 6px; }
+        .outcome-text { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); line-height: 1.55; }
+
+        /* ═══ FINDINGS ═══ */
+        .findings { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+        .finding { padding: 24px; border: 1px solid var(--border); border-radius: 4px; }
+        .finding h4 { font-family: 'General Sans', sans-serif; font-size: 0.88rem; font-weight: 500; margin-bottom: 8px; line-height: 1.35; }
+        .finding p { font-size: 0.82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
+
+        /* ═══ FEATURES ═══ */
+        .features { display: flex; gap: 32px; margin-top: 40px; }
+        .feature { flex: 1; text-align: center; }
+        .feature-num { font-family: 'Boska', serif; font-weight: 300; font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
+        .feature-title { font-family: 'General Sans', sans-serif; font-size: 0.92rem; font-weight: 500; margin-bottom: 6px; }
+        .feature-desc { font-size: 0.82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
+
+        /* ═══ FLOW SECTIONS ═══ */
+        .flow { padding: 64px 0; }
+        .flow-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-align: center; margin-bottom: 12px; }
+        .flow-title {
+            font-family: 'Boska', serif;
+            font-weight: 300;
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .flow-desc {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 520px;
+            margin: 0 auto 32px;
+            line-height: 1.65;
+        }
+
+        /* ═══ TESTING ═══ */
+        .test-stats { display: flex; gap: 40px; justify-content: center; margin-top: 28px; }
+        .test-stat { text-align: center; }
+        .test-stat-num { font-family: 'Boska', serif; font-weight: 300; font-size: 1.6rem; color: var(--text); }
+        .test-stat-label { font-size: 0.78rem; font-weight: 300; color: var(--text-muted); margin-top: 4px; }
+
+        /* ═══ BACK LINK ═══ */
+        .back { text-align: center; padding: 48px 0 100px; }
+        .back a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .back a:hover { color: var(--text); border-color: var(--text); }
+
+        /* ═══ PLACEHOLDER ═══ */
+        .placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: linear-gradient(135deg, #F0F0F0, #E8E8E8);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--text-faint);
+            font-weight: 300;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 640px) {
+            nav { padding: 0 16px; height: 56px; }
+            .logo { font-size: 1.3rem; }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 0.8rem; }
+            .hero { padding: 48px 0 40px; }
+            .hero h1 { font-size: 1.8rem; }
+            .meta { gap: 24px; }
+            .section { padding: 56px 0; }
+            .section-heading { font-size: 1.35rem; }
+            .findings { grid-template-columns: 1fr; }
+            .features { flex-direction: column; gap: 24px; }
+            .test-stats { gap: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">summer</a>
+    <div class="nav-links">
+        <a href="/">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog.html">blog</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="case-study">
+    <section class="hero">
+        <div class="placeholder" style="width: 160px; aspect-ratio: auto; height: 40px; margin: 0 auto 20px; font-size: 0.75rem;">Weave logo</div>
+        <h1>A Platform for Global Market Entry</h1>
+        <p class="hero-sub">A workflow tool that helps companies find, evaluate, contract, and collaborate with overseas partners — all in one flow.</p>
+        <div class="meta">
+            <div class="meta-item">
+                <p class="meta-label">Role</p>
+                <p class="meta-value">UX Research Lead, Product Strategy, Interaction Design</p>
+            </div>
+            <div class="meta-item">
+                <p class="meta-label">Timeline</p>
+                <p class="meta-value">Jul 2025 – Jan 2026</p>
+            </div>
+            <div class="meta-item">
+                <p class="meta-label">Team</p>
+                <p class="meta-value">Summer Hwang, Sea Ahn, Jihyeon Jeon</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- HERO IMAGE -->
+<div class="wide">
+    <div class="placeholder" style="aspect-ratio: 16/9;">Landing page — hero with marketplace, workspace, and roadmap cards</div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="case-study">
+    <section class="section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">Why is overseas expansion — something most growing companies face — still run through scattered tools and disconnected vendors?</h2>
+        <p class="section-body">I proposed this project concept and led research strategy, problem definition, and solution ideation from initial desk research through feature architecture. Over one semester, we took this from a question to a fully designed product.</p>
+        <div class="outcomes">
+            <div class="outcome">
+                <p class="outcome-num">End-to-end</p>
+                <p class="outcome-text">Complete workflow from partner discovery to collaboration to compliance</p>
+            </div>
+            <div class="outcome">
+                <p class="outcome-num">Validated</p>
+                <p class="outcome-text">Tested with 3 users across 2 task flows; iterated on real feedback</p>
+            </div>
+            <div class="outcome">
+                <p class="outcome-num">Originated</p>
+                <p class="outcome-text">Conceptualized the product vision and led research-driven problem framing</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- PROBLEM -->
+    <section class="section">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-heading">Companies lack a single system of record for global expansion — leading to slow execution, limited visibility, and avoidable risk.</h2>
+        <p class="section-body">Teams over-rely on a small set of local partners, government resources are too broad for real decisions, and critical support is scattered across dozens of institutions.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- RESEARCH -->
+    <section class="section">
+        <p class="section-label">Research</p>
+        <h2 class="section-heading">What we found</h2>
+        <div class="findings">
+            <div class="finding">
+                <h4>The regulatory landscape is fragmented</h4>
+                <p>Korean companies use basic compliance tools, while global legaltech offers advanced solutions — but none are adapted for SMEs entering new markets.</p>
+            </div>
+            <div class="finding">
+                <h4>Government support exists, but it's scattered</h4>
+                <p>Programs from KOTRA and GoBiz Korea offer real value — but companies either don't know they exist or can't navigate across fragmented institutions.</p>
+            </div>
+            <div class="finding">
+                <h4>Companies fall into a "partner dependency trap"</h4>
+                <p>Without structured evaluation, companies over-rely on a single local partner — increasing operational and brand risk.</p>
+            </div>
+            <div class="finding">
+                <h4>AI can solve real compliance problems</h4>
+                <p>NLP for regulatory analysis, ML for compliance prediction — proven technologies, but no platform combines them for global expansion.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- SOLUTION -->
+    <section class="section">
+        <p class="section-label">The Solution</p>
+        <h2 class="section-heading">Weave brings partner discovery, legal workflows, and compliance tracking into one system.</h2>
+        <div class="features">
+            <div class="feature">
+                <p class="feature-num">01</p>
+                <p class="feature-title">Partner Marketplace</p>
+                <p class="feature-desc">Discover, compare, and connect with vetted local partners across legal, logistics, marketing, and operations.</p>
+            </div>
+            <div class="feature">
+                <p class="feature-num">02</p>
+                <p class="feature-title">Smart Contracting</p>
+                <p class="feature-desc">Generate proposals, negotiate terms, and finalize contracts within one seamless workflow.</p>
+            </div>
+            <div class="feature">
+                <p class="feature-num">03</p>
+                <p class="feature-title">Collaboration Workspace</p>
+                <p class="feature-desc">Manage operations with built-in regulatory monitoring, compliance alerts, and AI-assisted localization.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<hr class="divider" style="max-width: 740px; margin: 0 auto;">
+
+<!-- CORE FLOWS -->
+<div class="case-study">
+    <section class="section">
+        <p class="section-label">Core Flows</p>
+    </section>
+</div>
+
+<div class="wide">
+    <section class="flow">
+        <p class="flow-label">01 Roadmap</p>
+        <h3 class="flow-title">A structured starting point for global expansion</h3>
+        <p class="flow-desc">Companies generate a tailored expansion roadmap based on their target market, industry, and readiness — turning an uncertain process into an actionable plan.</p>
+        <div class="placeholder" style="aspect-ratio: 16/10;">Roadmap — expansion analysis report with market fit scores and strategic recommendations</div>
+    </section>
+
+    <section class="flow">
+        <p class="flow-label">02 Marketplace</p>
+        <h3 class="flow-title">Discover and compare trusted local partners</h3>
+        <p class="flow-desc">A unified marketplace surfaces vetted service providers. Teams can evaluate partners side by side, review case studies, and shortlist candidates.</p>
+        <div class="placeholder" style="aspect-ratio: 16/10;">Marketplace — partner profiles with filters, ratings, and specialization tags</div>
+    </section>
+
+    <section class="flow">
+        <p class="flow-label">03 Proposals & Contracting</p>
+        <h3 class="flow-title">Move from selection to engagement seamlessly</h3>
+        <p class="flow-desc">Teams can generate proposals, request quotes, and draft contracts within the same workflow — reducing handoffs and accelerating deal closure.</p>
+        <div class="placeholder" style="aspect-ratio: 16/10;">Proposals — template builder with scope, timeline, and partner spec fields</div>
+    </section>
+
+    <section class="flow">
+        <p class="flow-label">04 Workspace</p>
+        <h3 class="flow-title">Operate, collaborate, and stay compliant</h3>
+        <p class="flow-desc">Shared workspaces support ongoing collaboration between HQ and local partners, with built-in regulatory monitoring and AI-assisted tools.</p>
+        <div class="placeholder" style="aspect-ratio: 16/10;">Workspace — dashboard with partner activity, documents, and compliance alerts</div>
+    </section>
+</div>
+
+<hr class="divider" style="max-width: 740px; margin: 0 auto;">
+
+<!-- SYSTEM DESIGN -->
+<div class="case-study">
+    <section class="section">
+        <p class="section-label">System Design</p>
+        <h2 class="section-heading">Mapping the architecture before moving to screens</h2>
+        <p class="section-body">I defined how users, features, and data connect across the platform — starting with concept models and information architecture.</p>
+    </section>
+</div>
+
+<div class="wide">
+    <div class="placeholder" style="aspect-ratio: 16/9; margin-bottom: 8px;">Concept model — entities, relationships, and system connections</div>
+    <p class="img-caption">Concept model diagram</p>
+    <div class="placeholder" style="aspect-ratio: 16/9; margin-top: 40px; margin-bottom: 8px;">Information architecture — site map with navigation hierarchy and feature groupings</div>
+    <p class="img-caption">Information architecture</p>
+</div>
+
+<hr class="divider" style="max-width: 740px; margin: 0 auto 0;">
+
+<!-- TESTING -->
+<div class="case-study">
+    <section class="section">
+        <p class="section-label">User Testing</p>
+        <h2 class="section-heading">Testing with real users</h2>
+        <p class="section-body">We conducted remote usability tests using our Figma prototype — testing two core task flows: navigating the marketplace and roadmap, and collaborating on documents through the workspace.</p>
+        <div class="test-stats">
+            <div class="test-stat">
+                <p class="test-stat-num">3</p>
+                <p class="test-stat-label">Participants</p>
+            </div>
+            <div class="test-stat">
+                <p class="test-stat-num">2</p>
+                <p class="test-stat-label">Task flows</p>
+            </div>
+            <div class="test-stat">
+                <p class="test-stat-num">Remote</p>
+                <p class="test-stat-label">Google Meet + Figma</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- BACK -->
+<div class="case-study">
+    <div class="back">
+        <a href="/">&larr; Back to all work</a>
+    </div>
+</div>
+
+</body>
+</html>
