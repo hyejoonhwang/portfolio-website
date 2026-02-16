@@ -4,164 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog — Summer</title>
+    <link rel="stylesheet" href="shared.css">
     <style>
-        @font-face {
-            font-family: 'Boska';
-            src: url('fonts/Boska-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Boska';
-            src: url('fonts/Boska-VariableItalic.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: italic;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'General Sans';
-            src: url('fonts/GeneralSans-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'General Sans';
-            src: url('fonts/GeneralSans-VariableItalic.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: italic;
-            font-display: swap;
-        }
-
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #FFFFFF;
-            --text: #1C1917;
-            --text-muted: #847F7A;
-            --text-faint: #B8B3AD;
-            --border: #EEEDEB;
-            --accent: #D4A68C;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'General Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ═══ NAV ═══ */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            height: 64px;
-        }
-        .logo {
-            font-family: 'Boska', Georgia, serif;
-            font-style: italic;
-            font-weight: 300;
-            font-size: 1.45rem;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-            transition: opacity 0.3s ease;
-        }
-        .logo:hover { opacity: 0.45; }
-        .nav-links { display: flex; gap: 28px; align-items: center; }
-        .nav-links a {
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            position: relative;
-            padding-bottom: 2px;
-            transition: color 0.3s ease;
-        }
-        .nav-links a.active { color: var(--text); }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 1px;
-            background: var(--text);
-            transform: scaleX(0);
-            transform-origin: center;
-            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { transform: scaleX(1); }
-        .nav-links a.active::after { transform: scaleX(1); }
-
         /* ═══ BLOG LAYOUT ═══ */
         .blog {
-            max-width: 720px;
+            max-width: 540px;
             margin: 0 auto;
-            padding: 48px 24px 100px;
+            padding: 12px 24px 100px;
+        }
+
+        .featured-label {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 16px;
         }
 
         /* ═══ FEATURED POST ═══ */
         .featured {
-            margin-bottom: 56px;
+            margin-bottom: 32px;
             animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
         }
 
         .featured-image {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 5 / 2;
             background: linear-gradient(135deg, #E8EDE4, #D6DFE9);
             border-radius: 4px;
-            margin-bottom: 28px;
+            margin-bottom: 16px;
         }
 
         .featured h1 {
             font-family: 'Boska', Georgia, serif;
-            font-weight: 300;
-            font-size: 2rem;
+            font-weight: 400;
+            font-size: 1.75rem;
             line-height: 1.2;
             letter-spacing: -0.02em;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .featured-date {
             font-size: 0.82rem;
             color: var(--text-faint);
             font-weight: 300;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .featured-excerpt {
             font-family: 'Boska', Georgia, serif;
-            font-weight: 300;
-            font-size: 1.05rem;
-            line-height: 1.65;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--text-muted);
-            margin-bottom: 20px;
         }
 
         .continue-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
+            font-family: 'Boska', Georgia, serif;
             font-weight: 400;
-            color: var(--accent);
-            text-decoration: none;
-            border: 1px solid var(--accent);
-            border-radius: 20px;
-            padding: 6px 16px;
-            transition: background 0.3s ease, color 0.3s ease;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1.5px;
+            transition: text-decoration-color 0.3s ease;
         }
 
         .continue-link:hover {
-            background: var(--accent);
-            color: white;
+            text-decoration-color: var(--text);
+        }
+
+        .featured-image-link {
+            display: block;
+        }
+
+        .featured-title-link {
+            text-decoration: none;
+            color: var(--text);
+            transition: opacity 0.3s ease;
+        }
+
+        .featured-title-link:hover {
+            opacity: 0.6;
         }
 
         /* ═══ ALL POSTS ═══ */
@@ -171,7 +98,7 @@
 
         .all-posts h2 {
             font-family: 'Boska', Georgia, serif;
-            font-weight: 300;
+            font-weight: 400;
             font-size: 1.3rem;
             letter-spacing: -0.01em;
             margin-bottom: 20px;
@@ -220,19 +147,8 @@
             flex-shrink: 0;
         }
 
-        /* ═══ ANIMATIONS ═══ */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         /* ═══ MOBILE ═══ */
         @media (max-width: 640px) {
-            nav { padding: 0 16px; height: 56px; }
-            .logo { font-size: 1.3rem; }
-            .nav-links { gap: 20px; }
-            .nav-links a { font-size: 0.8rem; }
-
             .blog { padding: 32px 20px 64px; }
             .featured h1 { font-size: 1.6rem; }
             .featured-excerpt { font-size: 0.98rem; }
@@ -243,26 +159,37 @@
 <body>
 
     <nav>
-        <a href="/" class="logo">summer</a>
+        <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
         <div class="nav-links">
-            <a href="/">work</a>
-            <a href="/about.html">about</a>
-            <a href="/blog.html" class="active">blog</a>
+            <a href="/"><span class="cutout">home</span></a>
+            <a href="/work.html"><span class="cutout">work</span></a>
+            <a href="/about.html"><span class="cutout">about</span></a>
+            <a href="/blog.html" class="active"><span class="cutout">blog</span></a>
         </div>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
+
+    <div class="mobile-nav">
+        <a href="/"><span class="cutout">home</span></a>
+        <a href="/work.html"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html" class="active"><span class="cutout">blog</span></a>
+    </div>
 
     <main class="blog">
 
+        <p class="featured-label"><span class="cutout">Featured Post</span></p>
         <article class="featured">
-            <div class="featured-image"></div>
-            <h1>Final Project — Moss Garden (Touch of Moss)</h1>
+            <a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="featured-image-link" target="_blank"><div class="featured-image"></div></a>
+            <h1><a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="featured-title-link" target="_blank">Final Project — Moss Garden (Touch of Moss)</a></h1>
             <p class="featured-date">Dec 2025</p>
-            <p class="featured-excerpt">An interactive physical computing installation exploring the relationship between touch, nature, and digital feedback — blending organic materials with sensor-driven responses to create a meditative, tactile experience.</p>
-            <a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="continue-link" target="_blank">Continue reading &rarr;</a>
+            <p class="featured-excerpt">An interactive physical computing installation exploring the relationship between touch, nature, and digital feedback — blending organic materials with sensor-driven responses to create a meditative, tactile experience. <a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="continue-link" target="_blank">Continue reading <span class="cutout">&rarr;</span></a></p>
         </article>
 
         <section class="all-posts">
-            <h2>All Posts</h2>
+            <p class="featured-label">All Posts</p>
             <ul class="post-list">
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week3" target="_blank"><span class="post-title">Dynamic Web Dev — Week 3</span><span class="post-date">Feb 2026</span></a></li>
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Live-Web/week-2" target="_blank"><span class="post-title">Live Web — Week 2</span><span class="post-date">Feb 2026</span></a></li>
@@ -306,5 +233,6 @@
 
     </main>
 
+    <script src="cutout.js"></script>
 </body>
 </html>

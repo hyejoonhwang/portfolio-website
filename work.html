@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work — Summer</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        /* ═══ PAGE HEADER ═══ */
+        .page-header {
+            padding: 28px 24px 20px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .page-header h1 {
+            font-family: 'Boska', Georgia, serif;
+            font-weight: 400;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        /* ═══ PROJECT GRID ═══ */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr 1fr;
+            gap: var(--gap);
+            padding: 0 var(--gap) var(--gap);
+            height: calc(100vh - 160px);
+            min-height: 400px;
+        }
+
+        .project-card {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 20px 24px;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover { opacity: 0.88; }
+
+        .project-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .project-card:hover .project-card-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card-num {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .project-card-title {
+            font-family: 'General Sans', sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            letter-spacing: 0.01em;
+        }
+
+        .project-card-arrow {
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.04s;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            align-self: flex-end;
+        }
+
+        .project-card-arrow .cutout {
+            display: inline;
+        }
+
+        .project-card:hover .project-card-arrow {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+
+        /* Card colors — neutral placeholders */
+        .card-sage,
+        .card-slate,
+        .card-stone,
+        .card-lavender { background: rgba(0,0,0,0.03); }
+        .card-terracotta {
+            background: url('images/dearflower-cover-fast.gif') center/cover no-repeat;
+        }
+
+        /* Stagger animations */
+        .project-card:nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+        .project-card:nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both; }
+        .project-card:nth-child(3) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
+        .project-card:nth-child(4) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+        .project-card:nth-child(5) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both; }
+        .project-card:nth-child(6) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both; }
+
+        /* ═══ ARCHIVE CARD (in-grid) ═══ */
+        .archive-card {
+            border-radius: 4px;
+            background: transparent;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 14px;
+            animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+        }
+
+        .archive-label {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+        }
+
+        .archive-list {
+            list-style: none;
+        }
+
+        .archive-item {
+            border: none;
+        }
+
+        .archive-link {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 0;
+            text-decoration: none;
+            color: var(--text);
+            transition: opacity 0.3s ease;
+        }
+
+        .archive-link:hover { opacity: 0.65; }
+
+        .archive-title {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .archive-meta {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: var(--text-faint);
+            white-space: nowrap;
+        }
+
+        /* ═══ TABLET ═══ */
+        @media (max-width: 900px) {
+            .project-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+                height: auto;
+                min-height: calc(100vh - 160px);
+            }
+
+            .project-card-info {
+                opacity: 1;
+                transform: none;
+            }
+
+            .project-card-arrow {
+                opacity: 0.5;
+                transform: none;
+            }
+        }
+
+        /* ═══ MOBILE ═══ */
+        @media (max-width: 640px) {
+            .page-header {
+                padding: 20px 20px 16px;
+            }
+
+            .page-header h1 { font-size: 1.5rem; }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
+                min-height: auto;
+            }
+
+            .project-card {
+                min-height: 200px;
+            }
+
+            .project-card-info {
+                opacity: 1;
+                transform: none;
+            }
+
+            .project-card-arrow {
+                opacity: 0.5;
+                transform: none;
+            }
+
+            .archive-card {
+                padding: 16px 20px;
+            }
+
+            .archive-title { font-size: 0.82rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+        <div class="nav-links">
+            <a href="/"><span class="cutout">home</span></a>
+            <a href="/work.html" class="active"><span class="cutout">work</span></a>
+            <a href="/about.html"><span class="cutout">about</span></a>
+            <a href="/blog.html"><span class="cutout">blog</span></a>
+        </div>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="mobile-nav">
+        <a href="/"><span class="cutout">home</span></a>
+        <a href="/work.html" class="active"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html"><span class="cutout">blog</span></a>
+    </div>
+
+    <header class="page-header">
+        <h1><span class="cutout">Selected Work</span></h1>
+    </header>
+
+    <div class="project-grid">
+        <a href="/weave.html" class="project-card card-sage">
+            <div class="project-card-info">
+                <span class="project-card-num"><span class="cutout">01</span></span>
+                <span class="project-card-title">Weave — Global Market Entry</span>
+            </div>
+            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="/dearflower.html" class="project-card card-terracotta">
+            <div class="project-card-info">
+                <span class="project-card-num"><span class="cutout">02</span></span>
+                <span class="project-card-title">Dear Flower</span>
+            </div>
+            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="#" class="project-card card-slate">
+            <div class="project-card-info">
+                <span class="project-card-num"><span class="cutout">03</span></span>
+                <span class="project-card-title">Project Title</span>
+            </div>
+            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="#" class="project-card card-stone">
+            <div class="project-card-info">
+                <span class="project-card-num"><span class="cutout">04</span></span>
+                <span class="project-card-title">Project Title</span>
+            </div>
+            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="#" class="project-card card-lavender">
+            <div class="project-card-info">
+                <span class="project-card-num"><span class="cutout">05</span></span>
+                <span class="project-card-title">Project Title</span>
+            </div>
+            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <div class="archive-card">
+            <p class="archive-label"><span class="cutout">Archived Work</span></p>
+            <ul class="archive-list">
+                <li class="archive-item">
+                    <a href="#" class="archive-link">
+                        <span class="archive-title">Moss Garden — Interactive Installation</span>
+                        <span class="archive-meta">2025</span>
+                    </a>
+                </li>
+                <li class="archive-item">
+                    <a href="#" class="archive-link">
+                        <span class="archive-title">Mystery Die — Physical Computing</span>
+                        <span class="archive-meta">2025</span>
+                    </a>
+                </li>
+                <li class="archive-item">
+                    <a href="#" class="archive-link">
+                        <span class="archive-title">Motion Capture Archive</span>
+                        <span class="archive-meta">2025</span>
+                    </a>
+                </li>
+                <li class="archive-item">
+                    <a href="#" class="archive-link">
+                        <span class="archive-title">VR Hedonomics — Spatial Design</span>
+                        <span class="archive-meta">2025</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="cutout.js"></script>
+</body>
+</html>

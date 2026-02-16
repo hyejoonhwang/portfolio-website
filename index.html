@@ -4,146 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summer — Product Designer</title>
+    <link rel="stylesheet" href="shared.css">
     <style>
-        @font-face {
-            font-family: 'Boska';
-            src: url('fonts/Boska-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
 
-        @font-face {
-            font-family: 'Boska';
-            src: url('fonts/Boska-VariableItalic.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: italic;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'General Sans';
-            src: url('fonts/GeneralSans-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'General Sans';
-            src: url('fonts/GeneralSans-VariableItalic.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: italic;
-            font-display: swap;
-        }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #FFFFFF;
-            --surface: #FFFFFF;
-            --text: #1C1917;
-            --text-muted: #847F7A;
-            --text-faint: #B8B3AD;
-            --border: #EAE6E1;
-            --sage: #E8EDE4;
-            --terracotta: #EEDDD2;
-            --slate: #D6DFE9;
-            --stone: #E2DFDB;
-            --lavender: #DDD8E4;
-            --gap: 6px;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'General Sans', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* grain removed for clean white bg */
-
-        /* ═══ NAV ═══ */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            height: 64px;
-        }
-
-        .logo {
-            font-family: 'Boska', Georgia, serif;
-            font-style: italic;
-            font-weight: 300;
-            font-size: 1.45rem;
-            color: var(--text);
-            text-decoration: none;
-            letter-spacing: -0.02em;
-            transition: opacity 0.3s ease;
-        }
-
-        .logo:hover { opacity: 0.45; }
-
-        .nav-links {
-            display: flex;
-            gap: 28px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            letter-spacing: 0.01em;
-            position: relative;
-            padding-bottom: 2px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--text);
-            transform: scaleX(0);
-            transform-origin: center;
-            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { transform: scaleX(1); }
-
-        /* ═══ MASONRY GRID ═══ */
+        /* ═══ GRID ═══ */
         .grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr 1fr;
             gap: var(--gap);
             padding: 2px var(--gap) var(--gap);
-            min-height: calc(100vh - 70px);
-        }
-
-        .col {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: var(--gap);
-        }
-
-        .col .project {
-            flex: 1;
+            height: calc(100vh - 66px);
         }
 
         .card {
@@ -154,49 +25,154 @@
 
         /* ═══ BIO CARD ═══ */
         .bio {
-            height: 400px;
             background: transparent;
             border: none;
             border-radius: 0;
-            padding: 20px 28px 32px;
+            padding: 20px 28px 14px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            gap: 22px;
+            justify-content: flex-start;
+            gap: 10px;
             animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
         }
 
-        .bio h1 {
-            font-family: 'Boska', Georgia, serif;
-            font-weight: 300;
-            font-size: 2rem;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            color: var(--text);
+        .bio-sticker {
+            display: inline-block;
+            max-width: 120px;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+            transform: rotate(-1.5deg);
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1))
+                    drop-shadow(0 4px 8px rgba(0,0,0,0.08))
+                    drop-shadow(0 8px 20px rgba(0,0,0,0.06));
+        }
+
+        .bio-sticker:hover {
+            transform: rotate(1deg) scale(1.02);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12))
+                    drop-shadow(0 6px 12px rgba(0,0,0,0.1))
+                    drop-shadow(0 12px 28px rgba(0,0,0,0.08));
+        }
+
+        .bio-sticker img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .bio-body {
-            font-size: 0.95rem;
-            line-height: 1.75;
-            color: var(--text-muted);
-            font-weight: 300;
-            max-width: 38ch;
+            font-family: 'Boska', Georgia, serif;
+            font-size: 1.12rem;
+            line-height: 1.35;
+            color: var(--text);
+            font-weight: 400;
+            text-align: justify;
+            letter-spacing: -0.01em;
         }
 
         .bio-body strong {
-            font-weight: 600;
-            color: var(--text);
+            font-weight: 700;
+        }
+
+        .heart {
+            display: inline-block;
+            font-size: 0.65em;
+            color: #F5542E;
+            vertical-align: middle;
+            margin: 0 1px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .hammer {
+            display: inline-block;
+            font-size: 0.85em;
+            vertical-align: middle;
+            margin: 0 1px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .bio-body em {
             font-style: italic;
         }
 
-        .bio-body u {
-            text-decoration: underline;
-            text-decoration-color: #D4A68C;
+        .bio-body .cl { font-weight: 600; }
+        .bio-body .c1 { color: #F5542E; }
+        .bio-body .c2 { color: #F2C327; }
+        .bio-body .c3 { color: #008B6E; }
+        .bio-body .c4 { color: #00AEDE; }
+        .bio-body .c5 { color: #0067AD; }
+
+        .bio-link {
+            color: inherit;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .bio-link:hover {
+            transform: scale(1.08);
+        }
+
+        /* ═══ BIO TOP ROW: sticker + location ═══ */
+        .bio-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bio-location {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .bio-location-based {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .bio-location-city {
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        /* ═══ BIO CTA ═══ */
+        .bio-cta {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bio-cta-phone {
+            display: inline-block;
+            font-size: 1.1rem;
+            transform: rotate(-12deg);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .bio-cta:hover .bio-cta-phone {
+            transform: rotate(8deg) scale(1.1);
+        }
+
+        .bio-cta a {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            text-decoration-line: underline;
+            text-decoration-color: var(--border);
             text-underline-offset: 3px;
-            text-decoration-thickness: 1.5px;
+            text-decoration-thickness: 1px;
+            transition: color 0.3s ease, text-decoration-color 0.3s ease;
+        }
+
+        .bio-cta a:hover {
+            color: var(--text);
+            text-decoration-color: var(--accent);
         }
 
         /* ═══ PROJECT CARDS ═══ */
@@ -206,7 +182,7 @@
             justify-content: space-between;
             padding: 20px 24px;
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.85);
+            color: var(--text);
             cursor: pointer;
             transition: opacity 0.4s ease;
         }
@@ -230,78 +206,61 @@
         }
 
         .project-num {
-            font-size: 0.6rem;
+            font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            opacity: 0.6;
         }
 
         .project-title {
-            font-family: 'Boska', serif;
+            font-family: 'General Sans', sans-serif;
             font-weight: 400;
-            font-size: 0.9rem;
-            letter-spacing: -0.01em;
+            font-size: 0.85rem;
+            letter-spacing: 0.01em;
         }
 
         .project-arrow {
             opacity: 0;
             transform: translateX(-6px);
             transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.04s;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             align-self: flex-end;
         }
 
+        .project-arrow .cutout {
+            display: inline;
+        }
+
         .project:hover .project-arrow {
-            opacity: 0.7;
+            opacity: 0.85;
             transform: translateX(0);
         }
 
-        /* ═══ CARD SIZES (masonry stagger via flex) ═══ */
-        .bio { flex: 0 0 auto; }
-        .p1 { flex: 1.2; min-height: 300px; background: var(--sage); }
-        .p2 { flex: 1.4; min-height: 340px; background: var(--terracotta); }
-        .p3 { flex: 0.8; min-height: 240px; background: var(--slate); }
-        .p4 { flex: 0.7; min-height: 220px; background: var(--stone); }
-        .p5 { flex: 1.3; min-height: 300px; background: var(--lavender); }
+        /* ═══ CARD BACKGROUNDS ═══ */
+        .p1, .p3, .p4, .p5 { background: rgba(0,0,0,0.03); }
+        .p2 {
+            background: url('images/dearflower-cover-fast.gif') center/cover no-repeat;
+        }
 
         /* ═══ STAGGER ANIMATIONS ═══ */
-        .col:nth-child(1) .card:nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
-        .col:nth-child(1) .card:nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both; }
-        .col:nth-child(2) .card:nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
-        .col:nth-child(2) .card:nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both; }
-        .col:nth-child(3) .card:nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.11s both; }
-        .col:nth-child(3) .card:nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(16px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .grid > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .grid > :nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
+        .grid > :nth-child(3) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.11s both; }
+        .grid > :nth-child(4) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
+        .grid > :nth-child(5) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.17s both; }
+        .grid > :nth-child(6) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; }
 
         /* ═══ TABLET ═══ */
         @media (max-width: 1024px) {
             nav { padding: 0 16px; }
 
             .grid {
-                min-height: auto;
+                height: auto;
+                min-height: calc(100vh - 66px);
             }
 
             .bio {
-                height: auto;
-                min-height: 280px;
-                padding: 20px 24px 28px;
-            }
-
-            .bio h1 { font-size: 1.7rem; }
-
-            .p1, .p2, .p3, .p4, .p5 {
-                min-height: 260px;
+                padding: 20px 24px 16px;
             }
 
             .project-info { opacity: 1; transform: none; }
@@ -315,100 +274,110 @@
                 height: 56px;
             }
 
-            .logo { font-size: 1.3rem; }
-            .nav-links { gap: 20px; }
-            .nav-links a { font-size: 0.8rem; }
-
             .grid {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                height: auto;
                 min-height: auto;
             }
 
-            .col {
-                flex: none;
-            }
-
-            .col .project {
-                flex: none;
+            .project {
+                min-height: 220px;
             }
 
             .bio {
-                height: auto;
-                min-height: 240px;
-                padding: 16px 20px 24px;
+                padding: 16px 20px 12px;
             }
 
-            .bio h1 { font-size: 1.5rem; }
-            .bio-body { font-size: 0.9rem; }
-
-            .p1, .p2, .p3, .p4, .p5 {
-                min-height: 240px;
-            }
+            .bio-body { font-size: 1.15rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="/" class="logo">summer</a>
+        <a href="/" class="logo">
+                <img src="images/summerlogo.png" alt="Summer" class="logo-img">
+            </a>
         <div class="nav-links">
-            <a href="/work">work</a>
-            <a href="/about">about</a>
-            <a href="/blog">blog</a>
+            <a href="/" class="active"><span class="cutout">home</span></a>
+            <a href="/work.html"><span class="cutout">work</span></a>
+            <a href="/about.html"><span class="cutout">about</span></a>
+            <a href="/blog.html"><span class="cutout">blog</span></a>
         </div>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
+    <div class="mobile-nav">
+        <a href="/" class="active"><span class="cutout">home</span></a>
+        <a href="/work.html"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html"><span class="cutout">blog</span></a>
+    </div>
+
     <main class="grid">
-        <div class="col">
-            <div class="card bio">
-                <h1>I'm Summer, a product designer</h1>
-                <p class="bio-body">
-                    Currently in <em>grad school</em>, exploring new <u>interface ideas</u> with <strong>AI</strong> — investigating how emerging technologies reshape the way we <strong>design</strong> and <em>interact</em> with digital experiences.
-                </p>
+        <div class="card bio">
+            <div class="bio-top">
+                <a href="/about.html" class="bio-sticker">
+                    <img src="images/summmerhomeintro.png" alt="Hello, my name is Summer">
+                </a>
+                <span class="bio-location">
+                    <span class="bio-location-based">based in</span>
+                    <span class="bio-location-city"><span class="cutout">Brooklyn</span></span>
+                </span>
             </div>
-            <a href="/weave.html" class="card project p1">
-                <div class="project-info">
-                    <span class="project-num">01</span>
-                    <span class="project-title">Weave — Global Market Entry</span>
-                </div>
-                <span class="project-arrow">&rarr;</span>
-            </a>
+            <p class="bio-body">
+                A product designer who <span class="heart" style="transform:rotate(-12deg)">&#x2764;</span> <strong>loves</strong> <span class="heart" style="transform:rotate(10deg)">&#x2764;</span> <em>digging</em> into research, <em>untangling</em> <span class="cutout">messy</span> problems, and <a href="/work.html" class="bio-link"><span class="hammer" style="transform:rotate(-8deg)">&#x1F528;</span> <strong>building</strong></a> clear <em>systems</em> grounded in real <span class="cutout">human</span> <em>behavior</em> — and <em>yes</em>, I can <span class="cutout">build</span> the <em>thing</em> too.
+            </p>
+            <div class="bio-cta">
+                <span class="bio-cta-phone">&#x1F4DE;</span>
+                <a href="#">open to new opportunities, book a call</a>
+            </div>
         </div>
 
-        <div class="col">
-            <a href="#project-2" class="card project p2">
-                <div class="project-info">
-                    <span class="project-num">02</span>
-                    <span class="project-title">Project Title</span>
-                </div>
-                <span class="project-arrow">&rarr;</span>
-            </a>
-            <a href="#project-3" class="card project p3">
-                <div class="project-info">
-                    <span class="project-num">03</span>
-                    <span class="project-title">Project Title</span>
-                </div>
-                <span class="project-arrow">&rarr;</span>
-            </a>
-        </div>
+        <a href="/weave.html" class="card project p1">
+            <div class="project-info">
+                <span class="project-num"><span class="cutout">01</span></span>
+                <span class="project-title">Weave — Global Market Entry</span>
+            </div>
+            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
 
-        <div class="col">
-            <a href="#project-4" class="card project p4">
-                <div class="project-info">
-                    <span class="project-num">04</span>
-                    <span class="project-title">Project Title</span>
-                </div>
-                <span class="project-arrow">&rarr;</span>
-            </a>
-            <a href="#project-5" class="card project p5">
-                <div class="project-info">
-                    <span class="project-num">05</span>
-                    <span class="project-title">Project Title</span>
-                </div>
-                <span class="project-arrow">&rarr;</span>
-            </a>
-        </div>
+        <a href="/dearflower.html" class="card project p2">
+            <div class="project-info">
+                <span class="project-num"><span class="cutout">02</span></span>
+                <span class="project-title">Dear Flower</span>
+            </div>
+            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="#project-3" class="card project p3">
+            <div class="project-info">
+                <span class="project-num"><span class="cutout">03</span></span>
+                <span class="project-title">Project Title</span>
+            </div>
+            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="#project-4" class="card project p4">
+            <div class="project-info">
+                <span class="project-num"><span class="cutout">04</span></span>
+                <span class="project-title">Project Title</span>
+            </div>
+            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
+
+        <a href="#project-5" class="card project p5">
+            <div class="project-info">
+                <span class="project-num"><span class="cutout">05</span></span>
+                <span class="project-title">Project Title</span>
+            </div>
+            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+        </a>
     </main>
 
+    <script src="cutout.js"></script>
 </body>
 </html>
