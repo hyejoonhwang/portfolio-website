@@ -6,6 +6,35 @@
     <title>Weave — Summer</title>
     <link rel="stylesheet" href="shared.css">
     <style>
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
         :root { --accent: #3B5BF5; }
 
         /* ═══ CASE STUDY LAYOUT ═══ */
@@ -16,7 +45,7 @@
         .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
         .hero-logo { height: 40px; margin-bottom: 20px; }
         .hero h1 {
-            font-family: 'Boska', serif;
+            font-family: 'Bespoke Slab', serif;
             font-weight: 400;
             font-size: 2.4rem;
             line-height: 1.15;
@@ -52,7 +81,7 @@
             margin-bottom: 24px;
         }
         .section-heading {
-            font-family: 'Boska', serif;
+            font-family: 'Bespoke Slab', serif;
             font-weight: 400;
             font-size: 1.65rem;
             line-height: 1.35;
@@ -75,27 +104,27 @@
         /* ═══ OUTCOMES ROW ═══ */
         .outcomes { display: flex; gap: 32px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
         .outcome { text-align: center; flex: 1; min-width: 180px; max-width: 220px; }
-        .outcome-num { font-family: 'Boska', serif; font-weight: 400; font-size: 1.1rem; color: var(--accent); margin-bottom: 6px; }
+        .outcome-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.1rem; color: var(--accent); margin-bottom: 6px; }
         .outcome-text { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); line-height: 1.55; }
 
         /* ═══ FINDINGS ═══ */
         .findings { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
         .finding { padding: 24px; border: 1px solid var(--border); border-radius: 4px; }
-        .finding h4 { font-family: 'General Sans', sans-serif; font-size: 0.88rem; font-weight: 500; margin-bottom: 8px; line-height: 1.35; }
+        .finding h4 { font-family: 'Bespoke Sans', sans-serif; font-size: 0.88rem; font-weight: 500; margin-bottom: 8px; line-height: 1.35; }
         .finding p { font-size: 0.82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
 
         /* ═══ FEATURES ═══ */
         .features { display: flex; gap: 32px; margin-top: 40px; }
         .feature { flex: 1; text-align: center; }
-        .feature-num { font-family: 'Boska', serif; font-weight: 400; font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
-        .feature-title { font-family: 'General Sans', sans-serif; font-size: 0.92rem; font-weight: 500; margin-bottom: 6px; }
+        .feature-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
+        .feature-title { font-family: 'Bespoke Sans', sans-serif; font-size: 0.92rem; font-weight: 500; margin-bottom: 6px; }
         .feature-desc { font-size: 0.82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
 
         /* ═══ FLOW SECTIONS ═══ */
         .flow { padding: 64px 0; }
         .flow-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-align: center; margin-bottom: 12px; }
         .flow-title {
-            font-family: 'Boska', serif;
+            font-family: 'Bespoke Slab', serif;
             font-weight: 400;
             font-size: 1.4rem;
             text-align: center;
@@ -114,7 +143,7 @@
         /* ═══ TESTING ═══ */
         .test-stats { display: flex; gap: 40px; justify-content: center; margin-top: 28px; }
         .test-stat { text-align: center; }
-        .test-stat-num { font-family: 'Boska', serif; font-weight: 400; font-size: 1.6rem; color: var(--text); }
+        .test-stat-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.6rem; color: var(--text); }
         .test-stat-label { font-size: 0.78rem; font-weight: 300; color: var(--text-muted); margin-top: 4px; }
 
         /* ═══ BACK LINK ═══ */
@@ -182,7 +211,7 @@
 <!-- HERO -->
 <div class="case-study">
     <section class="hero">
-        <div class="placeholder" style="width: 160px; aspect-ratio: auto; height: 40px; margin: 0 auto 20px; font-size: 0.75rem;">Weave logo</div>
+        <img src="images/weave/LOGO.png" alt="Weave logo" class="hero-logo">
         <h1>A Platform for Global Market Entry</h1>
         <p class="hero-sub">A workflow tool that helps companies find, evaluate, contract, and collaborate with overseas partners — all in one flow.</p>
         <div class="meta">
@@ -204,7 +233,7 @@
 
 <!-- HERO IMAGE -->
 <div class="wide">
-    <div class="placeholder" style="aspect-ratio: 16/9;">Landing page — hero with marketplace, workspace, and roadmap cards</div>
+    <img src="images/weave/website-landing-page.png" alt="Weave landing page" class="img-full">
 </div>
 
 <!-- OVERVIEW -->
@@ -304,28 +333,28 @@
         <p class="flow-label">01 Roadmap</p>
         <h3 class="flow-title">A structured starting point for global expansion</h3>
         <p class="flow-desc">Companies generate a tailored expansion roadmap based on their target market, industry, and readiness — turning an uncertain process into an actionable plan.</p>
-        <div class="placeholder" style="aspect-ratio: 16/10;">Roadmap — expansion analysis report with market fit scores and strategic recommendations</div>
+        <video src="images/weave/1-roadmap.mp4" autoplay loop muted playsinline class="img-full"></video>
     </section>
 
     <section class="flow">
         <p class="flow-label">02 Marketplace</p>
         <h3 class="flow-title">Discover and compare trusted local partners</h3>
         <p class="flow-desc">A unified marketplace surfaces vetted service providers. Teams can evaluate partners side by side, review case studies, and shortlist candidates.</p>
-        <div class="placeholder" style="aspect-ratio: 16/10;">Marketplace — partner profiles with filters, ratings, and specialization tags</div>
+        <video src="images/weave/2-marketplace.mp4" autoplay loop muted playsinline class="img-full"></video>
     </section>
 
     <section class="flow">
         <p class="flow-label">03 Proposals & Contracting</p>
         <h3 class="flow-title">Move from selection to engagement seamlessly</h3>
         <p class="flow-desc">Teams can generate proposals, request quotes, and draft contracts within the same workflow — reducing handoffs and accelerating deal closure.</p>
-        <div class="placeholder" style="aspect-ratio: 16/10;">Proposals — template builder with scope, timeline, and partner spec fields</div>
+        <video src="images/weave/3-proposals-contracting.mp4" autoplay loop muted playsinline class="img-full"></video>
     </section>
 
     <section class="flow">
         <p class="flow-label">04 Workspace</p>
         <h3 class="flow-title">Operate, collaborate, and stay compliant</h3>
         <p class="flow-desc">Shared workspaces support ongoing collaboration between HQ and local partners, with built-in regulatory monitoring and AI-assisted tools.</p>
-        <div class="placeholder" style="aspect-ratio: 16/10;">Workspace — dashboard with partner activity, documents, and compliance alerts</div>
+        <video src="images/weave/4-workspace.mp4" autoplay loop muted playsinline class="img-full"></video>
     </section>
 </div>
 
@@ -341,7 +370,7 @@
 </div>
 
 <div class="wide">
-    <div class="placeholder" style="aspect-ratio: 16/9; margin-bottom: 8px;">Concept model — entities, relationships, and system connections</div>
+    <img src="images/weave/Concept Model.png" alt="Concept model diagram" class="img-full" style="margin-bottom: 8px;">
     <p class="img-caption">Concept model diagram</p>
     <div class="placeholder" style="aspect-ratio: 16/9; margin-top: 40px; margin-bottom: 8px;">Information architecture — site map with navigation hierarchy and feature groupings</div>
     <p class="img-caption">Information architecture</p>
