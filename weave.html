@@ -410,5 +410,11 @@
 </div>
 
     <script src="cutout.js"></script>
+    <script>
+        document.querySelectorAll('video').forEach(function(v) {
+            v.muted = true;
+            v.play().catch(function() {});
+        });
+    </script>
 </body>
 </html>
