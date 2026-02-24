@@ -4,18 +4,11 @@
 
 /* ═══ FONTS ═══ */
 @font-face {
-    font-family: 'Boska';
-    src: url('fonts/Boska-Variable.ttf') format('truetype');
-    font-weight: 100 900;
+    font-family: 'Gambarino';
+    src: url('fonts/Gambarino-Regular.woff2') format('woff2'),
+         url('fonts/Gambarino-Regular.woff') format('woff');
+    font-weight: 400;
     font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Boska';
-    src: url('fonts/Boska-VariableItalic.ttf') format('truetype');
-    font-weight: 100 900;
-    font-style: italic;
     font-display: swap;
 }
 
@@ -89,6 +82,7 @@ nav {
     transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     height: 32px;
     flex-shrink: 0;
+    font-size: 2.1rem;
 }
 
 .logo:hover {
@@ -104,7 +98,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Boska', Georgia, serif;
+    font-family: 'Gambarino', Georgia, serif;
     font-weight: 400;
     font-size: 0.95rem;
     color: var(--text);
@@ -292,7 +286,7 @@ body.nav-open .mobile-nav {
 }
 
 .mobile-nav a {
-    font-family: 'Boska', Georgia, serif;
+    font-family: 'Gambarino', Georgia, serif;
     font-size: 2.2rem;
     font-weight: 400;
     text-decoration: none;

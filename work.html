@@ -13,7 +13,7 @@
         }
 
         .page-header h1 {
-            font-family: 'Boska', Georgia, serif;
+            font-family: 'Gambarino', Georgia, serif;
             font-weight: 400;
             font-size: 1.8rem;
             line-height: 1.2;
@@ -44,6 +44,22 @@
             transition: opacity 0.4s ease;
         }
 
+        .project-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255,255,255,0.85), transparent);
+            pointer-events: none;
+        }
+
+        .project-card-info, .project-card-arrow {
+            position: relative;
+            z-index: 1;
+        }
+
         .project-card:hover { opacity: 0.88; }
 
         .project-card-info {
@@ -71,7 +87,7 @@
         .project-card-title {
             font-family: 'General Sans', sans-serif;
             font-weight: 400;
-            font-size: 0.85rem;
+            font-size: 1.105rem;
             letter-spacing: 0.01em;
         }
 
@@ -94,7 +110,9 @@
         }
 
         /* Card colors — neutral placeholders */
-        .card-sage,
+        .card-sage {
+            background: url('images/weave/website-landing-page-cover.png') center/cover no-repeat;
+        }
         .card-lavender { background: rgba(0,0,0,0.03); }
         .card-stone {
             background: url('images/musicchat-cover-fast.gif') center/cover no-repeat;
@@ -231,12 +249,13 @@
 <body>
 
     <nav>
-        <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+        <a href="/" class="logo"><span class="cutout">SUMMER</span></a>
         <div class="nav-links">
             <a href="/"><span class="cutout">home</span></a>
             <a href="/work.html" class="active"><span class="cutout">work</span></a>
             <a href="/about.html"><span class="cutout">about</span></a>
             <a href="/blog.html"><span class="cutout">blog</span></a>
+            <a href="/resume.html"><span class="cutout">resume</span></a>
         </div>
         <button class="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -248,6 +267,7 @@
         <a href="/work.html" class="active"><span class="cutout">work</span></a>
         <a href="/about.html"><span class="cutout">about</span></a>
         <a href="/blog.html"><span class="cutout">blog</span></a>
+        <a href="/resume.html"><span class="cutout">resume</span></a>
     </div>
 
     <header class="page-header">
@@ -258,7 +278,7 @@
         <a href="/weave.html" class="project-card card-sage">
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">01</span></span>
-                <span class="project-card-title">Weave — Global Market Entry</span>
+                <span class="project-card-title"><span class="cutout">Weave — Global Market Entry</span></span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
@@ -266,7 +286,7 @@
         <a href="/dearflower.html" class="project-card card-terracotta">
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">02</span></span>
-                <span class="project-card-title">Dear Flower</span>
+                <span class="project-card-title"><span class="cutout">Dear Flower</span></span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
@@ -274,7 +294,7 @@
         <a href="/lyricssearch.html" class="project-card card-slate">
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">03</span></span>
-                <span class="project-card-title">Lyrics Search</span>
+                <span class="project-card-title"><span class="cutout">Lyrics Search</span></span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
@@ -282,7 +302,7 @@
         <a href="/musicchat.html" class="project-card card-stone">
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">04</span></span>
-                <span class="project-card-title">Music Chat App</span>
+                <span class="project-card-title"><span class="cutout">Music Chat App</span></span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
@@ -290,7 +310,7 @@
         <a href="#" class="project-card card-lavender">
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">05</span></span>
-                <span class="project-card-title">Project Title</span>
+                <span class="project-card-title"><span class="cutout">Project Title</span></span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>

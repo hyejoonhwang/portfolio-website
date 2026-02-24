@@ -1,7 +1,7 @@
 /* ═══ Magazine Cutout / Ransom Note Letter Effect ═══ */
 (function() {
   var fonts = [
-    "'Boska', Georgia, serif",
+    "'Gambarino', Georgia, serif",
     "'General Sans', sans-serif",
     "Georgia, serif",
     "'Courier New', monospace",
