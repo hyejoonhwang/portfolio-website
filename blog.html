@@ -10,7 +10,20 @@
         .blog {
             max-width: 540px;
             margin: 0 auto;
-            padding: 12px 24px 100px;
+            padding: 0 24px 100px;
+        }
+
+        .page-header {
+            padding: 8px 24px 8px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .page-header h1 {
+            font-family: 'Gambarino', Georgia, serif;
+            font-weight: 400;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
         }
 
         .featured-label {
@@ -159,7 +172,7 @@
 <body>
 
     <nav>
-        <a href="/" class="logo"><span class="cutout">SUMMER</span></a>
+        <a href="/" class="logo"><span class="cutout">Summer's</span></a>
         <div class="nav-links">
             <a href="/"><span class="cutout">home</span></a>
             <a href="/work.html"><span class="cutout">work</span></a>
@@ -180,9 +193,11 @@
         <a href="/resume.html"><span class="cutout">resume</span></a>
     </div>
 
-    <main class="blog">
+    <header class="page-header">
+        <h1><span class="cutout">Featured Post</span></h1>
+    </header>
 
-        <p class="featured-label"><span class="cutout">Featured Post</span></p>
+    <main class="blog">
         <article class="featured">
             <a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="featured-image-link" target="_blank"><div class="featured-image"></div></a>
             <h1><a href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" class="featured-title-link" target="_blank">Final Project — Moss Garden (Touch of Moss)</a></h1>
@@ -191,45 +206,13 @@
         </article>
 
         <section class="all-posts">
-            <p class="featured-label">All Posts</p>
+            <p class="featured-label">Selected Blog Posts</p>
             <ul class="post-list">
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week3" target="_blank"><span class="post-title">Dynamic Web Dev — Week 3</span><span class="post-date">Feb 2026</span></a></li>
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Live-Web/week-2" target="_blank"><span class="post-title">Live Web — Week 2</span><span class="post-date">Feb 2026</span></a></li>
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Dumbo/week-3" target="_blank"><span class="post-title">Dumbo — Week 3</span><span class="post-date">Feb 2026</span></a></li>
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Reconstructing-Lost-Spaces/Week-1" target="_blank"><span class="post-title">Reconstructing Lost Spaces — Week 1</span><span class="post-date">Jan 2026</span></a></li>
                 <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week2" target="_blank"><span class="post-title">Dynamic Web Dev — Week 2</span><span class="post-date">Jan 2026</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Live-Web/Week-1" target="_blank"><span class="post-title">Live Web — Week 1</span><span class="post-date">Jan 2026</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/dynamic-web-dev/week-1" target="_blank"><span class="post-title">Dynamic Web Dev — Week 1</span><span class="post-date">Jan 2026</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Spring-26/Dumbo/week-1" target="_blank"><span class="post-title">Dumbo — Week 1</span><span class="post-date">Jan 2026</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-Final" target="_blank"><span class="post-title">ICM Final</span><span class="post-date">Dec 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Hedonomics-VR-Design/HedoVRdesign---Final" target="_blank"><span class="post-title">Hedonomics VR Design — Final</span><span class="post-date">Dec 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project---Moss-Garden(Touch-of-Moss)" target="_blank"><span class="post-title">Moss Garden (Touch of Moss) — PComp Final</span><span class="post-date">Dec 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Final-Project" target="_blank"><span class="post-title">PComp Final Project</span><span class="post-date">Dec 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Reflection" target="_blank"><span class="post-title">PComp — Reflection</span><span class="post-date">Dec 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-Wk-6-7" target="_blank"><span class="post-title">MoCap for Archive — Weeks 6–7</span><span class="post-date">Nov 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-9---CREATE-•-BODY" target="_blank"><span class="post-title">ICM — Create: Body</span><span class="post-date">Nov 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-8---CREATE-•-PARTS-OF-A-WHOLE" target="_blank"><span class="post-title">ICM — Create: Parts of a Whole</span><span class="post-date">Nov 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-7" target="_blank"><span class="post-title">PComp — Week 7</span><span class="post-date">Nov 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-5" target="_blank"><span class="post-title">MoCap for Archive — Week 5</span><span class="post-date">Nov 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-7---CREATE-•-ITERATION" target="_blank"><span class="post-title">ICM — Create: Iteration</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-6---CREATE-•-SIMULATION" target="_blank"><span class="post-title">ICM — Create: Simulation</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Midterm-Project---Mystery-Die" target="_blank"><span class="post-title">Mystery Die — PComp Midterm</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Hedonomics-VR-Design/HedoVRdesign-Midterm" target="_blank"><span class="post-title">Hedonomics VR Design — Midterm</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-4" target="_blank"><span class="post-title">MoCap for Archive — Week 4</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-5" target="_blank"><span class="post-title">PComp — Week 5</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-5---CREATE-•-TIME" target="_blank"><span class="post-title">ICM — Create: Time</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-3" target="_blank"><span class="post-title">MoCap for Archive — Week 3</span><span class="post-date">Oct 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-4---CREATE-•-PATTERNS" target="_blank"><span class="post-title">ICM — Create: Patterns</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-4" target="_blank"><span class="post-title">PComp — Week 4</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Hedonomics-VR-Design/HedoVRdesign-wk4" target="_blank"><span class="post-title">Hedonomics VR Design — Week 4</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-3---CREATE-•-CHOICES" target="_blank"><span class="post-title">ICM — Create: Choices</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-3" target="_blank"><span class="post-title">PComp — Week 3</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-2" target="_blank"><span class="post-title">MoCap for Archive — Week 2</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-2---CREATE-•-OPPOSITES" target="_blank"><span class="post-title">ICM — Create: Opposites</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-2" target="_blank"><span class="post-title">PComp — Week 2</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/MoCap-for-Archive/Mocap-wk-1" target="_blank"><span class="post-title">MoCap for Archive — Week 1</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/ICM/ICM-wk-1---CREATE-•-SELF-PORTRAIT" target="_blank"><span class="post-title">ICM — Create: Self-Portrait</span><span class="post-date">Sep 2025</span></a></li>
-                <li class="post-item"><a class="post-link" href="https://hyejoonhwang.github.io/itp-blog/Fall25/Intro-to-PComp/Pcomp-wk-1" target="_blank"><span class="post-title">PComp — Week 1</span><span class="post-date">Sep 2025</span></a></li>
             </ul>
         </section>
 

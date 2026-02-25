@@ -11,12 +11,25 @@
             overflow: hidden;
         }
 
+        .page-header {
+            padding: 8px 24px 8px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .page-header h1 {
+            font-family: 'Gambarino', Georgia, serif;
+            font-weight: 400;
+            font-size: 1.8rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
         .resume-page {
-            height: calc(100vh - 64px);
+            height: calc(100vh - 64px - 76px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 24px;
+            padding: 0 24px 12px;
         }
 
         .resume-img {
@@ -48,7 +61,7 @@
 <body>
 
     <nav>
-        <a href="/" class="logo"><span class="cutout">SUMMER</span></a>
+        <a href="/" class="logo"><span class="cutout">Summer's</span></a>
         <div class="nav-links">
             <a href="/"><span class="cutout">home</span></a>
             <a href="/work.html"><span class="cutout">work</span></a>
@@ -68,6 +81,10 @@
         <a href="/blog.html"><span class="cutout">blog</span></a>
         <a href="/resume.html" class="active"><span class="cutout">resume</span></a>
     </div>
+
+    <header class="page-header">
+        <h1><span class="cutout">Resume</span></h1>
+    </header>
 
     <div class="resume-page">
         <img src="images/resume-1.png" alt="Summer Hwang Resume" class="resume-img">
