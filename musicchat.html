@@ -166,44 +166,44 @@
             padding: 24px 20px;
             height: 100%;
             border-radius: 12px;
-            border: 1.5px solid #007AFF;
-            background: #e8f1ff;
+            border: none;
+            background: #007AFF;
             text-align: center;
             cursor: default;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .flow-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,122,255,0.15);
+            box-shadow: 0 8px 24px rgba(0,122,255,0.25);
         }
         .flow-step-num {
             font-size: 0.65rem;
             font-weight: 600;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: #007AFF;
+            color: rgba(255,255,255,0.7);
             margin-bottom: 6px;
         }
         .flow-step-title {
             font-family: 'Bespoke Sans', sans-serif;
             font-size: 1.05rem;
             font-weight: 500;
-            color: var(--text);
+            color: #fff;
             margin-bottom: 4px;
         }
         .flow-step-sub {
             font-size: 0.78rem;
             font-weight: 300;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.75);
         }
-        /* Detail panel */
+        /* Detail panel — iMessage receive bubble */
         .flow-detail {
             margin-top: 20px;
             padding: 20px 24px;
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: #E9E9EB;
+            border: none;
             border-radius: 12px;
-            transition: border-color 0.3s ease;
+            transition: background 0.3s ease;
         }
         .flow-detail-label {
             font-size: 0.65rem;
@@ -212,21 +212,20 @@
             text-transform: uppercase;
             margin-bottom: 8px;
             transition: color 0.3s ease;
-            color: var(--text-faint);
+            color: #636366;
         }
         .flow-detail-text {
             font-size: 0.64rem;
             font-weight: 300;
             line-height: 1.7;
-            color: var(--text-muted);
+            color: #1c1c1e;
             transition: opacity 0.25s ease;
         }
-        .flow-detail--active { border-color: #007AFF; }
-        .flow-detail--active .flow-detail-label { color: #007AFF; }
+        .flow-detail--active .flow-detail-label { color: #48484a; }
         /* Active card indicator */
         .flow-card.active {
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,122,255,0.15);
+            box-shadow: 0 8px 24px rgba(0,122,255,0.25);
         }
 
 
