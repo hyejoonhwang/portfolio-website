@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Flower — Summer</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        :root { --accent: #E85D75; }
+
+        /* ═══ SIDEBAR ═══ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 100vh;
+            padding: 80px 20px 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .sidebar-back {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.3s;
+        }
+        .sidebar-back:hover { color: var(--text); }
+
+        .sidebar-link {
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: var(--text-faint);
+            text-decoration: none;
+            padding: 5px 0;
+            line-height: 1.4;
+            transition: color 0.3s;
+            display: block;
+        }
+        .sidebar-link:hover { color: var(--text-muted); }
+        .sidebar-link.active {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ═══ MAIN CONTENT — offset for sidebar ═══ */
+        .main-content {
+            margin-left: 160px;
+        }
+
+        /* ═══ CASE STUDY LAYOUT ═══ */
+        .case-study { max-width: 1440px; margin: 0 auto; padding: 0 60px; }
+        .wide { max-width: 1680px; margin-left: auto; margin-right: auto; padding: 0 60px; }
+
+        /* ═══ HERO ═══ */
+        .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero h1 {
+            font-family: 'Bespoke Slab', serif;
+            font-weight: 400;
+            font-size: 2.4rem;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin-bottom: 16px;
+        }
+        .hero-sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto 36px;
+        }
+        .meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .meta-item { text-align: center; }
+        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); max-width: 180px; }
+        .meta-value a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+        .meta-value a:hover { border-color: var(--accent); }
+
+        /* ═══ IMAGES & VIDEOS ═══ */
+        .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; }
+        .img-caption { font-size: 0.75rem; color: var(--text-faint); text-align: center; margin-top: 10px; font-weight: 300; }
+
+        /* ═══ VIDEO EMBED ═══ */
+        .video-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ═══ SECTIONS ═══ */
+        .section { padding: 100px 0; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 16px;
+        }
+        .section-label--center { text-align: center; }
+        .section-heading {
+            font-family: 'Bespoke Slab', serif;
+            font-weight: 400;
+            font-size: 1.65rem;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            max-width: 1080px;
+            margin-bottom: 24px;
+        }
+        .section-heading--center { text-align: center; margin-left: auto; margin-right: auto; }
+        .section-body {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--text-muted);
+            text-align: left;
+            max-width: 1080px;
+        }
+        .section-body--center { margin: 0 auto; }
+        .divider { border: none; border-top: 1px dashed var(--border); margin: 0; }
+
+
+        /* ═══ FLOW DIAGRAM ═══ */
+        .flow-diagram {
+            margin-top: 36px;
+        }
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            grid-auto-rows: 1fr;
+        }
+        .flow-arrow {
+            display: none;
+        }
+        .flow-step {
+            position: relative;
+            height: 100%;
+        }
+        .flow-card {
+            padding: 24px 20px;
+            height: 100%;
+            border-radius: 12px;
+            border: 1.5px solid;
+            text-align: center;
+            cursor: default;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .flow-card:hover {
+            transform: translateY(-3px);
+        }
+        .flow-card--creator {
+            background: #fce4ec;
+            border-color: #E85D75;
+        }
+        .flow-card--creator:hover { box-shadow: 0 8px 24px rgba(232,93,117,0.15); }
+        .flow-card--recipient {
+            background: #fff8e1;
+            border-color: #d17a00;
+        }
+        .flow-card--recipient:hover { box-shadow: 0 8px 24px rgba(209,122,0,0.15); }
+        .flow-step-num {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .flow-card--creator .flow-step-num { color: #E85D75; }
+        .flow-card--recipient .flow-step-num { color: #d17a00; }
+        .flow-step-title {
+            font-family: 'Bespoke Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        .flow-step-sub {
+            font-size: 0.78rem;
+            font-weight: 300;
+            color: var(--text-muted);
+        }
+        /* Detail panel */
+        .flow-detail {
+            margin-top: 20px;
+            padding: 20px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .flow-detail-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+            color: var(--text-faint);
+        }
+        .flow-detail-text {
+            font-size: 0.64rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--text-muted);
+            transition: opacity 0.25s ease;
+        }
+        .flow-detail--creator { border-color: #E85D75; }
+        .flow-detail--creator .flow-detail-label { color: #E85D75; }
+        .flow-detail--recipient { border-color: #d17a00; }
+        .flow-detail--recipient .flow-detail-label { color: #d17a00; }
+        /* Active card indicator */
+        .flow-card.active {
+            transform: translateY(-3px);
+        }
+        .flow-card--creator.active { box-shadow: 0 8px 24px rgba(232,93,117,0.15); }
+        .flow-card--recipient.active { box-shadow: 0 8px 24px rgba(209,122,0,0.15); }
+        /* Legend */
+        .flow-legend {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+        }
+        .flow-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-faint);
+        }
+        .flow-legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .flow-legend-dot--creator { background: #E85D75; }
+        .flow-legend-dot--recipient { background: #d17a00; }
+
+
+        /* ═══ FOOTER ═══ */
+        .back { text-align: center; padding: 48px 0 100px; }
+        .back a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .back a:hover { color: var(--text); border-color: var(--text); }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+        }
+
+        @media (max-width: 640px) {
+            .case-study { padding: 0 20px; }
+            .wide { padding: 0 20px; }
+            .hero { padding: 48px 0 40px; }
+            .hero h1 { font-size: 1.8rem; }
+            .meta { gap: 24px; }
+            .section { padding: 64px 0; }
+            .section-heading { font-size: 1.35rem; }
+            .flow-steps { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+    <div class="nav-links">
+        <a href="/"><span class="cutout">home</span></a>
+        <a href="/work.html"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html"><span class="cutout">blog</span></a>
+        <a href="/resume.html"><span class="cutout">resume</span></a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-nav">
+    <a href="/"><span class="cutout">home</span></a>
+    <a href="/work.html"><span class="cutout">work</span></a>
+    <a href="/about.html"><span class="cutout">about</span></a>
+    <a href="/blog.html"><span class="cutout">blog</span></a>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <a href="/" class="sidebar-back">&larr; Back</a>
+    <a href="#hero" class="sidebar-link active">Hero</a>
+    <a href="#overview" class="sidebar-link">Overview</a>
+    <a href="#demo" class="sidebar-link">Demo</a>
+    <a href="#how-it-works" class="sidebar-link">How It Works</a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<!-- ════════════════════════════════════════ -->
+<!-- 1. HERO -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="hero" class="hero">
+        <h1><span class="cutout">Dear Flower</span></h1>
+        <p class="hero-sub">A web app for creating, personalizing, and sharing digital flower bouquets with handwritten letters.</p>
+        <div class="meta">
+            <div class="meta-item">
+                <p class="meta-label">Role</p>
+                <p class="meta-value">Design & Development</p>
+            </div>
+            <div class="meta-item">
+                <p class="meta-label">The Team</p>
+                <p class="meta-value">Solo</p>
+            </div>
+            <div class="meta-item">
+                <p class="meta-label">Live</p>
+                <p class="meta-value"><a href="https://digital-bouquet.vercel.app/index.html" target="_blank" rel="noopener">digital-bouquet.vercel.app</a></p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="wide">
+    <img src="images/dearflower-cover-fast.gif" alt="Dear Flower — creating a digital bouquet" class="img-full">
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 2. OVERVIEW -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="overview" class="section">
+        <p class="section-label">Overview</p>
+        <h2 class="section-heading">Create and share digital bouquets with friends</h2>
+        <p class="section-body">Dear Flower lets people arrange their own digital bouquet — choosing from different flower types and wrapper styles — then pair it with a handwritten letter and send it to someone through a shareable link. On the receiving end, the bouquet is revealed through an envelope-opening moment that makes the experience feel personal and intentional.</p>
+        <p class="section-body" style="margin-top: 16px;">I designed and built the entire experience end-to-end, from the drag-and-drop canvas interaction to the sharing flow and the recipient reveal. The focus was on creating something that felt craft-like and tangible in a digital space — where the act of making the bouquet is just as meaningful as receiving one.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 3. DEMO -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="demo" class="section">
+        <p class="section-label">Demo</p>
+        <h2 class="section-heading">Full walkthrough — from bouquet creation to delivery</h2>
+        <div class="video-embed">
+            <iframe
+                src="https://www.youtube.com/embed/iqGgD1r3wnA"
+                title="Dear Flower demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 4. HOW IT WORKS -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="how-it-works" class="section">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-heading">The experience is structured around four moments</h2>
+        <p class="section-body">The flow is designed around two distinct roles — the creator and the recipient — with a deliberate handoff in between. The creator side is active and expressive: arranging, writing, composing something personal. The recipient side is about anticipation and reveal. The envelope-opening moment was an intentional design choice to create a pause before the gift appears, making the experience feel more like unwrapping something physical than just loading a page.</p>
+        <div class="flow-diagram">
+            <div class="flow-legend">
+                <span class="flow-legend-item"><span class="flow-legend-dot flow-legend-dot--creator"></span> creator</span>
+                <span class="flow-legend-item"><span class="flow-legend-dot flow-legend-dot--recipient"></span> recipient</span>
+            </div>
+            <div class="flow-steps">
+                <div class="flow-step" data-detail="Pick flowers, choose a wrapper, rotate and scale to compose your bouquet. Your draft saves automatically as you go." data-label="Arrange" data-type="creator">
+                    <div class="flow-card flow-card--creator">
+                        <p class="flow-step-num">Step 1</p>
+                        <p class="flow-step-title">Arrange</p>
+                        <p class="flow-step-sub">drag flowers onto canvas</p>
+                    </div>
+                </div>
+                <div class="flow-step" data-detail="Type a personal message in a handwritten-style editor. Preview it alongside the bouquet before sending." data-label="Write" data-type="creator">
+                    <div class="flow-card flow-card--creator">
+                        <p class="flow-step-num">Step 2</p>
+                        <p class="flow-step-title">Write</p>
+                        <p class="flow-step-sub">add a personal letter</p>
+                    </div>
+                </div>
+                <div class="flow-step" data-detail="A unique short link is generated for your bouquet. Copy it to send directly, or download the bouquet as an image." data-label="Share" data-type="recipient">
+                    <div class="flow-card flow-card--recipient">
+                        <p class="flow-step-num">Step 3</p>
+                        <p class="flow-step-title">Share</p>
+                        <p class="flow-step-sub">send via unique link</p>
+                    </div>
+                </div>
+                <div class="flow-step" data-detail="The recipient clicks the link and sees a closed envelope. Clicking it triggers an opening animation that reveals the bouquet and letter inside." data-label="Receive" data-type="recipient">
+                    <div class="flow-card flow-card--recipient">
+                        <p class="flow-step-num">Step 4</p>
+                        <p class="flow-step-title">Receive</p>
+                        <p class="flow-step-sub">open the envelope</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flow-detail" id="flow-detail">
+                <p class="flow-detail-label" id="flow-detail-label">Hover a step to see more</p>
+                <p class="flow-detail-text" id="flow-detail-text">Each step in the flow was designed around a specific moment in the gift-giving experience.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 5. FOOTER -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <div class="back">
+        <a href="/">&larr; Back to all work</a>
+    </div>
+</div>
+
+</div><!-- end .main-content -->
+
+<script src="cutout.js"></script>
+<script>
+    // Sidebar active state via IntersectionObserver
+    (function() {
+        var links = document.querySelectorAll('.sidebar-link');
+        var sections = [];
+
+        links.forEach(function(link) {
+            var id = link.getAttribute('href').replace('#', '');
+            var el = document.getElementById(id);
+            if (el) sections.push({ id: id, el: el, link: link });
+        });
+
+        if (!sections.length) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    links.forEach(function(l) { l.classList.remove('active'); });
+                    sections.forEach(function(s) {
+                        if (s.el === entry.target) s.link.classList.add('active');
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(s) { observer.observe(s.el); });
+    })();
+</script>
+<script>
+    // Flow diagram hover → detail panel
+    (function() {
+        var steps = document.querySelectorAll('.flow-step');
+        var panel = document.getElementById('flow-detail');
+        var label = document.getElementById('flow-detail-label');
+        var text = document.getElementById('flow-detail-text');
+        if (!steps.length || !panel) return;
+
+        var defaultLabel = label.textContent;
+        var defaultText = text.textContent;
+
+        // Measure tallest content and lock min-height to prevent layout shift
+        var maxH = panel.scrollHeight;
+        steps.forEach(function(step) {
+            label.textContent = step.getAttribute('data-label');
+            text.textContent = step.getAttribute('data-detail');
+            maxH = Math.max(maxH, panel.scrollHeight);
+        });
+        label.textContent = defaultLabel;
+        text.textContent = defaultText;
+        panel.style.minHeight = maxH + 'px';
+
+        steps.forEach(function(step) {
+            step.addEventListener('mouseenter', function() {
+                var detail = step.getAttribute('data-detail');
+                var name = step.getAttribute('data-label');
+                var type = step.getAttribute('data-type');
+
+                label.textContent = name;
+                text.textContent = detail;
+
+                panel.classList.remove('flow-detail--creator', 'flow-detail--recipient');
+                panel.classList.add('flow-detail--' + type);
+
+                steps.forEach(function(s) { s.querySelector('.flow-card').classList.remove('active'); });
+                step.querySelector('.flow-card').classList.add('active');
+            });
+        });
+
+        var diagram = document.querySelector('.flow-diagram');
+        diagram.addEventListener('mouseleave', function() {
+            label.textContent = defaultLabel;
+            text.textContent = defaultText;
+            panel.classList.remove('flow-detail--creator', 'flow-detail--recipient');
+            steps.forEach(function(s) { s.querySelector('.flow-card').classList.remove('active'); });
+        });
+    })();
+</script>
+
+</body>
+</html>
