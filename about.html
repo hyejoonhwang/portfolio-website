@@ -171,22 +171,35 @@
         }
 
         .quick-links a {
+            position: relative;
             font-family: 'General Sans', sans-serif;
             font-size: 0.75rem;
             font-weight: 400;
             color: var(--text-faint);
             text-decoration: none;
-            text-decoration-line: underline;
-            text-decoration-color: var(--border);
-            text-underline-offset: 3px;
-            text-decoration-thickness: 1px;
-            transition: color 0.3s ease, text-decoration-color 0.3s ease;
+            transition: color 0.3s ease;
+        }
+
+        .quick-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px 2px 1px 2px;
+            transform: scaleX(0) rotate(-0.6deg) skewX(-1.5deg);
+            transform-origin: left;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0.85;
         }
 
         .quick-links a:hover {
             color: var(--text);
-            text-decoration-color: var(--accent);
         }
+
+        .quick-links a:hover::after { transform: scaleX(1) rotate(-0.6deg) skewX(-1.5deg); }
 
         /* ═══ TABLET ═══ */
         @media (max-width: 900px) {
