@@ -198,6 +198,12 @@
             background: linear-gradient(to top, rgba(255,255,255,0.85), transparent);
             pointer-events: none;
             border-radius: 0 0 12px 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project:hover::after {
+            opacity: 1;
         }
 
         .project-info, .project-arrow {
@@ -323,7 +329,7 @@
 <body>
 
     <nav>
-        <a href="/" class="logo"><span class="cutout">Hi I'm Summer</span></a>
+        <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
         <div class="nav-links">
             <a href="/" class="active"><span class="cutout">home</span></a>
             <a href="/work.html"><span class="cutout">work</span></a>
