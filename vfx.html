@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VFX Portfolio — Summer</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        :root { --accent: #8B7DCA; }
+
+        /* ═══ SIDEBAR ═══ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 100vh;
+            padding: 80px 20px 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .sidebar-back {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 28px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.3s;
+        }
+        .sidebar-back:hover { color: var(--text); }
+
+        .sidebar-link {
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: var(--text-faint);
+            text-decoration: none;
+            padding: 5px 0;
+            line-height: 1.4;
+            transition: color 0.3s;
+            display: block;
+        }
+        .sidebar-link:hover { color: var(--text-muted); }
+        .sidebar-link.active {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ═══ MAIN CONTENT — offset for sidebar ═══ */
+        .main-content {
+            margin-left: 160px;
+        }
+
+        /* ═══ CASE STUDY LAYOUT ═══ */
+        .case-study { max-width: 1440px; margin: 0 auto; padding: 0 60px; }
+
+        /* ═══ HERO ═══ */
+        .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero h1 {
+            font-family: 'Bespoke Slab', serif;
+            font-weight: 400;
+            font-size: 2.4rem;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin-bottom: 16px;
+        }
+        .hero-sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 520px;
+            margin: 0 auto 36px;
+        }
+        .meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .meta-item { text-align: center; }
+        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); max-width: 180px; }
+
+        /* ═══ VIDEO EMBED ═══ */
+        .video-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+        .video-embed iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* ═══ SECTIONS ═══ */
+        .section { padding: 20px 0 100px; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        /* ═══ FOOTER ═══ */
+        .back { text-align: center; padding: 48px 0 100px; }
+        .back a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .back a:hover { color: var(--text); border-color: var(--text); }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+        }
+
+        @media (max-width: 640px) {
+            .case-study { padding: 0 20px; }
+            .hero { padding: 48px 0 40px; }
+            .hero h1 { font-size: 1.8rem; }
+            .meta { gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+    <div class="nav-links">
+        <a href="/"><span class="cutout">home</span></a>
+        <a href="/work.html"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html"><span class="cutout">blog</span></a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-nav">
+    <a href="/"><span class="cutout">home</span></a>
+    <a href="/work.html"><span class="cutout">work</span></a>
+    <a href="/about.html"><span class="cutout">about</span></a>
+    <a href="/blog.html"><span class="cutout">blog</span></a>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <a href="/" class="sidebar-back">&larr; Back</a>
+    <a href="#hero" class="sidebar-link active">Hero</a>
+    <a href="#reel" class="sidebar-link">Reel</a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<div class="case-study">
+    <section id="hero" class="hero">
+        <h1><span class="cutout">VFX Portfolio</span></h1>
+        <p class="hero-sub">A collection of visual effects compositing work — combining live-action footage with CG elements to create seamless final images.</p>
+        <div class="meta">
+            <div class="meta-item">
+                <p class="meta-label">Role</p>
+                <p class="meta-value">VFX Compositor</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="case-study">
+    <section id="reel" class="section">
+        <div class="video-embed">
+            <iframe
+                src="https://player.vimeo.com/video/1024594006"
+                title="VFX Portfolio Reel"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </section>
+</div>
+
+<div class="case-study">
+    <div class="back">
+        <a href="/">&larr; Back to all work</a>
+    </div>
+</div>
+
+</div><!-- end .main-content -->
+
+<script src="cutout.js"></script>
+<script>
+    (function() {
+        var links = document.querySelectorAll('.sidebar-link');
+        var sections = [];
+        links.forEach(function(link) {
+            var id = link.getAttribute('href').replace('#', '');
+            var el = document.getElementById(id);
+            if (el) sections.push({ id: id, el: el, link: link });
+        });
+        if (!sections.length) return;
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    links.forEach(function(l) { l.classList.remove('active'); });
+                    sections.forEach(function(s) {
+                        if (s.el === entry.target) s.link.classList.add('active');
+                    });
+                }
+            });
+        }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+        sections.forEach(function(s) { observer.observe(s.el); });
+    })();
+</script>
+
+</body>
+</html>
