@@ -168,6 +168,7 @@
         }
 
         .archive-link {
+            position: relative;
             display: flex;
             align-items: baseline;
             justify-content: space-between;
@@ -175,10 +176,25 @@
             padding: 10px 0;
             text-decoration: none;
             color: var(--text);
-            transition: opacity 0.3s ease;
+            transition: color 0.3s ease;
         }
 
-        .archive-link:hover { opacity: 0.65; }
+        .archive-link::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 1px 2px 1px 2px;
+            transform: scaleX(0) rotate(-0.6deg) skewX(-1.5deg);
+            transform-origin: left;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0.85;
+        }
+
+        .archive-link:hover::after { transform: scaleX(1) rotate(-0.6deg) skewX(-1.5deg); }
 
         .archive-title {
             font-family: 'General Sans', sans-serif;
