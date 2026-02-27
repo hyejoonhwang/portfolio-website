@@ -307,7 +307,7 @@
                     </div>
                     <div class="currently-item">
                         <dt>Listening</dt>
-                        <dd>Placeholder album or podcast</dd>
+                        <dd id="now-playing">Nothing right now</dd>
                     </div>
                 </dl>
             </div>
@@ -340,5 +340,42 @@
     </main>
 
     <script src="cutout.js"></script>
+    <script>
+    (function() {
+        var el = document.getElementById('now-playing');
+        if (!el) return;
+
+        function update() {
+            fetch('/api/now-playing')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (!data.track) {
+                        el.textContent = 'Nothing right now';
+                        return;
+                    }
+                    var label = data.track.name + ' — ' + data.track.artist;
+                    if (data.isPlaying) label = '\u25B6 ' + label;
+                    if (data.track.url) {
+                        var a = document.createElement('a');
+                        a.href = data.track.url;
+                        a.target = '_blank';
+                        a.rel = 'noopener';
+                        a.textContent = label;
+                        a.style.cssText = 'color:inherit;text-decoration-color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1.5px';
+                        el.textContent = '';
+                        el.appendChild(a);
+                    } else {
+                        el.textContent = label;
+                    }
+                })
+                .catch(function() {
+                    el.textContent = 'Nothing right now';
+                });
+        }
+
+        update();
+        setInterval(update, 30000);
+    })();
+    </script>
 </body>
 </html>
