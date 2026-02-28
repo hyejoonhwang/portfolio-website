@@ -710,20 +710,39 @@
         }
 
         /* ═══ FLOW SECTIONS ═══ */
-        .flow { padding: 64px 0; }
-        .flow-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+        .flow { padding: 48px 0; }
+        .flow-box {
+            background: #EEF1F6;
+            border-radius: 16px;
+            padding: 36px 36px 0;
+            margin-bottom: 28px;
+        }
+        .flow-box-label {
+            font-family: 'Bespoke Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .flow-box video, .flow-box img {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            display: block;
+        }
         .flow-title {
             font-family: 'Bespoke Slab', serif;
             font-weight: 400;
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
         }
         .flow-desc {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 300;
             color: var(--text-muted);
             max-width: 620px;
-            margin: 0 0 32px;
+            margin: 0 0 28px;
             line-height: 1.65;
         }
         .flow-supplement {
@@ -1145,7 +1164,7 @@
         .test-iteration {
             margin-top: 40px;
             padding: 32px 36px;
-            background: var(--accent);
+            background: #EEF1F6;
             border-radius: 16px;
         }
         .test-iteration-label {
@@ -1154,13 +1173,13 @@
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.6);
+            color: var(--accent);
             margin-bottom: 12px;
         }
         .test-iteration-text {
             font-size: 0.92rem;
             font-weight: 400;
-            color: #fff;
+            color: var(--text);
             line-height: 1.7;
         }
 
@@ -1976,31 +1995,39 @@
 
 <div class="wide">
     <section class="flow">
-        <p class="flow-label">01 Roadmap</p>
-        <h3 class="flow-title">A structured starting point for global expansion</h3>
-        <p class="flow-desc">Companies generate a tailored expansion roadmap based on their target market, industry, and readiness — turning an uncertain process into an actionable plan.</p>
-        <video autoplay loop muted playsinline preload="auto" class="img-full"><source src="images/weave/1-roadmap.mp4" type="video/mp4"></video>
+        <div class="flow-box">
+            <p class="flow-box-label">01 Roadmap</p>
+            <h3 class="flow-title">A structured starting point for global expansion</h3>
+            <p class="flow-desc">Companies generate a tailored expansion roadmap based on their target market, industry, and readiness — turning an uncertain process into an actionable plan.</p>
+            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/1-roadmap.mp4" type="video/mp4"></video>
+        </div>
     </section>
 
     <section class="flow">
-        <p class="flow-label">02 Marketplace</p>
-        <h3 class="flow-title">Discover and compare trusted local partners</h3>
-        <p class="flow-desc">A unified marketplace surfaces vetted service providers. Teams can evaluate partners side by side, review case studies, and shortlist candidates.</p>
-        <video autoplay loop muted playsinline preload="auto" class="img-full"><source src="images/weave/2-marketplace.mp4" type="video/mp4"></video>
+        <div class="flow-box">
+            <p class="flow-box-label">02 Marketplace</p>
+            <h3 class="flow-title">Discover and compare trusted local partners</h3>
+            <p class="flow-desc">A unified marketplace surfaces vetted service providers. Teams can evaluate partners side by side, review case studies, and shortlist candidates.</p>
+            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/2-marketplace.mp4" type="video/mp4"></video>
+        </div>
     </section>
 
     <section class="flow">
-        <p class="flow-label">03 Proposals & Contracting</p>
-        <h3 class="flow-title">Move from selection to engagement seamlessly</h3>
-        <p class="flow-desc">Teams can generate proposals, request quotes, and draft contracts within the same workflow — reducing handoffs and accelerating deal closure.</p>
-        <video autoplay loop muted playsinline preload="auto" class="img-full"><source src="images/weave/3-proposals-contracting.mp4" type="video/mp4"></video>
+        <div class="flow-box">
+            <p class="flow-box-label">03 Proposals & Contracting</p>
+            <h3 class="flow-title">Move from selection to engagement seamlessly</h3>
+            <p class="flow-desc">Teams can generate proposals, request quotes, and draft contracts within the same workflow — reducing handoffs and accelerating deal closure.</p>
+            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/3-proposals-contracting.mp4" type="video/mp4"></video>
+        </div>
     </section>
 
     <section class="flow">
-        <p class="flow-label">04 Workspace</p>
-        <h3 class="flow-title">Operate, collaborate, and stay compliant</h3>
-        <p class="flow-desc">Shared workspaces support ongoing collaboration between HQ and local partners, with built-in regulatory monitoring and AI-assisted tools.</p>
-        <video autoplay loop muted playsinline preload="auto" class="img-full"><source src="images/weave/4-workspace.mp4" type="video/mp4"></video>
+        <div class="flow-box">
+            <p class="flow-box-label">04 Workspace</p>
+            <h3 class="flow-title">Operate, collaborate, and stay compliant</h3>
+            <p class="flow-desc">Shared workspaces support ongoing collaboration between HQ and local partners, with built-in regulatory monitoring and AI-assisted tools.</p>
+            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/4-workspace.mp4" type="video/mp4"></video>
+        </div>
     </section>
 </div>
 
