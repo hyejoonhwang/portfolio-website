@@ -1109,27 +1109,88 @@
         }
 
         /* ═══ TESTING ═══ */
-        .test-stats { display: flex; gap: 40px; justify-content: center; margin-top: 28px; }
+        .test-stats { display: flex; gap: 40px; justify-content: flex-start; margin-top: 28px; }
         .test-stat { text-align: center; }
         .test-stat-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.6rem; color: var(--text); }
         .test-stat-label { font-size: 0.78rem; font-weight: 300; color: var(--text-muted); margin-top: 4px; }
+
+        /* Feedback quotes */
+        .test-feedback-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .test-feedback-card {
+            padding: 32px 28px;
+            background: #EEF1F6;
+            border-radius: 16px;
+        }
+        .test-feedback-name {
+            font-family: 'Bespoke Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .test-feedback-quote {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* Iteration insight */
+        .test-iteration {
+            margin-top: 40px;
+            padding: 32px 36px;
+            background: var(--accent);
+            border-radius: 16px;
+        }
+        .test-iteration-label {
+            font-family: 'Bespoke Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 12px;
+        }
+        .test-iteration-text {
+            font-size: 0.92rem;
+            font-weight: 400;
+            color: #fff;
+            line-height: 1.7;
+        }
 
         /* ═══ LEARNINGS (two-column) ═══ */
         .learnings {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 32px;
+            gap: 20px;
             margin-top: 40px;
         }
         .learning {
-            padding: 28px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 40px 36px;
+            background: #EEF1F6;
+            border: none;
+            border-radius: 16px;
+        }
+        .learning-num {
+            font-family: 'Bespoke Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+            display: block;
         }
         .learning h4 {
             font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 1.05rem;
+            font-weight: 600;
             margin-bottom: 10px;
             line-height: 1.4;
         }
@@ -1137,7 +1198,7 @@
             font-size: 0.85rem;
             font-weight: 300;
             color: var(--text-muted);
-            line-height: 1.65;
+            line-height: 1.7;
         }
 
         /* ═══ BACK LINK ═══ */
@@ -1204,6 +1265,7 @@
             .module-rings { max-width: 100%; padding: 14px 12px; }
             .module-circle { width: 72px; height: 72px; }
             .module-label { font-size: 0.68rem; }
+            .test-feedback-grid { grid-template-columns: 1fr; }
             .module-arrow svg { width: 16px; height: 16px; }
             .module-arrow { padding: 0 2px; }
             .features { flex-direction: column; gap: 24px; }
@@ -1967,6 +2029,28 @@
             </div>
         </div>
         <p class="section-body" style="margin-top: 32px;">Participants found the marketplace intuitive to navigate, but the contracting flow revealed friction — specifically around proposal templates and how terms were presented. We iterated on the contract workspace based on this feedback, simplifying the layout and surfacing key actions more prominently.</p>
+
+        <h3 class="section-heading" style="font-size: 1.1rem; margin-top: 48px;">What participants said</h3>
+
+        <div class="test-feedback-grid">
+            <div class="test-feedback-card">
+                <p class="test-feedback-name">Participant A</p>
+                <p class="test-feedback-quote">"The features are convenient. It's great that companies can see everything gathered in one place without having to search separately."</p>
+            </div>
+            <div class="test-feedback-card">
+                <p class="test-feedback-name">Participant B</p>
+                <p class="test-feedback-quote">"The functionality was more useful than expected. Being able to check which documents have been shared is helpful. Having legal consulting as a separate feature builds trust — when you're in a legally sensitive business, you want help from a real expert."</p>
+            </div>
+            <div class="test-feedback-card">
+                <p class="test-feedback-name">Participant C</p>
+                <p class="test-feedback-quote">"It's convenient that the platform suggests tasks that would be hard to do alone, reviews them, and guides you toward better directions. Being able to go step by step from start to finish — toward a better proposal, a better project — feels like a real strength."</p>
+            </div>
+        </div>
+
+        <div class="test-iteration">
+            <p class="test-iteration-label">Iteration Principle</p>
+            <p class="test-iteration-text">Participant C's feedback highlighted that the step-by-step progression was the platform's key strength. To reinforce this, we established a design principle: <strong>visually emphasize the sense of stages</strong> — guiding users through each phase so they feel led through a clear, structured process rather than dropped into a dashboard.</p>
+        </div>
     </section>
 </div>
 
@@ -1982,20 +2066,28 @@
 
         <div class="learnings">
             <div class="learning">
+                <span class="learning-num">Lesson 01</span>
                 <h4>Scope discipline matters more than feature breadth</h4>
-                <p>With a platform this ambitious, the hardest decisions were about what to leave out. I learned to anchor every feature to a specific user pain point — and cut anything that couldn't trace back to research.</p>
+                <p>With a platform spanning roadmaps, marketplace, contracting, and workspace, the hardest decisions were about what to leave out. I learned to anchor every feature to a specific user pain point from our research — and cut anything that couldn't trace back to a validated problem.</p>
             </div>
             <div class="learning">
-                <h4>Bilingual design adds real complexity</h4>
-                <p>Translating problem definitions from Korean research into English design requirements wasn't just a language task — it required re-framing concepts for a different cultural context. This experience deepened my appreciation for localization as a design challenge.</p>
-            </div>
-            <div class="learning">
+                <span class="learning-num">Lesson 02</span>
                 <h4>Leading research sharpens product intuition</h4>
-                <p>Owning the research from the start — desk research, problem framing, stakeholder synthesis — gave me a direct line from user needs to design decisions. It made every wireframe feel grounded rather than speculative.</p>
+                <p>Owning the research end-to-end — from desk research and case study analysis to persona mapping and problem framing — gave me a direct line from user needs to design decisions. It made every wireframe feel grounded rather than speculative.</p>
+            </div>
+            <div class="learning">
+                <span class="learning-num">Lesson 03</span>
+                <h4>AI should solve real workflow gaps, not add novelty</h4>
+                <p>Our research showed that scattered regulations and partner data were problems of scale and fragmentation — exactly where AI adds value. By mapping each AI capability to a specific pain point, we avoided the trap of adding AI for its own sake and instead embedded it as a core workflow layer.</p>
+            </div>
+            <div class="learning">
+                <span class="learning-num">Lesson 04</span>
+                <h4>User testing reveals what wireframes can't</h4>
+                <p>Participants validated our core value proposition — the step-by-step guided flow — but also exposed friction in the contracting module we hadn't anticipated. That feedback became our iteration principle: visually reinforce progression so users feel led, not lost.</p>
             </div>
         </div>
 
-        <p class="section-body" style="margin-top: 40px; font-weight: 400; color: var(--text);">What I'd explore next</p>
+        <h3 class="section-heading" style="font-size: 1.1rem; margin-top: 48px;">What I'd explore next</h3>
         <p class="section-body" style="margin-top: 8px;">If I were to continue this project, I'd want to test the roadmap generation flow with real expansion data, explore how AI-powered compliance alerts could adapt to different regulatory environments, and conduct a longer-term study to understand how teams use the collaboration workspace over time.</p>
     </section>
 </div>
