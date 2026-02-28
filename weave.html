@@ -667,201 +667,63 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0;
             margin-top: 40px;
+            padding: 20px 24px;
+            border: 2px solid var(--accent);
+            border-radius: 100px;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+            gap: 0;
         }
         .module-ring {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 0;
         }
         .module-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: rgba(59, 91, 245, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .module-num {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
         }
         .module-label {
             font-family: 'Bespoke Sans', sans-serif;
             font-size: 0.82rem;
             font-weight: 500;
-            color: var(--text);
-            text-align: center;
-        }
-        .module-connector {
-            width: 48px;
-            height: 8px;
-            flex-shrink: 0;
-            margin-bottom: 28px;
-        }
-        .module-connector svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ═══ IA TREE ═══ */
-        .ia-wrap {
-            width: 90vw;
-            max-width: 90vw;
-            margin-left: 50%;
-            transform: translateX(-50%);
-            overflow-x: auto;
-            padding: 0 40px 24px;
-            margin-top: 48px;
-        }
-        .ia-sections {
-            display: flex;
-            gap: 32px;
-            min-width: max-content;
-        }
-        .ia-section {
-            min-width: 280px;
-        }
-        /* Top tab — Level 1: Black */
-        .ia-tab {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: #fff;
-            background: #1a1a1a;
-            padding: 8px 16px;
-            text-align: center;
-            display: inline-block;
-        }
-        .ia-tab--green { background: var(--accent); color: #fff; }
-        /* GNB bar — grey */
-        .ia-gnb {
-            background: #EBEBEB;
-            padding: 10px 12px;
-            margin-top: 2px;
-            font-size: 0.62rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        .ia-gnb-items {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-        .ia-gnb-item {
-            font-size: 0.62rem;
-            padding: 3px 8px;
-            border-radius: 2px;
-        }
-        .ia-gnb-item--green { background: var(--accent); color: #fff; font-weight: 500; }
-        .ia-gnb-item--blue { background: #D6E4FF; color: #1a1a1a; }
-        .ia-gnb-item--black { background: #1a1a1a; color: #fff; font-weight: 500; }
-        /* Columns under GNB */
-        .ia-cols {
-            display: flex;
-            gap: 24px;
-            margin-top: 20px;
-            align-items: flex-start;
-        }
-        .ia-col-branch {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            width: 180px;
-            min-width: 180px;
-        }
-        /* Level 2: Category header — dark accent */
-        .ia-cat {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: #fff;
-            background: #1a1a1a;
-            padding: 7px 12px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        /* Level 3: Page — blue accent */
-        .ia-page {
-            font-size: 0.68rem;
-            font-weight: 400;
-            color: #fff;
-            padding: 6px 10px;
-            background: var(--accent);
-            line-height: 1.35;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        /* Level 3: Feature/AI — light blue */
-        .ia-feat {
-            font-size: 0.68rem;
-            font-weight: 500;
             color: var(--accent);
-            padding: 6px 10px;
-            background: #D6E4FF;
-            line-height: 1.35;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        /* Level 4: Plain text item — light grey */
-        .ia-plain {
-            font-size: 0.68rem;
-            font-weight: 400;
-            color: var(--text);
-            padding: 6px 10px;
-            background: #F5F5F5;
-            border: 1px solid #E0E0E0;
-            line-height: 1.35;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        /* Annotation text */
-        .ia-note {
-            font-size: 0.6rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 2px 10px;
-            line-height: 1.4;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        /* Sub-item indented */
-        .ia-sub {
-            margin-left: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .ia-caption {
             text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-faint);
-            margin-top: 8px;
+        }
+        .module-arrow {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+        }
+        .module-arrow svg {
+            width: 20px;
+            height: 20px;
         }
 
         /* ═══ FLOW SECTIONS ═══ */
         .flow { padding: 64px 0; }
-        .flow-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); text-align: center; margin-bottom: 12px; }
+        .flow-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
         .flow-title {
             font-family: 'Bespoke Slab', serif;
             font-weight: 400;
             font-size: 1.4rem;
-            text-align: center;
             margin-bottom: 12px;
         }
         .flow-desc {
             font-size: 0.9rem;
             font-weight: 300;
             color: var(--text-muted);
-            text-align: center;
-            max-width: 520px;
-            margin: 0 auto 32px;
+            max-width: 620px;
+            margin: 0 0 32px;
             line-height: 1.65;
         }
         .flow-supplement {
@@ -1339,8 +1201,11 @@
             }
             .ai-engine-line { height: 2px; width: 100%; flex: 1; background: linear-gradient(to right, transparent, var(--accent) 20%, var(--accent) 80%, transparent); }
             .ai-engine-badge { width: 48px; height: 48px; }
-            .module-rings { gap: 0; flex-wrap: wrap; justify-content: center; }
-            .module-connector { width: 32px; }
+            .module-rings { max-width: 100%; padding: 14px 12px; }
+            .module-circle { width: 72px; height: 72px; }
+            .module-label { font-size: 0.68rem; }
+            .module-arrow svg { width: 16px; height: 16px; }
+            .module-arrow { padding: 0 2px; }
             .features { flex-direction: column; gap: 24px; }
             .test-stats { gap: 28px; }
             .persona-row { grid-template-columns: 1fr; }
@@ -1999,7 +1864,7 @@
     <section id="system" class="section">
         <p class="section-label">System Design</p>
         <h2 class="section-heading">Mapping the architecture before moving to screens</h2>
-        <p class="section-body">I defined how users, features, and data connect across the platform, starting with concept models and information architecture.</p>
+        <p class="section-body">I defined how users, features, and data connect across the platform, starting with concept models.</p>
     </section>
 </div>
 
@@ -2008,285 +1873,7 @@
     <p class="img-caption">Concept model diagram</p>
 </div>
 
-<!-- IA Tree — 90vw wide -->
-<div class="ia-wrap">
-    <div class="ia-sections">
 
-        <!-- ══════════ MARKETPLACE ══════════ -->
-        <div class="ia-section">
-            <div class="ia-tab">Marketplace</div>
-            <div class="ia-gnb">
-                (마켓플레이스) 상단 GNB
-                <div class="ia-gnb-items">
-                    <span class="ia-gnb-item--green">language select</span>
-                    <span class="ia-gnb-item--blue">toggle button to switch between expanding/partner company</span>
-                    <span class="ia-gnb-item--black">marketplace chat list</span>
-                </div>
-            </div>
-            <div class="ia-cols">
-                <!-- Home -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Home</div>
-                    <div class="ia-feat">My Page Section</div>
-                    <div class="ia-sub">
-                        <div class="ia-page">Company Name</div>
-                        <div class="ia-plain">Chat / Notifications</div>
-                        <div class="ia-feat">Contract Management</div>
-                        <div class="ia-plain">Saved Companies</div>
-                        <div class="ia-feat">Recently Viewed Companies</div>
-                        <div class="ia-plain">Global Expansion Roadmap</div>
-                    </div>
-                    <div class="ia-feat">Select Country</div>
-                    <div class="ia-page">Search Bar</div>
-                    <div class="ia-sub">
-                        <div class="ia-feat">Suggested Keywords</div>
-                    </div>
-                    <div class="ia-feat">Local Partner Specialties</div>
-                    <div class="ia-sub">
-                        <div class="ia-plain">Legal & Regulations</div>
-                        <div class="ia-plain">Logistics & Distribution</div>
-                        <div class="ia-plain">Accounting & Tax</div>
-                        <div class="ia-plain">IT & Solutions</div>
-                        <div class="ia-plain">Administration & Customs</div>
-                        <div class="ia-plain">HR & Recruiting</div>
-                        <div class="ia-plain">Local Marketing & PR</div>
-                        <div class="ia-plain">Office Space & Real Estate</div>
-                    </div>
-                    <div class="ia-feat">Expansion Roadmap</div>
-                    <div class="ia-feat">AI-Recommended Companies</div>
-                </div>
-                <!-- Local Partner Results Page -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Local Partner Results Page</div>
-                    <div class="ia-feat">Filters & Sorting</div>
-                    <div class="ia-sub">
-                        <div class="ia-plain">Region / Country</div>
-                        <div class="ia-plain">Company Size</div>
-                        <div class="ia-plain">Years of Operation</div>
-                        <div class="ia-plain">Scope of Work</div>
-                        <div class="ia-plain">Budget</div>
-                        <div class="ia-plain">Verification</div>
-                        <div class="ia-plain">Industry</div>
-                    </div>
-                </div>
-                <!-- Partner Profile Page -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Partner Profile Page</div>
-                    <div class="ia-page">Core Expertise & Services</div>
-                    <div class="ia-page">Growth Performance</div>
-                    <div class="ia-page">Portfolio Highlights</div>
-                    <div class="ia-page">Reference Materials</div>
-                    <div class="ia-page">Operations</div>
-                    <div class="ia-page">Leadership & Team</div>
-                    <div class="ia-page">Pricing Overview</div>
-                    <div class="ia-page">Key Clients</div>
-                    <div class="ia-page">Client Feedback Summary</div>
-                    <div class="ia-page">Create Proposal</div>
-                </div>
-                <!-- Expansion Roadmap -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Expansion Roadmap</div>
-                    <div class="ia-page">AI Expansion Roadmap (Lite)</div>
-                    <div class="ia-note">Generated from your onboarding company details</div>
-                    <div class="ia-sub">
-                        <div class="ia-plain">Target Market Analysis</div>
-                        <div class="ia-plain">Step-based Partner Matching</div>
-                    </div>
-                    <div class="ia-feat">Get the Advanced Expansion Roadmap (Paid)</div>
-                    <div class="ia-page">Company Profile Settings</div>
-                    <div class="ia-note">Enter additional company details required to generate the roadmap</div>
-                    <div class="ia-sub">
-                        <div class="ia-page">Advanced Expansion Roadmap</div>
-                        <div class="ia-note">Roadmap options by tier (Consultant vs. AI)</div>
-                        <div class="ia-plain">Target Market Research</div>
-                        <div class="ia-plain">Funding Program Analysis</div>
-                        <div class="ia-plain">Milestones & Checklists</div>
-                        <div class="ia-plain">Step-by-step Partner Recommendations</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══════════ MY ACCOUNT ══════════ -->
-        <div class="ia-section">
-            <div class="ia-tab">My Account</div>
-            <div class="ia-gnb">
-                (마이페이지) 좌측 GNB
-            </div>
-            <div class="ia-cols">
-                <!-- My Activity -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">My Activity</div>
-                    <div class="ia-page">Saved Companies</div>
-                    <div class="ia-page">Recently Viewed Companies</div>
-                    <div class="ia-page">Roadmap History</div>
-                </div>
-                <!-- Account Management -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Account Management</div>
-                    <div class="ia-page">Payment Information</div>
-                    <div class="ia-page">Manage Company Profile</div>
-                    <div class="ia-page">Manage Team Members</div>
-                    <div class="ia-sub">
-                        <div class="ia-page">Connected Accounts</div>
-                        <div class="ia-page">Manage Roles & Permissions</div>
-                    </div>
-                </div>
-                <!-- Data Management -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Data Management</div>
-                    <div class="ia-page">Team Document Hub</div>
-                    <div class="ia-note">All documents created across collaborations</div>
-                    <div class="ia-page">Manage Templates</div>
-                    <div class="ia-page">Manual Management</div>
-                    <div class="ia-sub">
-                        <div class="ia-plain">Headquarters Manual</div>
-                        <div class="ia-page">Manual Sections by Partner</div>
-                        <div class="ia-note">Extract and share only the relevant sections for each partner</div>
-                        <div class="ia-feat">AI-powered Localization</div>
-                        <div class="ia-note">Automatically localize HQ manuals using a database of regulations, language, and consumer culture</div>
-                    </div>
-                </div>
-                <!-- Contract Management -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Contract Management</div>
-                    <div class="ia-plain">Companies Awaiting Contract</div>
-                    <div class="ia-page">Sent Collaboration Proposals</div>
-                    <div class="ia-sub">
-                        <div class="ia-plain">Review Status</div>
-                        <div class="ia-feat">Contract sent upon acceptance</div>
-                        <div class="ia-plain">Withdraw Proposal</div>
-                    </div>
-                    <div class="ia-page">Received Collaboration Proposals</div>
-                    <div class="ia-sub">
-                        <div class="ia-feat">Accept Proposal & Send Contract</div>
-                        <div class="ia-plain">Decline Proposal</div>
-                    </div>
-                    <div class="ia-plain">Companies Under Contract</div>
-                    <div class="ia-sub">
-                        <div class="ia-page">Performance Monitoring</div>
-                        <div class="ia-sub">
-                            <div class="ia-page">Performance & Capability Analysis</div>
-                            <div class="ia-page">AI Strategy Suggestions</div>
-                        </div>
-                        <div class="ia-page">Past Partners</div>
-                        <div class="ia-sub">
-                            <div class="ia-page">Partner Evaluation Report</div>
-                            <div class="ia-page">My Contracts</div>
-                            <div class="ia-note" style="margin-left:0;">Revision History</div>
-                        </div>
-                    </div>
-                    <!-- Edit Contract side branch -->
-                    <div style="margin-top: 10px;">
-                        <div class="ia-cat">Edit Contract</div>
-                        <div class="ia-feat">Use a Saved Template</div>
-                        <div class="ia-plain">AI Draft Generation</div>
-                        <div class="ia-plain">Contract Negotiation & Edits</div>
-                        <div class="ia-plain">Revision History</div>
-                        <div class="ia-plain">Electronic Signature</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ══════════ WORKSPACE ══════════ -->
-        <div class="ia-section">
-            <div class="ia-tab--green ia-tab">Workspace</div>
-            <div class="ia-note" style="padding: 6px 10px;">Activate upon sign-up</div>
-            <div class="ia-gnb">
-                (마켓플레이스) 상단 GNB
-                <div class="ia-gnb-items">
-                    <span class="ia-gnb-item--green">Select Company</span>
-                    <span class="ia-gnb-item--blue">Local Time & Date Info</span>
-                </div>
-            </div>
-            <div class="ia-gnb" style="margin-top: 4px;">
-                (워크플레이스) 좌측 GNB
-            </div>
-            <div class="ia-cols">
-                <!-- Dashboard(Home) -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Dashboard(Home)</div>
-                    <div class="ia-page">Current Projects</div>
-                    <div class="ia-page">current kpi</div>
-                    <div class="ia-page">Key Updates</div>
-                    <div class="ia-page">Schedule Management</div>
-                    <div class="ia-plain">Documents Pending Approval</div>
-                    <div class="ia-page">Total Tasks</div>
-                    <div class="ia-page">Project Status Overview</div>
-                    <div class="ia-page">Partner Team Contacts</div>
-                    <div class="ia-page">Service Announcements</div>
-                    <div class="ia-page">Activity Log</div>
-                </div>
-                <!-- Chat -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Chat</div>
-                    <div class="ia-page">Partner Staff Info</div>
-                    <div class="ia-page">Active Status</div>
-                    <div class="ia-page">Available Hours</div>
-                    <div class="ia-feat">Send Message</div>
-                </div>
-                <!-- Schedule & Task Management -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Schedule & Task Management</div>
-                    <div class="ia-page">Draft & Approval Workflow / Approvals</div>
-                    <div class="ia-page">Shared Calendar</div>
-                    <div class="ia-page">Schedule Management</div>
-                </div>
-                <!-- Contract & Document Management (Cloud) -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Contract & Document Management (Cloud)</div>
-                    <div class="ia-cat" style="margin-top: 6px;">Shared Folder</div>
-                    <div class="ia-note" style="font-weight:500; font-style:normal;"><u>Open My Documents with the company filter applied</u></div>
-                    <div class="ia-page">All Documents / Browse All Documents</div>
-                    <div class="ia-page">In-Progress (Editing) / Drafts in Progress</div>
-                    <div class="ia-sub">
-                        <div class="ia-feat">Switch Language (HQ/Local)</div>
-                        <div class="ia-plain">Select Recipients Across All Partners / Bulk Send</div>
-                    </div>
-                    <div class="ia-feat">Finalized Documents</div>
-                    <div class="ia-plain">Operations Manual Management</div>
-                    <div class="ia-sub">
-                        <div class="ia-feat">Localized HQ Manuals</div>
-                        <div class="ia-note">Automatically localize HQ guidelines using a database of regulations, language, and consumer culture</div>
-                    </div>
-                    <div class="ia-page">Regulatory Change Management</div>
-                    <div class="ia-sub">
-                        <div class="ia-feat">Detected Regulatory Changes / Regulatory Change Log</div>
-                        <div class="ia-feat">Recommended Updates (Docs / Projects / Policies)</div>
-                        <div class="ia-note">Dashboard Flags for Impacted Tasks<br>Flags on each document/policy page</div>
-                        <div class="ia-page">Map regulation changes to required edits</div>
-                        <div class="ia-page">Suggested Revisions / Proposed Edits</div>
-                    </div>
-                    <div class="ia-feat">Industry News Briefing</div>
-                    <div class="ia-note">Market Trend Digest / Market Pulse Summary</div>
-                </div>
-                <!-- Project Management -->
-                <div class="ia-col-branch">
-                    <div class="ia-cat">Project Management</div>
-                    <div class="ia-page">Project List</div>
-                    <div class="ia-cat" style="margin-top: 6px;">Project Details Page</div>
-                    <div class="ia-feat">Create Task</div>
-                    <div class="ia-feat">Share Project</div>
-                    <div class="ia-feat">Generate Report</div>
-                    <div class="ia-feat">Update Recommendations</div>
-                    <div class="ia-page">Tasks in Progress</div>
-                    <div class="ia-page">Project Members</div>
-                    <div class="ia-page">Activity Feed</div>
-                    <div class="ia-page">Schedule</div>
-                    <div class="ia-page">Files</div>
-                    <div class="ia-page">Minutes</div>
-                    <div class="ia-page">Key Updates</div>
-                    <div class="ia-page">Pending Approvals</div>
-                    <div class="ia-page">Schedule Management</div>
-                    <div class="ia-page">KPI Status</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <p class="ia-caption">Information architecture</p>
-</div>
 
 <hr class="divider" style="max-width: 1440px; margin: 0 auto;">
 
@@ -2295,27 +1882,31 @@
 <!-- ════════════════════════════════════════ -->
 <div class="case-study">
     <section id="flows" class="section" style="padding-bottom: 0;">
-        <p class="section-label section-label--center">Core Flows</p>
-        <h2 class="section-heading section-heading--center">Weave is built around four connected modules, here's how each one works.</h2>
+        <p class="section-label">Core Flows</p>
+        <h2 class="section-heading">Weave is built around four connected modules, here's how each one works.</h2>
         <div class="module-rings">
             <div class="module-ring">
-                <div class="module-circle"><span class="module-num">01</span></div>
-                <p class="module-label">Roadmap</p>
+                <div class="module-circle">
+                    <span class="module-label">Roadmap</span>
+                </div>
             </div>
-            <div class="module-connector"><svg viewBox="0 0 24 8" preserveAspectRatio="none"><path d="M0 4h24" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" opacity="0.4"/></svg></div>
+            <div class="module-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="module-ring">
-                <div class="module-circle"><span class="module-num">02</span></div>
-                <p class="module-label">Marketplace</p>
+                <div class="module-circle">
+                    <span class="module-label">Marketplace</span>
+                </div>
             </div>
-            <div class="module-connector"><svg viewBox="0 0 24 8" preserveAspectRatio="none"><path d="M0 4h24" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" opacity="0.4"/></svg></div>
+            <div class="module-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="module-ring">
-                <div class="module-circle"><span class="module-num">03</span></div>
-                <p class="module-label">Contracting</p>
+                <div class="module-circle">
+                    <span class="module-label">Contracting</span>
+                </div>
             </div>
-            <div class="module-connector"><svg viewBox="0 0 24 8" preserveAspectRatio="none"><path d="M0 4h24" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3" fill="none" opacity="0.4"/></svg></div>
+            <div class="module-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="module-ring">
-                <div class="module-circle"><span class="module-num">04</span></div>
-                <p class="module-label">Workspace</p>
+                <div class="module-circle">
+                    <span class="module-label">Workspace</span>
+                </div>
             </div>
         </div>
     </section>
