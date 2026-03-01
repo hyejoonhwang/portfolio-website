@@ -464,7 +464,7 @@
     <section id="hero" class="hero">
         <div class="hero-left">
             <h1><span class="cutout">Lyrics Search</span></h1>
-            <p class="hero-sub">A music search engine that finds songs by matching your words to their lyrics — powered by a multi-API pipeline across Genius, Spotify, and YouTube.</p>
+            <p class="hero-sub">Type a feeling or a half-remembered line, and this engine finds the song that matches. Built on Genius, Spotify, and YouTube APIs.</p>
         </div>
         <a href="https://github.com/hyejoonhwang/liveweb-hw3" target="_blank" rel="noopener" class="hero-cta">View source <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
     </section>
@@ -481,7 +481,7 @@
     <section id="overview" class="section">
         <p class="section-label">Overview</p>
         <h2 class="section-heading">Find the song that says what you're feeling</h2>
-        <p class="section-body">Lyrics Search is a Node.js-based music search engine that takes a phrase or sentence as input and finds the song whose lyrics best match what you typed. Instead of searching by title or artist, you search by meaning — type how you feel, and the engine finds the track that says it for you.</p>
+        <p class="section-body">Lyrics Search is a Node.js-based music search engine that takes a phrase or sentence as input and finds the song whose lyrics best match what you typed. You don't need to know the title or artist. Just type what you're feeling and the engine finds the track whose lyrics say it for you.</p>
         <p class="section-body" style="margin-top: 16px;">Under the hood, it runs a multi-step pipeline: querying the Genius API for candidates, scraping and parsing full lyrics, scoring each song using a sliding-window matching algorithm, then enriching the best result with Spotify album art and a YouTube video for instant playback. The engine also fetches synced lyrics from LRCLIB to calculate precise timestamps, so the song plays from the exact line that matched your input.</p>
         <p class="section-body" style="margin-top: 16px;">The stack is intentionally lean — Express for the server, SQLite for persistence, Socket.io for real-time delivery, and vanilla HTML/CSS/JS on the frontend. No frameworks, no build tools. The entire client runs in under 500 lines of JavaScript.</p>
     </section>
@@ -496,7 +496,7 @@
     <section id="experience" class="section">
         <p class="section-label">The Experience</p>
         <h2 class="section-heading">Search by feeling, not by title</h2>
-        <p class="section-body">The interface strips away the usual music search complexity. No filters, no genre pickers, no advanced options. Just a text field and a search button — type what you feel and let the engine do the rest.</p>
+        <p class="section-body">There's one text field and one button. Type what you feel, hit search.</p>
 
         <div class="exp-legend">
             <span class="exp-legend-item"><span class="exp-legend-dot exp-legend-dot--user"></span> You</span>
@@ -596,7 +596,7 @@
     <section id="design-decisions" class="section">
         <p class="section-label">Design Decisions</p>
         <h2 class="section-heading">Why it works this way</h2>
-        <p class="section-body">Every feature came from a specific intent. Here are the key decisions that shaped the engine.</p>
+        <p class="section-body">Some of the choices behind how the engine works.</p>
 
         <div class="decisions-grid">
             <div class="decision-card">
