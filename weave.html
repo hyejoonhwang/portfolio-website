@@ -42,28 +42,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 160px;
+            width: 240px;
             height: 100vh;
             padding: 80px 20px 40px 24px;
             display: flex;
             flex-direction: column;
             gap: 0;
-            z-index: 100;
+            z-index: 90;
             overflow-y: auto;
         }
-
-        .sidebar-back {
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-bottom: 28px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.3s;
-        }
-        .sidebar-back:hover { color: var(--text); }
 
         .sidebar-link {
             font-size: 0.72rem;
@@ -72,18 +59,23 @@
             text-decoration: none;
             padding: 5px 0;
             line-height: 1.4;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: block;
         }
         .sidebar-link:hover { color: var(--text-muted); }
         .sidebar-link.active {
-            color: var(--text);
+            color: #FA5D2A;
             font-weight: 500;
+            font-size: 1.01rem;
+            white-space: nowrap;
+        }
+        .sidebar-link.active::after {
+            content: ' ·';
         }
 
         /* ═══ MAIN CONTENT — offset for sidebar ═══ */
         .main-content {
-            margin-left: 160px;
+            margin-left: 240px;
         }
 
         /* ═══ CASE STUDY LAYOUT ═══ */
@@ -91,8 +83,8 @@
         .wide { max-width: 1680px; margin-left: auto; margin-right: auto; padding: 0 60px; }
 
         /* ═══ HERO ═══ */
-        .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
-        .hero-logo { height: 40px; margin-bottom: 20px; }
+        .hero { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0 40px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero-left { flex: 1; }
         .hero h1 {
             font-family: 'Bespoke Slab', serif;
             font-weight: 400;
@@ -106,13 +98,14 @@
             font-weight: 300;
             color: var(--text-muted);
             line-height: 1.6;
-            max-width: 520px;
-            margin: 0 auto 36px;
+            max-width: 100%;
         }
-        .meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .meta-item { text-align: center; }
-        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
-        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); max-width: 180px; }
+        .meta { display: flex; flex-direction: row; align-items: flex-start; margin-top: 24px; width: 100%; }
+        .meta-item { flex: 1; text-align: left; }
+        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); }
+        .meta-tags { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
+        .meta-tag { font-size: 0.82rem; font-weight: 400; color: var(--text-muted); background: #f0f0f0; padding: 4px 10px; border-radius: 4px; display: inline-block; }
 
         /* ═══ IMAGES & VIDEOS ═══ */
         .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; }
@@ -1258,9 +1251,8 @@
         @media (max-width: 640px) {
             .case-study { padding: 0 20px; }
             .wide { padding: 0 20px; }
-            .hero { padding: 48px 0 40px; }
+            .hero { padding: 48px 0 40px; flex-direction: column; }
             .hero h1 { font-size: 1.8rem; }
-            .meta { gap: 24px; }
             .section { padding: 64px 0; }
             .section-heading { font-size: 1.35rem; }
             .problem-grid { grid-template-columns: 1fr; gap: 16px; }
@@ -1325,7 +1317,6 @@
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
-    <a href="/" class="sidebar-back">&larr; Back</a>
     <a href="#hero" class="sidebar-link active">Hero</a>
     <a href="#overview" class="sidebar-link">Overview</a>
     <a href="#problem" class="sidebar-link">Problem</a>
@@ -1344,23 +1335,33 @@
 <!-- ════════════════════════════════════════ -->
 <!-- 1. HERO -->
 <!-- ════════════════════════════════════════ -->
-<div class="case-study">
+<div class="wide">
     <section id="hero" class="hero">
-        <img src="images/weave/LOGO.png" alt="Weave logo" class="hero-logo">
-        <h1>A Platform for Global Market Entry</h1>
-        <p class="hero-sub">A workflow tool that helps companies find, evaluate, contract, and collaborate with overseas partners, all in one flow.</p>
-        <div class="meta">
-            <div class="meta-item">
-                <p class="meta-label">Role</p>
-                <p class="meta-value">UX Research Lead, Product Strategy, Interaction Design</p>
-            </div>
-            <div class="meta-item">
-                <p class="meta-label">Timeline</p>
-                <p class="meta-value">Jul 2025 – Jan 2026</p>
-            </div>
-            <div class="meta-item">
-                <p class="meta-label">Team</p>
-                <p class="meta-value">Summer Hwang, Sea Ahn, Jihyeon Jeon</p>
+        <div class="hero-left">
+            <h1><span class="cutout">Weave</span></h1>
+            <p class="hero-sub">A Platform for Global Market Entry.</p>
+            <p class="hero-sub">A workflow tool that helps companies find, evaluate, contract, and collaborate with overseas partners, all in one flow.</p>
+            <div class="meta">
+                <div class="meta-item">
+                    <p class="meta-label">Role</p>
+                    <div class="meta-tags">
+                        <span class="meta-tag">UX Research Lead</span>
+                        <span class="meta-tag">Product Strategy</span>
+                        <span class="meta-tag">Interaction Design</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <p class="meta-label">Timeline</p>
+                    <p class="meta-value">Jul 2025 – Jan 2026</p>
+                </div>
+                <div class="meta-item">
+                    <p class="meta-label">Team</p>
+                    <div class="meta-tags">
+                        <span class="meta-value">Summer Hwang</span>
+                        <span class="meta-value">Sea Ahn</span>
+                        <span class="meta-value">Jihyeon Jeon</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1688,8 +1689,8 @@
                         <p>Global legaltech offers advanced regulatory solutions — but they're priced and scoped for large corporations, leaving SMEs with manual, error-prone processes.</p>
                     </div>
                     <div class="desk-insight">
-                        <h4>Failure patterns are predictable</h4>
-                        <p>Across cases, the same gaps recur: underestimating local regulations, lacking market-specific data, and over-relying on a single partner without verification.</p>
+                        <h4>Over-reliance on partners leads to failure</h4>
+                        <p>Companies often over-rely on local partners who lack a solid understanding of the business, giving them outsized influence over critical decisions — ultimately undermining the HQ's control and leading to expansion failure.</p>
                     </div>
                 </div>
             </div>

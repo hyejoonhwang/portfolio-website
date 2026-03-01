@@ -35,35 +35,22 @@
             font-display: swap;
         }
 
-        :root { --accent: #8B7DCA; }
+        :root { --accent: #FA5D2A; }
 
         /* ═══ SIDEBAR ═══ */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 160px;
+            width: 240px;
             height: 100vh;
             padding: 80px 20px 40px 24px;
             display: flex;
             flex-direction: column;
             gap: 0;
-            z-index: 100;
+            z-index: 90;
             overflow-y: auto;
         }
-
-        .sidebar-back {
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-bottom: 28px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.3s;
-        }
-        .sidebar-back:hover { color: var(--text); }
 
         .sidebar-link {
             font-size: 0.72rem;
@@ -72,25 +59,31 @@
             text-decoration: none;
             padding: 5px 0;
             line-height: 1.4;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: block;
         }
         .sidebar-link:hover { color: var(--text-muted); }
         .sidebar-link.active {
-            color: var(--text);
+            color: var(--accent);
             font-weight: 500;
+            font-size: 1.01rem;
+            white-space: nowrap;
+        }
+        .sidebar-link.active::after {
+            content: ' ·';
         }
 
         /* ═══ MAIN CONTENT — offset for sidebar ═══ */
         .main-content {
-            margin-left: 160px;
+            margin-left: 240px;
         }
 
         /* ═══ CASE STUDY LAYOUT ═══ */
         .case-study { max-width: 1440px; margin: 0 auto; padding: 0 60px; }
 
         /* ═══ HERO ═══ */
-        .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0 40px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero-left { flex: 1; }
         .hero h1 {
             font-family: 'Bespoke Slab', serif;
             font-weight: 400;
@@ -104,13 +97,8 @@
             font-weight: 300;
             color: var(--text-muted);
             line-height: 1.6;
-            max-width: 520px;
-            margin: 0 auto 36px;
+            max-width: 860px;
         }
-        .meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .meta-item { text-align: center; }
-        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
-        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); max-width: 180px; }
 
         /* ═══ VIDEO EMBED ═══ */
         .video-embed {
@@ -184,7 +172,6 @@
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
-    <a href="/" class="sidebar-back">&larr; Back</a>
     <a href="#hero" class="sidebar-link active">Hero</a>
     <a href="#reel" class="sidebar-link">Reel</a>
 </aside>
@@ -194,13 +181,9 @@
 
 <div class="case-study">
     <section id="hero" class="hero">
-        <h1><span class="cutout">VFX Portfolio</span></h1>
-        <p class="hero-sub">A collection of visual effects compositing work — combining live-action footage with CG elements to create seamless final images.</p>
-        <div class="meta">
-            <div class="meta-item">
-                <p class="meta-label">Role</p>
-                <p class="meta-value">VFX Compositor</p>
-            </div>
+        <div class="hero-left">
+            <h1><span class="cutout">VFX Portfolio</span></h1>
+            <p class="hero-sub">A collection of visual effects compositing work — combining live-action footage with CG elements to create seamless final images.</p>
         </div>
     </section>
 </div>

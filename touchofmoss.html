@@ -35,35 +35,22 @@
             font-display: swap;
         }
 
-        :root { --accent: #4A7C59; }
+        :root { --accent: #FA5D2A; }
 
         /* ═══ SIDEBAR ═══ */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 160px;
+            width: 240px;
             height: 100vh;
             padding: 80px 20px 40px 24px;
             display: flex;
             flex-direction: column;
             gap: 0;
-            z-index: 100;
+            z-index: 90;
             overflow-y: auto;
         }
-
-        .sidebar-back {
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            margin-bottom: 28px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.3s;
-        }
-        .sidebar-back:hover { color: var(--text); }
 
         .sidebar-link {
             font-size: 0.72rem;
@@ -72,18 +59,23 @@
             text-decoration: none;
             padding: 5px 0;
             line-height: 1.4;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: block;
         }
         .sidebar-link:hover { color: var(--text-muted); }
         .sidebar-link.active {
-            color: var(--text);
+            color: var(--accent);
             font-weight: 500;
+            font-size: 1.01rem;
+            white-space: nowrap;
+        }
+        .sidebar-link.active::after {
+            content: ' ·';
         }
 
         /* ═══ MAIN CONTENT — offset for sidebar ═══ */
         .main-content {
-            margin-left: 160px;
+            margin-left: 240px;
         }
 
         /* ═══ CASE STUDY LAYOUT ═══ */
@@ -91,7 +83,8 @@
         .wide { max-width: 1680px; margin-left: auto; margin-right: auto; padding: 0 60px; }
 
         /* ═══ HERO ═══ */
-        .hero { text-align: center; padding: 72px 0 56px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0 40px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero-left { flex: 1; }
         .hero h1 {
             font-family: 'Bespoke Slab', serif;
             font-weight: 400;
@@ -105,15 +98,25 @@
             font-weight: 300;
             color: var(--text-muted);
             line-height: 1.6;
-            max-width: 520px;
-            margin: 0 auto 36px;
+            max-width: 860px;
         }
-        .meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .meta-item { text-align: center; }
-        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
-        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); max-width: 180px; }
-        .meta-value a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
-        .meta-value a:hover { border-color: var(--accent); }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+        .hero-cta:hover { opacity: 0.85; }
+        .hero-cta svg { width: 14px; height: 14px; }
 
         /* ═══ IMAGES ═══ */
         .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; }
@@ -220,7 +223,6 @@
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
-    <a href="/" class="sidebar-back">&larr; Back</a>
     <a href="#hero" class="sidebar-link active">Hero</a>
     <a href="#demo" class="sidebar-link">Demo</a>
     <a href="#overview" class="sidebar-link">Overview</a>
@@ -232,23 +234,11 @@
 <!-- ════════════════════════════════════════ -->
 <!-- 1. HERO -->
 <!-- ════════════════════════════════════════ -->
-<div class="case-study">
+<div class="wide">
     <section id="hero" class="hero">
-        <h1><span class="cutout">Touch of Moss</span></h1>
-        <p class="hero-sub">An interactive installation where touching moss triggers pulsing LEDs and ambient sound — a metaphor for human connection with nature's rhythm.</p>
-        <div class="meta">
-            <div class="meta-item">
-                <p class="meta-label">Role</p>
-                <p class="meta-value">Ideation, Fabrication, HCI, UX Design, Prototyping, Physical Computing</p>
-            </div>
-            <div class="meta-item">
-                <p class="meta-label">The Team</p>
-                <p class="meta-value">Summer & Alua</p>
-            </div>
-            <div class="meta-item">
-                <p class="meta-label">Context</p>
-                <p class="meta-value">ITP Physical Computing</p>
-            </div>
+        <div class="hero-left">
+            <h1><span class="cutout">Touch of Moss</span></h1>
+            <p class="hero-sub">An interactive installation where touching moss triggers pulsing LEDs and ambient sound — a metaphor for human connection with nature's rhythm.</p>
         </div>
     </section>
 </div>
