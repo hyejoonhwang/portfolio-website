@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Chat App — Summer</title>
+    <title>Dot Your Story — Summer</title>
     <link rel="stylesheet" href="shared.css">
     <style>
         @font-face {
@@ -91,8 +91,8 @@
         .wide { max-width: 1680px; margin-left: auto; margin-right: auto; padding: 0 60px; }
 
         /* ═══ HERO ═══ */
-        .hero { display: flex; flex-direction: column; padding: 16px 0 40px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
-        .hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .hero { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0 40px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+        .hero-left { flex: 1; }
         .hero h1 {
             font-family: 'Bespoke Slab', serif;
             font-weight: 400;
@@ -106,7 +106,7 @@
             font-weight: 300;
             color: var(--text-muted);
             line-height: 1.6;
-            max-width: none;
+            max-width: 860px;
         }
         .hero-cta {
             display: inline-flex;
@@ -128,7 +128,6 @@
 
         /* ═══ IMAGES ═══ */
         .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; }
-        .img-vertical { width: auto; max-height: 75vh; border-radius: 4px; display: block; margin: 0 auto; }
 
         /* ═══ SECTIONS ═══ */
         .section { padding: 100px 0; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -191,7 +190,7 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .exp-step-num--user { background: #007AFF; }
+        .exp-step-num--user { background: #2A2725; }
         .exp-step-num--system { background: #8E8E93; }
         .exp-step-num--output { background: #FA5D2A; }
 
@@ -202,7 +201,7 @@
             border-radius: 1px;
         }
         .exp-step-line--user {
-            background: linear-gradient(to bottom, #007AFF, rgba(0,122,255,0.1));
+            background: linear-gradient(to bottom, #2A2725, rgba(42,39,37,0.1));
         }
         .exp-step-line--system {
             background: linear-gradient(to bottom, #8E8E93, rgba(142,142,147,0.1));
@@ -268,7 +267,7 @@
             height: 10px;
             border-radius: 50%;
         }
-        .exp-legend-dot--user { background: #007AFF; }
+        .exp-legend-dot--user { background: #2A2725; }
         .exp-legend-dot--system { background: #8E8E93; }
         .exp-legend-dot--output { background: #FA5D2A; }
 
@@ -359,8 +358,8 @@
             margin-top: 16px;
         }
         .decision-tag--ux {
-            color: #007AFF;
-            background: rgba(0,122,255,0.08);
+            color: #2A2725;
+            background: rgba(42,39,37,0.08);
         }
         .decision-tag--eng {
             color: var(--text-muted);
@@ -413,8 +412,7 @@
             .meta { gap: 24px; }
             .section { padding: 64px 0; }
             .section-heading { font-size: 1.35rem; }
-            .hero-top { flex-direction: column; gap: 16px; }
-            .img-vertical { width: 100%; max-height: none; }
+            .hero { flex-direction: column; gap: 16px; }
             .exp-step { grid-template-columns: 36px 1fr; gap: 14px; padding-bottom: 32px; }
             .exp-step-num { width: 28px; height: 28px; font-size: 0.65rem; }
             .exp-step-title { font-size: 1.05rem; }
@@ -454,7 +452,6 @@
     <a href="#experience" class="sidebar-link">The Experience</a>
     <a href="#how-it-works" class="sidebar-link">How It Works</a>
     <a href="#design-decisions" class="sidebar-link">Design Decisions</a>
-    <a href="#earlier-variation" class="sidebar-link">Earlier Variation</a>
 </aside>
 
 <!-- MAIN CONTENT -->
@@ -465,16 +462,16 @@
 <!-- ════════════════════════════════════════ -->
 <div class="wide">
     <section id="hero" class="hero">
-        <div class="hero-top">
-            <h1><span class="cutout">Music Chat App</span></h1>
-            <a href="https://series-lives-omissions-visibility.trycloudflare.com/" target="_blank" rel="noopener" class="hero-cta">Go to project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+        <div class="hero-left">
+            <h1><span class="cutout">Dot Your Story</span></h1>
+            <p class="hero-sub">An interactive dot map of NYC where every dot is a place and every place holds a story. Click a dot, leave yours.</p>
         </div>
-        <p class="hero-sub">A chat app where you talk in songs instead of texts.<br>Type what you want to say, and the app finds a song that says it for you.</p>
+        <a href="http://138.197.43.202:5001/final/" target="_blank" rel="noopener" class="hero-cta">Go to project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
     </section>
 </div>
 
 <div class="wide">
-    <img src="images/musicchat-cover-fast.gif" alt="Music Chat App — searching for songs by lyrics" class="img-vertical">
+    <img src="images/dotyourstory-cover.gif" alt="Dot Your Story — interactive NYC dot map" class="img-full">
 </div>
 
 <!-- ════════════════════════════════════════ -->
@@ -483,9 +480,10 @@
 <div class="case-study">
     <section id="overview" class="section">
         <p class="section-label">Overview</p>
-        <h2 class="section-heading">What if you could text someone a song instead of words?</h2>
-        <p class="section-body">Sometimes a song says it better than you can. You type what you want to say, hit send, and instead of your words showing up in the chat, a song bubble appears with the matched lyric, album art, and a link to listen.</p>
-        <p class="section-body" style="margin-top: 16px;">People already share songs in conversations to say what they're feeling. This app just skips the manual part. The interface looks like a normal chat, but every message is a song.</p>
+        <h2 class="section-heading">A map made of dots, filled with stories</h2>
+        <p class="section-body">Dot Your Story is a web app that turns the shape of New York City into a grid of tiny dots. Each dot represents a real location on the map. You click one, and you can read the stories people have left there or add your own — your name, your favorite spot, what happened.</p>
+        <p class="section-body" style="margin-top: 16px;">The dot grid is built from a hand-mapped binary array — 58 columns by 76 rows — where 1s form the land mass of NYC and 0s are empty space. As stories accumulate on a dot, it visually changes: from a small unclaimed point to a filled circle, getting larger and more colorful the more stories it holds.</p>
+        <p class="section-body" style="margin-top: 16px;">The backend is Express with NeDB for persistence. No accounts, no login. You just click and write. The whole thing runs on vanilla HTML, CSS, and JS with a monospace aesthetic that keeps the focus on the dots and the words people leave behind.</p>
     </section>
 </div>
 
@@ -497,8 +495,8 @@
 <div class="case-study">
     <section id="experience" class="section">
         <p class="section-label">The Experience</p>
-        <h2 class="section-heading">It should feel like texting — but every message is a song</h2>
-        <p class="section-body">It looks and feels like a normal text conversation. You never leave the chat to search for music.</p>
+        <h2 class="section-heading">Click a dot, leave a story</h2>
+        <p class="section-body">There's no onboarding, no sign-up. You see the map, you click a dot, you write.</p>
 
         <div class="exp-legend">
             <span class="exp-legend-item"><span class="exp-legend-dot exp-legend-dot--user"></span> You</span>
@@ -506,31 +504,31 @@
             <span class="exp-legend-item"><span class="exp-legend-dot exp-legend-dot--output"></span> Output</span>
         </div>
 
-        <!-- Step 01: Type -->
+        <!-- Step 01: See the map -->
         <div class="exp-step">
             <div class="exp-step-marker">
                 <span class="exp-step-num exp-step-num--user">01</span>
                 <span class="exp-step-line exp-step-line--user"></span>
             </div>
             <div class="exp-step-content">
-                <h3 class="exp-step-title">Type what you feel</h3>
-                <p class="exp-step-subtitle">Natural language input</p>
-                <p class="exp-step-body">Open the chat and type whatever is on your mind — a feeling, a phrase, a thought. No need to know song titles or artists. Just say what you want to say, the way you'd say it in a text.</p>
-                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Chat input with iMessage styling</span>
+                <h3 class="exp-step-title">See the map</h3>
+                <p class="exp-step-subtitle">NYC rendered in dots</p>
+                <p class="exp-step-body">The page loads with the full dot grid — the shape of New York City drawn entirely in monospace characters. Dots that already have stories appear larger and more colorful. Unclaimed dots stay small and quiet.</p>
+                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 58 x 76 binary dot grid</span>
             </div>
         </div>
 
-        <!-- Step 02: Send -->
+        <!-- Step 02: Click a dot -->
         <div class="exp-step">
             <div class="exp-step-marker">
                 <span class="exp-step-num exp-step-num--user">02</span>
                 <span class="exp-step-line exp-step-line--user"></span>
             </div>
             <div class="exp-step-content">
-                <h3 class="exp-step-title">Hit send</h3>
-                <p class="exp-step-subtitle">Message intercepted</p>
-                <p class="exp-step-body">When you hit the send button, your text doesn't appear as a regular message. Instead, the app intercepts it and begins searching for the song whose lyrics most closely match what you typed.</p>
-                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg> Message event handler</span>
+                <h3 class="exp-step-title">Click a dot</h3>
+                <p class="exp-step-subtitle">Popup appears at the click point</p>
+                <p class="exp-step-body">Click any land dot and a popup opens right where you clicked. It shows any stories that already live on that dot — who wrote them, their favorite spot, what happened there. If it's unclaimed, you're the first.</p>
+                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> Click-positioned popup</span>
             </div>
         </div>
 
@@ -538,36 +536,36 @@
         <div class="exp-handoff">
             <div class="exp-handoff-line"></div>
             <div class="exp-handoff-badge">
-                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                Searching lyrics
+                <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                Writing a story
             </div>
             <div class="exp-handoff-line"></div>
         </div>
 
-        <!-- Step 03: Match -->
+        <!-- Step 03: Write your story -->
         <div class="exp-step">
             <div class="exp-step-marker">
                 <span class="exp-step-num exp-step-num--system">03</span>
                 <span class="exp-step-line exp-step-line--system"></span>
             </div>
             <div class="exp-step-content">
-                <h3 class="exp-step-title">Best match found</h3>
-                <p class="exp-step-subtitle">Lyrics scored and ranked</p>
-                <p class="exp-step-body">The app searches a lyrics database and scores every line against your message. The song with the closest matching lyric is selected, then enriched with album artwork, artist info, and a playback link from the Spotify API.</p>
-                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Lyrics API + Spotify metadata</span>
+                <h3 class="exp-step-title">Write your story</h3>
+                <p class="exp-step-subtitle">Name, spot, and what happened</p>
+                <p class="exp-step-body">The form asks for three things: your name, your favorite spot in that area, and what happened there. No character limits, no rules. Just write what you remember about this part of the city.</p>
+                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> POST to Express + NeDB</span>
             </div>
         </div>
 
-        <!-- Step 04: Deliver -->
+        <!-- Step 04: Dot changes -->
         <div class="exp-step">
             <div class="exp-step-marker">
                 <span class="exp-step-num exp-step-num--output">04</span>
             </div>
             <div class="exp-step-content">
-                <h3 class="exp-step-title">Song delivered</h3>
-                <p class="exp-step-subtitle">Chat bubble with playback</p>
-                <p class="exp-step-body">Instead of your text, a song bubble appears in the chat — showing the matched lyric, album art, artist name, and a link to listen. The conversation becomes a playlist, each message a song that says what you couldn't.</p>
-                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Inline audio preview</span>
+                <h3 class="exp-step-title">The dot grows</h3>
+                <p class="exp-step-subtitle">Visual feedback on the map</p>
+                <p class="exp-step-body">After you submit, the dot updates instantly — it gets bigger and changes color based on how many stories it now holds. The grid rebuilds without a page reload, and the popup refreshes to show your new story alongside any others.</p>
+                <span class="exp-tech-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg> Live grid rebuild</span>
             </div>
         </div>
     </section>
@@ -581,8 +579,8 @@
 <div class="case-study">
     <section id="how-it-works" class="section">
         <p class="section-label">How It Works</p>
-        <h2 class="section-heading">Type a message, send a song — here's what happens behind the scenes</h2>
-        <p class="section-body">The flow is designed to feel like normal texting — you type, you hit send. But instead of your words landing in the chat, the app intercepts your message, finds the song that best matches what you were trying to say, and delivers it as a rich song bubble. The whole process happens in the background so the experience stays conversational.</p>
+        <h2 class="section-heading">From a dot click to a saved story — here's the flow</h2>
+        <p class="section-body">The app loads all stories from the server on page load, counts how many belong to each dot, and renders the grid accordingly. When you click a dot, it fetches that dot's stories and opens a popup. When you submit, the story is saved to NeDB, the local count updates, and the grid redraws — all without a page reload.</p>
         <div class="flow-diagram-wrap">
             <svg id="flow-diagram" preserveAspectRatio="xMidYMid meet"></svg>
         </div>
@@ -592,59 +590,40 @@
 <div class="case-study"><hr class="divider"></div>
 
 <!-- ════════════════════════════════════════ -->
-<!-- 6. DESIGN DECISIONS -->
+<!-- 5. DESIGN DECISIONS -->
 <!-- ════════════════════════════════════════ -->
 <div class="case-study">
     <section id="design-decisions" class="section">
         <p class="section-label">Design Decisions</p>
         <h2 class="section-heading">Why it works this way</h2>
-        <p class="section-body">Some choices that shaped how the app works.</p>
+        <p class="section-body">Some choices that shaped how the app feels.</p>
 
         <div class="decisions-grid">
             <div class="decision-card">
                 <span class="decision-num">01</span>
-                <h4>Why a chat interface instead of a search bar?</h4>
-                <p>A search bar makes you think about what song you want. A chat input makes you think about what you want to say. That shift changes the whole interaction.</p>
+                <h4>Why dots instead of a real map?</h4>
+                <p>A real map comes with too much visual noise — streets, labels, satellite imagery. Dots strip all of that away and turn the city into something abstract. You recognize the shape, but the focus stays on the stories, not the geography.</p>
                 <div class="decision-tag decision-tag--ux">UX</div>
             </div>
             <div class="decision-card">
                 <span class="decision-num">02</span>
-                <h4>Why match by lyrics instead of song title?</h4>
-                <p>Nobody thinks in song titles. You think in feelings. So if you type "I miss you," you get a song that literally says that, not one that happens to have it in the title.</p>
+                <h4>Why do dots change as stories accumulate?</h4>
+                <p>Without visual feedback, every dot looks the same and nothing feels alive. Dots that grow and change color tell you at a glance where the stories are — they create a heat map of collective memory across the city.</p>
                 <div class="decision-tag decision-tag--ux">UX</div>
             </div>
             <div class="decision-card">
                 <span class="decision-num">03</span>
-                <h4>Why show the matched lyric line in the bubble?</h4>
-                <p>You typed something and the song echoes it back. Without seeing the matched lyric, the connection between your message and the song would feel random. Showing the line is what makes it click.</p>
+                <h4>Why no accounts or login?</h4>
+                <p>Adding authentication would kill the spontaneity. The whole point is that anyone can click a dot and leave a story in seconds. Friction-free input means more stories, and more stories means a richer map.</p>
                 <div class="decision-tag decision-tag--ux">UX</div>
             </div>
             <div class="decision-card">
                 <span class="decision-num">04</span>
-                <h4>Why the iMessage visual language?</h4>
-                <p>The blue send bubble, grey receive bubble, and rounded card layout all borrow from iOS messaging conventions. Using a familiar visual language means users already know how to interact — the novelty is in what appears, not how to use it.</p>
-                <div class="decision-tag decision-tag--eng">Design</div>
+                <h4>Why a binary grid array for the map?</h4>
+                <p>The NYC shape is encoded as a flat array of 0s and 1s — 4,408 values, 58 columns wide. It's the simplest possible data structure for a pixel map. No GeoJSON, no tile server, no map library. Just an array and a flex-wrap grid.</p>
+                <div class="decision-tag decision-tag--eng">Engineering</div>
             </div>
         </div>
-    </section>
-</div>
-
-<div class="case-study"><hr class="divider"></div>
-
-<!-- ════════════════════════════════════════ -->
-<!-- 7. EARLIER VARIATION -->
-<!-- ════════════════════════════════════════ -->
-<div class="case-study">
-    <section id="earlier-variation" class="section">
-        <p class="section-label">Earlier Variation</p>
-        <h2 class="section-heading">Lyrics Search — where this idea started</h2>
-        <p class="section-body">Before turning this into a chat app, I built a standalone lyrics search engine as an earlier experiment with the same music APIs. Same core idea — type a feeling, get a song — but presented as a traditional search interface instead of a conversation.</p>
-        <p class="section-body" style="margin-top: 16px;">That version ran a multi-step pipeline: querying the Genius API for candidates, scraping and parsing full lyrics, scoring each song with a sliding-window matching algorithm, then enriching the best result with Spotify album art and a YouTube video. It also fetched synced lyrics from LRCLIB to calculate precise timestamps, so the song would play from the exact line that matched your input.</p>
-        <p class="section-body" style="margin-top: 16px;">The stack was intentionally lean — Express, SQLite, Socket.io, and vanilla HTML/CSS/JS. No frameworks, no build tools. The music chat app grew out of this project once I realized the search worked well enough to wrap in a conversational interface.</p>
-        <div style="margin-top: 32px;">
-            <img src="images/lyricssearch-cover-fast.gif" alt="Lyrics Search — earlier variation" class="img-full">
-        </div>
-        <p class="section-body" style="margin-top: 20px;"><a href="https://github.com/hyejoonhwang/liveweb-hw3" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline;">View source on GitHub &rarr;</a></p>
     </section>
 </div>
 
@@ -732,10 +711,10 @@
     if (!svg || typeof rough === 'undefined') return;
 
     var nodes = [
-        { label: 'Type', sub: 'say what\'s on your mind', fill: '#D4E8FF', stroke: '#007AFF', seed: 111 },
-        { label: 'Match', sub: 'search lyrics database', fill: '#D4E8FF', stroke: '#007AFF', seed: 222 },
-        { label: 'Enrich', sub: 'pull album art + metadata', fill: '#E9E9EB', stroke: '#8E8E93', seed: 333 },
-        { label: 'Deliver', sub: 'song as chat bubble', fill: '#FFF0E6', stroke: '#FA5D2A', seed: 444 }
+        { label: 'Load', sub: 'fetch all stories', fill: '#F3F3F1', stroke: '#2A2725', seed: 111 },
+        { label: 'Click', sub: 'select a dot', fill: '#F3F3F1', stroke: '#2A2725', seed: 222 },
+        { label: 'Write', sub: 'submit your story', fill: '#E9E9EB', stroke: '#8E8E93', seed: 333 },
+        { label: 'Update', sub: 'dot grows on map', fill: '#FFF0E6', stroke: '#FA5D2A', seed: 444 }
     ];
 
     var FONT = "'Excalifont', 'Caveat', cursive";
@@ -772,28 +751,30 @@
 
     function drawIcon(rc, parent, type, cx, cy, color, seed) {
         var opts = { roughness: 1.2, stroke: color, strokeWidth: 1.5, fill: 'none', seed: seed };
-        if (type === 'chat') {
-            // Speech bubble
-            parent.appendChild(rc.rectangle(cx - 12, cy - 8, 24, 16, opts));
-            parent.appendChild(rc.linearPath([[cx - 4, cy + 8], [cx - 2, cy + 14], [cx + 4, cy + 8]], opts));
-        } else if (type === 'search') {
-            // Magnifying glass
-            parent.appendChild(rc.circle(cx - 2, cy - 2, 16, opts));
-            parent.appendChild(rc.line(cx + 5, cy + 5, cx + 12, cy + 12, opts));
-        } else if (type === 'music') {
-            // Music note
-            parent.appendChild(rc.circle(cx - 4, cy + 6, 8, { ...opts, fill: color, fillStyle: 'solid' }));
-            parent.appendChild(rc.line(cx, cy + 6, cx, cy - 10, opts));
-            parent.appendChild(rc.linearPath([[cx, cy - 10], [cx + 8, cy - 7], [cx + 8, cy - 4]], opts));
-        } else if (type === 'play') {
-            // Play triangle
-            parent.appendChild(rc.linearPath([
-                [cx - 7, cy - 10], [cx + 10, cy], [cx - 7, cy + 10], [cx - 7, cy - 10]
-            ], { ...opts, fill: color, fillStyle: 'solid' }));
+        if (type === 'load') {
+            // Database / stack
+            parent.appendChild(rc.ellipse(cx, cy - 6, 22, 10, opts));
+            parent.appendChild(rc.line(cx - 11, cy - 6, cx - 11, cy + 6, opts));
+            parent.appendChild(rc.line(cx + 11, cy - 6, cx + 11, cy + 6, opts));
+            parent.appendChild(rc.ellipse(cx, cy + 6, 22, 10, opts));
+        } else if (type === 'click') {
+            // Cursor / pointer
+            parent.appendChild(rc.circle(cx, cy, 20, opts));
+            parent.appendChild(rc.circle(cx, cy, 6, { ...opts, fill: color, fillStyle: 'solid' }));
+        } else if (type === 'write') {
+            // Pencil
+            parent.appendChild(rc.rectangle(cx - 10, cy - 12, 20, 24, opts));
+            parent.appendChild(rc.line(cx - 5, cy - 5, cx + 5, cy - 5, opts));
+            parent.appendChild(rc.line(cx - 5, cy + 1, cx + 5, cy + 1, opts));
+            parent.appendChild(rc.line(cx - 5, cy + 7, cx + 2, cy + 7, opts));
+        } else if (type === 'update') {
+            // Growing dot
+            parent.appendChild(rc.circle(cx, cy, 10, { ...opts, fill: color, fillStyle: 'solid' }));
+            parent.appendChild(rc.circle(cx, cy, 22, opts));
         }
     }
 
-    var iconTypes = ['chat', 'search', 'music', 'play'];
+    var iconTypes = ['load', 'click', 'write', 'update'];
 
     function drawHorizontal(rc) {
         var nw = 170, nh = 100, gx = 50, pad = 15;
@@ -801,9 +782,9 @@
         var totalH = 170;
         svg.setAttribute('viewBox', '0 0 ' + totalW + ' ' + totalH);
 
-        // "User side" / "Output" labels
-        addText(svg, pad + nw, 16, 'User side', 16, '#007AFF');
-        addText(svg, pad + 3 * (nw + gx) + nw / 2, 16, 'Output', 16, '#FA5D2A');
+        // "Client" / "Server" labels
+        addText(svg, pad + nw, 16, 'Client', 16, '#2A2725');
+        addText(svg, pad + 3 * (nw + gx) + nw / 2, 16, 'Result', 16, '#FA5D2A');
 
         // Dashed divider between node 2 and 3
         var divX = pad + 2 * (nw + gx) + nw + gx / 2;
@@ -846,7 +827,7 @@
         svg.setAttribute('viewBox', '0 0 ' + containerW + ' ' + totalH);
 
         // Flow label
-        addText(svg, containerW / 2, 18, 'User side  →  Output', 15, '#A8A29D');
+        addText(svg, containerW / 2, 18, 'Client  →  Result', 15, '#A8A29D');
 
         // Dashed divider between node 2 and 3
         var divY = 36 + 2 * nh + 1.5 * gy;
