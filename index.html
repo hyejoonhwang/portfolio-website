@@ -7,33 +7,20 @@
     <link rel="stylesheet" href="shared.css">
     <style>
 
-        /* ═══ GRID ═══ */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: 1fr 1fr;
-            gap: var(--gap);
-            padding: 2px var(--gap) var(--gap);
-            height: calc(100vh - 66px);
-        }
-
-        .card {
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* ═══ BIO CARD ═══ */
+        /* ═══ BIO SECTION ═══ */
         .bio {
-            background: transparent;
-            border: none;
-            border-radius: 0;
-            padding: 20px 28px 14px;
+            padding: 24px var(--gap) 16px;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 10px;
+            align-items: center;
+            gap: 24px;
             animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+
+        .bio-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
         }
 
         .bio-sticker {
@@ -59,14 +46,40 @@
             display: block;
         }
 
+        .bio-location {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .bio-location-based {
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .bio-location-city {
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+        .bio-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
         .bio-body {
             font-family: 'Gambarino', Georgia, serif;
             font-size: 1.12rem;
             line-height: 1.35;
             color: var(--text);
             font-weight: 400;
-            text-align: justify;
             letter-spacing: -0.01em;
+            flex: 1;
         }
 
         .bio-body strong {
@@ -94,13 +107,6 @@
             font-style: italic;
         }
 
-        .bio-body .cl { font-weight: 600; }
-        .bio-body .c1 { color: #F5542E; }
-        .bio-body .c2 { color: #F2C327; }
-        .bio-body .c3 { color: #008B6E; }
-        .bio-body .c4 { color: #00AEDE; }
-        .bio-body .c5 { color: #0067AD; }
-
         .bio-link {
             color: inherit;
             text-decoration: none;
@@ -112,67 +118,20 @@
             transform: scale(1.08);
         }
 
-        /* ═══ BIO TOP ROW: sticker + location ═══ */
-        .bio-top {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        /* ═══ PROJECT GRID ═══ */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr 1fr;
+            gap: var(--gap);
+            padding: 2px var(--gap) var(--gap);
+            flex: 1;
         }
 
-        .bio-location {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-        }
-
-        .bio-location-based {
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            letter-spacing: 0.02em;
-        }
-
-        .bio-location-city {
-            font-size: 1rem;
-            line-height: 1.2;
-        }
-
-        /* ═══ BIO CTA ═══ */
-        .bio-cta {
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bio-cta-phone {
-            display: inline-block;
-            font-size: 1.1rem;
-            transform: rotate(-12deg);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .bio-cta:hover .bio-cta-phone {
-            transform: rotate(8deg) scale(1.1);
-        }
-
-        .bio-cta a {
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            text-decoration-line: underline;
-            text-decoration-color: var(--border);
-            text-underline-offset: 3px;
-            text-decoration-thickness: 1px;
-            transition: color 0.3s ease, text-decoration-color 0.3s ease;
-        }
-
-        .bio-cta a:hover {
-            color: var(--text);
-            text-decoration-color: var(--accent);
+        .card {
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
         }
 
         /* ═══ PROJECT CARDS ═══ */
@@ -197,7 +156,7 @@
             height: 50%;
             background: linear-gradient(to top, rgba(255,255,255,0.85), transparent);
             pointer-events: none;
-            border-radius: 0 0 12px 12px;
+            border-radius: 0 0 4px 4px;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -237,7 +196,7 @@
         }
 
         .project-title {
-            font-family: 'General Sans', sans-serif;
+            font-family: 'Gambarino', Georgia, serif;
             font-weight: 400;
             font-size: 1.105rem;
             letter-spacing: 0.01em;
@@ -260,21 +219,22 @@
             transform: translateX(0);
         }
 
+        .project-placeholder {
+            border: 1.5px dashed var(--border);
+            border-radius: 4px;
+        }
+
         /* ═══ CARD BACKGROUNDS ═══ */
         .p1 {
             background: url('images/weave/website-landing-page-cover.png') center/cover no-repeat;
         }
-        .p5 {
-            background: url('images/controlmylaptop/cover-placeholder.png') center/cover no-repeat;
-        }
-        .p4 {
-            background: url('images/musicchat-cover-fast.gif') center/cover no-repeat;
-        }
-        .p3 {
-            background: url('images/dotyourstory-cover.gif') center/cover no-repeat;
-        }
-        .p2 {
-            background: url('images/dearflower-cover-fast.gif') center/cover no-repeat;
+
+        .project video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* ═══ STAGGER ANIMATIONS ═══ */
@@ -285,16 +245,19 @@
         .grid > :nth-child(5) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.17s both; }
         .grid > :nth-child(6) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; }
 
+        /* ═══ LAYOUT WRAPPER ═══ */
+        .page-content {
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 66px);
+        }
+
         /* ═══ TABLET ═══ */
         @media (max-width: 1024px) {
             nav { padding: 0 16px; }
 
-            .grid {
-                height: auto;
-                min-height: calc(100vh - 66px);
-            }
-
             .bio {
+                flex-wrap: wrap;
                 padding: 20px 24px 16px;
             }
 
@@ -309,22 +272,28 @@
                 height: 56px;
             }
 
+            .bio {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 20px 12px;
+            }
+
+            .bio-right {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .bio-body { font-size: 1.15rem; }
+
             .grid {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto;
-                height: auto;
-                min-height: auto;
+                flex: none;
             }
 
             .project {
                 min-height: 220px;
             }
-
-            .bio {
-                padding: 16px 20px 12px;
-            }
-
-            .bio-body { font-size: 1.15rem; }
         }
     </style>
 </head>
@@ -352,9 +321,9 @@
 
     </div>
 
-    <main class="grid">
-        <div class="card bio">
-            <div class="bio-top">
+    <main class="page-content">
+        <div class="bio">
+            <div class="bio-left">
                 <a href="/about.html" class="bio-sticker">
                     <img src="images/summmerhomeintro.png" alt="Hello, my name is Summer">
                 </a>
@@ -363,54 +332,60 @@
                     <span class="bio-location-city"><span class="cutout">Brooklyn</span></span>
                 </span>
             </div>
-            <p class="bio-body">
-                A product designer who <span class="heart" style="transform:rotate(-12deg)">&#x2764;</span> <strong>loves</strong> <span class="heart" style="transform:rotate(10deg)">&#x2764;</span> <em>digging</em> into research, <em>untangling</em> <span class="cutout">messy</span> problems, and <a href="/work.html" class="bio-link"><span class="hammer" style="transform:rotate(-8deg)">&#x1F528;</span> <strong>building</strong></a> clear <em>systems</em> grounded in real <span class="cutout">human</span> <em>behavior</em>.
-            </p>
-            <div class="bio-cta">
-                <span class="bio-cta-phone">&#x1F4DE;</span>
-                <a href="https://calendly.com/hh3683-nyu/30min" target="_blank">open to new opportunities, book a call</a>
+            <div class="bio-right">
+                <p class="bio-body">
+                    A product designer who <span class="heart" style="transform:rotate(-12deg)">&#x2764;</span> <strong>loves</strong> <span class="heart" style="transform:rotate(10deg)">&#x2764;</span> <em>digging</em> into research, <em>untangling</em> <span class="cutout">messy</span> problems,<br>and <a href="/work.html" class="bio-link"><span class="hammer" style="transform:rotate(-8deg)">&#x1F528;</span> <strong>building</strong></a> clear <em>systems</em> grounded in real <span class="cutout">human</span> <em>behavior</em>.
+                </p>
             </div>
         </div>
 
-        <a href="/weave.html" class="card project p1">
-            <div class="project-info">
-                <span class="project-num"><span class="cutout">01</span></span>
-                <span class="project-title"><span class="cutout">Weave — Global Market Entry</span></span>
-            </div>
-            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
+        <div class="grid">
+            <a href="/weave.html" class="card project p1">
+                <div class="project-info">
+                    <span class="project-num"><span class="cutout">01</span></span>
+                    <span class="project-title">Weave — Global Market Entry</span>
+                </div>
+                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
 
-        <a href="/dearflower.html" class="card project p2">
-            <div class="project-info">
-                <span class="project-num"><span class="cutout">02</span></span>
-                <span class="project-title"><span class="cutout">Dear Flower</span></span>
-            </div>
-            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
+            <a href="/dearflower.html" class="card project p2">
+                <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
+                <div class="project-info">
+                    <span class="project-num"><span class="cutout">02</span></span>
+                    <span class="project-title">Dear Flower</span>
+                </div>
+                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
 
-        <a href="/dotyourstory.html" class="card project p3">
-            <div class="project-info">
-                <span class="project-num"><span class="cutout">03</span></span>
-                <span class="project-title"><span class="cutout">Dot Your Story</span></span>
-            </div>
-            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
+            <a href="/dotyourstory.html" class="card project p3">
+                <video src="thumbnails/dotyourstory-001.mp4" autoplay muted loop playsinline></video>
+                <div class="project-info">
+                    <span class="project-num"><span class="cutout">03</span></span>
+                    <span class="project-title">Dot Your Story</span>
+                </div>
+                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
 
-        <a href="/musicchat.html" class="card project p4">
-            <div class="project-info">
-                <span class="project-num"><span class="cutout">04</span></span>
-                <span class="project-title"><span class="cutout">Music Chat App</span></span>
-            </div>
-            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
+            <a href="/musicchat.html" class="card project p4">
+                <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
+                <div class="project-info">
+                    <span class="project-num"><span class="cutout">04</span></span>
+                    <span class="project-title">Music Chat App</span>
+                </div>
+                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
 
-        <a href="/controlmylaptop.html" class="card project p5">
-            <div class="project-info">
-                <span class="project-num"><span class="cutout">05</span></span>
-                <span class="project-title"><span class="cutout">Control My Laptop</span></span>
-            </div>
-            <span class="project-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
+            <a href="/controlmylaptop.html" class="card project p5">
+                <video src="thumbnails/summerlaptop-01.mp4" autoplay muted loop playsinline></video>
+                <div class="project-info">
+                    <span class="project-num"><span class="cutout">05</span></span>
+                    <span class="project-title">Control My Laptop</span>
+                </div>
+                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+
+            <div class="card project-placeholder"></div>
+        </div>
     </main>
 
     <script src="cutout.js"></script>
