@@ -24,17 +24,15 @@
         .project-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: 1fr 1fr;
             gap: var(--gap);
             padding: 0 var(--gap) var(--gap);
-            height: calc(100vh - 160px);
-            min-height: 400px;
         }
 
         .project-card {
             position: relative;
             border-radius: 4px;
             overflow: hidden;
+            aspect-ratio: 16 / 9;
             text-decoration: none;
             color: var(--text);
             display: flex;
@@ -53,6 +51,7 @@
             height: 50%;
             background: linear-gradient(to top, rgba(255,255,255,0.85), transparent);
             pointer-events: none;
+            border-radius: 0 0 4px 4px;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -83,7 +82,6 @@
         }
 
         .project-card-num {
-            font-family: 'General Sans', sans-serif;
             font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.08em;
@@ -91,7 +89,7 @@
         }
 
         .project-card-title {
-            font-family: 'General Sans', sans-serif;
+            font-family: 'Gambarino', Georgia, serif;
             font-weight: 400;
             font-size: 1.105rem;
             letter-spacing: 0.01em;
@@ -115,41 +113,37 @@
             transform: translateX(0);
         }
 
-        /* Card colors — neutral placeholders */
+        .project-placeholder {
+            border: 1.5px dashed var(--border);
+            border-radius: 4px;
+            aspect-ratio: 16 / 9;
+        }
+
+        /* Card backgrounds */
         .card-sage {
             background: url('images/weave/website-landing-page-cover.png') center/cover no-repeat;
         }
-        .card-lavender {
-            background: url('images/controlmylaptop/cover-placeholder.png') center/cover no-repeat;
-        }
-        .card-stone {
-            background: url('images/musicchat-cover-fast.gif') center/cover no-repeat;
-        }
-        .card-slate {
-            background: url('images/dotyourstory-cover.gif') center/cover no-repeat;
-        }
-        .card-terracotta {
-            background: url('images/dearflower-cover-fast.gif') center/cover no-repeat;
+
+        .project-card video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Stagger animations */
-        .project-card:nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
-        .project-card:nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both; }
-        .project-card:nth-child(3) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
-        .project-card:nth-child(4) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
-        .project-card:nth-child(5) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both; }
-        .project-card:nth-child(6) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both; }
+        .project-grid > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+        .project-grid > :nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both; }
+        .project-grid > :nth-child(3) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
+        .project-grid > :nth-child(4) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+        .project-grid > :nth-child(5) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both; }
+        .project-grid > :nth-child(6) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both; }
 
-        /* ═══ ARCHIVE CARD (in-grid) ═══ */
-        .archive-card {
-            border-radius: 4px;
-            background: transparent;
-            padding: 20px 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            gap: 14px;
-            animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+        /* ═══ ARCHIVE SECTION ═══ */
+        .archive-section {
+            padding: 32px var(--gap) 48px;
+            animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both;
         }
 
         .archive-label {
@@ -159,6 +153,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
             color: var(--text-faint);
+            margin-bottom: 14px;
         }
 
         .archive-list {
@@ -173,7 +168,6 @@
             position: relative;
             display: flex;
             align-items: baseline;
-            justify-content: space-between;
             gap: 16px;
             padding: 10px 0;
             text-decoration: none;
@@ -218,9 +212,6 @@
         @media (max-width: 900px) {
             .project-grid {
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto;
-                height: auto;
-                min-height: calc(100vh - 160px);
             }
 
             .project-card-info {
@@ -244,13 +235,6 @@
 
             .project-grid {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                height: auto;
-                min-height: auto;
-            }
-
-            .project-card {
-                min-height: 200px;
             }
 
             .project-card-info {
@@ -263,8 +247,8 @@
                 transform: none;
             }
 
-            .archive-card {
-                padding: 16px 20px;
+            .archive-section {
+                padding: 24px 20px 40px;
             }
 
             .archive-title { font-size: 0.82rem; }
@@ -303,78 +287,84 @@
         <a href="/weave.html" class="project-card card-sage">
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">01</span></span>
-                <span class="project-card-title"><span class="cutout">Weave — Global Market Entry</span></span>
+                <span class="project-card-title">Weave — Global Market Entry</span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
 
-        <a href="/dearflower.html" class="project-card card-terracotta">
+        <a href="/dearflower.html" class="project-card">
+            <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">02</span></span>
-                <span class="project-card-title"><span class="cutout">Dear Flower</span></span>
+                <span class="project-card-title">Dear Flower</span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
 
-        <a href="/dotyourstory.html" class="project-card card-slate">
+        <a href="/dotyourstory.html" class="project-card">
+            <video src="thumbnails/dotyourstory-001.mp4" autoplay muted loop playsinline></video>
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">03</span></span>
-                <span class="project-card-title"><span class="cutout">Dot Your Story</span></span>
+                <span class="project-card-title">Dot Your Story</span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
 
-        <a href="/musicchat.html" class="project-card card-stone">
+        <a href="/musicchat.html" class="project-card">
+            <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">04</span></span>
-                <span class="project-card-title"><span class="cutout">Music Chat App</span></span>
+                <span class="project-card-title">Music Chat App</span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
 
-        <a href="/controlmylaptop.html" class="project-card card-lavender">
+        <a href="/controlmylaptop.html" class="project-card">
+            <video src="thumbnails/summerlaptop-01.mp4" autoplay muted loop playsinline></video>
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">05</span></span>
-                <span class="project-card-title"><span class="cutout">Control My Laptop</span></span>
+                <span class="project-card-title">Control My Laptop</span>
             </div>
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
 
-        <div class="archive-card">
-            <p class="archive-label"><span class="cutout">Archived Work</span></p>
-            <ul class="archive-list">
-                <li class="archive-item">
-                    <a href="/touchofmoss.html" class="archive-link">
-                        <span class="archive-title">Touch of Moss — Interactive Installation</span>
-                        <span class="archive-meta">2025</span>
-                    </a>
-                </li>
-                <li class="archive-item">
-                    <a href="/vfx.html" class="archive-link">
-                        <span class="archive-title">VFX Portfolio — Compositing</span>
-                        <span class="archive-meta">2024</span>
-                    </a>
-                </li>
-                <li class="archive-item">
-                    <a href="#" class="archive-link">
-                        <span class="archive-title">Mystery Die — Physical Computing</span>
-                        <span class="archive-meta">2025</span>
-                    </a>
-                </li>
-                <li class="archive-item">
-                    <a href="#" class="archive-link">
-                        <span class="archive-title">Motion Capture Archive</span>
-                        <span class="archive-meta">2025</span>
-                    </a>
-                </li>
-                <li class="archive-item">
-                    <a href="#" class="archive-link">
-                        <span class="archive-title">VR Hedonomics — Spatial Design</span>
-                        <span class="archive-meta">2025</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div class="project-placeholder"></div>
+    </div>
+
+    <div class="archive-section">
+        <p class="archive-label"><span class="cutout">Archived Work</span></p>
+        <ul class="archive-list">
+            <li class="archive-item">
+                <a href="/touchofmoss.html" class="archive-link">
+                    <span class="archive-title">Touch of Moss — Interactive Installation</span>
+                    <span class="archive-meta">2025</span>
+                </a>
+            </li>
+            <li class="archive-item">
+                <a href="/vfx.html" class="archive-link">
+                    <span class="archive-title">VFX Portfolio — Compositing</span>
+                    <span class="archive-meta">2024</span>
+                </a>
+            </li>
+            <li class="archive-item">
+                <a href="#" class="archive-link">
+                    <span class="archive-title">Mystery Die — Physical Computing</span>
+                    <span class="archive-meta">2025</span>
+                </a>
+            </li>
+            <li class="archive-item">
+                <a href="#" class="archive-link">
+                    <span class="archive-title">Motion Capture Archive</span>
+                    <span class="archive-meta">2025</span>
+                </a>
+            </li>
+            <li class="archive-item">
+                <a href="#" class="archive-link">
+                    <span class="archive-title">VR Hedonomics — Spatial Design</span>
+                    <span class="archive-meta">2025</span>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <script src="cutout.js"></script>
