@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Profile IA Diagram</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            padding: 60px;
+            color: #121212;
+        }
+        .ia-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8F929D;
+            margin-bottom: 40px;
+        }
+        .ia-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 1200px;
+        }
+        .ia-root {
+            background: #121212;
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 10px 10px 0 0;
+            font-family: 'Manrope', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        .ia-section {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border: 1px solid #E5E5E5;
+            border-top: none;
+        }
+        .ia-section:last-child {
+            border-radius: 0 0 10px 10px;
+        }
+        .ia-section-label {
+            padding: 16px 20px;
+            background: #F8F8FA;
+            border-right: 1px solid #E5E5E5;
+            font-family: 'Manrope', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #121212;
+            display: flex;
+            align-items: flex-start;
+        }
+        .ia-section-label span {
+            display: inline-block;
+            margin-top: 2px;
+        }
+        .ia-section-content {
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: flex-start;
+        }
+        .ia-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+        .ia-tag--blue { background: #EEF2FF; color: #2563EB; }
+        .ia-tag--gray { background: #F3F4F6; color: #686875; }
+        .ia-tag--green { background: #ECFDF5; color: #059669; }
+        .ia-tag--orange { background: #FFF7ED; color: #C2410C; }
+        .ia-tag--purple { background: #F5F3FF; color: #7C3AED; }
+        .ia-tag--dark { background: #121212; color: #fff; }
+        .ia-tag--red { background: #FEF2F2; color: #DC2626; }
+        .ia-arrow {
+            color: #C4C4C4;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+        }
+        .ia-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .ia-group-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8F929D;
+        }
+        .ia-group-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<p class="ia-title">Information Architecture &mdash; Partner Profile Page</p>
+
+<div class="ia-container">
+    <div class="ia-root">Partner Profile &mdash; Evaluate, Compare, and Engage</div>
+
+    <!-- Hero -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Partner Hero</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Identity</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--blue">Cover Banner</span>
+                    <span class="ia-tag ia-tag--blue">Category Tag</span>
+                    <span class="ia-tag ia-tag--blue">Company Name</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Value Proposition</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Tagline / Description</span>
+                    <span class="ia-tag ia-tag--gray">Specialty Tags</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Key Metrics</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--green">Years in Business</span>
+            <span class="ia-tag ia-tag--green">Partnerships Completed</span>
+            <span class="ia-tag ia-tag--green">KPI Achievement Rate</span>
+        </div>
+    </div>
+
+    <!-- Action Sidebar -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Action Sidebar</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Primary Actions</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--dark">Bookmark</span>
+                    <span class="ia-tag ia-tag--dark">Contact</span>
+                    <span class="ia-tag ia-tag--dark">Create Proposal</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Trust Signal</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Avg. Response Time</span>
+                </div>
+            </div>
+            <span class="ia-arrow">&rarr; Links to Contracting Module</span>
+        </div>
+    </div>
+
+    <!-- Growth Performance -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Growth Performance</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Evidence</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--green">Performance Line Chart</span>
+                    <span class="ia-tag ia-tag--green">Growth Headline</span>
+                    <span class="ia-tag ia-tag--green">Description</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Expertise -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Core Expertise & Services</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Primary (highlighted)</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--blue">Meta Performance Advertising</span>
+                    <span class="ia-tag ia-tag--blue">TikTok Ads & Shop Growth</span>
+                    <span class="ia-tag ia-tag--blue">Google Search & Display</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Secondary</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Market Entry Roadmaps</span>
+                    <span class="ia-tag ia-tag--gray">Influencer Marketing</span>
+                    <span class="ia-tag ia-tag--gray">Zalo Account Setup & CRM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Portfolio Highlights</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Per Case Card</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--purple">Campaign Image</span>
+                    <span class="ia-tag ia-tag--purple">Category Tag</span>
+                    <span class="ia-tag ia-tag--purple">Campaign Title</span>
+                    <span class="ia-tag ia-tag--purple">Measurable Outcome</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reference Materials & Operations -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Reference Materials</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Downloadable</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--orange">Company Deck PDF</span>
+                    <span class="ia-tag ia-tag--orange">Campaign Report Samples</span>
+                    <span class="ia-tag ia-tag--orange">Performance Dashboard</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Operations</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Corporate Registration</span>
+                    <span class="ia-tag ia-tag--gray">Contract Templates</span>
+                    <span class="ia-tag ia-tag--gray">Dispute History</span>
+                    <span class="ia-tag ia-tag--gray">Data Security</span>
+                    <span class="ia-tag ia-tag--gray">Advertising Compliance</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leadership -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Leadership & Team</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Per Member</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Photo</span>
+                    <span class="ia-tag ia-tag--gray">Name</span>
+                    <span class="ia-tag ia-tag--gray">Title</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Pricing Overview</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--gray">Service Tiers</span>
+            <span class="ia-tag ia-tag--gray">Pricing Table</span>
+        </div>
+    </div>
+
+    <!-- Key Clients -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Key Clients</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--gray">Client Logo Grid</span>
+        </div>
+    </div>
+
+    <!-- Client Feedback -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Client Feedback</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Per Testimonial</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--purple">Client Logo</span>
+                    <span class="ia-tag ia-tag--purple">Name & Title</span>
+                    <span class="ia-tag ia-tag--purple">Expertise Tags</span>
+                    <span class="ia-tag ia-tag--purple">Testimonial Quote</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

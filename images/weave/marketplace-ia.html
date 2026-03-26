@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace IA Diagram</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            padding: 60px;
+            color: #121212;
+        }
+        .ia-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #8F929D;
+            margin-bottom: 40px;
+        }
+
+        .ia-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 1200px;
+        }
+
+        /* Page root */
+        .ia-root {
+            background: #121212;
+            color: #fff;
+            padding: 16px 24px;
+            border-radius: 10px 10px 0 0;
+            font-family: 'Manrope', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        /* Section row */
+        .ia-section {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border: 1px solid #E5E5E5;
+            border-top: none;
+        }
+        .ia-section:last-child {
+            border-radius: 0 0 10px 10px;
+        }
+
+        .ia-section-label {
+            padding: 16px 20px;
+            background: #F8F8FA;
+            border-right: 1px solid #E5E5E5;
+            font-family: 'Manrope', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #121212;
+            display: flex;
+            align-items: flex-start;
+        }
+        .ia-section-label span {
+            display: inline-block;
+            margin-top: 2px;
+        }
+
+        .ia-section-content {
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        /* Tags */
+        .ia-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+        .ia-tag--blue { background: #EEF2FF; color: #2563EB; }
+        .ia-tag--gray { background: #F3F4F6; color: #686875; }
+        .ia-tag--green { background: #ECFDF5; color: #059669; }
+        .ia-tag--orange { background: #FFF7ED; color: #C2410C; }
+        .ia-tag--red { background: #FEF2F2; color: #DC2626; }
+        .ia-tag--dark { background: #121212; color: #fff; }
+        .ia-tag--purple { background: #F5F3FF; color: #7C3AED; }
+
+        /* Divider within section */
+        .ia-divider {
+            width: 1px;
+            background: #E5E5E5;
+            align-self: stretch;
+            margin: 0 4px;
+        }
+
+        /* Arrow */
+        .ia-arrow {
+            color: #C4C4C4;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Group label */
+        .ia-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .ia-group-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8F929D;
+        }
+        .ia-group-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        /* Connector line */
+        .ia-connector {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            border-left: 1px solid #E5E5E5;
+            border-right: 1px solid #E5E5E5;
+        }
+        .ia-connector-left {
+            border-right: 1px solid #E5E5E5;
+            background: #F8F8FA;
+        }
+        .ia-connector-right {
+            padding: 6px 20px;
+            display: flex;
+            align-items: center;
+        }
+        .ia-connector-line {
+            height: 1px;
+            flex: 1;
+            background: repeating-linear-gradient(90deg, #D4D4D4 0, #D4D4D4 4px, transparent 4px, transparent 8px);
+        }
+    </style>
+</head>
+<body>
+
+<p class="ia-title">Information Architecture &mdash; Marketplace Home</p>
+
+<div class="ia-container">
+    <div class="ia-root">Marketplace Home &mdash; Find the Right Global Business Partners</div>
+
+    <!-- Nav -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Global Nav</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--gray">Logo</span>
+            <span class="ia-tag ia-tag--gray">Search Bar</span>
+            <span class="ia-tag ia-tag--gray">Messages</span>
+            <span class="ia-tag ia-tag--gray">Notifications</span>
+            <span class="ia-tag ia-tag--gray">Language</span>
+            <span class="ia-tag ia-tag--gray">User Profile</span>
+        </div>
+    </div>
+
+    <!-- Value Props -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Value Propositions</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--blue">Partner Search</span>
+            <span class="ia-tag ia-tag--blue">Verified Connections</span>
+            <span class="ia-tag ia-tag--blue">Regulatory Insights</span>
+            <span class="ia-tag ia-tag--blue">Global Expansion Support</span>
+        </div>
+    </div>
+
+    <!-- Search -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Smart Search</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Search Input</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--dark">Search Bar + AI Suggestions</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Quick Filters</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--purple">Suggested Searches</span>
+                    <span class="ia-tag ia-tag--purple">Digital Campaign</span>
+                    <span class="ia-tag ia-tag--purple">Brand Strategy</span>
+                    <span class="ia-tag ia-tag--purple">Content Marketing</span>
+                    <span class="ia-tag ia-tag--purple">Recruitment</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Browse by Category</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--gray">Legal & Compliance</span>
+            <span class="ia-tag ia-tag--gray">Accounting & Taxation</span>
+            <span class="ia-tag ia-tag--gray">Customs & Admin</span>
+            <span class="ia-tag ia-tag--gray">IT Services</span>
+            <span class="ia-tag ia-tag--gray">HR & Hiring</span>
+            <span class="ia-tag ia-tag--gray">Marketing & PR</span>
+            <span class="ia-tag ia-tag--gray">Office & Real Estate</span>
+        </div>
+    </div>
+
+    <!-- AI Recommendations -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>AI-Driven Recommendations</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Personalized</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--green">Popular with Companies Like Yours</span>
+                    <span class="ia-tag ia-tag--green">AI-Matched Partners</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Social Proof</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--green">Most Viewed by Expanding Companies</span>
+                    <span class="ia-tag ia-tag--green">Most Viewed by Industry</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partner Card -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Partner Card (repeated)</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Identity</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Cover Image</span>
+                    <span class="ia-tag ia-tag--gray">Company Name</span>
+                    <span class="ia-tag ia-tag--gray">Service Title</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Signals</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--blue">Category Tags</span>
+                    <span class="ia-tag ia-tag--blue">Description</span>
+                </div>
+            </div>
+            <span class="ia-arrow">&rarr; Links to Partner Profile</span>
+        </div>
+    </div>
+
+    <!-- Roadmap CTA -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Roadmap Integration</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Cross-module CTA</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--orange">Global Expansion Roadmap Banner</span>
+                    <span class="ia-tag ia-tag--orange">Get AI-Powered Roadmap</span>
+                    <span class="ia-tag ia-tag--orange">Roadmap Plus+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Social Proof</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Client Testimonials</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Client Logo</span>
+                    <span class="ia-tag ia-tag--gray">Name & Title</span>
+                    <span class="ia-tag ia-tag--gray">Expertise Tags</span>
+                    <span class="ia-tag ia-tag--gray">Testimonial Quote</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

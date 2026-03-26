@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace IA Diagram</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #fff; padding: 60px; color: #121212; }
+        .ia-title { font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #8F929D; margin-bottom: 40px; }
+        .ia-container { display: flex; flex-direction: column; gap: 0; max-width: 1200px; }
+        .ia-root { background: #121212; color: #fff; padding: 16px 24px; border-radius: 10px 10px 0 0; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -1px; }
+        .ia-section { display: grid; grid-template-columns: 200px 1fr; border: 1px solid #E5E5E5; border-top: none; }
+        .ia-section:last-child { border-radius: 0 0 10px 10px; }
+        .ia-section-label { padding: 16px 20px; background: #F8F8FA; border-right: 1px solid #E5E5E5; font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: -0.5px; color: #121212; display: flex; align-items: flex-start; }
+        .ia-section-label span { display: inline-block; margin-top: 2px; }
+        .ia-section-content { padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+        .ia-tag { display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 500; letter-spacing: -0.3px; white-space: nowrap; }
+        .ia-tag--blue { background: #EEF2FF; color: #2563EB; }
+        .ia-tag--gray { background: #F3F4F6; color: #686875; }
+        .ia-tag--green { background: #ECFDF5; color: #059669; }
+        .ia-tag--orange { background: #FFF7ED; color: #C2410C; }
+        .ia-tag--purple { background: #F5F3FF; color: #7C3AED; }
+        .ia-tag--dark { background: #121212; color: #fff; }
+        .ia-tag--red { background: #FEF2F2; color: #DC2626; }
+        .ia-arrow { color: #C4C4C4; font-size: 11px; display: flex; align-items: center; }
+        .ia-group { display: flex; flex-direction: column; gap: 6px; }
+        .ia-group-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #8F929D; }
+        .ia-group-items { display: flex; flex-wrap: wrap; gap: 6px; }
+    </style>
+</head>
+<body>
+
+<p class="ia-title">Information Architecture &mdash; Workspace Home Dashboard</p>
+
+<div class="ia-container">
+    <div class="ia-root">Workspace Home &mdash; Operate, Collaborate, Stay Compliant</div>
+
+    <!-- Sidebar Nav -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Sidebar Navigation</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--dark">Home</span>
+            <span class="ia-tag ia-tag--gray">Project</span>
+            <span class="ia-tag ia-tag--gray">Schedule</span>
+            <span class="ia-tag ia-tag--gray">Documents</span>
+            <span class="ia-tag ia-tag--gray">Chat</span>
+        </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Top Bar</span></div>
+        <div class="ia-section-content">
+            <span class="ia-tag ia-tag--gray">Search</span>
+            <span class="ia-tag ia-tag--gray">Messages</span>
+            <span class="ia-tag ia-tag--gray">Notifications</span>
+            <span class="ia-tag ia-tag--gray">Settings</span>
+            <span class="ia-tag ia-tag--gray">User Profile</span>
+        </div>
+    </div>
+
+    <!-- Key Updates -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>AI-driven Key Updates</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Priority Levels</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--red">Urgent</span>
+                    <span class="ia-tag ia-tag--orange">Important</span>
+                    <span class="ia-tag ia-tag--blue">Notice</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Per Update</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Update Title</span>
+                    <span class="ia-tag ia-tag--gray">Status Tag</span>
+                    <span class="ia-tag ia-tag--gray">Timestamp</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Management -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Schedule Management</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Calendar</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Date Display</span>
+                    <span class="ia-tag ia-tag--gray">Day View</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Events</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--green">Meeting Name</span>
+                    <span class="ia-tag ia-tag--green">Time</span>
+                    <span class="ia-tag ia-tag--green">Status</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Weekly Chart</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Activity Bars</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Documents Pending Approval -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Documents Pending Approval</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Filters</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--blue">Approval</span>
+                    <span class="ia-tag ia-tag--blue">Draft</span>
+                    <span class="ia-tag ia-tag--blue">View All</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Per Document</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Status Badge</span>
+                    <span class="ia-tag ia-tag--gray">Document Title</span>
+                    <span class="ia-tag ia-tag--gray">Assignee</span>
+                    <span class="ia-tag ia-tag--gray">Project</span>
+                    <span class="ia-tag ia-tag--gray">Date</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Tasks -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Total Tasks</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Overview</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--purple">Donut Chart</span>
+                    <span class="ia-tag ia-tag--purple">Total Count</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Breakdown</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Pending Execution</span>
+                    <span class="ia-tag ia-tag--gray">In Progress</span>
+                    <span class="ia-tag ia-tag--gray">Completed</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Task List</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Task Name</span>
+                    <span class="ia-tag ia-tag--gray">Project Tag</span>
+                    <span class="ia-tag ia-tag--gray">Due Date</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Projects -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Current Projects</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Per Project</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Project Name</span>
+                    <span class="ia-tag ia-tag--gray">Progress Bar</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Status Overview -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Project Status Overview</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Filters</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--blue">All</span>
+                    <span class="ia-tag ia-tag--blue">Waiting</span>
+                    <span class="ia-tag ia-tag--blue">In Progress</span>
+                    <span class="ia-tag ia-tag--blue">Under Review</span>
+                    <span class="ia-tag ia-tag--blue">Completed</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Per Row</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Status Badge</span>
+                    <span class="ia-tag ia-tag--gray">Task Name</span>
+                    <span class="ia-tag ia-tag--gray">Assignee</span>
+                    <span class="ia-tag ia-tag--gray">Due Date</span>
+                </div>
+            </div>
+            <span class="ia-arrow">Project Switcher dropdown</span>
+        </div>
+    </div>
+
+    <!-- Partner Team Contacts -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Partner Team Contacts</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Per Contact</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Avatar</span>
+                    <span class="ia-tag ia-tag--gray">Name</span>
+                    <span class="ia-tag ia-tag--gray">Role</span>
+                    <span class="ia-tag ia-tag--gray">Online Status</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Actions</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--green">Message</span>
+                    <span class="ia-tag ia-tag--green">Call</span>
+                </div>
+            </div>
+            <span class="ia-arrow">Project Switcher dropdown</span>
+        </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="ia-section">
+        <div class="ia-section-label"><span>Activity Log</span></div>
+        <div class="ia-section-content">
+            <div class="ia-group">
+                <span class="ia-group-label">Sections</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Document Announcements</span>
+                    <span class="ia-tag ia-tag--gray">Activity Log</span>
+                </div>
+            </div>
+            <div class="ia-group">
+                <span class="ia-group-label">Per Entry</span>
+                <div class="ia-group-items">
+                    <span class="ia-tag ia-tag--gray">Timestamp</span>
+                    <span class="ia-tag ia-tag--gray">Description</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
