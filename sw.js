@@ -1,12 +1,5 @@
 const CACHE_NAME = 'video-cache-v2';
 
-const VIDEO_URLS = [
-  '/summerlaptop/summerlaptop.thumbnail.mp4',
-  '/thumbnails/macbookmockup-dearflower.mp4',
-  '/thumbnails/musicchatapp-v01.mp4',
-  '/thumbnails/dotyourstory-001.mp4',
-];
-
 // Cache videos on install
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -24,24 +17,27 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Cache-first for video files, network-first for everything else
+// Stale-while-revalidate for video files:
+// Serve from cache instantly, but fetch a fresh copy in the background.
+// If the fresh copy differs, update the cache for next load.
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
   if (url.pathname.endsWith('.mp4')) {
     event.respondWith(
-      caches.open(CACHE_NAME).then((cache) =>
-        cache.match(event.request).then((cached) => {
-          if (cached) return cached;
-
-          return fetch(event.request).then((response) => {
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((cached) => {
+          const fetchPromise = fetch(event.request).then((response) => {
             if (response.ok) {
               cache.put(event.request, response.clone());
             }
             return response;
           });
-        })
-      )
+
+          // Return cached version instantly, update in background
+          return cached || fetchPromise;
+        });
+      })
     );
   }
 });
