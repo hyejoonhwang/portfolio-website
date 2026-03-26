@@ -1,4 +1,4 @@
-const CACHE_NAME = 'video-cache-v1';
+const CACHE_NAME = 'video-cache-v2';
 
 const VIDEO_URLS = [
   '/summerlaptop/summerlaptop.thumbnail.mp4',
