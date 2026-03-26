@@ -6,1290 +6,1342 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weave — Summer</title>
     <link rel="stylesheet" href="shared.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @font-face {
-            font-family: 'Bespoke Sans';
-            src: url('fonts/BespokeSans-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Bespoke Sans';
-            src: url('fonts/BespokeSans-VariableItalic.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: italic;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Bespoke Slab';
-            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Bespoke Slab';
-            src: url('fonts/BespokeSlab-VariableItalic.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: italic;
-            font-display: swap;
+        :root {
+            --accent: #2563EB;
+            --accent-red: #EA3D60;
+            --accent-green: #90E8B3;
+            --text: #121212;
+            --text-secondary: #686875;
+            --text-muted: #8F929D;
+            --bg: #FFFFFF;
+            --bg-alt: #F8F8FA;
+            --bg-card: #F9F9FB;
+            --bg-accent-light: #F7F8FF;
         }
 
-        :root { --accent: #3B5BF5; }
-
-        /* ═══ SIDEBAR ═══ */
+        /* ══════════════════════════════════════ */
+        /* SIDEBAR                                */
+        /* ══════════════════════════════════════ */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 240px;
+            width: 200px;
             height: 100vh;
-            padding: 80px 20px 40px 24px;
+            padding: 80px 16px 40px 24px;
             display: flex;
             flex-direction: column;
             gap: 0;
             z-index: 90;
             overflow-y: auto;
         }
-
         .sidebar-link {
+            font-family: 'Manrope', sans-serif;
             font-size: 0.72rem;
-            font-weight: 400;
-            color: var(--text-faint);
+            font-weight: 500;
+            color: var(--text-muted);
             text-decoration: none;
             padding: 5px 0;
             line-height: 1.4;
             transition: all 0.3s;
             display: block;
         }
-        .sidebar-link:hover { color: var(--text-muted); }
+        .sidebar-link:hover { color: var(--text-secondary); }
         .sidebar-link.active {
-            color: #FA5D2A;
-            font-weight: 500;
-            font-size: 1.01rem;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
             white-space: nowrap;
         }
-        .sidebar-link.active::after {
-            content: ' ·';
+        .sidebar-link.active::after { content: ' \00B7'; }
+
+        /* ══════════════════════════════════════ */
+        /* LAYOUT                                 */
+        /* ══════════════════════════════════════ */
+        .main-content { margin-left: 200px; }
+        .case-study { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+        .wide { max-width: 1000px; margin-left: auto; margin-right: auto; padding: 0 40px; }
+
+        /* ══════════════════════════════════════ */
+        /* HERO                                   */
+        /* ══════════════════════════════════════ */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 40px 0 60px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
         }
-
-        /* ═══ MAIN CONTENT — offset for sidebar ═══ */
-        .main-content {
-            margin-left: 240px;
-        }
-
-        /* ═══ CASE STUDY LAYOUT ═══ */
-        .case-study { max-width: 1440px; margin: 0 auto; padding: 0 60px; }
-        .wide { max-width: 1680px; margin-left: auto; margin-right: auto; padding: 0 60px; }
-
-        /* ═══ HERO ═══ */
-        .hero { display: flex; justify-content: space-between; align-items: flex-start; padding: 16px 0 40px; animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
         .hero-left { flex: 1; }
         .hero h1 {
-            font-family: 'Bespoke Slab', serif;
-            font-weight: 400;
-            font-size: 2.4rem;
-            line-height: 1.15;
-            letter-spacing: -0.025em;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: var(--text);
             margin-bottom: 16px;
         }
         .hero-sub {
-            font-size: 1.05rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            letter-spacing: -1px;
             max-width: 100%;
         }
-        .meta { display: flex; flex-direction: row; align-items: flex-start; margin-top: 24px; width: 100%; }
-        .meta-item { flex: 1; text-align: left; }
-        .meta-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
-        .meta-value { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); }
-        .meta-tags { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
-        .meta-tag { font-size: 0.82rem; font-weight: 400; color: var(--text-muted); background: #f0f0f0; padding: 4px 10px; border-radius: 4px; display: inline-block; }
-
-        /* ═══ IMAGES & VIDEOS ═══ */
-        .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; }
-        video.img-full { aspect-ratio: 16 / 9; background: #f0f0f0; object-fit: cover; }
-        .img-caption { font-size: 0.75rem; color: var(--text-faint); text-align: center; margin-top: 10px; font-weight: 300; }
-
-        /* ═══ SECTIONS ═══ */
-        .section { padding: 100px 0; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
-        .section-label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
+        .meta { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+        .meta-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: var(--text-faint);
-            margin-bottom: 16px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
         }
-        .section-label--center { text-align: center; }
-        .section-heading {
-            font-family: 'Bespoke Slab', serif;
+        .meta-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .meta-tag {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
             font-weight: 400;
-            font-size: 1.65rem;
-            line-height: 1.35;
-            letter-spacing: -0.015em;
-            max-width: 1080px;
-            margin-bottom: 24px;
-        }
-        .section-heading--center { text-align: center; margin-left: auto; margin-right: auto; }
-        .section-body {
-            font-size: 0.95rem;
-            font-weight: 300;
-            line-height: 1.75;
-            color: var(--text-muted);
-            text-align: left;
-            max-width: 1080px;
-        }
-        .section-body--center { margin: 0 auto; }
-        .divider { border: none; border-top: 1px dashed var(--border); margin: 0; }
-
-        /* ═══ OUTCOMES ROW ═══ */
-        .outcomes { display: flex; gap: 32px; justify-content: flex-start; margin-top: 40px; flex-wrap: wrap; }
-        .outcome { text-align: center; flex: 1; min-width: 180px; max-width: 220px; }
-        .outcome-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.1rem; color: var(--accent); margin-bottom: 6px; }
-        .outcome-text { font-size: 0.85rem; font-weight: 300; color: var(--text-muted); line-height: 1.55; }
-
-        /* ═══ PROBLEM CARDS ═══ */
-        .problem-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 48px;
-        }
-        .problem-card {
-            padding: 40px 36px;
-            background: #EEF1F6;
-            border-radius: 16px;
-            position: relative;
-        }
-        .problem-icon {
-            margin-bottom: 8px;
-            line-height: 0;
-        }
-        .problem-icon svg {
-            width: 36px;
-            height: 36px;
-            display: block;
-            stroke: #EEF1F6;
-            stroke-width: 0.6px;
-        }
-        .problem-num {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 4px;
-            display: block;
-        }
-        .problem-card h4 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            line-height: 1.35;
-            color: var(--text);
-        }
-        .problem-card p {
-            font-size: 0.88rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ═══ IDEATION CARDS ═══ */
-        .ideation-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 32px;
-        }
-        .ideation-card {
-            padding: 40px 36px;
-            background: #EEF1F6;
-            border-radius: 16px;
-        }
-        .ideation-num {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 4px;
-            display: block;
-        }
-        .ideation-card h4 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            line-height: 1.35;
-            color: var(--text);
-        }
-        .ideation-card p {
-            font-size: 0.88rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ═══ SOLUTION CARDS ═══ */
-        .solution-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 48px;
-        }
-        .solution-card {
-            padding: 40px 36px;
-            background: #EEF1F6;
+            background: var(--bg-card);
             border: none;
-            border-radius: 16px;
-            position: relative;
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: var(--text-secondary);
         }
-        .solution-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 20px;
-        }
-        .solution-icon svg {
-            width: 100%;
-            height: 100%;
-        }
-        .solution-icon--lg {
-            width: 64px;
-            height: 64px;
-        }
-        .solution-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: invert(24%) sepia(95%) saturate(4800%) hue-rotate(226deg) brightness(98%) contrast(93%);
-        }
-        .solution-num {
-            font-family: 'Bespoke Sans', sans-serif;
+        .meta-value {
+            font-family: 'Inter', sans-serif;
             font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        .impact-bar {
+            margin-top: 40px;
+            padding: 28px 0 0;
+            border-top: 1px solid #EBEBEB;
+        }
+        .impact-bar-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.72rem;
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 1.3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 16px;
-            display: block;
-        }
-        .solution-card h4 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            line-height: 1.35;
-            color: var(--text);
-        }
-        .solution-card p {
-            font-size: 0.88rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ═══ CASE STUDY HERO (replaces images) ═══ */
-        .case-hero {
-            padding: 24px 24px;
-            border-radius: 10px 10px 0 0;
-            border: 1px solid;
-            border-bottom: none;
-        }
-        .case-hero--success {
-            background: var(--surface);
-            border-color: var(--border);
-        }
-        .case-hero--fail {
-            background: var(--surface);
-            border-color: var(--border);
-        }
-        .case-hero-tag {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 3px 8px;
-            border-radius: 3px;
             margin-bottom: 10px;
         }
-        .case-hero-tag--success { color: #2BA832; background: rgba(66,236,77,0.12); }
-        .case-hero-tag--fail { color: #D63636; background: rgba(236,66,66,0.12); }
-        .case-hero-name {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin-bottom: 2px;
+        .impact-bar h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.5;
+            letter-spacing: -1px;
+            color: var(--text);
         }
-        .case-hero-sub {
+
+        /* ══════════════════════════════════════ */
+        /* SECTIONS                               */
+        /* ══════════════════════════════════════ */
+        .section { padding: 160px 0; }
+        .section-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+        .section-heading {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .section-body {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            letter-spacing: -1px;
+        }
+        .img-full { width: 100%; border-radius: 0; display: block; }
+        .img-caption {
+            font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-        .case-hero-stats {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-        .case-hero-stat {
-            text-align: center;
-            min-width: 60px;
-        }
-        .case-hero-stat-num {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 1.25rem;
             font-weight: 400;
-            line-height: 1.2;
-        }
-        .case-hero-stat-num--success { color: var(--text); }
-        .case-hero-stat-num--fail { color: var(--text); }
-        .case-hero-stat-label {
-            font-size: 0.68rem;
-            font-weight: 300;
             color: var(--text-muted);
-            margin-top: 2px;
+            text-align: center;
+            margin-top: 40px;
         }
-        .case-hero-bars {
+        .divider {
+            border: none;
+            border-top: 1px solid #EBEBEB;
+            margin: 0;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* CONTEXT                                */
+        /* ══════════════════════════════════════ */
+        .context-lead {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+        .context-company {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 32px;
+        }
+        .context-company img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+        .context-company p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            letter-spacing: -1px;
+        }
+        .context-company p strong {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ══════════════════════════════════════ */
+        /* TWO-COL SECTION                        */
+        /* ══════════════════════════════════════ */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 60px;
+            padding: 80px 60px;
+            background: var(--bg-alt);
+            border-radius: 16px;
+        }
+        .two-col-left {}
+        .two-col-left h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .two-col-left p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .two-col-right {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* CASE CARDS (failure examples)           */
+        /* ══════════════════════════════════════ */
+        .case-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+        }
+        .case-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #EBEBEB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .case-card-text {
+            flex: 1;
+        }
+        .case-card-text p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .case-card-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* FAILURE REASONS + CIRCULAR GRAPHS      */
+        /* ══════════════════════════════════════ */
+        .failure-section {
+            margin-top: 60px;
+        }
+        .failure-heading {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 28px;
+        }
+        .stat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .stat-row {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #EBEBEB;
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-num {
+            font-family: 'Manrope', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--accent);
+            flex-shrink: 0;
+            min-width: 80px;
+        }
+        .stat-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Conclusion section */
+        .conclusion-section {
+            margin-top: 48px;
+            text-align: center;
+        }
+        .conclusion-heading {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .conclusion-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+        .broken-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        .broken-item {
+            padding: 28px 24px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .broken-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .broken-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .broken-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .conclusion-bottom {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-red);
+            margin-top: 24px;
+            letter-spacing: -1px;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* INSIGHT CARDS                          */
+        /* ══════════════════════════════════════ */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .insight-card {
+            padding: 24px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
+        }
+        .insight-card h4 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        .insight-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* CALLOUT                                */
+        /* ══════════════════════════════════════ */
+        .callout {
+            margin-top: 48px;
+            padding: 32px;
+            border-radius: 10px;
+        }
+        .callout--problem {
+            background: var(--bg-card);
+            border: none;
+        }
+        .callout--solution {
+            background: var(--bg-accent-light);
+            border: none;
+        }
+        .callout-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .callout--problem .callout-badge { background: #FDECEF; }
+        .callout--solution .callout-badge { background: var(--bg-card); }
+        .callout-badge-emoji { font-size: 1rem; }
+        .callout-badge-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+        .callout--problem .callout-badge-label { color: var(--accent-red); }
+        .callout--solution .callout-badge-label { color: var(--accent); }
+        .callout h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        .callout .hmw {
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* DESIGN GOALS                           */
+        /* ══════════════════════════════════════ */
+        .goal-block {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 160px 0;
+        }
+        .goal-text {}
+        .goal-num {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .goal-text h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .goal-text ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .goal-text ul li {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 18px;
+            position: relative;
+        }
+        .goal-text ul li::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+        .goal-constraints {
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
+        }
+        .goal-constraints-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+        }
+        .goal-constraints ul {
+            list-style: none;
+            padding: 0;
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
-        .case-bar-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .case-bar-label {
-            font-size: 0.72rem;
+        .goal-constraints ul li {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
             font-weight: 400;
-            color: var(--text-muted);
-            width: 72px;
-            flex-shrink: 0;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 18px;
+            position: relative;
         }
-        .case-bar-track {
-            flex: 1;
-            height: 8px;
-            background: rgba(0,0,0,0.06);
-            border-radius: 4px;
+        .goal-constraints ul li::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+        .goal-visual {
+            border-radius: 12px;
             overflow: hidden;
         }
-        .case-bar-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.6s ease;
-        }
-        .case-bar-fill--success { background: var(--text); }
-        .case-bar-fill--fail { background: var(--text); }
-        .case-bar-value {
-            font-size: 0.72rem;
-            font-weight: 500;
-            color: var(--text);
-            width: 56px;
-            flex-shrink: 0;
-            text-align: right;
+        .goal-visual video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
         }
 
-        /* ═══ FAILED CASE STUDY ═══ */
-        .research-case--fail {
-            border-color: var(--border);
-        }
-        .research-case-tag--fail {
-            background: var(--surface);
-            color: var(--text-muted);
-        }
-        .strategy-card--fail {
-            background: var(--surface);
-            border-color: var(--border);
-        }
-
-        /* ═══ BEFORE / AFTER COMPARISON ═══ */
-        .before-after {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            margin-top: 40px;
-        }
-        .ba-col {}
-        .ba-label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+        /* ══════════════════════════════════════ */
+        /* EXPLORATION                            */
+        /* ══════════════════════════════════════ */
+        .explore-header { margin-bottom: 40px; }
+        .explore-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-card);
+            border-radius: 8px;
             margin-bottom: 16px;
         }
-        .ba-label--before { color: var(--text-faint); }
-        .ba-label--after { color: var(--accent); }
-        .ba-list {
+        .explore-badge-emoji { font-size: 1rem; }
+        .explore-badge-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .explore-header h1 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .explore-header .explore-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            letter-spacing: -1px;
+        }
+        .explore-sub-heading {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        .explore-step {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 16px;
+            margin-top: 60px;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* COMPARISON                             */
+        /* ══════════════════════════════════════ */
+        .comparison {
+            display: grid;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .comparison--two { grid-template-columns: 1fr 1fr; }
+        .comparison--three { grid-template-columns: 1fr 1fr 1fr; }
+        .comp-option {
+            padding: 24px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
+        }
+        .comp-option--chosen {
+            background: var(--bg-accent-light);
+        }
+        .comp-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .comp-option--chosen .comp-label { color: var(--accent); }
+        .comp-chosen-tag {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: var(--accent-green);
+            color: var(--text);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .comp-points {
             list-style: none;
             padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 6px;
         }
-        .ba-list li {
+        .comp-points li {
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.6;
-            padding-left: 20px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 16px;
             position: relative;
         }
-        .ba-list--before li::before {
-            content: '\2715';
+        .comp-points li::before {
+            content: '\2022';
             position: absolute;
             left: 0;
-            color: var(--text-faint);
-            font-size: 0.7rem;
-            top: 2px;
+            color: var(--text-muted);
         }
-        .ba-list--after li::before {
-            content: '\2713';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-size: 0.8rem;
+        .comp-points li.comp-takeaway {
+            margin-top: 4px;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .comp-points li.comp-takeaway::before {
+            content: '\1F4A1';
+            font-size: 0.72rem;
             top: 1px;
         }
 
-        /* ═══ FEATURES ═══ */
-        .features { display: flex; gap: 32px; margin-top: 40px; }
-        .feature { flex: 1; text-align: center; }
-        .feature-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
-        .feature-title { font-family: 'Bespoke Sans', sans-serif; font-size: 0.92rem; font-weight: 500; margin-bottom: 6px; }
-        .feature-desc { font-size: 0.82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
-
-        /* ═══ AI PIPELINE ═══ */
-        .ai-flow {
-            margin-top: 40px;
-            position: relative;
+        /* ══════════════════════════════════════ */
+        /* ANNOTATED IMAGE                        */
+        /* ══════════════════════════════════════ */
+        .annotated { margin-top: 32px; }
+        .annotated img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            border: none;
         }
-        .ai-flow-row {
+        .annotations {
             display: grid;
-            grid-template-columns: 1fr 88px 1fr;
-            align-items: stretch;
-            gap: 0;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
         }
-        .ai-col {
-            display: grid;
-            grid-template-rows: auto 1fr 1fr 1fr 1fr;
-            gap: 14px;
-        }
-        .ai-col-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            padding: 0 4px;
-        }
-        .ai-col-label--input { color: var(--accent); }
-        .ai-col-label--output { color: #2BA832; }
-        .ai-card {
-            padding: 20px 22px;
-            border-radius: 16px;
-            background: #EEF1F6;
+        .annotation {
             display: flex;
             align-items: flex-start;
-            gap: 14px;
-            position: relative;
+            gap: 8px;
         }
-        .ai-card-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .annotation-marker {
+            font-size: 0.85rem;
             flex-shrink: 0;
+            margin-top: 1px;
         }
-        .ai-card-icon--input { background: rgba(59,91,245,0.12); }
-        .ai-card-icon--output { background: rgba(43,168,50,0.12); }
-        .ai-card-icon svg {
-            width: 18px;
-            height: 18px;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
+        .annotation p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-        .ai-card-icon--input svg { stroke: var(--accent); }
-        .ai-card-icon--output svg { stroke: #2BA832; }
-        .ai-card-text strong {
-            display: block;
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.88rem;
+        .annotation p strong {
             font-weight: 600;
             color: var(--text);
-            margin-bottom: 4px;
         }
-        .ai-card-text span {
-            font-size: 0.78rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.55;
+        .solution-statement {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px 0;
         }
-        /* Center engine column */
-        .ai-engine-col {
-            display: flex;
-            flex-direction: column;
+        .solution-statement-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .solution-statement h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+
+        /* ══════════════════════════════════════ */
+        /* WORKFLOW STEPS (for workspace)          */
+        /* ══════════════════════════════════════ */
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+            margin-bottom: 32px;
+        }
+        .workflow-step {
+            text-align: center;
+            position: relative;
+        }
+        .workflow-step-num {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            height: 100%;
-        }
-        .ai-engine-line {
-            width: 2px;
-            flex: 1;
-            background: linear-gradient(to bottom, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
-        }
-        .ai-engine-badge {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background: var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 3px;
-            box-shadow: 0 4px 24px rgba(59,91,245,0.3);
-            position: relative;
-            z-index: 2;
-        }
-        .ai-engine-badge img {
             width: 28px;
             height: 28px;
-            object-fit: contain;
-            filter: brightness(0) invert(1);
-        }
-        .ai-engine-badge span {
-            font-size: 0.5rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            color: #fff;
-            text-transform: uppercase;
-        }
-        /* Arrows between cards */
-        .ai-arrow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 12px;
-        }
-        .ai-arrow svg {
-            width: 20px;
-            height: 12px;
-        }
-        .ai-arrow--in svg { stroke: rgba(59,91,245,0.3); fill: none; stroke-width: 1.5; }
-        .ai-arrow--out svg { stroke: rgba(43,168,50,0.3); fill: none; stroke-width: 1.5; }
-
-        /* ═══ DESK RESEARCH ═══ */
-        .desk-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 24px;
-            margin-top: 32px;
-        }
-        .desk-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            align-self: start;
-        }
-        .desk-stat {
-            display: flex;
-            align-items: baseline;
-            gap: 16px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .desk-stat:last-child {
-            border-bottom: none;
-        }
-        .desk-stat-num {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 2.4rem;
-            font-weight: 400;
-            color: var(--accent);
-            line-height: 1;
-            flex-shrink: 0;
-            min-width: 72px;
-        }
-        .desk-stat-label {
-            font-size: 0.82rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-        .desk-insights {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .desk-insight {
-            padding: 20px 24px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-        .desk-insight h4 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-            line-height: 1.4;
-            color: var(--accent);
-        }
-        .desk-insight p {
-            font-size: 0.78rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.55;
-        }
-
-        /* ═══ MODULE RINGS ═══ */
-        .module-rings {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 40px;
-            padding: 20px 24px;
-            border: 2px solid var(--accent);
-            border-radius: 100px;
-            max-width: 640px;
-            margin-left: auto;
-            margin-right: auto;
-            gap: 0;
-        }
-        .module-ring {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-        }
-        .module-circle {
-            width: 110px;
-            height: 110px;
             border-radius: 50%;
-            background: rgba(59, 91, 245, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .module-label {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--accent);
-            text-align: center;
-        }
-        .module-arrow {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            padding: 0 6px;
-        }
-        .module-arrow svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* ═══ FLOW SECTIONS ═══ */
-        .flow { padding: 48px 0; }
-        .flow-box {
-            background: #EEF1F6;
-            border-radius: 16px;
-            padding: 36px 36px 0;
-            margin-bottom: 28px;
-        }
-        .flow-box-label {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-        .flow-box video, .flow-box img {
-            width: 100%;
-            border-radius: 10px 10px 0 0;
-            display: block;
-        }
-        .flow-title {
-            font-family: 'Bespoke Slab', serif;
-            font-weight: 400;
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
-        .flow-desc {
-            font-size: 0.88rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            max-width: 620px;
-            margin: 0 0 28px;
-            line-height: 1.65;
-        }
-        .flow-supplement {
-            margin-top: 24px;
-        }
-
-        /* ═══ RESEARCH — CASE STUDY BLOCKS ═══ */
-        .research-case {
-            margin-top: 56px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
-            background: var(--surface);
-        }
-        .research-case-img {
-            width: 100%;
-            display: block;
-            border-bottom: 1px solid var(--border);
-        }
-        .research-case-body {
-            padding: 20px 24px;
-        }
-        .research-case-tag {
-            display: inline-block;
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 3px 8px;
-            border-radius: 3px;
-            margin-bottom: 10px;
-        }
-        .research-case-title {
-            font-family: 'Bespoke Slab', serif;
-            font-weight: 400;
-            font-size: 1.25rem;
-            line-height: 1.35;
-            margin-bottom: 12px;
-        }
-        .research-case-desc {
-            font-size: 0.88rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.7;
-            max-width: 600px;
-        }
-        .research-case-source {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: var(--accent);
-            text-decoration: none;
-            margin-top: 12px;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
-        }
-        .research-case-source:hover {
-            border-bottom-color: var(--accent);
-        }
-
-        /* Strategy grid inside case study */
-        .strategy-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 12px;
-        }
-        .strategy-card {
-            padding: 14px 16px;
-            background: var(--surface);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        .strategy-num {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 0.82rem;
-            font-weight: 400;
-            color: var(--text-faint);
-            margin-bottom: 6px;
-        }
-        .strategy-card h4 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 6px;
-            line-height: 1.4;
-        }
-        .strategy-card p {
-            font-size: 0.78rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* ═══ CASE TAKEAWAY ═══ */
-        .case-takeaway {
-            margin-top: 16px;
-            padding: 20px 24px;
-            border-radius: 10px;
-            background: #EEF1F6;
-            border: none;
-        }
-        .case-takeaway-label {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 100px;
-            margin-bottom: 10px;
-        }
-        .case-takeaway-text {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 1.1rem;
-            font-weight: 400;
-            line-height: 1.45;
-            color: var(--text);
-        }
-        .case-takeaway--success .case-takeaway-label {
             background: var(--accent);
             color: #fff;
-        }
-        .case-takeaway--fail .case-takeaway-label {
-            background: var(--accent);
-            color: #fff;
-        }
-        .case-takeaway--neutral .case-takeaway-label {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* Stat row */
-        .stat-row {
-            display: flex;
-            gap: 14px;
-            margin-top: 24px;
-            flex-wrap: wrap;
-        }
-        .stat-card {
-            flex: 1;
-            min-width: 100px;
-            padding: 18px 14px;
-            text-align: center;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-        .stat-num {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 1.15rem;
-            font-weight: 400;
-            color: var(--accent);
-            line-height: 1.2;
-        }
-        .stat-label {
-            font-size: 0.7rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-
-        /* Localization callout */
-        .localization-block {
-            margin-top: 28px;
-            padding: 24px;
-            background: #F8F9FE;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent);
-        }
-        .localization-block h5 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 500;
-            margin-bottom: 14px;
-        }
-        .localization-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .localization-item {
-            font-size: 0.78rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        .localization-item strong {
-            font-weight: 500;
-            color: var(--text);
-            display: block;
-            margin-bottom: 2px;
-            font-size: 0.8rem;
-        }
-
-        /* ═══ FINDINGS ═══ */
-        .findings { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
-        .finding {
-            padding: 24px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--surface);
-            position: relative;
-        }
-        .finding-num {
-            font-family: 'Bespoke Slab', serif;
-            font-size: 0.78rem;
-            font-weight: 400;
-            color: var(--accent);
-            margin-bottom: 10px;
-            display: block;
-        }
-        .finding h4 { font-family: 'Bespoke Sans', sans-serif; font-size: 0.88rem; font-weight: 500; margin-bottom: 8px; line-height: 1.35; }
-        .finding p { font-size: 0.82rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
-
-        /* ═══ PERSONAS ═══ */
-        .persona-groups {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            margin-top: 40px;
-        }
-        .persona-group-label {
             font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-            margin-bottom: 16px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            margin-bottom: 8px;
         }
-        .persona-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .persona-row--two {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .persona-card {
-            padding: 40px 36px;
-            border: none;
-            border-radius: 16px;
-            background: #EEF1F6;
-        }
-        .persona-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
-        }
-        .persona-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            background: #E8E4DF;
-            overflow: hidden;
-        }
-        .persona-avatar svg {
-            width: 26px;
-            height: 26px;
-            fill: var(--text-muted);
-        }
-        .persona-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .persona-info {}
-        .persona-name {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 500;
-            line-height: 1.3;
-            margin-bottom: 3px;
-        }
-        .persona-role {
+        .workflow-step p {
             font-size: 0.72rem;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-muted);
+            line-height: 1.4;
         }
-        .persona-need {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 500;
-            letter-spacing: 0.04em;
-            padding: 3px 10px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-            background: #EEF1FE;
-            color: var(--accent);
-        }
-        .persona-points {
-            list-style: none;
-            padding: 0;
-        }
-        .persona-points li {
-            font-size: 0.78rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.55;
-            padding-left: 14px;
-            position: relative;
-            margin-bottom: 5px;
-        }
-        .persona-points li::before {
+        .workflow-step::after {
             content: '';
             position: absolute;
-            left: 0;
-            top: 7px;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
+            top: 14px;
+            right: -8px;
+            width: 12px;
+            height: 1px;
             background: var(--border);
         }
+        .workflow-step:last-child::after { display: none; }
 
-        /* ═══ CASE STUDIES ROW ═══ */
-        .case-studies-row {
+        /* Annotated image grid for workspace */
+        .ws-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            margin-top: 16px;
+            gap: 16px;
+            margin-top: 24px;
         }
-        .case-study-col {
+        .ws-grid-item img {
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            display: block;
+        }
+        .ws-grid-caption {
+            margin-top: 8px;
             display: flex;
-            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
         }
-        .case-study-col .research-sub {
-            margin-top: 0;
+        .ws-grid-caption span {
+            font-size: 0.82rem;
+            flex-shrink: 0;
         }
-        .case-study-col .research-case {
-            margin-top: 16px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        .ws-grid-caption p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-        .case-study-col .research-case-body {
-            flex: 1;
+        .ws-grid-caption p strong {
+            font-weight: 600;
+            color: var(--text);
         }
 
-        /* ═══ RESEARCH SUBSECTION ═══ */
-        .research-sub {
-            margin-top: 64px;
+        /* ══════════════════════════════════════ */
+        /* FLOW BOXES                             */
+        /* ══════════════════════════════════════ */
+        .flow-box {
+            padding: 40px 48px 20px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            overflow: hidden;
         }
-        .research-sub-label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
+        .flow-box-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 14px;
+            margin-bottom: 8px;
         }
-        .research-sub-heading {
-            font-family: 'Bespoke Slab', serif;
-            font-weight: 400;
-            font-size: 1.2rem;
-            line-height: 1.35;
-            margin-bottom: 16px;
+        .flow-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.375rem;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 12px;
         }
-
-        /* ═══ HMW STATEMENT ═══ */
-        .hmw {
-            font-family: 'Bespoke Slab', serif;
+        .flow-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
             font-weight: 400;
-            font-size: 1.25rem;
+            color: var(--text-secondary);
             line-height: 1.5;
-            color: var(--accent);
-            border-left: 3px solid var(--accent);
-            padding-left: 24px;
-            margin: 40px 0;
-            max-width: 1080px;
+            max-width: 560px;
+            margin-bottom: 28px;
+        }
+        .flow-box .flow-video-wrap {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .flow-box video {
+            width: calc(100% + 6px);
+            margin: -3px;
+            display: block;
         }
 
-        /* ═══ TESTING ═══ */
-        .test-stats { display: flex; gap: 40px; justify-content: flex-start; margin-top: 28px; }
+        /* ══════════════════════════════════════ */
+        /* TESTING                                */
+        /* ══════════════════════════════════════ */
+        .test-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+        }
         .test-stat { text-align: center; }
-        .test-stat-num { font-family: 'Bespoke Slab', serif; font-weight: 400; font-size: 1.6rem; color: var(--text); }
-        .test-stat-label { font-size: 0.78rem; font-weight: 300; color: var(--text-muted); margin-top: 4px; }
+        .test-stat-num {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--accent);
+        }
+        .test-stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        .findings {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 32px;
+        }
+        .finding {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .finding-icon {
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+        .finding strong {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .test-quotes {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+        .test-feedback-card {
+            padding: 24px 28px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
+        }
+        .test-feedback-name {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .test-feedback-quote {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-style: italic;
+        }
+        .iteration-box {
+            margin-top: 32px;
+            padding: 24px 28px;
+            background: var(--bg-accent-light);
+            border: none;
+            border-radius: 10px;
+        }
+        .iteration-box-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .iteration-box p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .iteration-box p strong {
+            font-weight: 600;
+            color: var(--text);
+        }
 
-        /* Feedback quotes */
-        .test-feedback-grid {
+        /* ══════════════════════════════════════ */
+        /* OUTCOME + REFLECTION                   */
+        /* ══════════════════════════════════════ */
+        .outcome-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
-            margin-top: 40px;
+            margin-top: 28px;
         }
-        .test-feedback-card {
-            padding: 32px 28px;
-            background: #EEF1F6;
-            border-radius: 16px;
+        .outcome-card {
+            padding: 24px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
         }
-        .test-feedback-name {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.82rem;
+        .outcome-card h4 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
             font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.35;
+            letter-spacing: -1px;
             color: var(--accent);
-            margin-bottom: 12px;
         }
-        .test-feedback-quote {
+        .outcome-card p {
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.7;
-            font-style: italic;
-        }
-
-        /* Iteration insight */
-        .test-iteration {
-            margin-top: 40px;
-            padding: 32px 36px;
-            background: #EEF1F6;
-            border-radius: 16px;
-        }
-        .test-iteration-label {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-        .test-iteration-text {
-            font-size: 0.92rem;
             font-weight: 400;
-            color: var(--text);
-            line-height: 1.7;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-
-        /* ═══ LEARNINGS (two-column) ═══ */
         .learnings {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-top: 40px;
+            margin-top: 24px;
         }
         .learning {
-            padding: 40px 36px;
-            background: #EEF1F6;
+            padding: 28px;
+            background: var(--bg-card);
             border: none;
-            border-radius: 16px;
+            border-radius: 10px;
         }
         .learning-num {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 0.82rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 13px;
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 1.3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 4px;
+            margin-bottom: 10px;
             display: block;
         }
         .learning h4 {
-            font-family: 'Bespoke Sans', sans-serif;
-            font-size: 1.05rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
+            margin-bottom: 8px;
+            line-height: 1.35;
+            letter-spacing: -1px;
+            color: var(--text);
         }
         .learning p {
-            font-size: 0.85rem;
-            font-weight: 300;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ═══ BACK LINK ═══ */
-        .back { text-align: center; padding: 48px 0 100px; }
-        .back a {
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
             font-weight: 400;
-            color: var(--text-muted);
-            text-decoration: none;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 2px;
-            transition: color 0.3s, border-color 0.3s;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-        .back a:hover { color: var(--text); border-color: var(--text); }
 
-        /* ═══ FULL-BLEED ACCENT SECTION ═══ */
-        .section--accent-wrap {
-            background: #F4F5FA;
+        /* ══════════════════════════════════════ */
+        /* ROADMAP CONNECTION                     */
+        /* ══════════════════════════════════════ */
+        .roadmap-connection {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        .roadmap-connection-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--bg-accent-light);
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .roadmap-connection p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .roadmap-connection p strong {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* ══════════════════════════════════════ */
+        /* DASHBOARD ANNOTATED                    */
+        /* ══════════════════════════════════════ */
+        .dash-annotated {
+            display: grid;
+            grid-template-columns: 220px 1fr 220px;
+            gap: 0;
+            margin-top: 40px;
+            align-items: start;
+        }
+        .dash-col-left,
+        .dash-col-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .dash-col-left {
+            padding-right: 20px;
+        }
+        .dash-col-right {
+            padding-left: 20px;
+        }
+        .dash-img-wrap {
+            position: relative;
+        }
+        .dash-img-wrap img {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+        .dash-card {
+            padding: 18px;
+            background: #fff;
+            border: 1.5px solid #F6AD55;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+        }
+        .dash-card-title {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+        .dash-card-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .dash-spacer {
+            flex: 1;
+        }
+
+        /* ══════════════════════════════════════ */
+        /* SCROLL EXPLORATION                     */
+        /* ══════════════════════════════════════ */
+        .scroll-explore {
+            height: 8000px;
+            position: relative;
+            padding-top: 600px;
+        }
+        .scroll-explore-sticky {
+            position: sticky;
+            top: calc(50vh - 300px);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .scroll-card-slot {
+            width: 320px;
+            flex-shrink: 0;
+            position: relative;
+            height: 600px;
+        }
+        .scroll-explore-mask {
+            width: 1000px;
+            flex-shrink: 0;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .scroll-explore-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: block;
+            will-change: transform;
+            transform-origin: center center;
+            transition: transform 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        /* Scroll cards */
+        .scroll-card {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(-10px);
+            width: 320px;
+            padding: 28px;
+            background: var(--bg-accent-light);
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+        .scroll-card.is-visible {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+        .scroll-card-num {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .scroll-card-chosen {
+            display: inline-block;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: var(--accent-green);
+            color: var(--text);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        .scroll-card-points {
+            list-style: none;
             padding: 0;
-            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
         }
-        .section--accent-wrap .case-study {
-            padding-top: 0;
-            padding-bottom: 0;
+        .scroll-card-points li {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 16px;
+            position: relative;
+        }
+        .scroll-card-points li::before {
+            content: '\2022';
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+        .scroll-card-takeaway {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text);
+            padding-left: 24px;
+            position: relative;
+        }
+        .scroll-card-takeaway::before {
+            content: '\1F4A1';
+            position: absolute;
+            left: 0;
+            font-size: 0.85rem;
         }
 
-        /* ═══ RESPONSIVE ═══ */
-        @media (max-width: 1100px) {
-            .case-studies-row { grid-template-columns: 1fr; }
-            .case-study-col .research-sub { margin-top: 48px; }
-            .case-study-col:first-child .research-sub { margin-top: 0; }
+        /* ══════════════════════════════════════ */
+        /* BACK LINK                              */
+        /* ══════════════════════════════════════ */
+        .back { padding: 40px 0 80px; }
+        .back a {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
         }
-        @media (max-width: 900px) {
+        .back a:hover { text-decoration: underline; }
+
+        /* ══════════════════════════════════════ */
+        /* RESPONSIVE                             */
+        /* ══════════════════════════════════════ */
+        @media (max-width: 1024px) {
             .sidebar { display: none; }
             .main-content { margin-left: 0; }
         }
-
-        @media (max-width: 640px) {
-            .case-study { padding: 0 20px; }
-            .wide { padding: 0 20px; }
-            .hero { padding: 48px 0 40px; flex-direction: column; }
+        @media (max-width: 768px) {
+            .case-study, .wide { padding: 0 24px; }
             .hero h1 { font-size: 1.8rem; }
-            .section { padding: 64px 0; }
-            .section-heading { font-size: 1.35rem; }
-            .problem-grid { grid-template-columns: 1fr; gap: 16px; }
-            .solution-grid { grid-template-columns: 1fr; gap: 16px; }
-            .ideation-grid { grid-template-columns: 1fr; gap: 16px; }
-            .case-hero-stats { gap: 16px; }
-            .case-hero-stat { min-width: 60px; }
-            .findings { grid-template-columns: 1fr; }
-            .desk-layout { grid-template-columns: 1fr; }
-            .ai-flow-row {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            .ai-engine-col {
-                flex-direction: row;
-                gap: 12px;
-                padding: 8px 0;
-            }
-            .ai-engine-line { height: 2px; width: 100%; flex: 1; background: linear-gradient(to right, transparent, var(--accent) 20%, var(--accent) 80%, transparent); }
-            .ai-engine-badge { width: 48px; height: 48px; }
-            .module-rings { max-width: 100%; padding: 14px 12px; }
-            .module-circle { width: 72px; height: 72px; }
-            .module-label { font-size: 0.68rem; }
-            .test-feedback-grid { grid-template-columns: 1fr; }
-            .module-arrow svg { width: 16px; height: 16px; }
-            .module-arrow { padding: 0 2px; }
-            .features { flex-direction: column; gap: 24px; }
-            .test-stats { gap: 28px; }
-            .persona-row { grid-template-columns: 1fr; }
-            .persona-row--two { grid-template-columns: 1fr; }
-            .before-after { grid-template-columns: 1fr; }
-            .learnings { grid-template-columns: 1fr; }
-            .strategy-grid { grid-template-columns: 1fr; }
-            .localization-grid { grid-template-columns: 1fr; }
-            .stat-row { gap: 10px; }
-            .stat-card { min-width: 80px; }
+            .meta { flex-direction: column; gap: 20px; }
+            .two-col,
+            .broken-grid,
+            .insight-grid,
+            .goal-block,
+            .comparison--two,
+            .comparison--three,
+            .annotations,
+            .outcome-grid,
+            .learnings,
+            .test-quotes,
+            .ws-grid { grid-template-columns: 1fr; }
+            .workflow-steps { grid-template-columns: repeat(3, 1fr); }
+            .workflow-step::after { display: none; }
+            .flow-box { padding: 20px 20px 16px; }
+            .flow-box video { width: calc(100% + 6px); margin: -3px; }
+            .explore-header h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -1302,7 +1354,6 @@
         <a href="/work.html"><span class="cutout">work</span></a>
         <a href="/about.html"><span class="cutout">about</span></a>
         <a href="/blog.html"><span class="cutout">blog</span></a>
-
     </div>
     <button class="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -1319,13 +1370,13 @@
 <!-- SIDEBAR -->
 <aside class="sidebar">
     <a href="#hero" class="sidebar-link active">Hero</a>
-    <a href="#overview" class="sidebar-link">Overview</a>
+    <a href="#context" class="sidebar-link">Context</a>
     <a href="#problem" class="sidebar-link">Problem</a>
-    <a href="#solution" class="sidebar-link">Solution</a>
-    <a href="#research" class="sidebar-link">Research</a>
-    <a href="#ideation" class="sidebar-link">Ideation</a>
-    <a href="#system" class="sidebar-link">System Design</a>
-    <a href="#flows" class="sidebar-link">Core Flows</a>
+    <a href="#goals" class="sidebar-link">Design Goals</a>
+    <a href="#explore-1" class="sidebar-link">Marketplace</a>
+    <a href="#explore-2" class="sidebar-link">Workspace</a>
+    <a href="#explore-3" class="sidebar-link">AI Workflow</a>
+    <a href="#solution" class="sidebar-link">Solution Flow</a>
     <a href="#testing" class="sidebar-link">Testing</a>
     <a href="#reflection" class="sidebar-link">Reflection</a>
 </aside>
@@ -1333,797 +1384,590 @@
 <!-- MAIN CONTENT -->
 <div class="main-content">
 
-<!-- ════════════════════════════════════════ -->
-<!-- 1. HERO -->
-<!-- ════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- 1. HERO                                     -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="wide">
     <section id="hero" class="hero">
         <div class="hero-left">
-            <h1><span class="cutout">Weave</span></h1>
-            <p class="hero-sub">A Platform for Global Market Entry.</p>
-            <p class="hero-sub">A workflow tool that helps companies find, evaluate, contract, and collaborate with overseas partners, all in one flow.</p>
+            <h1>Weave</h1>
+            <p class="hero-sub">Companies fail overseas because they can't find or work with the right local partners.<br>Weave connects the entire workflow &mdash; from finding trusted partners to collaborating across borders with AI.</p>
             <div class="meta">
                 <div class="meta-item">
                     <p class="meta-label">Role</p>
                     <div class="meta-tags">
                         <span class="meta-tag">UX Research Lead</span>
-                        <span class="meta-tag">Product Strategy</span>
                         <span class="meta-tag">Interaction Design</span>
                     </div>
                 </div>
                 <div class="meta-item">
                     <p class="meta-label">Timeline</p>
-                    <p class="meta-value">Jul 2025 – Jan 2026</p>
+                    <p class="meta-value">Jul 2025 &ndash; Jan 2026</p>
                 </div>
                 <div class="meta-item">
                     <p class="meta-label">Team</p>
                     <div class="meta-tags">
-                        <span class="meta-value">Summer Hwang</span>
-                        <span class="meta-value">Sea Ahn</span>
-                        <span class="meta-value">Jihyeon Jeon</span>
+                        <span class="meta-value">Summer Hwang, Sea Ahn, Jihyeon Jeon</span>
                     </div>
                 </div>
+                <div class="meta-item">
+                    <p class="meta-label">Tags</p>
+                    <div class="meta-tags">
+                        <span class="meta-tag">B2B SaaS</span>
+                        <span class="meta-tag">Workflow Design</span>
+                        <span class="meta-tag">Automation</span>
+                        <span class="meta-tag">AI / LLM Ready</span>
+                        <span class="meta-tag">Design System</span>
+                    </div>
+                </div>
+            </div>
+            <div class="impact-bar">
+                <p class="impact-bar-label">My Role</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">Worked across the full design process with a team of 3 &mdash; from research to prototyping to user testing. I led the <strong style="color: var(--text);">research &amp; problem framing</strong>, drove <strong style="color: var(--text);">solution ideation</strong> (including the AI-powered document workflow), and owned <strong style="color: var(--text);">interaction design</strong> across all key flows.</p>
+                <p class="impact-bar-label">The outcome</p>
+                <h2>Reliable, data-driven partner matching. Connected workflow from discovery to collaboration. One platform, no handoffs.</h2>
             </div>
         </div>
     </section>
 </div>
 
 <div class="wide">
-    <img src="images/weave/website-landing-page.png" alt="Weave landing page" class="img-full">
+    <img src="images/weave/fianl pages/landing image.png" alt="Weave workspace on laptop" class="img-full">
 </div>
 
-<!-- ════════════════════════════════════════ -->
-<!-- 2. OVERVIEW -->
-<!-- ════════════════════════════════════════ -->
+<div style="height: 160px;"></div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 2. CONTEXT                                  -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
-    <section id="overview" class="section">
-        <p class="section-label">Overview</p>
-        <h2 class="section-heading">Why I started this project</h2>
-        <p class="section-body">I kept hearing the same story from companies trying to expand overseas: weeks lost to scattered tools, uncertain partners, and regulations that seemed to change overnight. The workflow was broken and nobody was connecting the pieces.</p>
-        <p class="section-body" style="margin-top: 16px;">I proposed this project concept and led research strategy, problem definition, and solution ideation from initial desk research through feature architecture. Over one semester, we took this from a question to a fully designed product.</p>
-        <div class="outcomes">
-            <div class="outcome">
-                <p class="outcome-num">Full scope</p>
-                <p class="outcome-text">Covers the whole workflow: finding partners, collaborating with them, staying compliant</p>
+    <section id="context" class="section">
+        <p class="context-lead">Let's start with the context</p>
+
+        <h2 class="section-heading">Expanding overseas sounds like growth.<br>In reality, it's where well-resourced companies fail.</h2>
+
+        <div class="two-col">
+            <div class="two-col-left">
+                <h2>Even the biggest companies struggle when they enter unfamiliar markets without understanding local culture, regulations, or the right partners.</h2>
             </div>
-            <div class="outcome">
-                <p class="outcome-num">Validated</p>
-                <p class="outcome-text">Tested with 3 users across 2 task flows; iterated on real feedback</p>
-            </div>
-            <div class="outcome">
-                <p class="outcome-num">Originated</p>
-                <p class="outcome-text">I came up with the original concept and led how we framed the problem</p>
+            <div class="two-col-right">
+                <div class="case-card">
+                    <div class="case-icon">&#x2708;</div>
+                    <div class="case-card-text">
+                        <p class="case-card-name"><strong>Airbnb</strong> &middot; 2016&ndash;2022</p>
+                        <p>Shut down its entire China business after 6 years &mdash; lost to local competitors who understood the market.</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">&#x1F698;</div>
+                    <div class="case-card-text">
+                        <p class="case-card-name"><strong>Uber</strong> &middot; 2013&ndash;2018</p>
+                        <p>Sold its Southeast Asia operations to Grab after failing in 8 countries &mdash; local knowledge outweighed global scale.</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-icon">&#x1F6D2;</div>
+                    <div class="case-card-text">
+                        <p class="case-card-name"><strong>Walmart</strong> &middot; 1997&ndash;2006</p>
+                        <p>Lost over $1B in Germany after refusing to adapt to local culture &mdash; ignored local advisors entirely.</p>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Failure reasons + stats -->
+        <div class="failure-section">
+            <h3 class="failure-heading">The most common reasons companies fail to expand overseas</h3>
+
+            <!-- User Research Quotes -->
+            <div style="margin-bottom: 48px;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;">What we heard from users</p>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 10px;">"We spent three months just trying to find a marketing agency in Vietnam. Everyone we talked to was someone's friend of a friend. There was no way to actually compare options."</p>
+                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Marketing Director &middot; Mid-size cosmetics brand</p>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 10px;">"Our partner in Thailand was handling our entire brand launch, but we had no visibility into what they were doing. By the time we realized the messaging was wrong for the local market, it was already live."</p>
+                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Head of Global Expansion &middot; DTC skincare startup</p>
+                    </div>
+                    <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 10px;">"Every document we send to our local partner goes through email, gets translated on their end, and comes back with changes we can't track. We're basically working blind."</p>
+                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Operations Manager &middot; Consumer electronics company</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-list">
+                <div class="stat-row">
+                    <span class="stat-num">73%</span>
+                    <p class="stat-text">of business leaders struggle to identify and enter new markets.</p>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-num">41%</span>
+                    <p class="stat-text">of companies rank local regulations as their biggest barrier to expansion.</p>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-num">74%</span>
+                    <p class="stat-text">of companies struggle with language and cultural barriers overseas.</p>
+                </div>
+            </div>
+
+            <div class="conclusion-section">
+                <h3 class="conclusion-heading">These failures share one root cause:<br>lack of reliable local partners.</h3>
+                <p class="conclusion-sub">And finding those partners? Still a broken process. No structured marketplace exists.</p>
+
+                <div class="broken-grid">
+                    <div class="broken-item">
+                        <span class="broken-icon">&#x1F5E3;</span>
+                        <p class="broken-label">Word-of-mouth</p>
+                        <p class="broken-desc">Relies on personal networks. Limited options, no way to compare.</p>
+                    </div>
+                    <div class="broken-item">
+                        <span class="broken-icon">&#x1F3DB;</span>
+                        <p class="broken-label">Government programs</p>
+                        <p class="broken-desc">Scattered across 15+ agencies. Hard to find, harder to navigate.</p>
+                    </div>
+                    <div class="broken-item">
+                        <span class="broken-icon">&#x1F4B0;</span>
+                        <p class="broken-label">Expensive consultants</p>
+                        <p class="broken-desc">Reliable but priced for enterprises. Out of reach for most companies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 </div>
 
 <hr class="divider" style="max-width: 1440px; margin: 0 auto;">
 
-<!-- ════════════════════════════════════════ -->
-<!-- 3. THE PROBLEM (Visual Cards) -->
-<!-- ════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- 3. PROBLEM                                  -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
     <section id="problem" class="section">
-        <p class="section-label">The Problem</p>
-        <h2 class="section-heading" style="color: var(--accent);">Companies trying to expand overseas waste weeks on scattered tools, unclear regulations, and unreliable partners.</h2>
-        <p class="section-body">Teams over-rely on a small set of local partners, government resources are too broad for real decisions, and critical support is scattered across dozens of institutions. The process feels like assembling a puzzle with pieces from different boxes.</p>
-
-        <div class="problem-grid">
-            <div class="problem-card">
-                <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.75 21H13v-1.5c0-.825-.675-1.5-1.5-1.5s-1.5.675-1.5 1.5V21H4.25C3.56 21 3 20.44 3 19.75V14h1.5c.825 0 1.5-.675 1.5-1.5S5.325 11 4.5 11H3V5.25C3 4.56 3.56 4 4.25 4H8.5c0-1.655 1.345-3 3-3s3 1.345 3 3h4.25c.69 0 1.25.56 1.25 1.25V9.5c1.655 0 3 1.345 3 3s-1.345 3-3 3v4.25c0 .69-.56 1.25-1.25 1.25Zm-4.25-1.5h4V14H20c.825 0 1.5-.675 1.5-1.5S20.825 11 20 11h-1.5V5.5H13V4c0-.825-.675-1.5-1.5-1.5S10 3.175 10 4v1.5H4.5v4c1.655 0 3 1.345 3 3s-1.345 3-3 3v4h4c0-1.655 1.345-3 3-3s3 1.345 3 3Z" fill="#3B5BF5"/></svg></div>
-                <span class="problem-num">Problem 01</span>
-                <h4>Fragmented Resources</h4>
-                <p>Essential expansion data is scattered across multiple institutions and platforms, costing teams significant time just to locate and consolidate.</p>
+        <div class="callout callout--problem">
+            <div class="callout-badge">
+                <span class="callout-badge-emoji">&#x1F6A8;</span>
+                <span class="callout-badge-label">Problem</span>
             </div>
-            <div class="problem-card">
-                <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 16h-1.5c0-1.415.76-2.455 1.5-3.46.77-1.055 1.5-2.055 1.5-3.54 0-3.035-2.465-5.5-5.5-5.5A5.503 5.503 0 0 0 6.5 9c0 1.485.73 2.485 1.5 3.54l.01.013c.731 1 1.49 2.038 1.49 3.447H8c0-.925-.56-1.69-1.21-2.575v-.001C5.95 12.274 5 10.974 5 9c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.975-.95 3.28-1.79 4.425C16.56 14.31 16 15.075 16 16Zm-7 4.5V22h6v-1.5H9ZM8 19v-1.5h8V19H8ZM20.72 2.217l-2 2.001 1.06 1.06 2.002-2-1.061-1.061ZM2.218 3.28l1.061-1.06 2.001 2-1.06 1.06-2.002-2ZM23 8.5h-2.5V10H23V8.5Zm-22 0h2.5V10H1V8.5Zm3.222 4.717L2.22 15.218l1.06 1.061 2.001-2.001-1.06-1.06Zm14.496 1.064 1.06-1.061 2.002 2.001-1.061 1.06-2.001-2Z" fill="#3B5BF5"/></svg></div>
-                <span class="problem-num">Problem 02</span>
-                <h4>No Customized Insights</h4>
-                <p>Existing resources offer broad information, but lack the tailored market analysis companies need for their specific industry and target region.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M13 6c0 2.205 1.796 4 4 4 2.206 0 4-1.795 4-4s-1.794-4-4-4c-2.204 0-4 1.795-4 4Zm1.5 0a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1-5 0ZM3 11.5c0 2.205 1.795 4 4 4s4-1.795 4-4-1.795-4-4-4-4 1.795-4 4Zm1.5 0a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1-5 0Zm6.216 9.945-.54-2.02A1.247 1.247 0 0 0 8.97 18.5H5.04c-.565 0-1.06.38-1.205.925l-.54 2.02-1.45-.39.54-2.02a2.755 2.755 0 0 1 2.655-2.04h3.93a2.75 2.75 0 0 1 2.655 2.04l.54 2.015-1.45.39v.005Zm9.46-7.52.54 2.02v-.005l1.45-.39-.54-2.015a2.75 2.75 0 0 0-2.655-2.04h-3.93c-1.24 0-2.335.84-2.655 2.04l-.54 2.02 1.45.39.54-2.02c.145-.545.64-.925 1.205-.925h3.93c.565 0 1.06.38 1.205.925Z" fill="#3B5BF5"/></svg></div>
-                <span class="problem-num">Problem 03</span>
-                <h4>Partner Dependency &amp; Brand Risk</h4>
-                <p>When companies rely heavily on local partners, those partners end up making decisions that directly affect the brand. If the partner mishandles something, the company takes the hit.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.895 22.2c-.19 0-.38-.045-.555-.13a1.24 1.24 0 0 1-.69-1.255l.73-6.795-4.505-1.31a1.247 1.247 0 0 1-.51-2.105l8.88-8.46a1.24 1.24 0 0 1 1.415-.215c.475.235.745.73.69 1.255l-.73 6.78 4.505 1.32c.425.125.76.47.865.905.105.435-.03.895-.35 1.2l-8.885 8.465a1.23 1.23 0 0 1-.86.345ZM5.71 11.39l5.295 1.535-.79 7.37L18.29 12.6l-5.295-1.55.79-7.35-8.075 7.69Z" fill="#3B5BF5"/></svg></div>
-                <span class="problem-num">Problem 04</span>
-                <h4>Rapidly Changing Regulations</h4>
-                <p>Compliance requirements shift frequently across countries and industries, making them nearly impossible for most teams to track and respond to.</p>
-            </div>
+            <h2>Companies expanding overseas have no clear guidelines, no reliable information, and no structured way to find, evaluate, or work with local partners.</h2>
+            <p class="hmw">How might we create a trustworthy space where companies can confidently find reliable partners and manage expansion from start to finish?</p>
         </div>
     </section>
 </div>
 
 <hr class="divider" style="max-width: 1440px; margin: 0 auto;">
 
-<!-- ════════════════════════════════════════ -->
-<!-- 4. THE SOLUTION — Introducing Weave -->
-<!-- ════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- 4. DESIGN GOALS                             -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
-    <section id="solution" class="section">
-        <p class="section-label">The Solution</p>
-        <h2 class="section-heading" style="color: var(--accent);">A workflow tool that helps companies find overseas partners and collaborate in one connected flow.</h2>
-        <p class="section-body">Each problem we found maps to something Weave does. The goal was one connected system, not another standalone tool.</p>
-
-        <div class="solution-grid">
-            <div class="solution-card">
-                <div class="solution-icon"><img src="images/weave/connection.png" alt="Connection icon"></div>
-                <span class="solution-num">Solution 01</span>
-                <h4>Centralized Expansion Hub</h4>
-                <p>One platform aggregating government programs, consulting resources, and market data in a single place.</p>
-            </div>
-            <div class="solution-card">
-                <div class="solution-icon"><img src="images/weave/artificial-intelligence.png" alt="AI icon"></div>
-                <span class="solution-num">Solution 02</span>
-                <h4>AI-Powered Roadmap</h4>
-                <p>A tailored expansion plan generated from company profile, industry, and target market.</p>
-            </div>
-            <div class="solution-card">
-                <div class="solution-icon"><img src="images/weave/closure.png" alt="Partnership icon"></div>
-                <span class="solution-num">Solution 03</span>
-                <h4>Partner Marketplace + Co-Management</h4>
-                <p>Vetted partner marketplace with a shared workspace for HQ-partner collaboration.</p>
-            </div>
-            <div class="solution-card">
-                <div class="solution-icon"><img src="images/weave/evaluation.png" alt="Compliance icon"></div>
-                <span class="solution-num">Solution 04</span>
-                <h4>Regulatory Monitoring &amp; Alerts</h4>
-                <p>Automated tracking of regulation changes with impact analysis and response suggestions.</p>
-            </div>
-        </div>
-
+    <section id="goals" style="padding: 160px 0 0;">
+        <p class="section-label">Design Goals</p>
+        <h2 class="section-heading">Create a space where expanding companies can trust the information and feel confident in every decision.</h2>
     </section>
 </div>
 
-<hr class="divider" style="max-width: 1440px; margin: 0 auto;">
-
-<!-- ════════════════════════════════════════ -->
-<!-- 5. RESEARCH DEEP DIVE -->
-<!-- ════════════════════════════════════════ -->
 <div class="case-study">
-    <section id="research" class="section">
-        <p class="section-label">Research</p>
-        <h2 class="section-heading">What the research told us</h2>
-        <p class="section-body">We did desk research, analyzed case studies of companies that succeeded and failed at expansion, and looked at where AI could actually help.</p>
-
-        <!-- ── Case Studies Side by Side ── -->
-        <div class="case-studies-row">
-
-        <div class="case-study-col">
-        <div class="research-sub">
-            <p class="research-sub-label">Case Study — Successful Expansion</p>
-            <h3 class="research-sub-heading">Karrot: How hyperlocal strategy drove global growth</h3>
+    <div class="goal-block">
+        <div class="goal-text">
+            <p class="goal-num">Design goal &middot; 01</p>
+            <h2>Enable data-driven partner matching</h2>
+            <ul>
+                <li>Surface relevant partners based on company profile and target market</li>
+                <li>Provide verifiable performance data so companies can compare with confidence</li>
+            </ul>
         </div>
-
-        <div class="research-case">
-            <div class="case-hero case-hero--success">
-                <span class="case-hero-tag case-hero-tag--success">Success Case</span>
-                <h3 class="case-hero-name">Karrot (당근)</h3>
-                <p class="case-hero-sub">Korean hyperlocal community marketplace that scaled to 4 countries</p>
-                <div class="case-hero-stats">
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--success">43M</p>
-                        <p class="case-hero-stat-label">Total users</p>
-                    </div>
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--success">14M</p>
-                        <p class="case-hero-stat-label">Weekly active</p>
-                    </div>
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--success">4</p>
-                        <p class="case-hero-stat-label">Countries</p>
-                    </div>
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--success">1,400+</p>
-                        <p class="case-hero-stat-label">Regions</p>
-                    </div>
-                </div>
-                <div class="case-hero-bars">
-                    <div class="case-bar-row">
-                        <span class="case-bar-label">Revenue</span>
-                        <div class="case-bar-track"><div class="case-bar-fill case-bar-fill--success" style="width: 100%"></div></div>
-                        <span class="case-bar-value">₩189.1B</span>
-                    </div>
-                    <div class="case-bar-row">
-                        <span class="case-bar-label">Op. Profit</span>
-                        <div class="case-bar-track"><div class="case-bar-fill case-bar-fill--success" style="width: 20%"></div></div>
-                        <span class="case-bar-value">₩37.6B</span>
-                    </div>
-                    <div class="case-bar-row">
-                        <span class="case-bar-label">Ad Revenue</span>
-                        <div class="case-bar-track"><div class="case-bar-fill case-bar-fill--success" style="width: 48%"></div></div>
-                        <span class="case-bar-value">+48% YoY</span>
-                    </div>
-                </div>
-            </div>
-            <div class="research-case-body">
-                <span class="research-case-tag">Key Strategies</span>
-
-                <div class="strategy-grid">
-                    <div class="strategy-card">
-                        <p class="strategy-num">01</p>
-                        <h4>Hyperlocal Strategy</h4>
-                        <p>GPS-based verification builds trust through physical proximity — applied identically in every new market.</p>
-                    </div>
-                    <div class="strategy-card">
-                        <p class="strategy-num">02</p>
-                        <h4>Deep Localization</h4>
-                        <p>Replaced "Manner Temperature" with a 0–100 score and adjusted trade radius per region (1km in Seoul vs. 50km in Canada).</p>
-                    </div>
-                    <div class="strategy-card">
-                        <p class="strategy-num">03</p>
-                        <h4>Founder-led Market Entry</h4>
-                        <p>CEO relocated to Canada; CSO appointed as Japan branch lead — enabling fast, on-the-ground decisions.</p>
-                    </div>
-                    <div class="strategy-card">
-                        <p class="strategy-num">04</p>
-                        <h4>AI-Powered Features</h4>
-                        <p>AI auto-generates listings from photos and predicts pricing — launched first in Canada before global rollout.</p>
-                    </div>
-                </div>
-
-                <div class="case-takeaway case-takeaway--success">
-                    <span class="case-takeaway-label">Key to Success</span>
-                    <p class="case-takeaway-text">Localization is a product strategy, not a translation task. Adapting to local culture, trust models, and user behavior is what separates scaling from just launching.</p>
-                </div>
-            </div>
+        <div class="goal-visual">
+            <video autoplay muted playsinline preload="auto"><source src="Weave/marketplace-data.mp4" type="video/mp4"></video>
         </div>
-
-        </div><!-- /case-study-col -->
-
-        <div class="case-study-col">
-        <!-- ── Case Study: Toss (Failed) ── -->
-        <div class="research-sub">
-            <p class="research-sub-label">Case Study — Failed Expansion</p>
-            <h3 class="research-sub-heading">Toss: Why a Korean fintech giant withdrew from Vietnam</h3>
-        </div>
-
-        <div class="research-case research-case--fail">
-            <div class="case-hero case-hero--fail">
-                <span class="case-hero-tag case-hero-tag--fail">Failed Case</span>
-                <h3 class="case-hero-name">Toss (토스)</h3>
-                <p class="case-hero-sub">Korean fintech super-app that withdrew from Vietnam &amp; Southeast Asia</p>
-                <div class="case-hero-stats">
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--fail">300K</p>
-                        <p class="case-hero-stat-label">Peak MAU</p>
-                    </div>
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--fail">4x</p>
-                        <p class="case-hero-stat-label">Debt increase</p>
-                    </div>
-                    <div class="case-hero-stat">
-                        <p class="case-hero-stat-num case-hero-stat-num--fail">2024</p>
-                        <p class="case-hero-stat-label">Full exit</p>
-                    </div>
-                </div>
-                <div class="case-hero-bars">
-                    <div class="case-bar-row">
-                        <span class="case-bar-label">User Acq.</span>
-                        <div class="case-bar-track"><div class="case-bar-fill case-bar-fill--fail" style="width: 65%"></div></div>
-                        <span class="case-bar-value">300K MAU</span>
-                    </div>
-                    <div class="case-bar-row">
-                        <span class="case-bar-label">Monetize</span>
-                        <div class="case-bar-track"><div class="case-bar-fill case-bar-fill--fail" style="width: 8%"></div></div>
-                        <span class="case-bar-value">Blocked</span>
-                    </div>
-                    <div class="case-bar-row">
-                        <span class="case-bar-label">Debt Load</span>
-                        <div class="case-bar-track"><div class="case-bar-fill case-bar-fill--fail" style="width: 100%"></div></div>
-                        <span class="case-bar-value">4x growth</span>
-                    </div>
-                </div>
-            </div>
-            <div class="research-case-body">
-                <span class="research-case-tag research-case-tag--fail">Key Failure Points</span>
-
-                <div class="strategy-grid">
-                    <div class="strategy-card strategy-card--fail">
-                        <p class="strategy-num">01</p>
-                        <h4>Underestimated Regulatory Hurdles</h4>
-                        <p>Vietnam requires local bank partnerships and central bank approval — licensing timelines blocked the path to monetization.</p>
-                    </div>
-                    <div class="strategy-card strategy-card--fail">
-                        <p class="strategy-num">02</p>
-                        <h4>Misread Cash-Based Culture</h4>
-                        <p>Imported the Korean "all-in-one finance" model into a market with low card/account-based payment penetration.</p>
-                    </div>
-                    <div class="strategy-card strategy-card--fail">
-                        <p class="strategy-num">03</p>
-                        <h4>No Differentiation</h4>
-                        <p>GrabPay, MoMo, and ZaloPay already dominated — Toss couldn't articulate a unique value proposition against entrenched locals.</p>
-                    </div>
-                    <div class="strategy-card strategy-card--fail">
-                        <p class="strategy-num">04</p>
-                        <h4>Financial Risk Explosion</h4>
-                        <p>Aggressive expansion led to 4x debt growth, forcing leadership to cut overseas operations for domestic IPO focus.</p>
-                    </div>
-                </div>
-
-                <div class="case-takeaway case-takeaway--fail">
-                    <span class="case-takeaway-label">Key to Failure</span>
-                    <p class="case-takeaway-text">A strong domestic product doesn't guarantee overseas success. Without understanding local regulations, payment habits, and who you're competing against, growth turns into debt.</p>
-                </div>
-            </div>
-        </div>
-        </div><!-- /case-study-col -->
-        </div><!-- /case-studies-row -->
-
-        <!-- ── Desk Research ── -->
-        <div class="research-sub">
-            <p class="research-sub-label">Desk Research</p>
-            <h3 class="research-sub-heading">What the data told us about overseas expansion</h3>
-            <p class="section-body">We went through government reports, startup failure data, and existing support programs to understand what Korean companies actually face when expanding abroad.</p>
-
-            <div class="desk-layout">
-                <div class="desk-stats">
-                    <div class="desk-stat">
-                        <p class="desk-stat-num">15+</p>
-                        <p class="desk-stat-label">Government agencies offering overlapping support programs</p>
-                    </div>
-                    <div class="desk-stat">
-                        <p class="desk-stat-num">#1</p>
-                        <p class="desk-stat-label">Barrier cited by SMEs: regulatory complexity</p>
-                    </div>
-                    <div class="desk-stat">
-                        <p class="desk-stat-num">0</p>
-                        <p class="desk-stat-label">Integrated tools built for SME global expansion</p>
-                    </div>
-                </div>
-
-                <div class="desk-insights">
-                    <div class="desk-insight">
-                        <h4>Government support exists, but it's scattered</h4>
-                        <p>Programs from KOTRA, GoBiz Korea, and KOSME offer real value — but companies either don't know they exist or can't navigate across fragmented institutions.</p>
-                    </div>
-                    <div class="desk-insight">
-                        <h4>Partner discovery relies on personal networks</h4>
-                        <p>No structured marketplace exists for finding vetted local partners. Companies default to word-of-mouth, increasing risk and limiting options.</p>
-                    </div>
-                    <div class="desk-insight">
-                        <h4>Compliance tools serve enterprises, not SMEs</h4>
-                        <p>Global legaltech offers advanced regulatory solutions — but they're priced and scoped for large corporations, leaving SMEs with manual, error-prone processes.</p>
-                    </div>
-                    <div class="desk-insight">
-                        <h4>Over-reliance on partners leads to failure</h4>
-                        <p>Companies often over-rely on local partners who lack a solid understanding of the business, giving them outsized influence over critical decisions — ultimately undermining the HQ's control and leading to expansion failure.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="case-takeaway case-takeaway--neutral">
-                <span class="case-takeaway-label">Takeaway</span>
-                <p class="case-takeaway-text">Support programs and useful information exist, but they're scattered across so many places that companies trying to expand overseas struggle to figure out where to even start. And once they're in a new market, regulations change constantly and are hard to keep track of.</p>
-            </div>
-        </div>
-
-
-    </section>
+    </div>
 </div>
 
-<hr class="divider" style="max-width: 1440px; margin: 0 auto;">
-
-<!-- ════════════════════════════════════════ -->
-<!-- 7. IDEATION & PROCESS -->
-<!-- ════════════════════════════════════════ -->
 <div class="case-study">
-    <section id="ideation" class="section">
-        <p class="section-label">Ideation & Process</p>
-        <h2 class="section-heading">From problems to a connected solution</h2>
-        <p class="section-body">Our research kept pointing to the same thing: every part of the expansion process is broken in a different way, and no single tool tries to connect them. We started with a question:</p>
-
-        <div class="hmw">"How might we help companies manage global expansion as one connected flow — from regulation to partner to contract to collaboration?"</div>
-
-        <p class="section-body">From there, we structured our approach around three design goals:</p>
-        <div class="ideation-grid">
-            <div class="ideation-card">
-                <span class="ideation-num">Goal 01</span>
-                <h4>Reduce the fragmentation</h4>
-                <p>Bring regulations, partners, contracts, and collaboration into one platform.</p>
-            </div>
-            <div class="ideation-card">
-                <span class="ideation-num">Goal 02</span>
-                <h4>Build trust through transparency</h4>
-                <p>Show verified partners, track compliance, and let both sides see what's happening.</p>
-            </div>
-            <div class="ideation-card">
-                <span class="ideation-num">Goal 03</span>
-                <h4>Make the complex manageable</h4>
-                <p>Break the process into steps with clear roadmaps and AI suggestions where they're useful.</p>
-            </div>
+    <div class="goal-block">
+        <div class="goal-text">
+            <p class="goal-num">Design goal &middot; 02</p>
+            <h2>Provide a seamless AI-driven workspace for HQ-partner collaboration</h2>
+            <ul>
+                <li>Give both sides one trusted space for every decision and communication</li>
+                <li>Use AI to assist document review, translation, and quality control across borders</li>
+            </ul>
         </div>
-
-        <p class="section-body" style="margin-top: 24px;">We took every pain point from our research and mapped it to a feature. That mapping became the backbone of the product.</p>
-
-        <!-- ── AI in Weave ── -->
-        <div style="margin-top: 56px;">
-            <p class="section-label" style="margin-bottom: 8px;">AI in Weave</p>
-            <h3 class="section-heading" style="font-size: 1.25rem;">How AI powers the platform</h3>
-            <p class="section-body">The problems we found are tedious at their core: digging through government databases, cross-referencing regulations, evaluating dozens of potential partners across different criteria. That's exactly the kind of work AI is good at. Instead of bolting AI on as a feature, we made it part of how the platform works. It crawls and aggregates sources that would take a team weeks to cover manually, and it scores partner matches based on variables like industry fit and compliance history that no one has time to compare by hand.</p>
-
-            <div class="ai-flow">
-                <div class="ai-flow-row">
-                    <!-- INPUT COLUMN -->
-                    <div class="ai-col">
-                        <p class="ai-col-label ai-col-label--input">Collect</p>
-                        <div class="ai-card ai-card--input">
-                            <div class="ai-card-icon ai-card-icon--input">
-                                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Regulations</strong>
-                                <span>Crawl and aggregate legal requirements by country, region, and industry</span>
-                            </div>
-                        </div>
-                        <div class="ai-card ai-card--input">
-                            <div class="ai-card-icon ai-card-icon--input">
-                                <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Market data</strong>
-                                <span>Pull real-time market conditions, trends, and competitor activity</span>
-                            </div>
-                        </div>
-                        <div class="ai-card ai-card--input">
-                            <div class="ai-card-icon ai-card-icon--input">
-                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Partner profiles</strong>
-                                <span>Index and verify local service providers across categories</span>
-                            </div>
-                        </div>
-                        <div class="ai-card ai-card--input">
-                            <div class="ai-card-icon ai-card-icon--input">
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Industry intelligence</strong>
-                                <span>Monitor sector-specific news, policy shifts, and trade developments</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ENGINE COLUMN -->
-                    <div class="ai-engine-col">
-                        <div class="ai-engine-line"></div>
-                        <div class="ai-engine-badge">
-                            <img src="images/weave/artificial-intelligence.png" alt="AI">
-                            <span>AI</span>
-                        </div>
-                        <div class="ai-engine-line"></div>
-                    </div>
-
-                    <!-- OUTPUT COLUMN -->
-                    <div class="ai-col">
-                        <p class="ai-col-label ai-col-label--output">Analyze & Deliver</p>
-                        <div class="ai-card ai-card--output">
-                            <div class="ai-card-icon ai-card-icon--output">
-                                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Regulation alerts</strong>
-                                <span>Notify teams of changes and assess impact on their operations</span>
-                            </div>
-                        </div>
-                        <div class="ai-card ai-card--output">
-                            <div class="ai-card-icon ai-card-icon--output">
-                                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Localization insights</strong>
-                                <span>Provide marketing, cultural, and operational guidance for target markets</span>
-                            </div>
-                        </div>
-                        <div class="ai-card ai-card--output">
-                            <div class="ai-card-icon ai-card-icon--output">
-                                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Partner recommendations</strong>
-                                <span>Surface best-fit partners ranked by relevance and verification status</span>
-                            </div>
-                        </div>
-                        <div class="ai-card ai-card--output">
-                            <div class="ai-card-icon ai-card-icon--output">
-                                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                            </div>
-                            <div class="ai-card-text">
-                                <strong>Expansion roadmaps</strong>
-                                <span>Generate step-by-step plans tailored to company profile and market</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="goal-visual">
+            <video autoplay muted playsinline preload="auto"><source src="Weave/design goal 02.mp4" type="video/mp4"></video>
         </div>
-
-        <!-- ── Personas ── -->
-        <div style="margin-top: 56px;">
-            <p class="section-label" style="margin-bottom: 8px;">Personas</p>
-            <h3 class="section-heading" style="font-size: 1.25rem;">Four user profiles across two sides of the expansion equation</h3>
-            <p class="section-body">We mapped personas for both overseas-expanding companies and local service providers — the two sides Weave must connect.</p>
-
-            <div class="persona-groups">
-                <!-- Group 1: Overseas Expanding Companies -->
-                <div>
-                    <p class="persona-group-label">Overseas Expanding Companies</p>
-                    <div class="persona-row persona-row--two">
-                        <div class="persona-card">
-                            <div class="persona-header">
-                                <div class="persona-avatar">
-                                    <img src="images/weave/persona-woman.png" alt="SME Founder">
-                                </div>
-                                <div class="persona-info">
-                                    <p class="persona-name">SME Founder</p>
-                                    <p class="persona-role">Small business seeking overseas partners</p>
-                                </div>
-                            </div>
-                            <span class="persona-need">Partner Discovery & Management</span>
-                            <ul class="persona-points">
-                                <li>Relies on personal networks to find local partners</li>
-                                <li>Can't verify reliability or compare options objectively</li>
-                                <li>Manages compliance and partner communication across scattered tools</li>
-                                <li>High brand risk from unvetted partnerships</li>
-                            </ul>
-                        </div>
-                        <div class="persona-card">
-                            <div class="persona-header">
-                                <div class="persona-avatar">
-                                    <img src="images/weave/persona-boy.png" alt="First-time Expander">
-                                </div>
-                                <div class="persona-info">
-                                    <p class="persona-name">First-time Expander</p>
-                                    <p class="persona-role">Company preparing for first overseas entry</p>
-                                </div>
-                            </div>
-                            <span class="persona-need">Entry Roadmap & Compliance</span>
-                            <ul class="persona-points">
-                                <li>No internal playbook or prior international experience</li>
-                                <li>Overwhelmed by regulatory complexity</li>
-                                <li>No unified dashboard to track expansion progress</li>
-                                <li>Wastes time on manual regulatory monitoring</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Group 2: Local Companies -->
-                <div>
-                    <p class="persona-group-label">Local Companies</p>
-                    <div class="persona-row persona-row--two">
-                        <div class="persona-card">
-                            <div class="persona-header">
-                                <div class="persona-avatar">
-                                    <img src="images/weave/persona-girl.png" alt="Local Consultant">
-                                </div>
-                                <div class="persona-info">
-                                    <p class="persona-name">Local Consultant</p>
-                                    <p class="persona-role">Local consulting &amp; service provider</p>
-                                </div>
-                            </div>
-                            <span class="persona-need">Marketplace Listing &amp; Promotion</span>
-                            <ul class="persona-points">
-                                <li>Difficult to reach overseas clients looking for local support</li>
-                                <li>No platform to showcase services and past case studies</li>
-                                <li>Wants to be discovered by companies entering their market</li>
-                            </ul>
-                        </div>
-                        <div class="persona-card">
-                            <div class="persona-header">
-                                <div class="persona-avatar">
-                                    <img src="images/weave/persona-boy2.png" alt="Local Partner">
-                                </div>
-                                <div class="persona-info">
-                                    <p class="persona-name">Local Partner</p>
-                                    <p class="persona-role">Established partner working with overseas HQ</p>
-                                </div>
-                            </div>
-                            <span class="persona-need">Efficient Workflow</span>
-                            <ul class="persona-points">
-                                <li>Communication gaps and timezone friction with overseas HQ</li>
-                                <li>Scattered documents and unclear expectations</li>
-                                <li>Needs a shared workspace for smooth co-management</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 </div>
 
-<hr class="divider" style="max-width: 1440px; margin: 0 auto;">
-
-<!-- ════════════════════════════════════════ -->
-<!-- 8. SYSTEM DESIGN -->
-<!-- ════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- 5. SOLUTION CALLOUT                         -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
-    <section id="system" class="section">
-        <p class="section-label">System Design</p>
-        <h2 class="section-heading">Mapping the architecture before moving to screens</h2>
-        <p class="section-body">I defined how users, features, and data connect across the platform, starting with concept models.</p>
-    </section>
+    <div class="callout callout--solution" style="margin-bottom: 64px;">
+        <div class="callout-badge">
+            <span class="callout-badge-emoji">&#x2733;</span>
+            <span class="callout-badge-label">Solution</span>
+        </div>
+        <h2>A platform with reliable, data-driven partner matching and an all-in-one AI-powered workspace &mdash; from discovery to daily collaboration.</h2>
+    </div>
 </div>
 
-<div class="wide">
-    <img src="images/weave/Concept Model.png" alt="Concept model diagram" class="img-full" style="margin-bottom: 8px;">
-    <p class="img-caption">Concept model diagram</p>
-</div>
-
-
-
-<hr class="divider" style="max-width: 1440px; margin: 0 auto;">
-
-<!-- ════════════════════════════════════════ -->
-<!-- CORE FLOWS -->
-<!-- ════════════════════════════════════════ -->
 <div class="case-study">
-    <section id="flows" class="section" style="padding-bottom: 0;">
-        <p class="section-label">Core Flows</p>
-        <h2 class="section-heading">Weave is built around four connected modules, here's how each one works.</h2>
-        <div class="module-rings">
-            <div class="module-ring">
-                <div class="module-circle">
-                    <span class="module-label">Roadmap</span>
-                </div>
-            </div>
-            <div class="module-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="module-ring">
-                <div class="module-circle">
-                    <span class="module-label">Marketplace</span>
-                </div>
-            </div>
-            <div class="module-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="module-ring">
-                <div class="module-circle">
-                    <span class="module-label">Contracting</span>
-                </div>
-            </div>
-            <div class="module-arrow"><svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="module-ring">
-                <div class="module-circle">
-                    <span class="module-label">Workspace</span>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<div class="wide">
-    <section class="flow">
-        <div class="flow-box">
-            <p class="flow-box-label">01 Roadmap</p>
-            <h3 class="flow-title">A structured starting point for global expansion</h3>
-            <p class="flow-desc">Companies generate a tailored expansion roadmap based on their target market, industry, and readiness — giving them a concrete starting point instead of a blank page.</p>
-            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/1-roadmap.mp4" type="video/mp4"></video>
-        </div>
-    </section>
-
-    <section class="flow">
-        <div class="flow-box">
-            <p class="flow-box-label">02 Marketplace</p>
-            <h3 class="flow-title">Discover and compare trusted local partners</h3>
-            <p class="flow-desc">A unified marketplace surfaces vetted service providers. Teams can evaluate partners side by side, review case studies, and shortlist candidates.</p>
-            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/2-marketplace.mp4" type="video/mp4"></video>
-        </div>
-    </section>
-
-    <section class="flow">
-        <div class="flow-box">
-            <p class="flow-box-label">03 Proposals & Contracting</p>
-            <h3 class="flow-title">Move from selection to engagement in one place</h3>
-            <p class="flow-desc">Teams can generate proposals, request quotes, and draft contracts within the same workflow — reducing handoffs and accelerating deal closure.</p>
-            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/3-proposals-contracting.mp4" type="video/mp4"></video>
-        </div>
-    </section>
-
-    <section class="flow">
-        <div class="flow-box">
-            <p class="flow-box-label">04 Workspace</p>
-            <h3 class="flow-title">Operate, collaborate, and stay compliant</h3>
-            <p class="flow-desc">Shared workspaces support ongoing collaboration between HQ and local partners, with built-in regulatory monitoring and AI-assisted tools.</p>
-            <video autoplay loop muted playsinline preload="auto"><source src="images/weave/4-workspace.mp4" type="video/mp4"></video>
-        </div>
-    </section>
+    <p class="context-lead" style="text-align: center;">Here's how I arrived at this solution</p>
 </div>
 
 <hr class="divider" style="max-width: 1440px; margin: 0 auto;">
 
-<!-- ════════════════════════════════════════ -->
-<!-- USER TESTING -->
-<!-- ════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- 6. DESIGN EXPLORATION 1: MARKETPLACE        -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="explore-1" class="section">
+        <div class="explore-header">
+            <div class="explore-badge">
+                <span class="explore-badge-emoji">&#x1F50D;</span>
+                <span class="explore-badge-label">Design Exploration 1</span>
+            </div>
+            <h1>Enabling data-driven partner decisions</h1>
+            <p class="explore-sub">How to help companies find the right local partners through evidence, not introductions</p>
+        </div>
+
+        <div style="height: 120px;"></div>
+
+    </section>
+</div>
+
+<div style="background: #E5E7F1; padding: 100px 0;">
+    <div class="case-study" style="margin-bottom: 40px;">
+        <h4 class="explore-sub-heading" style="text-align: center;">Design solutions for the Marketplace</h4>
+    </div>
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 40px; display: flex; flex-direction: column; gap: 200px;">
+        <img src="images/weave/3✱ Most Viewed section.png" alt="Most Viewed section" class="img-full">
+        <img src="images/weave/4✱ Roadmap integration.png" alt="Roadmap integration" class="img-full">
+        <img src="images/weave/5✱ AI-recommended.png" alt="AI-recommended" class="img-full">
+    </div>
+</div>
+
+<div class="wide" style="margin-top: 100px;">
+    <p class="img-caption" style="margin-bottom: 20px;">The full Marketplace page</p>
+    <img src="images/weave/Marketspace.png" alt="Full Marketplace Page" class="img-full">
+</div>
+
+<hr class="divider" style="max-width: 1440px; margin: 0 auto; margin-top: 100px;">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 7. DESIGN EXPLORATION 2: WORKSPACE          -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="explore-2" class="section">
+        <div class="explore-header">
+            <div class="explore-badge">
+                <span class="explore-badge-emoji">&#x1F50D;</span>
+                <span class="explore-badge-label">Design Exploration 2</span>
+            </div>
+            <h1>Designing a reliable shared workspace</h1>
+            <p class="explore-sub">One trusted space for every decision and communication between HQ and local partners</p>
+        </div>
+
+        <div style="height: 120px;"></div>
+
+    </section>
+</div>
+
+<div style="background: #E5E7F1; padding: 100px 0;">
+    <div class="case-study" style="margin-bottom: 40px;">
+        <h4 class="explore-sub-heading" style="text-align: center;">Design solutions for Workspace Dashboard</h4>
+    </div>
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 40px;">
+        <img src="images/weave/workspace design exploration 02.png" alt="Workspace Dashboard Design Exploration" class="img-full">
+    </div>
+</div>
+
+<hr class="divider" style="max-width: 1440px; margin: 0 auto; margin-top: 100px;">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- DESIGN EXPLORATION 3: AI WORKFLOW           -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="explore-3" class="section">
+        <div class="explore-header">
+            <div class="explore-badge">
+                <span class="explore-badge-emoji">&#x1F50D;</span>
+                <span class="explore-badge-label">Design Exploration 3</span>
+            </div>
+            <h1>AI-powered document workflow</h1>
+            <p class="explore-sub">How AI assists cross-border document collaboration &mdash; from auto-completing content to localizing expressions to translating for the partner's market</p>
+        </div>
+
+        <div style="height: 120px;"></div>
+
+        <p class="section-body" style="text-align: center; max-width: 100%; margin-bottom: 60px;">Once the user extracts key sections and selects a partner to send to, AI takes over with three steps before delivery.</p>
+    </section>
+</div>
+
+<div class="case-study">
+    <section style="padding: 80px 0 0;">
+
+        <!-- Step 1: Auto-Complete -->
+        <div style="background: var(--bg-card); border-radius: 16px; overflow: hidden; margin-bottom: 32px; padding: 20px 20px 0;">
+            <div style="overflow: hidden; border-radius: 10px;"><video autoplay muted playsinline preload="auto" style="width: calc(100% + 6px); margin: -3px; display: block;"><source src="Weave/auto complete.mp4" type="video/mp4"></video></div>
+            <div style="padding: 28px 32px;">
+                <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">
+                    <span style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent);">Step 01</span>
+                    <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text);">Auto-Complete</h3>
+                </div>
+                <p class="section-body">AI analyzes the document's structure and fills in missing sections &mdash; such as execution timelines, phase breakdowns, and operational details &mdash; matching the document's existing format and tone.</p>
+            </div>
+        </div>
+
+        <!-- Step 2: Localization -->
+        <div style="background: var(--bg-card); border-radius: 16px; overflow: hidden; margin-bottom: 32px; padding: 20px 20px 0;">
+            <div style="overflow: hidden; border-radius: 10px;"><video autoplay muted playsinline preload="auto" style="width: calc(100% + 6px); margin: -3px; display: block;"><source src="Weave/localization.mp4" type="video/mp4"></video></div>
+            <div style="padding: 28px 32px;">
+                <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">
+                    <span style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent);">Step 02</span>
+                    <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text);">Localization Review</h3>
+                </div>
+                <p class="section-body">AI flags culturally inappropriate expressions &mdash; such as non-standard phrasing, cultural context mismatches, and regulatory credential differences &mdash; and suggests locally relevant alternatives with one-click apply.</p>
+            </div>
+        </div>
+
+        <!-- Step 3: Translation -->
+        <div style="background: var(--bg-card); border-radius: 16px; overflow: hidden; margin-bottom: 32px; padding: 20px 20px 0;">
+            <div style="overflow: hidden; border-radius: 10px;"><video autoplay muted playsinline preload="auto" style="width: calc(100% + 6px); margin: -3px; display: block;"><source src="Weave/translation.mp4" type="video/mp4"></video></div>
+            <div style="padding: 28px 32px;">
+                <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px;">
+                    <span style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent);">Step 03</span>
+                    <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text);">Translation</h3>
+                </div>
+                <p class="section-body">AI translates the full document into the partner's local language, preserving formatting, context, and the localization corrections applied in the previous step.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<hr class="divider" style="max-width: 1440px; margin: 0 auto; margin-top: 100px;">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 8. SOLUTION FLOW                            -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="solution" class="section" style="padding-bottom: 0;">
+        <p class="section-label">The Full Flow</p>
+        <h2 class="section-heading">From discovery to daily collaboration &mdash; one connected platform</h2>
+        <p class="section-body">Browse the marketplace, evaluate a partner, move to engagement, and collaborate in a shared workspace &mdash; without leaving Weave.</p>
+    </section>
+</div>
+
+<div class="wide" style="margin-top: 32px;">
+    <div class="flow-box">
+        <p class="flow-box-label">01 Onboarding</p>
+        <h3 class="flow-title">Set up your company profile and expansion context</h3>
+        <p class="flow-desc">New users register their company, define target markets, and set industry preferences &mdash; creating the foundation for AI-driven recommendations across the platform.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow1-onboarding.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="flow-box">
+        <p class="flow-box-label">02 Marketplace</p>
+        <h3 class="flow-title">Discover and compare trusted local partners</h3>
+        <p class="flow-desc">AI-driven recommendations surface relevant partners based on company profile. Browse by category, view social proof, and evaluate partner profiles with data-driven trust signals.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow2-marketplace.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="flow-box">
+        <p class="flow-box-label">03 Roadmap</p>
+        <h3 class="flow-title">Generate a tailored market entry plan</h3>
+        <p class="flow-desc">AI analyzes your company profile, industry, and target market to generate a step-by-step expansion roadmap &mdash; connecting market analysis directly to partner discovery.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow3-roadmap.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="flow-box">
+        <p class="flow-box-label">04 Contracting</p>
+        <h3 class="flow-title">Move from evaluation to engagement in one place</h3>
+        <p class="flow-desc">Generate proposals, request quotes, and draft contracts within the same workflow &mdash; reducing handoffs and accelerating deal closure.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow4-contract.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="flow-box">
+        <p class="flow-box-label">05 Workspace &mdash; AI Review</p>
+        <h3 class="flow-title">AI-powered regulatory and compliance review</h3>
+        <p class="flow-desc">AI scans documents for regulatory risks, flags non-compliant expressions, and provides recommended corrections &mdash; with links to related departments, projects, and legal consultation.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow5-workspace- AI review workflow.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="flow-box">
+        <p class="flow-box-label">06 Data Management &mdash; Document Workflow</p>
+        <h3 class="flow-title">Upload, extract, and share documents with partners</h3>
+        <p class="flow-desc">Upload documents, extract key sections, select which partner to share with, and set sharing conditions &mdash; all within a structured document management flow.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow6-data management document workflow.mp4" type="video/mp4"></video></div>
+    </div>
+    <div class="flow-box">
+        <p class="flow-box-label">07 Workspace &mdash; AI Document Workflow</p>
+        <h3 class="flow-title">Auto-complete, localize, and translate before delivery</h3>
+        <p class="flow-desc">AI fills in missing content, flags culturally inappropriate expressions with local alternatives, and translates the full document into the partner's language &mdash; ready to deliver.</p>
+        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow7-AI-power document workflow.mp4" type="video/mp4"></video></div>
+    </div>
+</div>
+
+<hr class="divider" style="max-width: 1440px; margin: 0 auto; margin-top: 64px;">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 9. USER TESTING                             -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
     <section id="testing" class="section">
         <p class="section-label">User Testing</p>
         <h2 class="section-heading">Testing with real users</h2>
-        <p class="section-body">We conducted remote usability tests using our Figma prototype — testing two core task flows: navigating the marketplace and roadmap, and collaborating on documents through the workspace.</p>
-        <div class="test-stats">
-            <div class="test-stat">
-                <p class="test-stat-num">3</p>
-                <p class="test-stat-label">Participants</p>
-            </div>
-            <div class="test-stat">
-                <p class="test-stat-num">2</p>
-                <p class="test-stat-label">Task flows</p>
-            </div>
-            <div class="test-stat">
-                <p class="test-stat-num">Remote</p>
-                <p class="test-stat-label">Google Meet + Figma</p>
-            </div>
-        </div>
-        <p class="section-body" style="margin-top: 32px;">Participants found the marketplace intuitive to navigate, but the contracting flow revealed friction — specifically around proposal templates and how terms were presented. We iterated on the contract workspace based on this feedback, simplifying the layout and surfacing key actions more prominently.</p>
 
-        <h3 class="section-heading" style="font-size: 1.1rem; margin-top: 48px;">What participants said</h3>
-
-        <div class="test-feedback-grid">
-            <div class="test-feedback-card">
-                <p class="test-feedback-name">Participant A</p>
-                <p class="test-feedback-quote">"The features are convenient. It's great that companies can see everything gathered in one place without having to search separately."</p>
+        <!-- Test Overview -->
+        <div style="display: flex; gap: 24px; margin-top: 40px; margin-bottom: 80px;">
+            <div style="flex: 1; background: var(--bg-card); border-radius: 10px; padding: 28px; text-align: center;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 2rem; font-weight: 600; color: var(--accent); letter-spacing: -1px;">3</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Participants</p>
             </div>
-            <div class="test-feedback-card">
-                <p class="test-feedback-name">Participant B</p>
-                <p class="test-feedback-quote">"The functionality was more useful than expected. Being able to check which documents have been shared is helpful. Having legal consulting as a separate feature builds trust — when you're in a legally sensitive business, you want help from a real expert."</p>
+            <div style="flex: 1; background: var(--bg-card); border-radius: 10px; padding: 28px; text-align: center;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 2rem; font-weight: 600; color: var(--accent); letter-spacing: -1px;">2</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Task Flows Tested</p>
             </div>
-            <div class="test-feedback-card">
-                <p class="test-feedback-name">Participant C</p>
-                <p class="test-feedback-quote">"It's convenient that the platform suggests tasks that would be hard to do alone, reviews them, and guides you toward better directions. Being able to go step by step from start to finish — toward a better proposal, a better project — feels like a real strength."</p>
+            <div style="flex: 1; background: var(--bg-card); border-radius: 10px; padding: 28px; text-align: center;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); letter-spacing: -1px;">Remote</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Google Meet + Figma</p>
+            </div>
+            <div style="flex: 1; background: var(--bg-card); border-radius: 10px; padding: 28px; text-align: center;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); letter-spacing: -1px;">Workspace</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Dashboard + AI Document Workflow</p>
             </div>
         </div>
 
-        <div class="test-iteration">
-            <p class="test-iteration-label">Iteration Principle</p>
-            <p class="test-iteration-text">Participant C's feedback highlighted that the step-by-step progression was the platform's key strength. To reinforce this, we established a design principle: <strong>visually emphasize the sense of stages</strong> — guiding users through each phase so they feel led through a clear, structured process rather than dropped into a dashboard.</p>
+        <!-- Finding 1: Information Overload -->
+        <div style="margin-bottom: 80px;">
+            <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;">Finding 01 &mdash; Information Overload</p>
+            <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 24px;">All three participants struggled with text density and unclear visual hierarchy.</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 8px;">"I couldn't tell where to look first. Everything had the same visual weight &mdash; I had to read every line to figure out what was different."</p>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Participant A &middot; Eunji</p>
+                </div>
+                <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 8px;">"There's too much information at once. The unfamiliar terms made it even harder to process."</p>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Participant B &middot; Sihyun</p>
+                </div>
+                <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 8px;">"The amount of text made it hard to stay focused. It all blends together."</p>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Participant C &middot; Boram</p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-accent-light); border-radius: 10px; padding: 24px;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Insight</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">Users don't need less information &mdash; they need <strong style="color: var(--text);">clearer visual hierarchy and progressive disclosure</strong>. The priority isn't reducing content, but structuring it so users can scan, identify what matters, and dive deeper only when needed.</p>
+            </div>
         </div>
+
+        <!-- Finding 2: AI Button Usability -->
+        <div style="margin-bottom: 80px;">
+            <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;">Finding 02 &mdash; AI Button Usability</p>
+            <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 24px;">AI buttons at the bottom of the editor forced constant scrolling and hid the workflow sequence.</h3>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 8px;">"I keep scrolling down to press a button, then back up to see the result, then down again for the next step. It's exhausting."</p>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Participant B &middot; Sihyun</p>
+                </div>
+                <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 8px;">"The editing process feels like it has a sequence, but I couldn't tell which button to press first just by looking at them."</p>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Participant A &middot; Eunji</p>
+                </div>
+                <div style="background: var(--bg-card); border-radius: 10px; padding: 24px;">
+                    <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 8px;">"If no one explained it to me, I wouldn't have known what these buttons do. You'd have to just try them to find out."</p>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">Participant C &middot; Boram</p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-accent-light); border-radius: 10px; padding: 24px; margin-bottom: 40px;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Insight</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">The AI tools need to be <strong style="color: var(--text);">visible without scrolling</strong> and <strong style="color: var(--text);">communicate their sequence</strong>. Users should understand the workflow order (Auto-Complete &rarr; Localization &rarr; Translation) at a glance, not through trial and error.</p>
+            </div>
+
+            <!-- Before / After Iteration -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 12px;">Before</p>
+                    <div style="background: var(--bg-card); border-radius: 10px; padding: 20px; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted);">AI buttons at bottom of editor &mdash; requires scrolling</p>
+                        <!-- TODO: Replace with before screenshot -->
+                    </div>
+                </div>
+                <div>
+                    <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px;">After</p>
+                    <div style="background: var(--bg-card); border-radius: 10px; padding: 20px; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted);">AI buttons repositioned &mdash; sticky, sequential, always visible</p>
+                        <!-- TODO: Replace with after screenshot -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 </div>
 
 <hr class="divider" style="max-width: 1440px; margin: 0 auto;">
 
-<!-- ════════════════════════════════════════ -->
-<!-- 10. REFLECTION & LEARNINGS -->
-<!-- ════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════ -->
+<!-- 10. OUTCOME + REFLECTION                    -->
+<!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
     <section id="reflection" class="section">
         <p class="section-label">Reflection</p>
-        <h2 class="section-heading">What I learned from Weave</h2>
+        <h2 class="section-heading">What I learned from this project</h2>
 
-        <div class="learnings">
+        <div style="margin-top: 48px; display: flex; flex-direction: column; gap: 24px;">
+
             <div class="learning">
                 <span class="learning-num">Lesson 01</span>
-                <h4>Scope discipline matters more than feature breadth</h4>
-                <p>The platform covers a lot of ground, so the hardest part was deciding what to cut. If a feature couldn't trace back to a real problem someone told us about, it didn't make it in.</p>
+                <h4>AI should remove friction, not add features</h4>
+                <p>The strongest AI features in Weave &mdash; auto-complete, localization review, translation &mdash; all solve the same type of problem: tasks that are tedious and error-prone because of volume and language barriers, not because they're conceptually hard. Every time we considered adding an AI feature, we asked: "Is this removing a real pain point, or just adding novelty?" That filter kept the product grounded.</p>
             </div>
+
             <div class="learning">
                 <span class="learning-num">Lesson 02</span>
-                <h4>Leading research sharpens product intuition</h4>
-                <p>I ran the research myself from start to finish: desk research, case studies, personas, problem framing. Doing all of it made the design decisions feel less like guesses.</p>
+                <h4>Show the sequence, not just the tools</h4>
+                <p>User testing revealed that having the right AI tools isn't enough &mdash; users need to understand the order. When buttons were presented without clear sequencing, participants didn't know what to press first. This taught me that workflow design is as much about communicating the path as it is about building the features along it.</p>
             </div>
+
             <div class="learning">
                 <span class="learning-num">Lesson 03</span>
-                <h4>AI should solve real workflow gaps, not add novelty</h4>
-                <p>Scattered regulations and partner data are problems of volume, not complexity. AI is useful here because there's too much to process manually, not because the task is hard to understand. We made sure every AI feature mapped to a specific problem from our research so it wouldn't feel tacked on.</p>
+                <h4>Design for the user who doesn't know what they need</h4>
+                <p>First-time expanders don't know what type of partner to search for, what regulations apply, or how to structure a cross-border proposal. The discovery experience had to guide without assuming expertise &mdash; which led us to AI-recommended partners over pure search, and structured document workflows over blank editors.</p>
             </div>
+
             <div class="learning">
                 <span class="learning-num">Lesson 04</span>
-                <h4>User testing reveals what wireframes can't</h4>
-                <p>Participants liked the step-by-step guided flow but got stuck in the contracting module in ways we didn't expect. That feedback shaped our main iteration principle: make the sense of progress more visible at each stage.</p>
+                <h4>Cultural intelligence can't be an afterthought</h4>
+                <p>The localization review feature exists because we learned that direct translation isn't enough. "Clean Girl" doesn't mean the same thing in Korea. "Board-certified dermatologist" doesn't carry the same weight. Designing for cross-border collaboration means building cultural awareness into the product itself &mdash; not just translating the UI.</p>
+            </div>
+
+        </div>
+
+        <h2 class="section-heading" style="margin-top: 80px;">What I'd explore next</h2>
+
+        <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="background: var(--bg-card); border-radius: 10px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                <span style="font-size: 1.2rem; flex-shrink: 0; margin-top: 2px;">&#x1F9EA;</span>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Test with real expansion data</strong> &mdash; validate partner matching accuracy and trust signal effectiveness with actual companies going through overseas expansion.</p>
+            </div>
+            <div style="background: var(--bg-card); border-radius: 10px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                <span style="font-size: 1.2rem; flex-shrink: 0; margin-top: 2px;">&#x1F30D;</span>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Expand localization review</strong> &mdash; train the AI on more market-specific cultural patterns beyond US-Korea, and measure how localization corrections reduce partner revision cycles.</p>
+            </div>
+            <div style="background: var(--bg-card); border-radius: 10px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                <span style="font-size: 1.2rem; flex-shrink: 0; margin-top: 2px;">&#x1F4CA;</span>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Measure the AI workflow impact</strong> &mdash; compare document review time, error rates, and partner satisfaction between the AI-assisted workflow and traditional email-based processes.</p>
             </div>
         </div>
 
-        <h3 class="section-heading" style="font-size: 1.1rem; margin-top: 48px;">What I'd explore next</h3>
-        <p class="section-body" style="margin-top: 8px;">If I kept working on this, I'd want to test the roadmap with real expansion data, see how the compliance alerts hold up across different countries' regulations, and watch how teams actually use the collaboration workspace over a longer period.</p>
     </section>
 </div>
 
-<!-- ════════════════════════════════════════ -->
-<!-- 11. FOOTER -->
-<!-- ════════════════════════════════════════ -->
 <div class="case-study">
     <div class="back">
         <a href="/">&larr; Back to all work</a>
@@ -2134,25 +1978,22 @@
 
 <script src="cutout.js"></script>
 <script>
-    // Autoplay all videos
+    // Autoplay videos
     document.querySelectorAll('video').forEach(function(v) {
         v.muted = true;
         v.play().catch(function() {});
     });
 
-    // Sidebar active state via IntersectionObserver
+    // Sidebar active state
     (function() {
         var links = document.querySelectorAll('.sidebar-link');
         var sections = [];
-
         links.forEach(function(link) {
             var id = link.getAttribute('href').replace('#', '');
             var el = document.getElementById(id);
             if (el) sections.push({ id: id, el: el, link: link });
         });
-
         if (!sections.length) return;
-
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
@@ -2162,13 +2003,24 @@
                     });
                 }
             });
-        }, {
-            rootMargin: '-20% 0px -60% 0px',
-            threshold: 0
-        });
-
+        }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
         sections.forEach(function(s) { observer.observe(s.el); });
     })();
+
+    // Fix black last frame: poll every frame to catch it before the end
+    document.querySelectorAll('video').forEach(function(v) {
+        v.muted = true;
+        v.loop = false;
+        v.play().catch(function() {});
+        function check() {
+            if (v.duration && v.currentTime > v.duration - 0.25) {
+                v.currentTime = 0;
+                v.play().catch(function() {});
+            }
+            requestAnimationFrame(check);
+        }
+        requestAnimationFrame(check);
+    });
 </script>
 </body>
 </html>
