@@ -1456,7 +1456,7 @@
         /* ══════════════════════════════════════ */
         /* QUOTE — LEFT BORDER                   */
         /* ══════════════════════════════════════ */
-        .qt { border-left: 3px solid var(--text-muted); padding: 2px 0 2px 20px; margin: 14px 0; }
+        .qt { border-left: none; padding: 2px 0 2px 0; margin: 14px 0; }
         /* Speech bubbles */
         .bubble { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
         .bubble-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-alt); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--text-muted); }
@@ -1464,8 +1464,8 @@
         .bubble-content::before { content: ''; position: absolute; top: 0; left: -6px; width: 0; height: 0; border-top: 6px solid #E8F0FE; border-left: 6px solid transparent; }
         .bubble-text { font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; }
         .bubble-name { font-family: 'Manrope', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); margin-top: 6px; }
-        .qt--accent { border-left-color: var(--accent); }
-        .qt--red { border-left-color: var(--accent-red); }
+        .qt--accent { }
+        .qt--red { }
         .qt-text { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; font-style: italic; }
         .qt-cite { font-family: 'Manrope', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--text-muted); margin-top: 8px; }
         /* ══════════════════════════════════════ */
@@ -1491,7 +1491,7 @@
         /* ══════════════════════════════════════ */
         .pr-entry { padding: 40px 0; }
         .pr-entry h2 { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -1px; color: var(--text); margin-bottom: 16px; }
-        .pr-why { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-muted); line-height: 1.6; margin-top: 20px; border-left: 3px solid var(--accent); padding-left: 16px; }
+        .pr-why { font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-muted); line-height: 1.6; margin-top: 20px; }
         .pr-why strong { font-weight: 600; color: var(--accent); font-style: normal; }
 
         /* ══════════════════════════════════════ */
@@ -1566,8 +1566,8 @@
     <a href="#solution" class="sidebar-link">Solution</a>
     <a href="#core-flow" class="sidebar-link">Core Flow</a>
     <a href="#research" class="sidebar-link">Research</a>
-    <a href="#decisions" class="sidebar-link">Design Decisions</a>
     <a href="#process" class="sidebar-link">Design Process</a>
+    <a href="#decisions" class="sidebar-link">Design Decisions</a>
     <a href="#testing" class="sidebar-link">Testing</a>
     <a href="#iteration" class="sidebar-link">Iteration</a>
     <a href="#reflection" class="sidebar-link">Reflection</a>
@@ -1626,7 +1626,7 @@
 <div class="case-study" style="margin-top: 48px;">
     <div class="impact-bar" style="border-top: none; margin-top: 0; padding-top: 0;">
         <p class="impact-bar-label">My Role</p>
-        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">Worked across the full design process with a team of 3 &mdash; from research to prototyping to user testing. I led the <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">research &amp; problem framing</mark>, drove <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">solution ideation</mark> (including the AI-powered document workflow), and owned <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">interaction design</mark> across all key flows.</p>
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">Worked across the full design process with a team of 3. from research to prototyping to user testing. I led the <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">research &amp; problem framing</mark>, drove <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">solution ideation</mark>, and owned <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">interaction design</mark> across all key flows.</p>
     </div>
 </div>
 
@@ -1643,14 +1643,17 @@
         <p class="section-body" style="margin-bottom: 48px;">Even the biggest companies struggle when they enter unfamiliar markets without understanding local culture, regulations, or the right partners.</p>
 
         <!-- Company failures — left-border quotes, not cards -->
-        <div class="qt qt--red">
-            <p class="qt-text" style="font-style: normal;"><strong style="color: var(--text);">Airbnb</strong> &middot; 2016&ndash;2022 &mdash; Shut down its entire China business after 6 years. Lost to local competitors who understood the market.</p>
+        <div class="qt qt--red" style="display: flex; align-items: center; gap: 16px; border-left: none; padding-left: 0;">
+            <img src="images/weave/airbnb-logo.jpg" alt="Airbnb" style="width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;">
+            <p class="qt-text" style="font-style: normal; <strong style="color: var(--text);">Airbnb</strong> &middot; 2016&ndash;2022. Shut down its entire China business after 6 years. Lost to local competitors who understood the market.</p>
         </div>
-        <div class="qt qt--red">
-            <p class="qt-text" style="font-style: normal;"><strong style="color: var(--text);">Uber</strong> &middot; 2013&ndash;2018 &mdash; Sold its Southeast Asia operations to Grab after failing in 8 countries. Local knowledge outweighed global scale.</p>
+        <div class="qt qt--red" style="display: flex; align-items: center; gap: 16px; border-left: none; padding-left: 0;">
+            <img src="images/weave/Uber_logo_2018.png" alt="Uber" style="width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;">
+            <p class="qt-text" style="font-style: normal; <strong style="color: var(--text);">Uber</strong> &middot; 2013&ndash;2018. Sold its Southeast Asia operations to Grab after failing in 8 countries. Local knowledge outweighed global scale.</p>
         </div>
-        <div class="qt qt--red">
-            <p class="qt-text" style="font-style: normal;"><strong style="color: var(--text);">Walmart</strong> &middot; 1997&ndash;2006 &mdash; Lost over $1B in Germany after refusing to adapt to local culture. Ignored local advisors entirely.</p>
+        <div class="qt qt--red" style="display: flex; align-items: center; gap: 16px; border-left: none; padding-left: 0;">
+            <img src="images/weave/wallmart logo.png" alt="Walmart" style="width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;">
+            <p class="qt-text" style="font-style: normal; <strong style="color: var(--text);">Walmart</strong> &middot; 1997&ndash;2006. Lost over $1B in Germany after refusing to adapt to local culture. Ignored local advisors entirely.</p>
         </div>
 
         <!-- Failure reasons + stats -->
@@ -1660,17 +1663,28 @@
             <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px;">What we heard from users</p>
 
             <!-- Quotes as left-bordered blockquotes -->
-            <div class="qt qt--accent" style="margin-bottom: 24px;">
-                <p class="qt-text">"We spent three months just trying to find a marketing agency in Vietnam. Everyone we talked to was someone's friend of a friend. There was no way to actually compare options."</p>
-                <p class="qt-cite">Marketing Director &middot; Mid-size cosmetics brand</p>
-            </div>
-            <div class="qt qt--accent" style="margin-bottom: 24px;">
-                <p class="qt-text">"Our partner in Thailand was handling our entire brand launch, but we had no visibility into what they were doing. By the time we realized the messaging was wrong for the local market, it was already live."</p>
-                <p class="qt-cite">Head of Global Expansion &middot; DTC skincare startup</p>
-            </div>
-            <div class="qt qt--accent" style="margin-bottom: 48px;">
-                <p class="qt-text">"Every document we send to our local partner goes through email, gets translated on their end, and comes back with changes we can't track. We're basically working blind."</p>
-                <p class="qt-cite">Operations Manager &middot; Consumer electronics company</p>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px;">
+                <div class="bubble">
+                    <div class="bubble-avatar">M</div>
+                    <div class="bubble-content">
+                        <p class="bubble-text">"We spent three months just trying to find a marketing agency in Vietnam. Everyone we talked to was someone's friend of a friend. There was no way to actually compare options."</p>
+                        <p class="bubble-name">Marketing Director &middot; Mid-size cosmetics brand</p>
+                    </div>
+                </div>
+                <div class="bubble">
+                    <div class="bubble-avatar">H</div>
+                    <div class="bubble-content">
+                        <p class="bubble-text">"Our partner in Thailand was handling our entire brand launch, but we had no visibility into what they were doing. By the time we realized the messaging was wrong for the local market, it was already live."</p>
+                        <p class="bubble-name">Head of Global Expansion &middot; DTC skincare startup</p>
+                    </div>
+                </div>
+                <div class="bubble">
+                    <div class="bubble-avatar">O</div>
+                    <div class="bubble-content">
+                        <p class="bubble-text">"Every document we send to our local partner goes through email, gets translated on their end, and comes back with changes we can't track. We're basically working blind."</p>
+                        <p class="bubble-name">Operations Manager &middot; Consumer electronics company</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Stats — large numbers (this format already works well) -->
@@ -1700,7 +1714,7 @@
 <div class="case-study">
     <section id="problem" class="section">
         <p class="section-label">The Problem</p>
-        <h2 class="section-heading">Companies expanding overseas have <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">no</mark> clear guidelines, <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">no</mark> reliable information, and <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">no</mark> structured way to find, evaluate, or work with local partners.</h2>
+        <h2 class="section-heading"><span style="color: var(--text-muted);">Companies expanding overseas have</span> <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">no clear guidelines</mark><span style="color: var(--text-muted);">,</span> <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">no reliable information</mark><span style="color: var(--text-muted);">, and</span> <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">no structured way to find</mark><span style="color: var(--text-muted);">, evaluate, or work with </span><strong style="color: var(--text);">local partners</strong><span style="color: var(--text-muted);">.</span></h2>
 
         <!-- Three broken methods — table format, no boxes -->
         <div style="margin-top: 48px;">
@@ -1739,61 +1753,50 @@
         <p class="section-label">Core Insight</p>
         <p class="section-body" style="margin-bottom: 8px;">These failures share one root cause:</p>
         <h2 class="section-heading" style="font-size: 2.2rem;">Finding reliable local partners is a broken process</h2>
-        <!-- Before / After diagram -->
-        <div style="margin-top: 60px;">
-            <!-- BEFORE -->
-            <div style="margin-bottom: 40px;">
-                <p class="ci-flow-label ci-flow-label--before" style="margin-bottom: 24px;">Before <span>&middot; Fragmented, uncertain, risky</span></p>
-                <div style="display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 8px;">
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Search everywhere</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent-red); line-height: 1.4;">No way to compare</p>
+        <!-- Before / After diagram — two column layout -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 60px; align-items: end;">
+            <!-- BEFORE column -->
+            <div style="background: var(--bg-card); border-radius: 16px; padding: 28px;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 20px;">Before</p>
+                <p style="font-family: 'Manrope', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--text-muted); margin-bottom: 16px;">Scattered information, uncertain execution</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Researching country regulations separately</p>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 1rem; padding: 0 6px; display: flex; align-items: center;">&rarr;</span>
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Trust blindly</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent-red); line-height: 1.4;">No verification, no data</p>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Missing regulatory changes &rarr; delays</p>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 1rem; padding: 0 6px; display: flex; align-items: center;">&rarr;</span>
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Collaborate via email</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent-red); line-height: 1.4;">Documents lost between tools</p>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Manually verifying partner reliability</p>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 1rem; padding: 0 6px; display: flex; align-items: center;">&rarr;</span>
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Hope it works</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent-red); line-height: 1.4;">No quality control</p>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Hard to share progress</p>
+                    </div>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">Contracts/docs spread across email and files</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Divider -->
-            <div style="text-align: center; padding: 20px 0;">
-                <span style="font-size: 1.5rem; color: var(--accent);">&darr;</span>
-            </div>
-
-            <!-- AFTER -->
-            <div>
-                <p class="ci-flow-label ci-flow-label--after" style="margin-bottom: 24px;">After <span>&middot; Data-driven, visible, AI-assisted</span></p>
-                <div style="display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; gap: 8px;">
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Browse marketplace</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent); line-height: 1.4;">AI-matched, comparable</p>
+            <!-- AFTER column -->
+            <div style="background: #EEF2FF; border-radius: 16px; padding: 28px;">
+                <p style="font-family: 'Manrope', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 20px;">After</p>
+                <p style="font-family: 'Manrope', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--accent); margin-bottom: 16px;">Global expansion managed as one flow</p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.5;">Customized roadmap by country and industry</p>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 1rem; padding: 0 6px; display: flex; align-items: center;">&rarr;</span>
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Evaluate with data</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent); line-height: 1.4;">Verified profiles, reviews</p>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.5;">Real-time alerts to minimize risk</p>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 1rem; padding: 0 6px; display: flex; align-items: center;">&rarr;</span>
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">Work in one space</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent); line-height: 1.4;">Full visibility, tracked</p>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.5;">Verified local experts and partner matching</p>
                     </div>
-                    <span style="color: var(--text-muted); font-size: 1rem; padding: 0 6px; display: flex; align-items: center;">&rarr;</span>
-                    <div style="text-align: center; padding: 16px 12px; background: var(--bg-card); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                        <p style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); letter-spacing: -0.3px; margin-bottom: 6px;">AI reviews &amp; translates</p>
-                        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; color: var(--accent); line-height: 1.4;">Quality assured</p>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.5;">Full progress visibility in one dashboard</p>
+                    </div>
+                    <div style="background: #fff; border-radius: 10px; padding: 14px 18px;">
+                        <p style="font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); line-height: 1.5;">Contracts, documents, and history managed in one workspace</p>
                     </div>
                 </div>
             </div>
@@ -1812,34 +1815,38 @@
 <div class="case-study">
     <section id="solution" class="section">
         <p class="section-label">Solution</p>
-        <h2 class="section-heading">Create a space where expanding companies can trust the information and feel confident in every decision.</h2>
+        <h2 class="section-heading">Create <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">a space</mark> where expanding companies <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">can trust</mark> the information and <mark style="background: linear-gradient(to top, #E8F0FE 80%, transparent 80%); padding: 0 4px; margin: 0 2px;">feel confident</mark> in every decision.</h2>
         <p class="section-body">To make overseas expansion feel manageable instead of overwhelming, we replaced guesswork with evidence at every decision point. Two design principles made this work:</p>
 
-        <!-- Principle 1 — open layout, no card -->
-        <div class="pr-entry" style="margin-top: 80px; border-top: 1px solid #EBEBEB;">
+        <!-- Principle 1 -->
+        <div style="margin-top: 80px; background: #EEF2FF; border-radius: 16px; padding: 40px; margin-bottom: 24px;">
             <p class="goal-num">Principle 01</p>
-            <h2>Evidence over introductions</h2>
+            <h2 class="pr-entry h2" style="font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -1px; color: var(--text); margin-bottom: 16px;">Data-forward decisions</h2>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px;">
                 <li style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 400; color: var(--text-secondary); line-height: 1.5; padding-left: 18px; position: relative;"><span style="position: absolute; left: 0; color: var(--text-muted);">&bull;</span>Surface relevant partners based on company profile and target market</li>
                 <li style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 400; color: var(--text-secondary); line-height: 1.5; padding-left: 18px; position: relative;"><span style="position: absolute; left: 0; color: var(--text-muted);">&bull;</span>Provide verifiable performance data so companies can compare with confidence</li>
             </ul>
             <p class="pr-why"><strong>Why:</strong> Research showed every existing method (word-of-mouth, government programs, consultants) failed because users couldn't compare or verify. The marketplace had to make evaluation feel like data analysis, not a leap of faith.</p>
-            <div class="placeholder-box" style="margin-top: 24px; padding: 80px 40px;">
-                <p>Principle 01 visual</p>
+            <div style="margin-top: 24px; overflow: hidden;">
+                <video autoplay muted loop playsinline preload="auto" style="width: 100%; display: block;">
+                    <source src="Weave/Principle 01.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
 
-        <!-- Principle 2 — open layout, no card -->
-        <div class="pr-entry" style="border-top: 1px solid #EBEBEB;">
+        <!-- Principle 2 -->
+        <div style="background: #EEF2FF; border-radius: 16px; padding: 40px;">
             <p class="goal-num">Principle 02</p>
-            <h2>One surface, full visibility</h2>
+            <h2 class="pr-entry h2" style="font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 600; line-height: 1.3; letter-spacing: -1px; color: var(--text); margin-bottom: 16px;">Unified workspace, full visibility</h2>
             <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px;">
                 <li style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 400; color: var(--text-secondary); line-height: 1.5; padding-left: 18px; position: relative;"><span style="position: absolute; left: 0; color: var(--text-muted);">&bull;</span>Give both sides one trusted space for every decision and communication</li>
                 <li style="font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 400; color: var(--text-secondary); line-height: 1.5; padding-left: 18px; position: relative;"><span style="position: absolute; left: 0; color: var(--text-muted);">&bull;</span>Use AI to assist document review, translation, and quality control across borders</li>
             </ul>
-            <p class="pr-why"><strong>Why:</strong> Users reported "working blind" &mdash; documents went through email, got translated elsewhere, came back with untrackable changes. Every handoff between tools was where information got lost.</p>
-            <div class="placeholder-box" style="margin-top: 24px; padding: 80px 40px;">
-                <p>Principle 02 visual</p>
+            <p class="pr-why"><strong>Why:</strong> Users reported "working blind". documents went through email, got translated elsewhere, came back with untrackable changes. Every handoff between tools was where information got lost.</p>
+            <div style="margin-top: 24px; overflow: hidden;">
+                <video autoplay muted loop playsinline preload="auto" style="width: 100%; display: block;">
+                    <source src="Weave/Principle 02.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
     </section>
@@ -1853,8 +1860,8 @@
 <div class="case-study">
     <section id="core-flow" class="section" style="padding-bottom: 0;">
         <p class="section-label">Core Flow</p>
-        <h2 class="section-heading">From discovery to daily collaboration &mdash; one connected platform</h2>
-        <p class="section-body">Browse the marketplace, evaluate a partner, move to engagement, and collaborate in a shared workspace &mdash; without leaving Weave.</p>
+        <h2 class="section-heading">From discovery to daily collaboration. one connected platform</h2>
+        <p class="section-body">Browse the marketplace, evaluate a partner, move to engagement, and collaborate in a shared workspace. without leaving Weave.</p>
     </section>
 </div>
 
@@ -1862,17 +1869,15 @@
     <!-- Flow 01 -->
     <div class="flow-box">
         <p class="flow-box-label">01 Discovery to Connection</p>
-        <h3 class="flow-title">From onboarding to first contract &mdash; without leaving the platform</h3>
+        <h3 class="flow-title">From onboarding to first contract. without leaving the platform</h3>
         <p class="flow-desc">Users set up their company profile, browse AI-matched partners, generate a tailored expansion roadmap, and move to proposal and contracting. Every step builds on data from the previous one.</p>
         <div class="flow-video-wrap" style="margin-bottom: 28px;">
-            <video class="seq-player" autoplay muted playsinline preload="auto" data-seq="Weave/flow1-onboarding.mp4,Weave/flow2-marketplace.mp4,Weave/flow3-roadmap.mp4,Weave/flow4-contract.mp4">
-                <source src="Weave/flow1-onboarding.mp4" type="video/mp4">
-            </video>
+            <video autoplay muted loop playsinline preload="auto"><source src="Weave/final coreflow 01.mp4" type="video/mp4"></video>
         </div>
         <div class="flow-steps-grid">
             <div class="flow-step-card">
                 <p class="flow-step-label">Onboarding</p>
-                <p class="flow-step-desc">Set up company profile, define target markets, set industry preferences &mdash; creating the foundation for AI-driven recommendations.</p>
+                <p class="flow-step-desc">Set up company profile, define target markets, set industry preferences. creating the foundation for AI-driven recommendations.</p>
             </div>
             <div class="flow-step-card">
                 <p class="flow-step-label">Marketplace</p>
@@ -1884,7 +1889,7 @@
             </div>
             <div class="flow-step-card">
                 <p class="flow-step-label">Contracting</p>
-                <p class="flow-step-desc">Generate proposals, request quotes, and draft contracts within the same workflow &mdash; reducing handoffs.</p>
+                <p class="flow-step-desc">Generate proposals, request quotes, and draft contracts within the same workflow. reducing handoffs.</p>
             </div>
         </div>
     </div>
@@ -1893,11 +1898,9 @@
     <div class="flow-box">
         <p class="flow-box-label">02 Workspace &amp; Data Management</p>
         <h3 class="flow-title">All the context, already connected</h3>
-        <p class="flow-desc">Because discovery, evaluation, and contracting all happen in Weave, the workspace already knows the context. No ramp-up, no importing &mdash; insights are ready from day one.</p>
+        <p class="flow-desc">Because discovery, evaluation, and contracting all happen in Weave, the workspace already knows the context. No ramp-up, no importing. insights are ready from day one.</p>
         <div class="flow-video-wrap">
-            <video class="seq-player" autoplay muted playsinline preload="auto" data-seq="Weave/flow5-workspace- AI review workflow.mp4,Weave/flow6-data management document workflow.mp4">
-                <source src="Weave/flow5-workspace- AI review workflow.mp4" type="video/mp4">
-            </video>
+            <video autoplay muted loop playsinline preload="auto"><source src="Weave/final coreflow 02.mp4" type="video/mp4"></video>
         </div>
     </div>
 
@@ -1905,8 +1908,8 @@
     <div class="flow-box">
         <p class="flow-box-label">03 AI-Integrated Document Workflow</p>
         <h3 class="flow-title">Auto-complete, localize, and translate before delivery</h3>
-        <p class="flow-desc">AI fills in missing content, flags culturally inappropriate expressions with local alternatives, and translates the full document &mdash; ready to deliver. The order matters: complete first, then adapt for culture, then translate.</p>
-        <div class="flow-video-wrap"><video autoplay muted playsinline preload="auto"><source src="Weave/flow7-AI-power document workflow.mp4" type="video/mp4"></video></div>
+        <p class="flow-desc">AI fills in missing content, flags culturally inappropriate expressions with local alternatives, and translates the full document. ready to deliver. The order matters: complete first, then adapt for culture, then translate.</p>
+        <div class="flow-video-wrap"><video autoplay muted loop playsinline preload="auto"><source src="Weave/final coreflow 03.mp4" type="video/mp4"></video></div>
     </div>
 </div>
 
@@ -1965,7 +1968,7 @@
             </div>
             <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; padding-left: 4px;">
                 <span style="color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-top: 1px;">&rarr;</span>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.5;">In-platform document workflow with structured extraction, version history, and AI-assisted review &mdash; keeping everything traceable in one place.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.5;">In-platform document workflow with structured extraction, version history, and AI-assisted review. keeping everything traceable in one place.</p>
             </div>
         </div>
 
@@ -1981,7 +1984,7 @@
             </div>
             <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; padding-left: 4px;">
                 <span style="color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-top: 1px;">&rarr;</span>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.5;">AI localization review that flags culturally inappropriate expressions, non-standard phrasing, and regulatory differences &mdash; with suggested local alternatives before delivery.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.5;">AI localization review that flags culturally inappropriate expressions, non-standard phrasing, and regulatory differences. with suggested local alternatives before delivery.</p>
             </div>
         </div>
     </section>
@@ -1990,122 +1993,18 @@
 <hr class="divider" style="max-width: 1440px; margin: 0 auto;">
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- 8. DESIGN DECISIONS                         -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="case-study">
-    <section id="decisions" class="section">
-        <p class="section-label">Design Decisions</p>
-        <h2 class="section-heading">Why we built it this way</h2>
-
-        <!-- Decision 1 — flowing text, no card -->
-        <div class="de-entry" style="margin-top: 24px; border-top: 1px solid #EBEBEB;">
-            <h3>Why a marketplace, not a directory?</h3>
-            <div class="de-points">
-                <div class="de-point">
-                    <span class="de-point-num">1</span>
-                    <p>Discovery fails because users can't compare or verify &mdash; a directory just lists names without context</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">2</span>
-                    <p>A marketplace structure enables social proof, performance metrics, and AI-driven matching that a static list can't support</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">3</span>
-                    <p>Users need to feel like they're making a data-driven decision, not taking a leap of faith</p>
-                </div>
-            </div>
-            <div class="de-outcome">
-                <span class="de-outcome-arrow">&rarr;</span>
-                <p>We built a marketplace with performance metrics, client reviews, and AI matching &mdash; so companies can compare with confidence, not just browse.</p>
-            </div>
-        </div>
-
-        <!-- Decision 2 -->
-        <div class="de-entry" style="border-top: 1px solid #EBEBEB;">
-            <h3>Why a shared workspace instead of separate tools?</h3>
-            <div class="de-points">
-                <div class="de-point">
-                    <span class="de-point-num">1</span>
-                    <p>Every tool handoff is where information gets lost &mdash; users described "working blind" when switching between email, Excel, and messaging</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">2</span>
-                    <p>Partners and HQ need shared context, not forwarded emails with attachments that diverge over time</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">3</span>
-                    <p>Because discovery and contracting happen in-platform, the workspace inherits all prior context automatically</p>
-                </div>
-            </div>
-            <div class="de-outcome">
-                <span class="de-outcome-arrow">&rarr;</span>
-                <p>One platform where both sides see the same data, documents, and timeline &mdash; no ramp-up, no re-entering information.</p>
-            </div>
-        </div>
-
-        <!-- Decision 3 -->
-        <div class="de-entry" style="border-top: 1px solid #EBEBEB;">
-            <h3>Why does AI assist rather than automate?</h3>
-            <div class="de-points">
-                <div class="de-point">
-                    <span class="de-point-num">1</span>
-                    <p>Cross-border business documents carry legal and cultural stakes too high for full automation</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">2</span>
-                    <p>Users need to review, not just trust &mdash; "Clean Girl" doesn't translate the same way in Korea; "Board-certified" doesn't carry the same weight</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">3</span>
-                    <p>Preserving human judgment builds trust in the AI features over time, rather than forcing reliance from day one</p>
-                </div>
-            </div>
-            <div class="de-outcome">
-                <span class="de-outcome-arrow">&rarr;</span>
-                <p>AI suggests, flags, and drafts &mdash; but humans review and approve every step. The system supports decisions without making them.</p>
-            </div>
-        </div>
-
-        <!-- Decision 4 -->
-        <div class="de-entry" style="border-top: 1px solid #EBEBEB;">
-            <h3>Why Complete &rarr; Localize &rarr; Translate in that order?</h3>
-            <div class="de-points">
-                <div class="de-point">
-                    <span class="de-point-num">1</span>
-                    <p>You can't localize incomplete content &mdash; cultural adaptation requires the full picture first</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">2</span>
-                    <p>You can't translate before localizing &mdash; you'd translate culturally inappropriate expressions into another language</p>
-                </div>
-                <div class="de-point">
-                    <span class="de-point-num">3</span>
-                    <p>Reversing any step means redoing work &mdash; the sequence emerged from understanding how document preparation actually flows</p>
-                </div>
-            </div>
-            <div class="de-outcome">
-                <span class="de-outcome-arrow">&rarr;</span>
-                <p>A sequential pipeline where each step builds on the last: Auto-Complete fills gaps, Localization adapts for culture, Translation converts for the partner's language.</p>
-            </div>
-        </div>
-    </section>
-</div>
-
-<hr class="divider" style="max-width: 1440px; margin: 0 auto;">
-
-<!-- ═══════════════════════════════════════════ -->
-<!-- 9. DESIGN PROCESS                           -->
+<!-- 8. DESIGN PROCESS                           -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="case-study">
     <section id="process" class="section">
         <p class="section-label">Design Process</p>
         <h2 class="section-heading">How we got from research to a working prototype</h2>
-        <p class="section-body">The challenge wasn't just building features &mdash; it was designing a system that connects three completely different activities (discovery, engagement, collaboration) into one coherent experience. Here's how we approached it.</p>
+        <p class="section-body">The challenge wasn't just building features. it was designing a system that connects three completely different activities (discovery, engagement, collaboration) into one coherent experience. Here's how we approached it.</p>
 
         <!-- User Flow -->
         <h3 class="process-sub" style="margin-top: 120px;">User Flow</h3>
-        <p class="section-body" style="margin-bottom: 16px;">Our research revealed that overseas expansion isn't one task &mdash; it's three distinct phases that companies currently handle with disconnected tools. We needed to map out how a user would move through all three without losing context between them.</p>
-        <p class="section-body" style="margin-bottom: 0;">The critical design question was: <strong style="color: var(--text);">where does one phase end and the next begin?</strong> We found that the transition points &mdash; from evaluating a partner to contracting, from contracting to collaborating &mdash; were exactly where existing workflows broke down. So those handoff moments became the focus of the flow design.</p>
+        <p class="section-body" style="margin-bottom: 16px;">Our research revealed that overseas expansion isn't one task. it's three distinct phases that companies currently handle with disconnected tools. We needed to map out how a user would move through all three without losing context between them.</p>
+        <p class="section-body" style="margin-bottom: 0;">The critical design question was: <strong style="color: var(--text);">where does one phase end and the next begin?</strong> We found that the transition points. from evaluating a partner to contracting, from contracting to collaborating. were exactly where existing workflows broke down. So those handoff moments became the focus of the flow design.</p>
 
         <div class="uf-container">
             <div class="uf-phase">
@@ -2149,7 +2048,7 @@
         <!-- Personas -->
         <h3 class="process-sub" style="margin-top: 160px;">User Personas</h3>
         <p class="section-body" style="margin-bottom: 16px;">Early in our research, we noticed that not all users need the same entry point. A mid-size enterprise with an overseas team has completely different pain points than a startup founder doing everything alone. If we designed for only one type, the others would feel lost.</p>
-        <p class="section-body" style="margin-bottom: 0;">We built three personas to represent these distinct needs &mdash; and critically, <strong style="color: var(--text);">each persona maps to a different core feature</strong> of the platform. This mapping ensured every major feature had a clear user it was serving, and prevented us from building features that sounded useful but didn't solve anyone's specific problem.</p>
+        <p class="section-body" style="margin-bottom: 0;">We built three personas to represent these distinct needs. and critically, <strong style="color: var(--text);">each persona maps to a different core feature</strong> of the platform. This mapping ensured every major feature had a clear user it was serving, and prevented us from building features that sounded useful but didn't solve anyone's specific problem.</p>
 
         <div class="pe-entry" style="border-top: 1px solid #EBEBEB; margin-top: 28px;">
             <div class="pe-left">
@@ -2187,7 +2086,7 @@
                 <span class="pe-tag">Roadmap</span>
             </div>
             <div>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Successful domestic brand expanding to North America. No overseas experience &mdash; regulations change fast, government resources are too generic, and limited team size means every misstep is costly.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Successful domestic brand expanding to North America. No overseas experience. regulations change fast, government resources are too generic, and limited team size means every misstep is costly.</p>
                 <p style="font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 400; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px;"><strong style="color: var(--text);">Needs:</strong> Big-picture expansion guide, regulatory change tracking, resource-efficient process management.</p>
                 <p style="font-family: 'Manrope', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--accent);">&rarr; Maps to: Roadmap features</p>
             </div>
@@ -2195,15 +2094,117 @@
 
         <!-- Concept Model -->
         <h3 class="process-sub" style="margin-top: 160px;">Concept Model</h3>
-        <p class="section-body" style="margin-bottom: 16px;">Before jumping into screens, we needed to define the system's conceptual structure &mdash; what are the core objects (companies, partners, documents, projects), how do they relate, and what actions connect them?</p>
-        <p class="section-body" style="margin-bottom: 0;">This was especially important for Weave because the platform bridges two sides (HQ and local partners) who interact with the same data differently. The concept model helped us catch structural problems early &mdash; for example, we realized that a "document" in the workspace needed to carry metadata about which partner it was shared with, what extraction conditions were applied, and what AI processing stage it was in. Without this model, those relationships would have been afterthoughts bolted onto the UI.</p>
+        <p class="section-body" style="margin-bottom: 16px;">Before jumping into screens, we needed to define the system's conceptual structure. what are the core objects (companies, partners, documents, projects), how do they relate, and what actions connect them?</p>
+        <p class="section-body" style="margin-bottom: 0;">This was especially important for Weave because the platform bridges two sides (HQ and local partners) who interact with the same data differently. The concept model helped us catch structural problems early. for example, we realized that a "document" in the workspace needed to carry metadata about which partner it was shared with, what extraction conditions were applied, and what AI processing stage it was in. Without this model, those relationships would have been afterthoughts bolted onto the UI.</p>
         <img src="images/weave/Concept Model.png" class="img-full" style="margin-top: 24px; border-radius: 10px;" alt="Weave Concept Model">
 
         <!-- Wireframes -->
         <h3 class="process-sub" style="margin-top: 160px;">Wireframes</h3>
-        <p class="section-body" style="margin-bottom: 0;">With the flow, personas, and concept model established, we moved to wireframing. The focus here was on layout decisions and information hierarchy &mdash; particularly for the workspace dashboard and AI document editor, which had the most complex information density. We iterated on wireframes before going to high-fidelity, which saved significant time when the user testing feedback came in later.</p>
-        <div class="placeholder-box" style="margin-top: 24px; padding: 120px 40px;">
-            <p>Wireframe images coming soon</p>
+        <p class="section-body" style="margin-bottom: 0;">With the flow, personas, and concept model established, we moved to wireframing. The focus here was on layout decisions and information hierarchy. particularly for the workspace dashboard and AI document editor, which had the most complex information density. We iterated on wireframes before going to high-fidelity, which saved significant time when the user testing feedback came in later.</p>
+        <img src="images/weave/wireframe.png" class="img-full" style="margin-top: 24px; border-radius: 10px;" alt="Wireframes">
+    </section>
+</div>
+
+<hr class="divider" style="max-width: 1440px; margin: 0 auto;">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 9. DESIGN DECISIONS                         -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="decisions" class="section">
+        <p class="section-label">Design Decisions</p>
+        <h2 class="section-heading">Why we built it this way</h2>
+
+        <!-- Decision 1 -->
+        <div class="de-entry" style="margin-top: 24px; border-top: 1px solid #EBEBEB;">
+            <h3>Why a marketplace, not a directory?</h3>
+            <div class="de-points">
+                <div class="de-point">
+                    <span class="de-point-num">1</span>
+                    <p>Discovery fails because users can't compare or verify. a directory just lists names without context</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">2</span>
+                    <p>A marketplace structure enables social proof, performance metrics, and AI-driven matching that a static list can't support</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">3</span>
+                    <p>Users need to feel like they're making a data-driven decision, not taking a leap of faith</p>
+                </div>
+            </div>
+            <div class="de-outcome">
+                <span class="de-outcome-arrow">&rarr;</span>
+                <p>We built a marketplace with performance metrics, client reviews, and AI matching. so companies can compare with confidence, not just browse.</p>
+            </div>
+        </div>
+
+        <!-- Decision 2 -->
+        <div class="de-entry" style="border-top: 1px solid #EBEBEB;">
+            <h3>Why a shared workspace instead of separate tools?</h3>
+            <div class="de-points">
+                <div class="de-point">
+                    <span class="de-point-num">1</span>
+                    <p>Every tool handoff is where information gets lost. users described "working blind" when switching between email, Excel, and messaging</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">2</span>
+                    <p>Partners and HQ need shared context, not forwarded emails with attachments that diverge over time</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">3</span>
+                    <p>Because discovery and contracting happen in-platform, the workspace inherits all prior context automatically</p>
+                </div>
+            </div>
+            <div class="de-outcome">
+                <span class="de-outcome-arrow">&rarr;</span>
+                <p>One platform where both sides see the same data, documents, and timeline. no ramp-up, no re-entering information.</p>
+            </div>
+        </div>
+
+        <!-- Decision 3 -->
+        <div class="de-entry" style="border-top: 1px solid #EBEBEB;">
+            <h3>Why does AI assist rather than automate?</h3>
+            <div class="de-points">
+                <div class="de-point">
+                    <span class="de-point-num">1</span>
+                    <p>Cross-border business documents carry legal and cultural stakes too high for full automation</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">2</span>
+                    <p>Users need to review, not just trust. "Clean Girl" doesn't translate the same way in Korea; "Board-certified" doesn't carry the same weight</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">3</span>
+                    <p>Preserving human judgment builds trust in the AI features over time, rather than forcing reliance from day one</p>
+                </div>
+            </div>
+            <div class="de-outcome">
+                <span class="de-outcome-arrow">&rarr;</span>
+                <p>AI suggests, flags, and drafts. but humans review and approve every step. The system supports decisions without making them.</p>
+            </div>
+        </div>
+
+        <!-- Decision 4 -->
+        <div class="de-entry" style="border-top: 1px solid #EBEBEB;">
+            <h3>Why Complete &rarr; Localize &rarr; Translate in that order?</h3>
+            <div class="de-points">
+                <div class="de-point">
+                    <span class="de-point-num">1</span>
+                    <p>You can't localize incomplete content. cultural adaptation requires the full picture first</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">2</span>
+                    <p>You can't translate before localizing. you'd translate culturally inappropriate expressions into another language</p>
+                </div>
+                <div class="de-point">
+                    <span class="de-point-num">3</span>
+                    <p>Reversing any step means redoing work. the sequence emerged from understanding how document preparation actually flows</p>
+                </div>
+            </div>
+            <div class="de-outcome">
+                <span class="de-outcome-arrow">&rarr;</span>
+                <p>A sequential pipeline where each step builds on the last: Auto-Complete fills gaps, Localization adapts for culture, Translation converts for the partner's language.</p>
+            </div>
         </div>
     </section>
 </div>
@@ -2218,18 +2219,18 @@
         <p class="section-label">User Testing</p>
         <h2 class="section-heading">Testing with real users</h2>
 
-        <p class="section-body" style="margin-top: 40px; margin-bottom: 80px;"><strong style="color: var(--text);">3 participants</strong> tested via remote sessions on Google Meet + Figma prototype.<br><strong style="color: var(--text);">2 task flows</strong> tested &mdash; Workspace Dashboard + AI Document Workflow.</p>
+        <p class="section-body" style="margin-top: 40px; margin-bottom: 80px;"><strong style="color: var(--text);">3 participants</strong> tested via remote sessions on Google Meet + Figma prototype.<br><strong style="color: var(--text);">2 task flows</strong> tested. Workspace Dashboard + AI Document Workflow.</p>
 
         <!-- Finding 1 -->
         <div style="margin-bottom: 80px;">
-            <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;">Finding 01 &mdash; Information Overload</p>
+            <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;">Finding 01. Information Overload</p>
             <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 24px;">All three participants struggled with text density and unclear visual hierarchy.</h3>
 
             <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
                 <div class="bubble">
                     <div class="bubble-avatar">E</div>
                     <div class="bubble-content">
-                        <p class="bubble-text">"I couldn't tell where to look first. Everything had the same visual weight &mdash; I had to read every line to figure out what was different."</p>
+                        <p class="bubble-text">"I couldn't tell where to look first. Everything had the same visual weight. I had to read every line to figure out what was different."</p>
                         <p class="bubble-name">Emily</p>
                     </div>
                 </div>
@@ -2250,15 +2251,15 @@
             </div>
 
             <!-- Insight — one of the few items that gets a background treatment -->
-            <div style="border-left: 3px solid var(--accent); padding-left: 20px;">
+            <div>
                 <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Insight</p>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">Users don't need less information &mdash; they need <strong style="color: var(--text);">clearer visual hierarchy and progressive disclosure</strong>. The priority isn't reducing content, but structuring it so users can scan, identify what matters, and dive deeper only when needed.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">Users don't need less information. they need <strong style="color: var(--text);">clearer visual hierarchy and progressive disclosure</strong>. The priority isn't reducing content, but structuring it so users can scan, identify what matters, and dive deeper only when needed.</p>
             </div>
         </div>
 
         <!-- Finding 2 -->
         <div style="margin-bottom: 80px;">
-            <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;">Finding 02 &mdash; AI Button Usability</p>
+            <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;">Finding 02. AI Button Usability</p>
             <h3 style="font-family: 'Manrope', sans-serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 24px;">AI buttons at the bottom of the editor forced constant scrolling and hid the workflow sequence.</h3>
 
             <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
@@ -2285,7 +2286,7 @@
                 </div>
             </div>
 
-            <div style="border-left: 3px solid var(--accent); padding-left: 20px;">
+            <div>
                 <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px;">Insight</p>
                 <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">The AI tools need to be <strong style="color: var(--text);">visible without scrolling</strong> and <strong style="color: var(--text);">communicate their sequence</strong>. Users should understand the workflow order (Auto-Complete &rarr; Localization &rarr; Translation) at a glance, not through trial and error.</p>
             </div>
@@ -2304,31 +2305,31 @@
         <h2 class="section-heading">What we changed after testing</h2>
 
         <div class="iteration-block" style="margin-top: 48px;">
-            <p class="iteration-label">Iteration 01 &mdash; Information Overload</p>
-            <p class="iteration-desc">Restructured visual hierarchy with progressive disclosure &mdash; letting users scan first and dive deeper only when needed.</p>
+            <p class="iteration-label">Iteration 01. Information Overload</p>
+            <p class="iteration-desc">Restructured visual hierarchy with progressive disclosure. letting users scan first and dive deeper only when needed.</p>
             <div class="iteration-grid">
                 <div>
                     <p class="iteration-col-label iteration-col-label--before">Before</p>
-                    <div class="placeholder-box"><p>Before screenshot</p></div>
+                    <img src="images/weave/before.png" alt="Before iteration" style="width: 100%; display: block; border-radius: 10px;">
                 </div>
                 <div>
                     <p class="iteration-col-label iteration-col-label--after">After</p>
-                    <div class="placeholder-box"><p>After screenshot</p></div>
+                    <img src="images/weave/after.png" alt="After iteration" style="width: 100%; display: block; border-radius: 10px;">
                 </div>
             </div>
         </div>
 
         <div class="iteration-block">
-            <p class="iteration-label">Iteration 02 &mdash; AI Button Usability</p>
-            <p class="iteration-desc">Repositioned AI tools to be always visible with clear sequential labeling &mdash; users can now see the full workflow order at a glance.</p>
+            <p class="iteration-label">Iteration 02. AI Button Usability</p>
+            <p class="iteration-desc">Repositioned AI tools to be always visible with clear sequential labeling. users can now see the full workflow order at a glance.</p>
             <div class="iteration-grid">
                 <div>
                     <p class="iteration-col-label iteration-col-label--before">Before</p>
-                    <div class="placeholder-box"><p>Before screenshot</p></div>
+                    <img src="images/weave/fianl pages/before.png" alt="Before iteration" style="width: 100%; display: block; border-radius: 10px;">
                 </div>
                 <div>
                     <p class="iteration-col-label iteration-col-label--after">After</p>
-                    <div class="placeholder-box"><p>After screenshot</p></div>
+                    <img src="images/weave/fianl pages/after.png" alt="After iteration" style="width: 100%; display: block; border-radius: 10px;">
                 </div>
             </div>
         </div>
@@ -2350,17 +2351,17 @@
             <div style="padding: 32px 0; border-top: 1px solid #EBEBEB;">
                 <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">Lesson 01</p>
                 <h4 style="font-family: 'Manrope', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 8px;">AI should remove friction, not add features</h4>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">The strongest AI features in Weave &mdash; auto-complete, localization review, translation &mdash; all solve the same type of problem: tasks that are tedious and error-prone because of volume and language barriers, not because they're conceptually hard. Every time we considered adding an AI feature, we asked: "Is this removing a real pain point, or just adding novelty?"</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">The strongest AI features in Weave. auto-complete, localization review, translation. all solve the same type of problem: tasks that are tedious and error-prone because of volume and language barriers, not because they're conceptually hard. Every time we considered adding an AI feature, we asked: "Is this removing a real pain point, or just adding novelty?"</p>
             </div>
             <div style="padding: 32px 0; border-top: 1px solid #EBEBEB;">
                 <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">Lesson 02</p>
                 <h4 style="font-family: 'Manrope', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 8px;">Show the sequence, not just the tools</h4>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">User testing revealed that having the right AI tools isn't enough &mdash; users need to understand the order. When buttons were presented without clear sequencing, participants didn't know what to press first. Workflow design is as much about communicating the path as building the features along it.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">User testing revealed that having the right AI tools isn't enough. users need to understand the order. When buttons were presented without clear sequencing, participants didn't know what to press first. Workflow design is as much about communicating the path as building the features along it.</p>
             </div>
             <div style="padding: 32px 0; border-top: 1px solid #EBEBEB;">
                 <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">Lesson 03</p>
                 <h4 style="font-family: 'Manrope', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: -1px; color: var(--text); margin-bottom: 8px;">Design for the user who doesn't know what they need</h4>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">First-time expanders don't know what type of partner to search for, what regulations apply, or how to structure a cross-border proposal. The discovery experience had to guide without assuming expertise &mdash; which led us to AI-recommended partners over pure search, and structured document workflows over blank editors.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;">First-time expanders don't know what type of partner to search for, what regulations apply, or how to structure a cross-border proposal. The discovery experience had to guide without assuming expertise. which led us to AI-recommended partners over pure search, and structured document workflows over blank editors.</p>
             </div>
             <div style="padding: 32px 0; border-top: 1px solid #EBEBEB;">
                 <p style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px;">Lesson 04</p>
@@ -2375,15 +2376,15 @@
         <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 20px;">
             <div style="display: flex; align-items: flex-start; gap: 12px;">
                 <span style="color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-top: 1px;">&rarr;</span>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Test with real expansion data</strong> &mdash; validate partner matching accuracy and trust signal effectiveness with actual companies going through overseas expansion.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Test with real expansion data</strong>. validate partner matching accuracy and trust signal effectiveness with actual companies going through overseas expansion.</p>
             </div>
             <div style="display: flex; align-items: flex-start; gap: 12px;">
                 <span style="color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-top: 1px;">&rarr;</span>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Expand localization review</strong> &mdash; train the AI on more market-specific cultural patterns beyond US-Korea, and measure how localization corrections reduce partner revision cycles.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Expand localization review</strong>. train the AI on more market-specific cultural patterns beyond US-Korea, and measure how localization corrections reduce partner revision cycles.</p>
             </div>
             <div style="display: flex; align-items: flex-start; gap: 12px;">
                 <span style="color: var(--accent); font-weight: 700; font-size: 1.1rem; margin-top: 1px;">&rarr;</span>
-                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Measure the AI workflow impact</strong> &mdash; compare document review time, error rates, and partner satisfaction between the AI-assisted workflow and traditional email-based processes.</p>
+                <p style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 400; color: var(--text-secondary); line-height: 1.6;"><strong style="color: var(--text);">Measure the AI workflow impact</strong>. compare document review time, error rates, and partner satisfaction between the AI-assisted workflow and traditional email-based processes.</p>
             </div>
         </div>
     </section>
