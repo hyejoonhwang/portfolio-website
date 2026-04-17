@@ -133,8 +133,9 @@
         }
 
         /* Gutsy card: small centered phone on accent background */
-        .card-gutsy { background: #EF7ED8; }
+        .card-gutsy { background: #EF7ED8; container-type: inline-size; }
         .card-gutsy video {
+            --r: clamp(10px, 5.5cqw, 24px);
             inset: auto;
             width: auto;
             height: 92%;
@@ -142,8 +143,8 @@
             top: 50%;
             transform: translate(-50%, -50%);
             object-fit: contain;
-            border-radius: 24px;
-            clip-path: inset(3px 5px 3px 3px round 24px);
+            border-radius: var(--r);
+            clip-path: inset(3px 5px 3px 3px round var(--r));
         }
 
         /* Stagger animations */
