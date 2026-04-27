@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/favicon-02.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Library on Wheels — Summer</title>
+    <link rel="stylesheet" href="shared.css">
+    <style>
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Sans';
+            src: url('fonts/BespokeSans-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-VariableItalic.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        :root { --accent: #b88646; }
+
+        /* ═══ SIDEBAR ═══ */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100vh;
+            padding: 80px 20px 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            z-index: 90;
+            overflow-y: auto;
+        }
+
+        .sidebar-link {
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: var(--text-faint);
+            text-decoration: none;
+            padding: 5px 0;
+            line-height: 1.4;
+            transition: all 0.3s;
+            display: block;
+        }
+        .sidebar-link:hover { color: var(--text-muted); }
+        .sidebar-link.active {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 1.01rem;
+            white-space: nowrap;
+        }
+        .sidebar-link.active::after { content: ' ·'; }
+
+        /* ═══ MAIN CONTENT ═══ */
+        .main-content { margin-left: 240px; }
+        .case-study { max-width: 1080px; margin: 0 auto; padding: 0 60px; }
+        .wide { max-width: 1440px; margin-left: auto; margin-right: auto; padding: 0 60px; }
+
+        /* ═══ HERO ═══ */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 16px 0 40px;
+            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+        .hero-left { flex: 1; }
+        .hero h1 {
+            font-family: 'Bespoke Slab', serif;
+            font-weight: 400;
+            font-size: 2.4rem;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+            margin-bottom: 16px;
+        }
+        .hero-sub {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 720px;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+        .hero-cta:hover { opacity: 0.85; }
+        .hero-cta svg { width: 14px; height: 14px; }
+
+        /* ═══ META ═══ */
+        .meta {
+            display: flex;
+            gap: 48px;
+            margin-top: 8px;
+            padding: 0 0 40px;
+            flex-wrap: wrap;
+        }
+        .meta-item { display: flex; flex-direction: column; gap: 4px; }
+        .meta-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+        }
+        .meta-value { font-size: 0.88rem; font-weight: 300; color: var(--text-muted); }
+
+        /* ═══ SECTIONS ═══ */
+        .section { padding: 80px 0; animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-bottom: 16px;
+        }
+        .section-heading {
+            font-family: 'Bespoke Slab', serif;
+            font-weight: 400;
+            font-size: 1.65rem;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            max-width: 720px;
+            margin-bottom: 24px;
+        }
+        .section-body {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.75;
+            color: var(--text-muted);
+            text-align: left;
+            max-width: 720px;
+        }
+        .section-body + .section-body { margin-top: 18px; }
+        .section-body em { color: var(--text); font-style: italic; }
+        .section-body code {
+            font-family: 'Geist Mono', ui-monospace, monospace;
+            font-size: 0.82rem;
+            background: rgba(184, 134, 70, 0.08);
+            color: var(--text);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .section-body a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid currentColor;
+            transition: opacity 0.2s;
+        }
+        .section-body a:hover { opacity: 0.7; }
+        .divider { border: none; border-top: 1px dashed var(--border); margin: 0; }
+
+        /* ═══ MEDIA ═══ */
+        .media-block { margin: 36px 0 8px; }
+        .img-full { width: 100%; border-radius: 4px; display: block; margin: 0 auto; border: 1px solid var(--border); }
+        .img-caption {
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            text-align: center;
+            margin-top: 12px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .img-side-by-side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: center;
+            margin: 36px 0 8px;
+        }
+        .img-side-by-side img { width: 100%; border-radius: 4px; display: block; }
+        .img-side-by-side .scene2-img {
+            background: #f4ecdc;
+            padding: 12% 14%;
+        }
+
+        /* ═══ PULL QUOTE ═══ */
+        .pull-quote {
+            font-family: 'Bespoke Slab', serif;
+            font-size: 1.2rem;
+            line-height: 1.55;
+            font-style: italic;
+            color: var(--text);
+            border-left: 3px solid var(--accent);
+            padding: 4px 0 4px 24px;
+            margin: 32px 0;
+            max-width: 640px;
+        }
+
+        /* ═══ LESSONS LIST ═══ */
+        .lessons-list {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 720px;
+        }
+        .lessons-list li {
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 16px;
+            font-size: 0.92rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        .lessons-list .num {
+            font-family: 'Bespoke Slab', serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            padding-top: 2px;
+        }
+        .lessons-list strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* ═══ STACK PILLS ═══ */
+        .stack-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 24px 0 0;
+            max-width: 720px;
+        }
+        .stack-pill {
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            padding: 5px 11px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* ═══ CLOSING CTA ═══ */
+        .closing {
+            text-align: center;
+            padding: 100px 0 80px;
+        }
+        .closing h2 {
+            font-family: 'Bespoke Slab', serif;
+            font-weight: 400;
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 28px;
+            letter-spacing: -0.015em;
+        }
+        .closing-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .closing-cta:hover { opacity: 0.88; transform: translateY(-2px); }
+        .closing-cta svg { width: 14px; height: 14px; }
+
+        .back {
+            padding: 60px 0 80px;
+            text-align: center;
+        }
+        .back a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .back a:hover { color: var(--text); border-color: var(--text); }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+        }
+
+        @media (max-width: 640px) {
+            .case-study { padding: 0 20px; }
+            .wide { padding: 0 20px; }
+            .hero { padding: 48px 0 32px; flex-direction: column; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-cta { align-self: flex-start; margin-top: 20px; }
+            .meta { gap: 24px; }
+            .section { padding: 56px 0; }
+            .section-heading { font-size: 1.3rem; }
+            .img-side-by-side { grid-template-columns: 1fr; }
+            .pull-quote { font-size: 1.05rem; padding-left: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+    <div class="nav-links">
+        <a href="/"><span class="cutout">home</span></a>
+        <a href="/work.html"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html"><span class="cutout">blog</span></a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-nav">
+    <a href="/"><span class="cutout">home</span></a>
+    <a href="/work.html"><span class="cutout">work</span></a>
+    <a href="/about.html"><span class="cutout">about</span></a>
+    <a href="/blog.html"><span class="cutout">blog</span></a>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <a href="#hero" class="sidebar-link active">Hero</a>
+    <a href="#memory" class="sidebar-link">Memory</a>
+    <a href="#story" class="sidebar-link">The Story</a>
+    <a href="#vizcom" class="sidebar-link">Vizcom → 3D</a>
+    <a href="#blender" class="sidebar-link">Painterly Blender</a>
+    <a href="#camera" class="sidebar-link">Camera & Lighting</a>
+    <a href="#imagery" class="sidebar-link">Storybook Imagery</a>
+    <a href="#web" class="sidebar-link">Building the Scroll</a>
+    <a href="#lessons" class="sidebar-link">Lessons</a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+<!-- ════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════ -->
+<div class="wide">
+    <section id="hero" class="hero">
+        <div class="hero-left">
+            <h1><span class="cutout">The Library on Wheels</span></h1>
+            <p class="hero-sub">A scroll-driven children's-book about the bookmobile that visited my hometown of Sinkokdong, Uijeongbu every Thursday. Painterly bus modeled in Blender, camera animation scrubbed by scroll, AI-generated illustrations between the chapters.</p>
+        </div>
+        <a href="https://library-on-wheels.vercel.app/" target="_blank" rel="noopener" class="hero-cta">View live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></a>
+    </section>
+</div>
+
+<div class="case-study">
+    <div class="meta">
+        <div class="meta-item">
+            <span class="meta-label">Timeline</span>
+            <span class="meta-value">Spring 2026</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-value">Design + Engineering + Story</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Type</span>
+            <span class="meta-value">Personal narrative project</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Stack</span>
+            <span class="meta-value">React, Three.js, Blender, Vizcom, Gemini, Runway</span>
+        </div>
+    </div>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<div class="wide media-block">
+    <img src="library-on-wheels/scene1-riverside.jpg" alt="Painterly riverside path with mountains in the distance — opening illustration" class="img-full">
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 1. MEMORY -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="memory" class="section">
+        <p class="section-label">01 — Memory</p>
+        <h2 class="section-heading">The bus that came every Thursday</h2>
+        <p class="section-body">When I was small, a library bus came to my neighborhood once a week. I think it was Thursdays — though I'm honestly no longer sure. Time moves differently for a kid, and the bus didn't run on the kind of schedule you'd circle on a calendar; it ran on the kind you felt in your stomach the day before.</p>
+        <p class="section-body">You could check out three or four books at a time. They had to last a week. I'd reread the ones I liked, slow down the ones I'd already finished, and on the last morning before the bus came back I'd line them up next to the door so I wouldn't forget. The waiting was part of the experience. Maybe most of it.</p>
+        <p class="section-body">I started this project because I wanted to make the version of that memory I could share with somebody else — not as a documentary, but as the way a child remembers something. Soft edges, warm light, a few details exaggerated and the rest gone vague.</p>
+        <p class="pull-quote">We didn't call it infrastructure. We didn't call it a solution. We just called it Thursday.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 2. THE STORY -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="story" class="section">
+        <p class="section-label">02 — The Story</p>
+        <h2 class="section-heading">Five scenes, told through scroll</h2>
+        <p class="section-body">The site is one long page. There's no clicking through anything — you scroll, and the camera moves with you. The story unfolds in five short scenes:</p>
+        <p class="section-body"><strong style="color: var(--text);">1. The Book.</strong> A quiet country, a place most people never visited.<br><strong style="color: var(--text);">2. A Girl Reading.</strong> The northern reaches of Gyeonggi, a child who waited.<br><strong style="color: var(--text);">3. Thursday.</strong> The bus appears. The 3D camera animation begins.<br><strong style="color: var(--text);">4. Hope on Wheels.</strong> One bus, one librarian, and a chance to explore beyond the village.<br><strong style="color: var(--text);">5. Memory.</strong> Years later, in cities with grand libraries, still remembering the weeks I waited.</p>
+        <p class="section-body">Scenes 1 and 2 are AI-generated paintings that slide up from below as you scroll. From scene 3 onward, the painterly 3D bus takes over — and the camera flies around it at exactly the rate you scroll.</p>
+        <div class="stack-pills">
+            <span class="stack-pill">Vite</span>
+            <span class="stack-pill">React + TypeScript</span>
+            <span class="stack-pill">react-three-fiber</span>
+            <span class="stack-pill">@react-three/drei</span>
+            <span class="stack-pill">Three.js</span>
+            <span class="stack-pill">Lenis</span>
+            <span class="stack-pill">Blender</span>
+            <span class="stack-pill">Vizcom</span>
+            <span class="stack-pill">Gemini</span>
+            <span class="stack-pill">Runway</span>
+        </div>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 3. VIZCOM -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="vizcom" class="section">
+        <p class="section-label">03 — Process</p>
+        <h2 class="section-heading">From a photo to a 3D model with Vizcom</h2>
+        <p class="section-body">I started with a real photograph of a Korean bookmobile (정독도서관 — JeongDok Library). The exact shape of those buses — the boxy roof, the tall windows down the side, the door that opens at the back — is specific enough that I didn't want to model it from scratch from memory. So I uploaded the photo into <a href="https://www.vizcom.ai" target="_blank" rel="noopener">Vizcom</a> and used its <em>Make 3D from multiple layers</em> feature to generate a base mesh.</p>
+        <div class="media-block">
+            <img src="library-on-wheels/vizcom-make-3d.jpg" alt="Vizcom workspace showing the Korean bookmobile photo being converted into a 3D mesh" class="img-full">
+            <p class="img-caption">Vizcom's <em>Make 3D</em> tool turning the bookmobile photo into a base mesh I could refine in Blender.</p>
+        </div>
+        <p class="section-body">The output wasn't clean — Vizcom does best on a recognizable silhouette and gets fuzzy around fine details like wheels and door hinges. But it gave me a topologically reasonable starting block I could open in Blender and work on top of, instead of starting with a default cube. The proportions were already correct, which is honestly the hardest part of any vehicle model.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 4. PAINTERLY BLENDER -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="blender" class="section">
+        <p class="section-label">04 — Process</p>
+        <h2 class="section-heading">Brushstrokes on geometry</h2>
+        <p class="section-body">For the painterly look on the bus, I used <a href="https://tawansunflower.gumroad.com/l/blender-painterly-geo" target="_blank" rel="noopener">Painterly Geometry</a>, a Blender add-on by Tawan Sunflower. Instead of relying on shaders alone, it scatters geometry-based brushstrokes across the surface, so the painted look survives whatever lighting the rendered scene throws at it. I also painted some details on top by hand using the bundled Paint System.</p>
+        <p class="section-body">The catch came when I tried to export the scene to glTF. Painterly Geometry's shaders use a Mix Shader with a Transparent BSDF, which means a standard <em>Diffuse</em> bake produces a black image — there's no diffuse component to capture. I lost an evening to this before realizing the fix was to switch the bake type to <em>Combined</em> (with Direct/Indirect off and Emit on) or use the "plug-the-output-into-an-Emission-shader" trick. Once that was sorted, the painterly texture flattened cleanly into a 2K PNG that Three.js could read straight from the .glb.</p>
+        <p class="pull-quote">"Diffuse → Color only" doesn't capture the painterly look. Combined or Emit does.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 5. CAMERA & LIGHTING -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="camera" class="section">
+        <p class="section-label">05 — Process</p>
+        <h2 class="section-heading">Choreographing the camera</h2>
+        <p class="section-body">The camera flies around the bus along a curve. Inside Blender, the rig was three pieces: a Bezier curve as the path, an Empty as the look-at target, and the camera itself with two constraints — <em>Follow Path</em> tying it to the curve and <em>Track To</em> aiming it at the empty. I animated the curve's <em>Evaluation Time</em>, which moved the camera along the path while Track To kept it framing the bus.</p>
+        <p class="section-body">glTF doesn't understand Blender constraints. So before exporting I ran <em>Object → Animation → Bake Action</em> with <em>Visual Keying</em> and <em>Clear Constraints</em> turned on. That flattened the constraint-driven motion into a clean set of per-frame keyframes on the camera's local transform — exactly what glTF can carry. The final clip is 251 keyframes over 10.4 seconds.</p>
+        <p class="section-body">Lighting was deliberately simple: a Sun for direction and a Point light to fill in the shadows. Both export to glTF as standard punctual lights, so they came along for the ride and Three.js renders them without any extra work.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 6. STORYBOOK IMAGERY -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="imagery" class="section">
+        <p class="section-label">06 — Process</p>
+        <h2 class="section-heading">Children's-book illustrations from Gemini and Runway</h2>
+        <p class="section-body">Scenes 1 and 2 needed visual moments that weren't 3D — quieter, more painterly, more like the cover of a picture book. I generated them with <a href="https://gemini.google.com" target="_blank" rel="noopener">Google Gemini</a> and <a href="https://runwayml.com" target="_blank" rel="noopener">Runway</a>, iterating on prompt language until the brushwork felt consistent across both images.</p>
+        <div class="img-side-by-side">
+            <div>
+                <img src="library-on-wheels/scene1-riverside.jpg" alt="Scene 1 — riverside path with mountains in the distance">
+            </div>
+            <div>
+                <img src="library-on-wheels/scene2-girl-reading.png" alt="Scene 2 — a girl absorbed in a book" class="scene2-img">
+            </div>
+        </div>
+        <p class="img-caption">Scene 1 (left) — the quiet country and the river. Scene 2 (right) — the child who waited, on a transparent background so she sits on the warm paper of the page.</p>
+        <p class="section-body" style="margin-top: 36px;">The hard part wasn't generating any single image; it was getting two different images to feel like they came out of the same book. I leaned heavily on the same descriptive language across prompts — <em>warm muted earth tones, hand-painted, soft brushwork, children's storybook style</em> — and pushed the second image through several rounds of "brighter, more pastel" feedback until the palette matched.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 7. BUILDING THE SCROLL -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="web" class="section">
+        <p class="section-label">07 — Process</p>
+        <h2 class="section-heading">Building the scroll</h2>
+        <p class="section-body">The web side is a Vite + React + TypeScript project using <em>react-three-fiber</em> (R3F) and <em>@react-three/drei</em>. R3F lets me write Three.js declaratively, which made the scroll wiring much easier to reason about than imperative Three.js would have been.</p>
+        <p class="section-body">The trick that holds the whole experience together: instead of letting the camera animation auto-play, I scrub it by scroll position. Three.js exposes an <code>AnimationMixer</code> with a <code>setTime()</code> method — give it a time in seconds within the clip and it interpolates the camera to that exact frame. So in the render loop I do roughly:</p>
+        <p class="section-body" style="margin-top: 16px;"><code>const t = remap(scrollProgress, 0.40, 0.80, 0, clip.duration);</code><br><code>mixer.setTime(t);</code></p>
+        <p class="section-body" style="margin-top: 16px;">That's it. Scrolling forward = camera flies forward. Scrolling backward = camera reverses. Pause scrolling and the camera holds in place mid-shot. To keep the scroll feeling intentional rather than jumpy, I added <a href="https://lenis.darkroom.engineering" target="_blank" rel="noopener">Lenis</a> for momentum-eased smooth scrolling.</p>
+        <p class="section-body">A few small details that mattered: setting <code>outputColorSpace = SRGBColorSpace</code> on the WebGL renderer so the painterly texture didn't render washed out; clamping <code>setTime()</code> to <code>clip.duration − 0.001</code> so the AnimationMixer's <em>LoopRepeat</em> default didn't snap back to frame zero at scroll = 100%; and dimming Blender's physical-unit light intensities (lux/lumens) by ~100× so the bus wasn't blown out. Typography is <a href="https://www.fontshare.com/fonts/amulya" target="_blank" rel="noopener">Amulya</a> via Fontshare's CDN.</p>
+    </section>
+</div>
+
+<div class="case-study"><hr class="divider"></div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- 8. LESSONS -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <section id="lessons" class="section">
+        <p class="section-label">08 — Lessons</p>
+        <h2 class="section-heading">What I learned</h2>
+        <ul class="lessons-list">
+            <li>
+                <span class="num">01</span>
+                <span><strong>Bake everything before you export.</strong> Constraints, drivers, modifiers — anything dynamic in Blender needs to be flattened into raw keyframes or geometry before it crosses into glTF. <em>Visual Keying</em> in Bake Action is the magic word.</span>
+            </li>
+            <li>
+                <span class="num">02</span>
+                <span><strong>Test your camera through Numpad 0.</strong> I framed my whole rig in perspective view and assumed the export would look the same. It didn't, because the look-at empty was three units off from the bus. Always preview through the actual camera before baking.</span>
+            </li>
+            <li>
+                <span class="num">03</span>
+                <span><strong>Scroll-driven animation feels different from autoplayed animation.</strong> Even at the same total duration, the user-controlled version feels deliberate and present. They earn each frame. Worth the extra plumbing.</span>
+            </li>
+            <li>
+                <span class="num">04</span>
+                <span><strong>AI image generation is good at single beautiful images, harder at consistent series.</strong> Two paintings that need to feel like the same book is more iteration than I expected. Lock prompt language and let the same model do all the variants.</span>
+            </li>
+            <li>
+                <span class="num">05</span>
+                <span><strong>Three.js's defaults aren't always what you want.</strong> sRGB output, light intensity scaling, animation loop modes — small flags with big visible consequences. Read the migration notes when you upgrade Three.</span>
+            </li>
+        </ul>
+    </section>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- CLOSING -->
+<!-- ════════════════════════════════════════ -->
+<div class="case-study">
+    <div class="closing">
+        <h2>Best experienced by scrolling.</h2>
+        <a href="https://library-on-wheels.vercel.app/" target="_blank" rel="noopener" class="closing-cta">
+            View the experience
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+    </div>
+</div>
+
+<div class="case-study">
+    <div class="back">
+        <a href="/work.html">&larr; Back to all work</a>
+    </div>
+</div>
+
+</div><!-- end .main-content -->
+
+<script src="cutout.js"></script>
+<script>
+    // Sidebar active state via IntersectionObserver
+    (function() {
+        var links = document.querySelectorAll('.sidebar-link');
+        var sections = [];
+
+        links.forEach(function(link) {
+            var id = link.getAttribute('href').replace('#', '');
+            var el = document.getElementById(id);
+            if (el) sections.push({ id: id, el: el, link: link });
+        });
+
+        if (!sections.length) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    links.forEach(function(l) { l.classList.remove('active'); });
+                    sections.forEach(function(s) {
+                        if (s.el === entry.target) s.link.classList.add('active');
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        });
+
+        sections.forEach(function(s) { observer.observe(s.el); });
+    })();
+</script>
+
+</body>
+</html>
