@@ -251,6 +251,19 @@
             clip-path: inset(3px 5px 3px 3px round var(--r));
         }
 
+        /* Talkspace card: hero walkthrough phone on Talkspace green, top of the phone showing like the case-study hero */
+        .card-talkspace { background: #005C65; container-type: inline-size; }
+        .card-talkspace picture { position: absolute; inset: 0; pointer-events: none; }
+        .card-talkspace img {
+            position: absolute;
+            height: 138%;
+            width: auto;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: clamp(10px, 5.5cqw, 24px) clamp(10px, 5.5cqw, 24px) 0 0;
+        }
+
         /* ═══ STAGGER ANIMATIONS ═══ */
         .grid > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
         .grid > :nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both; }
@@ -259,6 +272,7 @@
         .grid > :nth-child(5) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.17s both; }
         .grid > :nth-child(6) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.20s both; }
         .grid > :nth-child(7) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.23s both; }
+        .grid > :nth-child(8) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both; }
 
         /* ═══ LAYOUT WRAPPER ═══ */
         .page-content {
@@ -354,10 +368,21 @@
         </div>
 
         <div class="grid">
+            <a href="/talkspace.html" class="card project card-talkspace">
+                <picture>
+                    <source srcset="talkspace/hero-walkthrough-still.png" media="(prefers-reduced-motion: reduce)">
+                    <img src="talkspace/hero-walkthrough.webp" alt="">
+                </picture>
+                <div class="project-info">
+                    <span class="project-num"><span class="cutout">01</span></span>
+                    <span class="project-title">Talkspace — Provider Reviews</span>
+                </div>
+                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
             <a href="/controlmylaptop.html" class="card project">
                 <video src="summerlaptop/summerlaptop.thumbnail.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">01</span></span>
+                    <span class="project-num"><span class="cutout">02</span></span>
                     <span class="project-title">Control My Laptop</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>
@@ -366,7 +391,7 @@
             <a href="/weave.html" class="card project p1">
                 <video src="Weave/Principle 02.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">02</span></span>
+                    <span class="project-num"><span class="cutout">03</span></span>
                     <span class="project-title">Weave — Global Market Entry</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>
@@ -375,7 +400,7 @@
             <a href="/musicchat.html" class="card project">
                 <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">03</span></span>
+                    <span class="project-num"><span class="cutout">04</span></span>
                     <span class="project-title">Music Chat App</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>
@@ -384,7 +409,7 @@
             <a href="/shyfacetime.html" class="card project">
                 <video src="thumbnails/shyfacetime.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">04</span></span>
+                    <span class="project-num"><span class="cutout">05</span></span>
                     <span class="project-title">ShyFaceTime</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>
@@ -393,7 +418,7 @@
             <a href="/dotyourstory.html" class="card project">
                 <video src="thumbnails/dotyourstory-001.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">05</span></span>
+                    <span class="project-num"><span class="cutout">06</span></span>
                     <span class="project-title">Dot Your Story</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>
@@ -402,7 +427,7 @@
             <a href="/gutsy.html" class="card project card-gutsy">
                 <video src="gutsy/9.%20analysis%20detail.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">06</span></span>
+                    <span class="project-num"><span class="cutout">07</span></span>
                     <span class="project-title">Gutsy</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>
@@ -411,7 +436,7 @@
             <a href="/dearflower.html" class="card project">
                 <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">07</span></span>
+                    <span class="project-num"><span class="cutout">08</span></span>
                     <span class="project-title">Dear Flower</span>
                 </div>
                 <span class="project-arrow"><span class="cutout">&rarr;</span></span>

@@ -1,0 +1,442 @@
+/* Tokens: names mirror the Figma variables (text/default/default → --text-default, etc.) */
+:root {
+  --text-default: #2b2a2e;
+  --text-subtle: #434f64;
+  --text-subtlest: #68768d;
+  --text-brand: #005c65;           /* button/brand-tertiary/text/default */
+  --ts-black: #222f2d;             /* Black & White/TS Black */
+  --border-default: #d1d6e1;
+  --border-interactive: #007a85;   /* border/interactive-bold/default */
+  --surface: #ffffff;
+  --surface-summary: #e9f5f3;
+  --surface-tag: #b9ddff;          /* surface/decorative/balance-blue */
+  --surface-review-intake: #f2f2f2;
+
+  --space-025: 2px;
+  --space-050: 4px;
+  --space-075: 6px;
+  --space-100: 8px;
+  --space-150: 12px;
+  --space-200: 16px;
+
+  --radius: 12px;
+
+  --font-sans: "Roboto", system-ui, -apple-system, sans-serif;
+  --font-serif: "Averia Serif Libre", Georgia, serif;
+
+  --status-h: 44px;
+  --nav-h: 64px;
+  --home-h: 34px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; height: 100%; }
+
+body {
+  background: #eef0f3;
+  font-family: var(--font-sans);
+  color: var(--text-default);
+  -webkit-font-smoothing: antialiased;
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- Device frame ---------- */
+.device {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  background: var(--surface);
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 0 0 10px #1b1d22, 0 30px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* On a real phone, drop the frame and fill the screen */
+@media (max-width: 500px) {
+  body { display: block; background: var(--surface); }
+  .device { width: 100%; height: 100dvh; border-radius: 0; box-shadow: none; }
+  .status-bar { display: none; }
+  :root { --status-h: 0px; }
+}
+
+.status-bar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--status-h);
+  z-index: 3;
+  background: var(--surface);
+}
+.status-time { position: absolute; left: 27.93px; top: 18px; width: 29.52px; height: 11.11px; }
+.status-right { position: absolute; right: 14.67px; top: 17px; display: flex; align-items: center; gap: 5px; }
+.battery { position: relative; width: 24.5px; height: 11.33px; display: inline-block; }
+.battery::before {
+  content: ""; position: absolute; left: 0; top: 0; width: 22px; height: 11.33px;
+  border: 1px solid var(--text-default); border-radius: 2.67px; opacity: 0.35;
+}
+.battery-fill { position: absolute; left: 2px; top: 2px; width: 18px; height: 7.33px; background: var(--text-default); border-radius: 1.33px; }
+.battery-cap { position: absolute; right: 0; top: 3.67px; width: 1.33px; height: 4px; }
+
+.home-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 134px;
+  height: 5px;
+  transform: translateX(-50%);
+  background: var(--ts-black);
+  border-radius: 100px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ---------- Screens + push transition ---------- */
+.screen {
+  position: absolute;
+  inset: var(--status-h) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.screen--pushed { transform: translateX(100%); }
+.screen--behind { transform: translateX(-25%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .screen { transition: none; }
+}
+
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.scroll::-webkit-scrollbar { display: none; }
+
+/* ---------- Nav bar ---------- */
+.nav-bar {
+  position: relative;
+  flex: none;
+  height: var(--nav-h);
+  border-bottom: 1px solid var(--border-default);
+  background: var(--surface);
+}
+.icon-button {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  padding: 4px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  cursor: pointer;
+  display: flex;
+}
+.icon-button:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: 2px; }
+.logo { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); }
+.nav-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: 0.36px;
+  color: var(--text-brand);
+  white-space: nowrap;
+}
+.nav-title:focus { outline: none; }
+
+/* ---------- Type ---------- */
+.body-sm { font-size: 14px; line-height: 20px; letter-spacing: 0.1225px; }
+.body-xs { font-size: 12px; line-height: 16px; letter-spacing: 0.09px; }
+.heading-xs { font-size: 12px; line-height: 16px; letter-spacing: 0.09px; font-weight: 600; color: var(--text-subtlest); }
+
+/* ---------- Screen 1: provider list ---------- */
+.provider-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  padding: var(--space-200) var(--space-200) calc(var(--home-h) + var(--space-200));
+}
+.page-title {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: 0.36px;
+  color: var(--ts-black);
+}
+#provider-cards { display: flex; flex-direction: column; gap: var(--space-200); }
+
+.card {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  padding: var(--space-200) 0 var(--space-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  overflow: hidden;
+}
+.card__top { display: flex; flex-direction: column; gap: var(--space-100); padding: 0 var(--space-200); }
+.card__match { padding-bottom: var(--space-050); margin: 0; }
+.card__identity { display: flex; align-items: center; gap: var(--space-200); }
+/* Initials stand in for provider photos (no stock imagery in the prototype) */
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: #e8ebf0;
+  color: var(--text-subtle);
+  font-family: var(--font-serif);
+  font-size: 22px;
+  letter-spacing: 0.4px;
+}
+.provider-name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0.4px;
+}
+.card__label { margin: 0; }
+
+.tags { display: flex; flex-wrap: wrap; gap: var(--space-100); margin: 0; padding: 0; list-style: none; }
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-025);
+  padding: var(--space-025) var(--space-100);
+  border-radius: var(--radius);
+  background: var(--surface-tag);
+  white-space: nowrap;
+}
+/* First tag = the provider's top specialty; it carries the star */
+.tag--top { padding-left: var(--space-075); }
+.tag img { width: 16px; height: 16px; }
+
+/* Review summary block — shared by the card and the reviews page */
+.summary-wrap { padding: 0 var(--space-200); }
+.summary {
+  background: var(--surface-summary);
+  border-radius: var(--radius);
+  padding: var(--space-200) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-075);
+}
+.summary > * { margin: 0; padding: 0 var(--space-200); }
+.summary__eyebrow { color: var(--text-default); }
+.summary__eyebrow strong { font-weight: 700; }
+.summary__eyebrow--icon { display: flex; align-items: center; gap: var(--space-050); }
+.summary__eyebrow--icon img { flex: none; }
+.summary__body { color: var(--text-subtle); }
+.summary__link {
+  display: block;
+  text-align: right;
+  color: var(--text-brand);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+.summary__link:hover { text-decoration-thickness: 2px; }
+.summary__link:focus-visible,
+.btn-tile:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: 2px; border-radius: 4px; }
+
+/* Grouped left with a fixed gap so cards with and without the client count line up the same */
+.highlights {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--space-200);
+  align-items: center;
+  padding: 0 var(--space-200);
+  margin: 0;
+  list-style: none;
+  color: var(--text-subtle);
+}
+.highlights li { display: flex; align-items: center; gap: var(--space-050); white-space: nowrap; }
+.highlights img { width: 20px; height: 20px; }
+.highlights .strong { font-weight: 700; }
+
+.card__footer { border-top: 1px solid var(--border-default); padding: var(--space-200) var(--space-200) 0; }
+.btn-tile {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--space-100);
+  border: 1px solid var(--border-interactive);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-brand);
+  font: 600 16px/20px var(--font-sans);
+  letter-spacing: 0.16px;
+  cursor: pointer;
+}
+.btn-tile:hover { background: #f3f9f8; }
+
+/* ---------- Screen 2: reviews ---------- */
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  padding: var(--space-200) var(--space-200) calc(var(--home-h) + var(--space-200));
+}
+.reviews .summary-wrap { padding: 0; }
+.reviews .summary { gap: 10px; }
+/* Figma fixes this group at 311px wide, so its text wraps narrower than the eyebrow */
+.reviews .summary__group { display: flex; flex-direction: column; gap: var(--space-075); padding: 0; max-width: 311px; }
+.reviews .summary__group > * { margin: 0; padding: 0 var(--space-200); }
+.summary__source { color: var(--text-brand); }
+
+.review-list { display: flex; flex-direction: column; gap: var(--space-200); margin: 0; padding: 0; list-style: none; }
+.review {
+  border-radius: var(--radius);
+  padding: var(--space-200) var(--space-200) var(--space-100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+}
+/* Reviews from clients with the member's intake concern: filled, listed first */
+.review--intake { background: var(--surface-review-intake); }
+/* Everyone else: outlined */
+.review--other { border: 1px solid var(--border-default); }
+.review__context { align-self: flex-start; }
+.review__text { margin: 0; padding-bottom: var(--space-050); }
+.review__meta { display: flex; justify-content: space-between; align-items: center; }
+.review__author { display: flex; align-items: center; gap: var(--space-100); }
+
+.review-results { display: flex; flex-direction: column; gap: var(--space-200); }
+.review-group { display: flex; flex-direction: column; gap: var(--space-100); }
+.review-group__label {
+  margin: var(--space-100) 0 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.1225px;
+  color: var(--text-subtle);
+}
+/* ---------- Meet page sections ---------- */
+.profile-section {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius);
+  padding: var(--space-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-100);
+}
+.profile-section__title {          /* primary/headingMd */
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.16px;
+  color: var(--text-default);
+}
+.profile-section__body { margin: 0; color: var(--text-subtle); }
+.profile-section__note { margin: 0; }
+.verified-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-100); }
+.verified-list li { display: flex; align-items: flex-start; gap: var(--space-100); color: var(--text-default); }
+.verified-list img { margin-top: 2px; flex: none; }
+
+.reviews__empty { margin: var(--space-200) 0; text-align: center; color: var(--text-subtlest); }
+
+/* ---------- Filters: sort select + topic chips, sticky under the nav ---------- */
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin: 0 calc(-1 * var(--space-200));
+  padding: var(--space-100) 0;
+  background: var(--surface);
+}
+.filters__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  padding: 0 var(--space-200);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filters__row::-webkit-scrollbar { display: none; }
+.filters__chips { display: flex; gap: var(--space-100); }
+.filters__divider { flex: none; width: 1px; height: 20px; background: var(--border-default); }
+
+.chip,
+.sort__select {
+  flex: none;
+  height: 32px;
+  border: 1px solid var(--border-default);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text-subtle);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: 0.1225px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.chip { padding: 0 var(--space-150); }
+.chip:hover,
+.sort__select:hover { border-color: var(--text-subtlest); }
+.chip[aria-pressed="true"] {
+  background: var(--surface-summary);
+  border-color: var(--border-interactive);
+  color: var(--text-brand);
+  font-weight: 600;
+}
+.sort { flex: none; display: flex; }
+.sort__select {
+  appearance: none;
+  padding: 0 32px 0 var(--space-150);
+  color: var(--text-default);
+  font-weight: 600;
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%232b2a2e' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 10px center;
+}
+/* The row scrolls horizontally, which clips anything drawn outside a control */
+.sort__select:focus { outline: none; }
+.chip:focus-visible { outline: 2px solid var(--border-interactive); outline-offset: -2px; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- ?only=<id>: a single card, no device chrome ---------- */
+body.card-only { display: block; background: var(--surface); }
+.card-only .device { width: 375px; height: auto; border-radius: 0; box-shadow: none; overflow: visible; }
+.card-only .status-bar,
+.card-only .nav-bar,
+.card-only .page-title,
+.card-only .home-indicator,
+.card-only #screen-reviews { display: none; }
+.card-only .screen { position: static; }
+.card-only .scroll { overflow: visible; }
+.card-only .provider-list { padding: var(--space-200); }
+
+/* ---------- ?shot: transparent background for screenshots ---------- */
+body.shot { background: transparent; }
+.shot .device { box-shadow: 0 0 0 10px #1b1d22; }
+.shot.card-only .device { box-shadow: none; }
+
+/* ---------- ?embed: framed phone inside an iframe (overrides the narrow-screen layout) ---------- */
+body.embed { --status-h: 44px; display: grid; place-items: center; min-height: 100vh; background: transparent; }
+.embed .device { width: 375px; height: 812px; border-radius: 40px; box-shadow: 0 0 0 10px #1b1d22; margin: 10px; }
+.embed .status-bar { display: block; }
+
+/* ?nomatch: screenshot helper */
+.nomatch .card__match { display: none; }
+.card--dim { opacity: 0.35; }

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Provider Reviews Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&family=Roboto:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="device">
+    <!-- Status bar sits above both screens, like the iOS chrome in the Figma frames -->
+    <div class="status-bar" aria-hidden="true">
+      <img class="status-time" src="assets/time.svg" alt="" />
+      <div class="status-right">
+        <img src="assets/cellular.svg" alt="" width="17" height="10.67" />
+        <img src="assets/wifi.svg" alt="" width="15.27" height="10.97" />
+        <span class="battery"><span class="battery-fill"></span><img class="battery-cap" src="assets/battery-cap.svg" alt="" /></span>
+      </div>
+    </div>
+
+    <!-- Screen 1: Choose your provider (Figma 1059:28938) -->
+    <section class="screen" id="screen-list" aria-labelledby="list-title">
+      <header class="nav-bar">
+        <button class="icon-button" type="button" aria-label="Back">
+          <img src="assets/chevron-left.svg" alt="" width="24" height="24" />
+        </button>
+        <img class="logo" src="assets/logo.svg" alt="Talkspace" width="119" height="24" />
+      </header>
+      <main class="scroll">
+        <div class="provider-list">
+          <h1 class="page-title" id="list-title">Choose your provider</h1>
+          <div id="provider-cards"></div>
+        </div>
+      </main>
+    </section>
+
+    <!-- Screen 2: Reviews for <provider> (Figma 1063:31096) -->
+    <section class="screen screen--pushed" id="screen-reviews" aria-labelledby="reviews-title" hidden>
+      <header class="nav-bar">
+        <button class="icon-button" type="button" aria-label="Back to providers" data-action="back">
+          <img src="assets/chevron-left.svg" alt="" width="24" height="24" />
+        </button>
+        <h1 class="nav-title" id="reviews-title" tabindex="-1"></h1>
+      </header>
+      <main class="scroll">
+        <div class="reviews" id="reviews-content"></div>
+      </main>
+    </section>
+
+    <div class="home-indicator" aria-hidden="true"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
