@@ -5,22 +5,17 @@
     <link rel="icon" type="image/png" href="/favicon-02.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeeBud — Summer</title>
-    <meta name="description" content="An event app that ranks events by how you like to show up, not only by what you're into.">
+    <meta name="description" content="An event app that finds events where you'll feel comfortable, based on how you like to show up.">
     <meta property="og:title" content="BeeBud">
     <meta property="og:image" content="/beebud/hero-poster.webp">
     <!-- Built against case-study-review-guide.md, on the same template as controlmylaptop.html.
          Facts come from the BeeBud project folder (IA sessions 1-4, Maze study plan and report, prototype). -->
     <link rel="stylesheet" href="shared.css">
-    <link rel="preload" href="fonts/BespokeSlab-Variable.ttf" as="font" type="font/ttf" crossorigin>
+    <!-- Type matches the prototype: Roboto for headings and body. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap">
     <style>
-        @font-face {
-            font-family: 'Bespoke Slab';
-            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
-            font-weight: 100 900;
-            font-style: normal;
-            font-display: swap;
-        }
-
         :root {
             --accent: #2B2BFF;          /* BeeBud cobalt */
             --gum: #FF9BE0;             /* BeeBud bubblegum */
@@ -46,6 +41,7 @@
             :root { --s-block: 32px; --s-chapter: 64px; --s-part: 96px; --t-title: 23px; --t-hero: 32px; }
         }
 
+        main, .sidebar { font-family: 'Roboto', system-ui, -apple-system, sans-serif; }
         h1, h2, h3 { text-wrap: balance; }
         p { text-wrap: pretty; }
 
@@ -65,7 +61,7 @@
 
         /* ═══ TYPE ═══ */
         .eyebrow { font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-label); }
-        h2 { font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); font-weight: 500; line-height: 1.25; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-body); max-width: 760px; }
+        h2 { font-family: 'Roboto', system-ui, sans-serif; font-size: var(--t-title); font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; color: var(--text); margin-bottom: var(--s-body); max-width: 760px; }
         .body { font-size: var(--t-body); line-height: 1.6; color: var(--text-secondary); max-width: 680px; }
         .body + .body { margin-top: var(--s-body); }
         .body strong { color: var(--text); font-weight: 600; }
@@ -92,7 +88,7 @@
         .float--row     { right: 3%;  top: 40%;  width: 29%; z-index: 2; }
         .float--mini    { right: 13%; bottom: -16%; width: 13%; }
         .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
-        .hero h1 { font-family: 'Bespoke Slab', Georgia, serif; font-weight: 500; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -1px; color: var(--text); margin-bottom: var(--s-label); }
+        .hero h1 { font-family: 'Roboto', system-ui, sans-serif; font-weight: 800; font-size: var(--t-hero); line-height: 1.05; letter-spacing: -0.04em; color: var(--text); margin-bottom: var(--s-label); }
         .hero-sub { font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); max-width: 680px; }
         .hero-links { display: flex; gap: 8px; flex-shrink: 0; }
         .btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px; border-radius: 8px; font-size: var(--t-small); font-weight: 500; text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--surface); }
@@ -116,7 +112,7 @@
 
         /* Numbered change cards */
         .changes { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
-        .fix .num { display: block; font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); color: var(--accent); line-height: 1; margin-bottom: var(--s-label); }
+        .fix .num { display: block; font-family: 'Roboto', system-ui, sans-serif; font-weight: 800; font-size: var(--t-title); color: var(--accent); line-height: 1; margin-bottom: var(--s-label); }
         .fix h3 { font-size: var(--t-body); font-weight: 600; color: var(--text); margin-bottom: 4px; }
         .fix p { font-size: var(--t-small); line-height: 1.5; color: var(--text-secondary); }
 
@@ -149,7 +145,7 @@
         /* Next project */
         .next-project { display: block; margin-top: var(--s-chapter); padding: 32px 0 80px; border-top: 1px solid var(--line); text-decoration: none; }
         .next-project .eyebrow { color: var(--text-faint); }
-        .next-project span:last-child { font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); color: var(--text); }
+        .next-project span:last-child { font-family: 'Roboto', system-ui, sans-serif; font-weight: 800; letter-spacing: -0.03em; font-size: var(--t-title); color: var(--text); }
         .next-project:hover span:last-child { color: var(--accent); }
 
         /* ═══ RESPONSIVE ═══ */
@@ -231,7 +227,7 @@
     <header class="hero" id="hero">
         <div>
             <h1>BeeBud</h1>
-            <p class="hero-sub">An event app that ranks events by how you like to show up, not only by what you're into.</p>
+            <p class="hero-sub">An event app that finds events where you'll feel comfortable, based on how you like to show up.</p>
         </div>
         <div class="hero-links">
             <a class="btn btn--primary" href="https://beebud.vercel.app" target="_blank" rel="noopener">Try the prototype &nearr;</a>
@@ -254,7 +250,7 @@
         <div class="card-row ps">
             <div class="panel">
                 <span class="panel-label">Problem</span>
-                <p>Event apps match on interests or popularity, not on whether you'll be comfortable in the room. That matters most when you go alone.</p>
+                <p>Event apps match on interests or popularity, not on whether an event actually fits you. That matters most when you go alone.</p>
             </div>
             <div class="panel">
                 <span class="panel-label">Solution</span>
@@ -280,12 +276,12 @@
         </div>
         <div class="visual phones">
             <figure>
-                <img class="phone" src="beebud/new-onb-dims.webp" width="600" height="1298" alt="Onboarding: how you show up. No right answers, this is what we match on. Five-step scales for social energy, group size, vibe of the room and planning" loading="lazy">
+                <video class="phone lazy-video" data-src="beebud/onboarding.mp4" poster="beebud/onboarding-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of onboarding: tapping Get started, typing a name, setting social energy, group size, vibe of the room and planning, picking three interests, and landing on you're set"></video>
                 <figcaption class="caption"><strong>Onboarding</strong>Five scales set your defaults.</figcaption>
             </figure>
             <figure>
-                <img class="phone" src="beebud/new-home.webp" width="600" height="1298" alt="Home: what's good this week, a row of checked tags (Small groups, Spontaneous, Calm spaces), and The New York Philosophy Club at 78 percent you" loading="lazy">
-                <figcaption class="caption"><strong>Home</strong>Your answers, as tags.</figcaption>
+                <video class="phone lazy-video" data-src="beebud/home-scroll.mp4" poster="beebud/home-scroll-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of Home: scrolling past the checked tags and the feed ranked by percent you, then tapping Brands and Games to open its event detail"></video>
+                <figcaption class="caption"><strong>Home</strong>Your answers, as tags, then a feed ranked by fit.</figcaption>
             </figure>
         </div>
     </section>
@@ -308,12 +304,12 @@
         </div>
         <div class="visual phones">
             <figure>
-                <img class="phone" src="beebud/new-feedback.webp" width="600" height="1298" alt="Post-event feedback for Food As Medicine: was it a fit? with three answers, then scales for how big and how active it felt" loading="lazy">
-                <figcaption class="caption"><strong>Feedback</strong>Asks about the event, not the people.</figcaption>
+                <video class="phone lazy-video" data-src="beebud/feedback.mp4" poster="beebud/feedback-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of post-event feedback for Food As Medicine: picking so my kind of thing, answering how big, how active and how people talked, tapping Send it, then a sheet saying you and Mina read it the same way, and tapping Send request"></video>
+                <figcaption class="caption"><strong>Feedback</strong>Rate the event, then meet who agreed.</figcaption>
             </figure>
             <figure>
-                <img class="phone" src="beebud/new-beebuddy.webp" width="600" height="1298" alt="Your beebuddies: an incoming request card with Accept and Not now, and suggestion cards that say you both loved Food As Medicine, with Send request" loading="lazy">
-                <figcaption class="caption"><strong>Beebuddy</strong>Suggestions only offer Send request.</figcaption>
+                <video class="phone lazy-video" data-src="beebud/beebuddy.mp4" poster="beebud/beebuddy-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of the Beebuddy page: accepting Devon Kaur's request, a sheet saying you and Devon are beebuddies, then View profile, which shows Devon's social links and how Devon shows up"></video>
+                <figcaption class="caption"><strong>Beebuddy</strong>Accept, and their links open up.</figcaption>
             </figure>
         </div>
     </section>
@@ -409,6 +405,23 @@
         window.addEventListener('scroll', update, { passive: true });
         window.addEventListener('resize', update);
         update();
+    })();
+    // Chapter recordings: load and play only while on screen
+    (function () {
+        var vids = [].slice.call(document.querySelectorAll('.lazy-video'));
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (still || !('IntersectionObserver' in window)) {
+            vids.forEach(function (v) { v.src = v.dataset.src; v.controls = still; });
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                var v = e.target;
+                if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(function () {}); }
+                else if (v.src) v.pause();
+            });
+        }, { rootMargin: '200px 0px' });
+        vids.forEach(function (v) { io.observe(v); });
     })();
     // Reduced motion: stop the hero loop and hand the viewer the controls
     (function () {
