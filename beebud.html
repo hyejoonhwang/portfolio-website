@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="/favicon-02.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeeBud — Summer</title>
+    <meta name="description" content="An event app that ranks events by how you like to show up, not only by what you're into.">
+    <meta property="og:title" content="BeeBud">
+    <meta property="og:image" content="/beebud/hero-poster.webp">
+    <!-- Built against case-study-review-guide.md, on the same template as controlmylaptop.html.
+         Facts come from the BeeBud project folder (IA sessions 1-4, Maze study plan and report, prototype). -->
+    <link rel="stylesheet" href="shared.css">
+    <link rel="preload" href="fonts/BespokeSlab-Variable.ttf" as="font" type="font/ttf" crossorigin>
+    <style>
+        @font-face {
+            font-family: 'Bespoke Slab';
+            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --accent: #2B2BFF;          /* BeeBud cobalt */
+            --gum: #FF9BE0;             /* BeeBud bubblegum */
+            --gum-soft: #FFE6F7;
+            --text-secondary: #5C5753;
+            --line: #E8E6E3;
+            --panel: #F2F2F7;           /* BeeBud canvas */
+            --surface: #FFFFFF;
+
+            /* One spacing scale, by role (guide §8) */
+            --s-label: 12px;
+            --s-body: 16px;
+            --s-block: 48px;
+            --s-chapter: 96px;
+            --s-part: 160px;
+
+            /* Five type sizes: 12 / 14 / 17 / 28 / 48 */
+            --t-label: 12px; --t-small: 14px; --t-body: 17px; --t-title: 28px; --t-hero: 48px;
+
+            --phone: 250px;             /* phone recordings and stills, guide §7 */
+        }
+        @media (max-width: 760px) {
+            :root { --s-block: 32px; --s-chapter: 64px; --s-part: 96px; --t-title: 23px; --t-hero: 32px; }
+        }
+
+        h1, h2, h3 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+
+        /* ═══ SIDE NAV: one word per chapter ═══ */
+        .sidebar { position: fixed; top: 0; left: 0; width: 180px; height: 100vh; padding: 120px 16px 40px 28px; z-index: 90; }
+        .sidebar-title { font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); margin-bottom: var(--s-label); }
+        .sidebar-link { display: block; padding: 6px 0; font-size: var(--t-small); color: var(--text-faint); text-decoration: none; }
+        .sidebar-link:hover { color: var(--text); }
+        .sidebar-link.active { color: var(--accent); font-weight: 600; }
+        .sidebar-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* ═══ LAYOUT: two widths only, the full column and the side slot ═══ */
+        .main-content { margin-left: 180px; }
+        .col { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+        .chapter { padding-top: var(--s-chapter); scroll-margin-top: 80px; }
+        .part { padding-top: var(--s-part); }
+
+        /* ═══ TYPE ═══ */
+        .eyebrow { font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-label); }
+        h2 { font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); font-weight: 500; line-height: 1.25; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-body); max-width: 760px; }
+        .body { font-size: var(--t-body); line-height: 1.6; color: var(--text-secondary); max-width: 680px; }
+        .body + .body { margin-top: var(--s-body); }
+        .body strong { color: var(--text); font-weight: 600; }
+        .body a { color: var(--text); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+        .caption { font-size: var(--t-small); line-height: 1.5; color: var(--text-muted); margin-top: var(--s-label); }
+        .caption strong { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+        .caption--before strong { color: var(--text-faint); }
+
+        /* ═══ HERO: the real app, moving, between two stills; title and one-liner on the same screen ═══ */
+        /* One zoomed-in phone, cropped by the panel, with real UI pieces floating around it.
+           The panel is the Fit Score tile's lilac. */
+        .hero-stage { --hero-h: clamp(440px, calc(100svh - 290px), 580px);
+            position: relative; height: var(--hero-h); margin-top: 24px; border-radius: 20px; overflow: hidden; background: #E6E2FF; }
+        .hero-device { position: absolute; left: 50%; top: 9%; transform: translateX(-50%);
+            width: calc(var(--hero-h) * 0.56); padding: 10px 10px 0; border-radius: 52px 52px 0 0;
+            background: rgba(255, 255, 255, 0.6); box-shadow: 0 30px 60px rgba(43, 43, 255, 0.18); }
+        .hero-video { display: block; width: 100%; height: auto; aspect-ratio: 780 / 1688; border-radius: 42px 42px 0 0; background: #F2F2F7; }
+        .float { position: absolute; height: auto; filter: drop-shadow(0 14px 28px rgba(43, 43, 255, 0.16)); }
+        .float--soft { filter: blur(2px) drop-shadow(0 14px 28px rgba(43, 43, 255, 0.12)); opacity: 0.85; }
+        .float--fitq    { left: 3%;   top: 6%;   width: 22%; }
+        .float--fit     { left: 19%;  top: 40%;  width: 12%; z-index: 2; }
+        .float--request { left: -3%;  bottom: 5%; width: 30%; }
+        .float--tile    { right: -3%; top: 5%;   width: 16%; }
+        .float--row     { right: 3%;  top: 40%;  width: 29%; z-index: 2; }
+        .float--mini    { right: 13%; bottom: -16%; width: 13%; }
+        .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
+        .hero h1 { font-family: 'Bespoke Slab', Georgia, serif; font-weight: 500; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -1px; color: var(--text); margin-bottom: var(--s-label); }
+        .hero-sub { font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); max-width: 680px; }
+        .hero-links { display: flex; gap: 8px; flex-shrink: 0; }
+        .btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px; border-radius: 8px; font-size: var(--t-small); font-weight: 500; text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--surface); }
+        .btn:hover { border-color: var(--text-faint); }
+        .btn--primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .btn--primary:hover { opacity: 0.88; border-color: var(--accent); }
+        .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* ═══ SUMMARY + META ═══ */
+        .summary { font-size: 20px; line-height: 1.55; color: var(--text); max-width: 760px; }
+        .meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: var(--s-block); padding-top: var(--s-body); border-top: 1px solid var(--line); }
+        .meta-label { font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+        .meta-value { font-size: var(--t-small); line-height: 1.5; color: var(--text); }
+
+        /* ═══ ONE CARD LOOK: a tinted panel in BeeBud's canvas colour ═══ */
+        .panel { background: var(--panel); border-radius: 16px; padding: 20px 20px 24px; }
+        .panel-label { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+        .panel p { font-size: var(--t-body); line-height: 1.55; color: var(--text); }
+        .card-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .ps { margin-top: var(--s-chapter); }
+
+        /* Numbered change cards */
+        .changes { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+        .fix .num { display: block; font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); color: var(--accent); line-height: 1; margin-bottom: var(--s-label); }
+        .fix h3 { font-size: var(--t-body); font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .fix p { font-size: var(--t-small); line-height: 1.5; color: var(--text-secondary); }
+
+        /* ═══ VISUALS ═══ */
+        .visual { margin-top: var(--s-block); }
+        .phone { display: block; width: var(--phone); max-width: 100%; height: auto; aspect-ratio: 600 / 1298; object-fit: cover; object-position: top center; border-radius: 28px; border: 1px solid var(--line); background: var(--panel); }
+        .phones { display: flex; justify-content: center; gap: 48px; }
+        .phones figure { margin: 0; width: var(--phone); }
+        .phones--4 { gap: 20px; }
+        .phones--4 figure { width: calc((100% - 60px) / 4); max-width: var(--phone); }
+        .phones--4 .phone { width: 100%; border-radius: 22px; }
+        .shot--before { opacity: 0.85; }
+
+        /* The four tabs, as live text */
+        .ia { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+        .ia h3 { font-size: var(--t-body); font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .ia ul { list-style: none; }
+        .ia li li { font-size: var(--t-small); line-height: 1.5; color: var(--text-secondary); padding: 4px 0; border-top: 1px solid #E4E4EC; }
+        .ia-bell { margin-top: 12px; font-size: var(--t-small); color: var(--text-secondary); }
+        .ia-bell strong { color: var(--text); font-weight: 600; }
+
+        /* Small explainer flow, live text */
+        .flow-wrap { margin-top: var(--s-block); }
+        .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .flow-step { font-size: var(--t-small); font-weight: 500; color: var(--text); background: var(--panel); border-radius: 8px; padding: 8px 12px; }
+        .flow-step small { display: block; font-size: var(--t-label); font-weight: 400; color: var(--text-muted); }
+        .flow-step--focus { background: var(--gum-soft); }
+        .flow-arrow { color: var(--text-faint); font-size: var(--t-small); }
+
+        /* Next project */
+        .next-project { display: block; margin-top: var(--s-chapter); padding: 32px 0 80px; border-top: 1px solid var(--line); text-decoration: none; }
+        .next-project .eyebrow { color: var(--text-faint); }
+        .next-project span:last-child { font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); color: var(--text); }
+        .next-project:hover span:last-child { color: var(--accent); }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+            .changes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 760px) {
+            .col { padding: 0 16px; }
+            .hero-stage { --hero-h: 440px; margin-top: 8px; border-radius: 16px; }
+            .float--fitq, .float--tile, .float--mini, .float--request { display: none; }
+            .float--fit { left: 3%; top: 26%; width: 19%; }
+            .float--row { right: -5%; top: auto; bottom: 7%; width: 68%; }
+            .hero { flex-direction: column; align-items: flex-start; }
+            .summary { font-size: var(--t-body); }
+            .meta { grid-template-columns: 1fr 1fr; }
+            .card-row, .changes { grid-template-columns: 1fr; }
+            /* Two phones per row on phones */
+            .phones { gap: 12px; }
+            .phones figure { width: calc(50% - 6px); }
+            .phones--4 { flex-wrap: wrap; row-gap: var(--s-block); }
+            .phones--4 figure { width: calc(50% - 6px); }
+            .phone { border-radius: 20px; }
+            .ia { grid-template-columns: 1fr 1fr; }
+            .flow { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .flow-arrow { transform: rotate(90deg); padding-left: 16px; }
+        }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+    <div class="nav-links">
+        <a href="/"><span class="cutout">home</span></a>
+        <a href="/work.html"><span class="cutout">work</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/blog.html"><span class="cutout">blog</span></a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-nav">
+    <a href="/"><span class="cutout">home</span></a>
+    <a href="/work.html"><span class="cutout">work</span></a>
+    <a href="/about.html"><span class="cutout">about</span></a>
+    <a href="/blog.html"><span class="cutout">blog</span></a>
+</div>
+
+<aside class="sidebar" aria-label="On this page">
+    <p class="sidebar-title">On this page</p>
+    <a href="#overview" class="sidebar-link active">Overview</a>
+    <a href="#matching" class="sidebar-link">Matching</a>
+    <a href="#buddies" class="sidebar-link">Buddies</a>
+    <a href="#structure" class="sidebar-link">Structure</a>
+    <a href="#testing" class="sidebar-link">Testing</a>
+    <a href="#learned" class="sidebar-link">Learnings</a>
+</aside>
+
+<main class="main-content">
+
+<!-- ═══ FIRST SCREEN: the app moving + name + one line ═══ -->
+<div class="col" id="overview">
+    <div class="hero-stage">
+        <img class="float float--soft float--fitq" src="beebud/c-fitq.webp" width="724" height="524" alt="">
+        <img class="float float--soft float--tile" src="beebud/c-tile.webp" width="350" height="420" alt="">
+        <img class="float float--fit" src="beebud/c-fit.webp" width="144" height="144" alt="">
+        <img class="float float--request" src="beebud/c-request.webp" width="716" height="340" alt="">
+        <div class="hero-device">
+            <video class="hero-video" src="beebud/hero.mp4" poster="beebud/hero-poster.webp" width="780" height="1688" autoplay muted loop playsinline preload="auto" aria-label="Screen recording of the prototype's Home feed: tapping the Small groups and Calm spaces tags off and on rescores the events and re-sorts the list"></video>
+        </div>
+        <img class="float float--row" src="beebud/c-row.webp" width="716" height="184" alt="">
+        <img class="float float--soft float--mini" src="beebud/c-mini.webp" width="336" height="514" alt="">
+    </div>
+    <header class="hero" id="hero">
+        <div>
+            <h1>BeeBud</h1>
+            <p class="hero-sub">An event app that ranks events by how you like to show up, not only by what you're into.</p>
+        </div>
+        <div class="hero-links">
+            <a class="btn btn--primary" href="https://beebud.vercel.app" target="_blank" rel="noopener">Try the prototype &nearr;</a>
+        </div>
+    </header>
+</div>
+
+<!-- ═══ SUMMARY + META ═══ -->
+<div class="col">
+    <section style="padding-top: var(--s-chapter);" aria-label="Summary">
+        <p class="summary">BeeBud is for people who often go to events alone. Every event gets a Fit Score based on how you like to show up, such as group size and the vibe of the room. I designed it solo: the information architecture, the UI and a clickable coded prototype I tested with five people on Maze.</p>
+        <div class="meta">
+            <div><p class="meta-label">Role</p><p class="meta-value">IA, UI, prototype, testing</p></div>
+            <div><p class="meta-label">Timeline</p><p class="meta-value">3 months, summer 2026</p></div>
+            <div><p class="meta-label">Team</p><p class="meta-value">Solo, personal concept</p></div>
+            <div><p class="meta-label">Tools</p><p class="meta-value">Figma, FigJam, Maze, Claude Code, HTML/CSS/JS</p></div>
+        </div>
+
+        <!-- Problem + Solution, one sentence each -->
+        <div class="card-row ps">
+            <div class="panel">
+                <span class="panel-label">Problem</span>
+                <p>Event apps match on interests or popularity, not on whether you'll be comfortable in the room. That matters most when you go alone.</p>
+            </div>
+            <div class="panel">
+                <span class="panel-label">Solution</span>
+                <p>Match on how you show up: social energy, group size, the vibe of the room, how you plan and why you go.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 01 MATCHING ═══ -->
+<div class="col">
+    <section id="matching" class="chapter part">
+        <p class="eyebrow">01 · Matching</p>
+        <h2>One tap turns a preference off for tonight, and every Fit Score is recalculated</h2>
+        <p class="body">Your onboarding answers become tags at the top of Home. Tapping one off tells BeeBud tonight is different. I first considered letting the tap only reveal more events, but they would arrive with low scores for the preference you had just switched off. So <strong>a tap widens the list and removes that preference from every score</strong>, and the feed re-sorts.</p>
+        <div class="flow-wrap">
+            <div class="flow" aria-label="Your profile, which holds how you show up, and the event's profile, which is inferred and refined by feedback, combine into a Fit Score that ranks the feed">
+                <span class="flow-step">Your profile<small>how you show up, tonight's tags</small></span><span class="flow-arrow" aria-hidden="true">+</span>
+                <span class="flow-step">Event profile<small>inferred, refined by feedback</small></span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step flow-step--focus">Fit Score<small>shown as "% you"</small></span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step">Home feed<small>ranked by fit</small></span>
+            </div>
+        </div>
+        <div class="visual phones">
+            <figure>
+                <img class="phone" src="beebud/new-onb-dims.webp" width="600" height="1298" alt="Onboarding: how you show up. No right answers, this is what we match on. Five-step scales for social energy, group size, vibe of the room and planning" loading="lazy">
+                <figcaption class="caption"><strong>Onboarding</strong>Five scales set your defaults.</figcaption>
+            </figure>
+            <figure>
+                <img class="phone" src="beebud/new-home.webp" width="600" height="1298" alt="Home: what's good this week, a row of checked tags (Small groups, Spontaneous, Calm spaces), and The New York Philosophy Club at 78 percent you" loading="lazy">
+                <figcaption class="caption"><strong>Home</strong>Your answers, as tags.</figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 02 BUDDIES ═══ -->
+<div class="col">
+    <section id="buddies" class="chapter">
+        <p class="eyebrow">02 · Buddies</p>
+        <h2>A match is a nudge to send a request, because liking the same event isn't consent to meet</h2>
+        <p class="body">After an event, BeeBud asks how it went, about the event and never the people. When two attendees answer alike, both get a suggestion. At first a suggestion was a pending match you accept. I made it <strong>a prompt with one button, Send request</strong>. A confirmed Beebuddy unlocks one thing, each other's social links.</p>
+        <div class="flow-wrap">
+            <div class="flow" aria-label="Post-event feedback from two attendees; if it aligns, both get a suggestion; one sends a request; the other accepts and they become Beebuddies">
+                <span class="flow-step">Post-event feedback<small>two people, same event</small></span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step">Answers align<small>both rated it positively</small></span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step flow-step--focus">Suggestion<small>a prompt, not a match</small></span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step">Request<small>sent by hand</small></span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step">Beebuddy<small>both accepted</small></span>
+            </div>
+        </div>
+        <div class="visual phones">
+            <figure>
+                <img class="phone" src="beebud/new-feedback.webp" width="600" height="1298" alt="Post-event feedback for Food As Medicine: was it a fit? with three answers, then scales for how big and how active it felt" loading="lazy">
+                <figcaption class="caption"><strong>Feedback</strong>Asks about the event, not the people.</figcaption>
+            </figure>
+            <figure>
+                <img class="phone" src="beebud/new-beebuddy.webp" width="600" height="1298" alt="Your beebuddies: an incoming request card with Accept and Not now, and suggestion cards that say you both loved Food As Medicine, with Send request" loading="lazy">
+                <figcaption class="caption"><strong>Beebuddy</strong>Suggestions only offer Send request.</figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 03 STRUCTURE: zoom out ═══ -->
+<div class="col">
+    <section id="structure" class="chapter">
+        <p class="eyebrow">03 · Structure</p>
+        <h2>Four tabs, and notifications don't get one</h2>
+        <p class="body">I mapped the app in four sessions, one per tab. A notifications tab would only repeat what lives elsewhere, so <strong>a bell and badge dots send you to where the action is.</strong></p>
+        <ul class="visual ia" aria-label="The four tabs and what each holds">
+            <li class="panel"><h3>Home</h3><ul><li>Tags for tonight</li><li>Feed ranked by fit</li><li>Event detail</li></ul></li>
+            <li class="panel"><h3>Your Events</h3><ul><li>Going and invited</li><li>Past, with feedback</li><li>Hosting</li></ul></li>
+            <li class="panel"><h3>Beebuddy</h3><ul><li>Requests</li><li>Suggestions</li><li>Your Beebuddies</li></ul></li>
+            <li class="panel"><h3>Profile</h3><ul><li>How you show up</li><li>Interests</li><li>Social links, Beebuddies only</li></ul></li>
+        </ul>
+        <p class="ia-bell"><strong>Bell</strong> &rarr; links to those screens, no content of its own.</p>
+    </section>
+</div>
+
+<!-- ═══ 04 TESTING: before / after ═══ -->
+<div class="col">
+    <section id="testing" class="chapter">
+        <p class="eyebrow">04 · Testing</p>
+        <h2>Testers understood the Fit Score, but half of them didn't notice it</h2>
+        <p class="body">I tested the coded prototype with five people on Maze. All four who answered said the number meant how well an event matched them, but two hadn't seen it at first. Onboarding scored 3 out of 5 from tedious to worth it, and one person couldn't find a tag for a loud night out. What I changed:</p>
+        <ol class="visual changes">
+            <li class="panel fix"><span class="num">1</span><h3>Five sliders, not ten</h3><p>The rest wait in Profile.</p></li>
+            <li class="panel fix"><span class="num">2</span><h3>Everyday words</h3><p>"Stimulation level" became "vibe of the room".</p></li>
+            <li class="panel fix"><span class="num">3</span><h3>A louder Fit Score</h3><p>More prominent on every card, labeled "% you".</p></li>
+            <li class="panel fix"><span class="num">4</span><h3>Requests apart</h3><p>Testers read suggestions as people waiting on them.</p></li>
+            <li class="panel fix"><span class="num">5</span><h3>Light mode</h3><p>The dark palette was too loud and contrasty.</p></li>
+        </ol>
+        <div class="visual phones phones--4">
+            <figure>
+                <img class="phone shot--before" src="beebud/old-onb-dims.webp" width="600" height="1330" alt="Earlier dark onboarding: How you show up, with dot scales labeled Social energy, Group size preference, Stimulation level, Planning horizon and Purpose orientation" loading="lazy">
+                <figcaption class="caption caption--before"><strong>Before</strong>Technical labels like "Stimulation level."</figcaption>
+            </figure>
+            <figure>
+                <img class="phone" src="beebud/new-onb-dims.webp" width="600" height="1298" alt="New light onboarding with chunky five-step scales labeled social energy, group size, vibe of the room and planning, each showing the chosen answer in words" loading="lazy">
+                <figcaption class="caption"><strong>After</strong>Everyday words, your answer spelled out.</figcaption>
+            </figure>
+            <figure>
+                <img class="phone shot--before" src="beebud/old-home.webp" width="600" height="1330" alt="Earlier dark Home: Discover, tan tag chips, and a lead card with a green 78 FIT tile" loading="lazy">
+                <figcaption class="caption caption--before"><strong>Before</strong>Lime, purple and orange on dark.</figcaption>
+            </figure>
+            <figure>
+                <img class="phone" src="beebud/new-home.webp" width="600" height="1298" alt="New light Home: pink checked tags and a cobalt event card with a white 78 percent you tile" loading="lazy">
+                <figcaption class="caption"><strong>After</strong>Light, one colour per meaning.</figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ OUTCOME + END ═══ -->
+<div class="col">
+    <section id="learned" class="chapter part">
+        <p class="eyebrow">Where it stands</p>
+        <h2>BeeBud is a clickable prototype, and its privacy rules still need a screen</h2>
+        <p class="body">The prototype is live at <a href="https://beebud.vercel.app" target="_blank" rel="noopener">beebud.vercel.app</a>. Asked if they'd use it instead of how they find events now, testers averaged 4 out of 5. But only one of four knew that people from the same event can see your profile, and nothing on screen teaches that yet.</p>
+        <div class="visual card-row">
+            <div class="panel">
+                <span class="panel-label">What I learned</span>
+                <p>Testing caught what planning missed. I designed the Fit Score as the core of the app, and 2 of 4 testers never noticed it.</p>
+            </div>
+            <div class="panel">
+                <span class="panel-label">Next time</span>
+                <p>Recruit more people. I planned for 25 to 30 and got five, too few for the pass and fail thresholds I set in advance.</p>
+            </div>
+        </div>
+        <a class="next-project" href="/controlmylaptop.html">
+            <span class="eyebrow" style="display:block;">Next project</span>
+            <span>Control My Laptop &rarr;</span>
+        </a>
+    </section>
+</div>
+
+</main>
+
+<script src="cutout.js"></script>
+<script>
+    // Side nav: highlight the chapter currently being read
+    (function () {
+        var links = [].slice.call(document.querySelectorAll('.sidebar-link'));
+        var sections = links.map(function (l) { return document.querySelector(l.getAttribute('href')); });
+        function update() {
+            var line = window.innerHeight * 0.35, current = 0;
+            sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) current = i; });
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = sections.length - 1;
+            links.forEach(function (l, i) { l.classList.toggle('active', i === current); });
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+    })();
+    // Reduced motion: stop the hero loop and hand the viewer the controls
+    (function () {
+        var v = document.querySelector('.hero-video');
+        if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            v.removeAttribute('autoplay'); v.pause(); v.controls = true;
+        }
+    })();
+</script>
+</body>
+</html>
