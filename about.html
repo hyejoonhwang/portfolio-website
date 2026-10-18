@@ -23,7 +23,7 @@
             gap: 80px;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 24px 48px 100px;
+            padding: 24px 48px 0;   /* the footer's own 48px gap is the bottom spacing */
         }
 
         .about-left {
@@ -465,7 +465,7 @@
         @media (max-width: 900px) {
             .about {
                 gap: 48px;
-                padding: 20px 32px 80px;
+                padding: 20px 32px 0;
             }
 
             .about-left {
@@ -482,7 +482,7 @@
             .about {
                 flex-direction: column;
                 flex-wrap: wrap;
-                padding: 16px 20px 64px;
+                padding: 16px 20px 0;
                 gap: 32px;
                 align-items: center;
             }
