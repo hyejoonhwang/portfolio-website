@@ -98,13 +98,23 @@
         .ps .big { font-family: 'Manrope', sans-serif; font-size: var(--t-title); font-weight: 600; letter-spacing: -0.8px; display: block; margin-bottom: 4px; }
 
         /* Before / with-this-project flow (small explainer) */
-        .flows { display: grid; grid-template-columns: max-content 1fr; align-items: center; gap: 12px 20px; margin-top: var(--s-block); }
+        /* One grid for both rows (label, then step / arrow / step / arrow / step / arrow / step),
+           so each step sits directly above the step it changes */
+        .flows { display: grid; grid-template-columns: max-content repeat(3, max-content max-content) max-content; align-items: center; gap: 12px 10px; margin-top: var(--s-block); }
+        .flows .flow-label { padding-right: 10px; }
         .flow-label { font-family: 'Manrope', sans-serif; font-size: var(--t-label); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
         .flow-label--new { color: var(--accent); }
-        .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-        .flow-step { font-family: 'Manrope', sans-serif; font-size: var(--t-small); font-weight: 600; color: var(--text); background: #EEF0F2; border-radius: 3px; padding: 8px 12px; }
-        .flow--new .flow-step { background: var(--ts-blue); }
+        .flow { display: contents; }
+        .flow-step { font-family: 'Manrope', sans-serif; font-size: var(--t-small); font-weight: 600; color: var(--text); background: var(--ts-blue); border-radius: 3px; padding: 8px 12px; text-align: center; }
+        /* Only the step that changes differs: grey before, teal with this project */
+        .flow .flow-step--replaced { background: #EEF0F2; color: var(--text-secondary); }
         .flow .flow-step--focus { background: var(--accent); color: #fff; }
+        /* Narrower screens: labels move above their rows so the steps still line up */
+        @media (max-width: 1100px) {
+            .flows { grid-template-columns: repeat(3, max-content max-content) max-content; }
+            .flows .flow-label { grid-column: 1 / -1; padding-right: 0; }
+            .flows .flow-label--new { margin-top: 8px; }
+        }
         .flow-arrow { color: var(--text-muted); font-size: var(--t-small); }
 
         /* ═══ VISUALS ═══ */
@@ -123,8 +133,10 @@
         .donut figcaption strong { display: block; font-family: 'Manrope', sans-serif; color: var(--text); }
 
         /* Three directions */
-        .explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-        .explore-col img { width: 100%; display: block; }
+        /* Subgrid: the card images differ in height, so image, title and text each share one row across the three columns */
+        .explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 28px; row-gap: 0; }
+        .explore-col { display: grid; grid-template-rows: subgrid; grid-row: span 3; }
+        .explore-col img { width: 100%; display: block; align-self: end; }
         .explore-col h3 { font-family: 'Manrope', sans-serif; font-size: var(--t-body); font-weight: 700; color: var(--text); margin-top: var(--s-body); }
         .explore-col p { font-family: 'Inter', sans-serif; font-size: var(--t-small); line-height: 1.5; color: var(--text-secondary); margin-top: 4px; }
         .badge { display: inline-block; margin-left: 6px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; vertical-align: 2px; background: var(--ts-mint); padding: 2px 8px; border-radius: 100px; }
@@ -156,11 +168,12 @@
         .level-opens { text-align: center; font-family: 'Inter', sans-serif; font-size: var(--t-label); color: var(--text-muted); margin: var(--s-label) 0; }
         .level-caption { margin-top: var(--s-label); font-family: 'Inter', sans-serif; font-size: var(--t-small); line-height: 1.45; color: var(--text-secondary); }
 
-        /* Test results: two numbers side by side */
-        .results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; max-width: 760px; }
-        @media (max-width: 760px) { .results { grid-template-columns: 1fr; gap: var(--s-body); } }
-        .results p { font-family: 'Inter', sans-serif; font-size: var(--t-small); line-height: 1.45; color: var(--text-secondary); }
-        .results .big { display: block; font-family: 'Manrope', sans-serif; font-size: var(--t-title); font-weight: 600; letter-spacing: -0.8px; color: var(--accent); margin-bottom: 4px; }
+        /* Redesign test findings: four cards, number first */
+        .findings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .findings .finding-num { font-family: 'Manrope', sans-serif; font-size: var(--t-title); font-weight: 600; letter-spacing: -0.8px; line-height: 1.2; }
+        .findings .finding-title { font-family: 'Manrope', sans-serif; font-weight: 600; margin: 4px 0 var(--s-label); }
+        .findings p:last-child { font-size: var(--t-small); line-height: 1.55; }
+        @media (max-width: 760px) { .findings { grid-template-columns: 1fr; } }
 
         /* Quote */
         .quote { margin: var(--s-block) 0 0; padding-left: 20px; border-left: 3px solid var(--ts-mint); max-width: 640px; }
@@ -184,8 +197,9 @@
             .meta { grid-template-columns: 1fr 1fr; }
             .card-row, .explore-grid { grid-template-columns: 1fr; }
             .explore-col img { max-width: 300px; }
+            .explore-col + .explore-col { margin-top: var(--s-block); }
             .flows { grid-template-columns: 1fr; gap: 8px; }
-            .flow-label--new { margin-top: 8px; }
+            .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
             .donuts { gap: 24px; justify-content: center; }
             .donut-chart { width: 150px; }
             /* Phone screens stay side by side two per row, stack when there are three */
@@ -226,11 +240,12 @@
 <aside class="sidebar" aria-label="On this page">
     <p class="sidebar-title">On this page</p>
     <a href="#overview" class="sidebar-link active">Overview</a>
-    <a href="#bet" class="sidebar-link">Bet</a>
-    <a href="#testing" class="sidebar-link">Testing</a>
+    <a href="#idea" class="sidebar-link">Idea</a>
+    <a href="#testing" class="sidebar-link">Directions</a>
     <a href="#constraint" class="sidebar-link">Constraint</a>
     <a href="#shipped" class="sidebar-link">MVP</a>
     <a href="#beyond" class="sidebar-link">Beyond</a>
+    <a href="#results" class="sidebar-link">Results</a>
     <a href="#learned" class="sidebar-link">Learnings</a>
 </aside>
 
@@ -256,8 +271,9 @@
 
 <!-- ═══ SUMMARY + META ═══ -->
 <div class="col">
-    <section class="part" style="padding-top: var(--s-chapter);" aria-label="Summary">
-        <p class="summary">As Talkspace's product design intern, I designed how client reviews help members choose a provider. A link to a full reviews page is in development now. After the handoff, I designed and tested a card that works with 15 reviews or none.</p>
+    <section class="part" style="padding-top: var(--s-chapter);" aria-label="Overview">
+        <p class="eyebrow">Overview</p>
+        <p class="summary">As Talkspace's product design intern, I designed how client reviews help members choose a provider. A link to a full reviews page is in development now. After the handoff, I designed and tested a card that works for every provider, regardless of how many reviews they have.</p>
         <div class="meta">
             <div><p class="meta-label">Role</p><p class="meta-value">Product Design Intern</p></div>
             <div><p class="meta-label">Timeline</p><p class="meta-value">Summer 2026</p></div>
@@ -278,14 +294,14 @@
         </div>
         <div class="flows">
             <p class="flow-label">Before</p>
-            <div class="flow" aria-label="Before: intake, auto-match, book a first session, first session">
+            <div class="flow" role="group" aria-label="Before: intake, auto-match, book a first session, first session">
                 <span class="flow-step">Intake</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step">Auto-match</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
+                <span class="flow-step flow-step--replaced">Auto-match</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
                 <span class="flow-step">Book a first session</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
                 <span class="flow-step">First session</span>
             </div>
             <p class="flow-label flow-label--new">With this project</p>
-            <div class="flow flow--new" aria-label="With this project: intake, choose your provider, book a first session, first session">
+            <div class="flow flow--new" role="group" aria-label="With this project: intake, choose your provider, book a first session, first session">
                 <span class="flow-step">Intake</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
                 <span class="flow-step flow-step--focus">Choose your provider</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
                 <span class="flow-step">Book a first session</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
@@ -295,12 +311,12 @@
     </section>
 </div>
 
-<!-- ═══ 01 THE BET ═══ -->
+<!-- ═══ 01 THE IDEA ═══ -->
 <div class="col">
-    <section id="bet" class="chapter part">
-        <p class="eyebrow">01 · The bet</p>
-        <h2>I bet on reviews, because members who pick their own provider show up more</h2>
-        <p class="body">Members who switched to a provider they picked completed a first session at 73–76%. The card lists the same facts for every provider, and none of it says what working with them is like. <strong>Client reviews do.</strong></p>
+    <section id="idea" class="chapter part">
+        <p class="eyebrow">01 · The idea</p>
+        <h2>Members who choose their own provider show up more, so I used reviews to help them choose</h2>
+        <p class="body">Members who switched to a provider they picked completed a first session at 73–76%. The card lists the same facts for every provider, and none of it describes what working with them is like. <strong>Client reviews can fill that gap</strong>, because they come from people who have already worked with the provider.</p>
         <p class="body">Switchers are more proactive, so it isn't one-to-one, but the gap pointed to choice.</p>
         <div class="visual donuts">
             <figure class="donut">
@@ -334,8 +350,8 @@
 <div class="col">
     <section id="testing" class="chapter">
         <p class="eyebrow">02 · Three directions</p>
-        <h2>I tested three ways to show what clients wrote, never a star score</h2>
-        <p class="body">My PRD's main rule: clients' words, never a rating, since a visible 4.4 can unfairly hurt a good provider. I tested three directions with <strong>18 participants</strong> across 3 rounds. All 18 said the reviews strongly influenced their choice.</p>
+        <h2>I tested three ways to show reviews on the card</h2>
+        <p class="body">I wrote a PRD first. Its main rule was to show what clients wrote and never a star rating, since a visible 4.4 can unfairly hurt a good provider. I tested the three directions with <strong>18 participants</strong> across 3 rounds, and all 18 said the reviews strongly influenced their choice.</p>
         <div class="visual explore-grid">
             <div class="explore-col">
                 <img src="talkspace/explore-a-card.png" alt="Provider card with a one-sentence AI summary of client reviews highlighted" loading="lazy">
@@ -380,7 +396,7 @@
 <div class="col">
     <section id="shipped" class="chapter">
         <p class="eyebrow">04 · The MVP</p>
-        <h2>Our PM and I chose a link to a full reviews page and kept reviews off the card</h2>
+        <h2>Our PM and I compromised on a link to a full reviews page, keeping reviews off the card for now</h2>
         <p class="body">A "Client Testimonials" link gives every provider the same experience. It was the lightest version that could ship and still shows members reviews. The cost: one more tap.</p>
         <p class="body">In the design review I led, PMs, engineers and data researchers renamed the "Read 15 reviews" link and shaped the no-reviews state.</p>
         <div class="visual phones">
@@ -389,8 +405,8 @@
                 <figcaption><strong>Before</strong></figcaption>
             </figure>
             <figure class="phone">
-                <img src="talkspace/shipped-list-after.png" alt="Choose your provider screen after: a Client Testimonials link with a review count under each provider's name" loading="lazy">
-                <figcaption><strong>After</strong>A link and review count on every card.</figcaption>
+                <img src="talkspace/shipped-list-after-nocount.png" alt="Choose your provider screen after: a Client Testimonials link under each provider's name" loading="lazy">
+                <figcaption><strong>After</strong>A Client Testimonials link on every card.</figcaption>
             </figure>
             <figure class="phone">
                 <img src="talkspace/shipped-reviews-page.png" alt="Client Testimonials page: What clients say about Maya, with four written reviews from verified clients" loading="lazy">
@@ -404,9 +420,10 @@
 <div class="col">
     <section id="beyond" class="chapter part">
         <p class="eyebrow">05 · After the handoff</p>
-        <h2>After the handoff, I designed a card for providers with 15 reviews or none</h2>
-        <p class="body">With fewer than 3 relevant reviews, a summary would just reword one or two people, so the card shows the provider's own words.</p>
-        <p class="body">This answer led me to summarize by intake concern:</p>
+        <h2>I redesigned the card so providers with few or no reviews get a fair chance</h2>
+        <p class="body">The link was the right call for the review data Talkspace had. After the handoff, I looked further ahead: once there are enough reviews to put on the card, how do providers with few or none avoid looking worse next to providers with many?</p>
+        <p class="body">My answer was one green block, in the same place and at the same size on every card, so no card looks empty. What fills it depends on how many relevant reviews a provider has. With 3 or more, it's an AI summary of what those clients say. With fewer, a summary would just reword one or two people, so the block shows the provider's own words about how they work. <strong>Established providers earn trust through their clients; new providers earn it in their own words.</strong></p>
+        <p class="body">I also wrote each summary around the concern a member gave at intake, so it can surface a provider whose clients describe helping with it, even when it isn't a listed specialty. The idea came from this answer in testing:</p>
         <blockquote class="quote">
             <p>"If they were able to help someone else with the same issues, hopefully they could help me."</p>
             <cite>Test participant</cite>
@@ -435,13 +452,39 @@
                 <p class="level-caption">His words and verified training.</p>
             </figure>
         </div>
-        <!-- Redesign test: 9 participants, 10–14 Oct 2026 (Choosing a therapist form responses) -->
-        <p class="body" style="margin-top: var(--s-block);">I tested it with 9 people in October. Early signs it helps new providers, though 5 of 9 ruled out men, Sam included.</p>
-        <div class="results" style="margin-top: var(--s-body);">
-            <p><span class="big">4 of 9</span>would book Sam, who has no reviews, because of what he wrote.</p>
-            <p><span class="big">7 of 9</span>could tell Sam's block was in his own words.</p>
-            <p><span class="big">6 of 9</span>felt surer with times shown on the card, as the current design does.</p>
+    </section>
+</div>
+
+<!-- ═══ 06 TESTING THE REDESIGN ═══ -->
+<!-- Source: "Choosing a therapist" form responses, 9 participants, 10–14 Oct 2026 -->
+<div class="col">
+    <section id="results" class="chapter">
+        <p class="eyebrow">06 · Testing the redesign</p>
+        <h2>Testing showed early signs it helps new providers, and one trade-off to fix</h2>
+        <p class="body">I tested the redesign with 9 people in October. Each one picked a therapist from a list of five providers with different numbers of reviews, then answered questions about what they saw and why they chose.</p>
+        <div class="visual findings">
+            <div class="card card--mint ts-shape">
+                <p class="finding-num">4 of 9</p>
+                <p class="finding-title">would book Sam, who has no reviews</p>
+                <p>Their reasons came from what he wrote, like "I can imagine what the sessions would look like." One more person chose Priya, who has only a few reviews, because her card explained her approach.</p>
+            </div>
+            <div class="card ts-shape">
+                <p class="finding-num">7 of 9</p>
+                <p class="finding-title">could tell Sam's block was in his own words</p>
+                <p>6 of 9 read Lisa's as an AI summary of client reviews, so the labels mostly worked. Trust in that summary was mixed: 3 suspected it showed only the good reviews.</p>
+            </div>
+            <div class="card card--lime ts-shape">
+                <p class="finding-num">5 of 9</p>
+                <p class="finding-title">opened a provider's page before choosing</p>
+                <p>Two chose because reviews came from people with similar issues: "the reviews related to my experiences and what I would be looking for."</p>
+            </div>
+            <div class="card card--coral ts-shape">
+                <p class="finding-num">6 of 9</p>
+                <p class="finding-title">felt surer with times shown on the card, as the current design does</p>
+                <p>All 6 pointed to the open times, which my redesign had moved behind a button, even though they had just used the redesign.</p>
+            </div>
         </div>
+        <p class="body" style="margin-top: var(--s-block);">These are early signs, not proof. It was 9 people with no comparison group, 4 of them work in UX, and Sam is a man while 5 of 9 ruled out male therapists.</p>
     </section>
 </div>
 
@@ -454,7 +497,7 @@
         <div class="visual card-row">
             <div class="card card--lime ts-shape">
                 <p class="eyebrow">What I learned</p>
-                <p>To make room for the green block, I moved open times behind a button. Most testers missed them, so the next version keeps both on the card.</p>
+                <p>The best direction isn't always the most ambitious one. I wanted reviews on the card, but most providers didn't have enough, so we chose the link first and I designed toward the card after.</p>
             </div>
             <div class="card card--coral ts-shape">
                 <p class="eyebrow">With more time</p>
