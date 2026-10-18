@@ -1,43 +1,17 @@
-const CACHE_NAME = 'video-cache-v2';
-
-// Cache videos on install
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-});
+// Retired. This worker used to cache .mp4 files, but the Cache API can't
+// answer the byte-range requests browsers make for video, so videos failed
+// to load while it was in control. The pages no longer register it; this
+// version only cleans up browsers that still have the old one: it deletes
+// its cache, unregisters itself and reloads open pages once. Video caching
+// is handled by the Cache-Control headers in vercel.json.
+self.addEventListener('install', () => self.skipWaiting());
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((names) =>
-      Promise.all(
-        names
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      )
-    ).then(() => self.clients.claim())
-  );
-});
-
-// Stale-while-revalidate for video files:
-// Serve from cache instantly, but fetch a fresh copy in the background.
-// If the fresh copy differs, update the cache for next load.
-self.addEventListener('fetch', (event) => {
-  const url = new URL(event.request.url);
-
-  if (url.pathname.endsWith('.mp4')) {
-    event.respondWith(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.match(event.request).then((cached) => {
-          const fetchPromise = fetch(event.request).then((response) => {
-            if (response.ok) {
-              cache.put(event.request, response.clone());
-            }
-            return response;
-          });
-
-          // Return cached version instantly, update in background
-          return cached || fetchPromise;
-        });
-      })
-    );
-  }
+  event.waitUntil((async () => {
+    for (const name of await caches.keys()) await caches.delete(name);
+    await self.registration.unregister();
+    for (const client of await self.clients.matchAll({ type: 'window' })) {
+      client.navigate(client.url);
+    }
+  })());
 });
