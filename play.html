@@ -7,26 +7,12 @@
     <title>Play — Summer</title>
     <link rel="stylesheet" href="shared.css">
     <style>
-        /* ═══ PAGE HEADER ═══ */
-        .page-header {
-            padding: 28px 24px 20px;
-            animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
-        }
-
-        .page-header h1 {
-            font-family: 'Gambarino', Georgia, serif;
-            font-weight: 400;
-            font-size: 1.26rem;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-        }
-
         /* ═══ PROJECT GRID ═══ */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--gap);
-            padding: 0 var(--gap) var(--gap);
+            padding: var(--gap);
         }
 
         .project-card {
@@ -204,74 +190,6 @@
         .play-col > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
         .play-col > :nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
 
-        /* ═══ ARCHIVE SECTION ═══ */
-        .archive-section {
-            padding: 32px var(--gap) 48px;
-            animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.30s both;
-        }
-
-        .archive-label {
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 400;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-            margin-bottom: 14px;
-        }
-
-        .archive-list {
-            list-style: none;
-        }
-
-        .archive-item {
-            border: none;
-        }
-
-        .archive-link {
-            position: relative;
-            display: flex;
-            align-items: baseline;
-            gap: 16px;
-            padding: 10px 0;
-            text-decoration: none;
-            color: var(--text);
-            transition: color 0.3s ease;
-        }
-
-        .archive-title {
-            position: relative;
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 400;
-            line-height: 1.4;
-        }
-
-        .archive-title::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 1px 2px 1px 2px;
-            transform: scaleX(0) rotate(-0.6deg) skewX(-1.5deg);
-            transform-origin: left;
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            opacity: 0.85;
-        }
-
-        .archive-link:hover .archive-title::after { transform: scaleX(1) rotate(-0.6deg) skewX(-1.5deg); }
-
-        .archive-meta {
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 300;
-            color: var(--text-faint);
-            white-space: nowrap;
-        }
-
         /* ═══ TABLET ═══ */
         @media (max-width: 900px) {
             .project-grid {
@@ -291,12 +209,6 @@
 
         /* ═══ MOBILE ═══ */
         @media (max-width: 640px) {
-            .page-header {
-                padding: 20px 20px 16px;
-            }
-
-            .page-header h1 { font-size: 1.5rem; }
-
             .project-grid {
                 grid-template-columns: 1fr;
             }
@@ -319,12 +231,6 @@
                 opacity: 0.5;
                 transform: none;
             }
-
-            .archive-section {
-                padding: 24px 20px 40px;
-            }
-
-            .archive-title { font-size: 0.82rem; }
         }
     </style>
 </head>
@@ -336,6 +242,7 @@
             <a href="/"><span class="cutout">work</span></a>
             <a href="/play.html" class="active"><span class="cutout">play</span></a>
             <a href="/about.html"><span class="cutout">about</span></a>
+            <a href="/Summer%20Resume.pdf" target="_blank" rel="noopener"><span class="cutout">resume</span></a>
 
         </div>
         <button class="hamburger" aria-label="Menu">
@@ -347,12 +254,9 @@
         <a href="/"><span class="cutout">work</span></a>
         <a href="/play.html" class="active"><span class="cutout">play</span></a>
         <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/Summer%20Resume.pdf" target="_blank" rel="noopener"><span class="cutout">resume</span></a>
 
     </div>
-
-    <header class="page-header">
-        <h1><span class="cutout">Play</span></h1>
-    </header>
 
     <div class="project-grid play-grid">
         <div class="play-col">
@@ -401,42 +305,6 @@
                 <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
         </div>
-    </div>
-
-    <div class="archive-section">
-        <p class="archive-label"><span class="cutout">Archived Work</span></p>
-        <ul class="archive-list">
-            <li class="archive-item">
-                <a href="/library-on-wheels.html" class="archive-link">
-                    <span class="archive-title">The Library on Wheels — Scroll-Driven Story</span>
-                    <span class="archive-meta">2026</span>
-                </a>
-            </li>
-            <li class="archive-item">
-                <a href="/vfx.html" class="archive-link">
-                    <span class="archive-title">VFX Portfolio — Compositing</span>
-                    <span class="archive-meta">2024</span>
-                </a>
-            </li>
-            <li class="archive-item">
-                <a href="#" class="archive-link">
-                    <span class="archive-title">Mystery Die — Physical Computing</span>
-                    <span class="archive-meta">2025</span>
-                </a>
-            </li>
-            <li class="archive-item">
-                <a href="#" class="archive-link">
-                    <span class="archive-title">Motion Capture Archive</span>
-                    <span class="archive-meta">2025</span>
-                </a>
-            </li>
-            <li class="archive-item">
-                <a href="#" class="archive-link">
-                    <span class="archive-title">VR Hedonomics — Spatial Design</span>
-                    <span class="archive-meta">2025</span>
-                </a>
-            </li>
-        </ul>
     </div>
 
     <script src="cutout.js"></script>

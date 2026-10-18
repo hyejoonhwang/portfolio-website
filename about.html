@@ -32,7 +32,48 @@
             animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
         }
 
-        /* ═══ PHOTO CARD ═══ */
+        /* ═══ PHOTO STACK: polaroids piled in one grid cell; a click sends the top one to the back ═══ */
+        .photo-stack {
+            display: grid;
+            padding: 0;
+            border: 0;
+            background: none;
+            cursor: pointer;
+            text-align: left;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .photo-stack:focus-visible { outline: none; }
+        .photo-stack:focus-visible .photo-card[data-pos="0"] { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+        .photo-stack .photo-card {
+            display: block;
+            grid-area: 1 / 1;
+            z-index: calc(10 - var(--z));
+            /* each card keeps its own tilt; cards further back sit a little lower and to the side */
+            transform:
+                translate(calc(var(--pos) * 3px), calc(var(--pos) * 4px))
+                rotate(var(--tilt));
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .photo-stack .photo-card:nth-child(1) { --tilt: -1.5deg; }
+        .photo-stack .photo-card:nth-child(2) { --tilt: 2.5deg; }
+        .photo-stack .photo-card:nth-child(3) { --tilt: -3.5deg; }
+        .photo-stack .photo-card:nth-child(4) { --tilt: 1.5deg; }
+        .photo-stack .photo-card:nth-child(5) { --tilt: -2.5deg; }
+
+        /* the top card swings out to the left, then tucks in at the back */
+        .photo-stack .photo-card.is-leaving {
+            z-index: 20;
+            transform: translate(-58%, -4%) rotate(-14deg);
+            transition-duration: 0.32s;
+        }
+
+        .photo-stack:hover .photo-card[data-pos="0"]:not(.is-leaving) {
+            transform: translate(0, -3px) rotate(calc(var(--tilt) * 0.6));
+        }
+
         .photo-card {
             position: relative;
             background: #F8F7F5;
@@ -63,6 +104,7 @@
 
         .photo-card img {
             width: 100%;
+            height: auto;
             aspect-ratio: 3 / 4;
             object-fit: cover;
             object-position: center center;
@@ -71,6 +113,7 @@
         }
 
         .photo-caption {
+            display: block;
             margin-top: 10px;
             font-family: 'Caveat', cursive;
             font-size: 0.82rem;
@@ -165,6 +208,26 @@
             text-decoration-color: var(--text);
         }
 
+        /* VFX paragraph: a click anywhere outside its own links opens the reel on Vimeo */
+        .about-text p.about-reel {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .about-text p.about-reel:hover,
+        .about-text p.about-reel:hover a {
+            color: var(--text-muted);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+        }
+
         .about-text em {
             font-style: italic;
         }
@@ -172,6 +235,79 @@
         .about-text strong {
             font-weight: 500;
         }
+
+        /* ═══ HOVER CLIP: a small polaroid of me dancing pops up over "hip hop" ═══ */
+        .hover-clip {
+            position: relative;
+            cursor: pointer;
+            text-decoration: underline dashed;
+            text-decoration-color: var(--accent);
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 3px;
+            outline: none;
+        }
+
+        .hover-clip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+        .hover-card {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 10px);
+            z-index: 30;
+            width: 150px;
+            padding: 6px 6px 16px;
+            background: #F8F7F5;
+            border-radius: 4px;
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.08),
+                0 8px 24px rgba(0, 0, 0, 0.14);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(calc(-50% + var(--dx, 0px))) translateY(6px) rotate(-3deg) scale(0.92);
+            transform-origin: bottom center;
+            transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .hover-card video {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 360 / 594;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #1a1a1a;
+        }
+
+        .hover-clip.is-open .hover-card {
+            opacity: 1;
+            transform: translateX(calc(-50% + var(--dx, 0px))) translateY(0) rotate(-3deg) scale(1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hover-card { transition: opacity 0.2s ease; }
+        }
+
+        /* ═══ SOCIAL ICONS ═══ */
+        .social-links {
+            display: flex;
+            gap: 4px;
+            margin-left: -10px; /* the first icon's padding, so its glyph lines up with the column edge */
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            color: var(--text-faint);
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .social-links a:hover { color: var(--text); }
+        .social-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+        .social-links svg { width: 20px; height: 20px; }
 
         /* ═══ QUICK LINKS ═══ */
         .quick-links {
@@ -243,8 +379,8 @@
                 display: contents;
             }
 
-            .photo-card {
-                transform: rotate(-1deg);
+            .photo-stack {
+                width: 100%;
                 max-width: 240px;
                 margin: 0 auto;
                 order: 1;
@@ -262,6 +398,14 @@
                 justify-content: center;
                 order: 2;
             }
+
+            .social-links {
+                justify-content: center;
+                margin-left: 0;
+                order: 2;
+            }
+
+            .social-links a { width: 44px; height: 44px; }
 
             .about-right {
                 order: 3;
@@ -286,6 +430,7 @@
             <a href="/"><span class="cutout">work</span></a>
             <a href="/play.html"><span class="cutout">play</span></a>
             <a href="/about.html" class="active"><span class="cutout">about</span></a>
+            <a href="/Summer%20Resume.pdf" target="_blank" rel="noopener"><span class="cutout">resume</span></a>
 
         </div>
         <button class="hamburger" aria-label="Menu">
@@ -297,21 +442,46 @@
         <a href="/"><span class="cutout">work</span></a>
         <a href="/play.html"><span class="cutout">play</span></a>
         <a href="/about.html" class="active"><span class="cutout">about</span></a>
+        <a href="/Summer%20Resume.pdf" target="_blank" rel="noopener"><span class="cutout">resume</span></a>
 
     </div>
 
     <main class="about">
         <aside class="about-left">
-            <div class="photo-card">
-                <img src="images/IMG_2090.jpg" alt="Summer">
-                <p class="photo-caption">Summer in the summer &middot; 07/04/2025 &middot; Brooklyn, NY</p>
-            </div>
+            <button type="button" class="photo-stack" aria-label="Show the next photo">
+                <span class="photo-card" data-pos="0" style="--z: 0; --pos: 0">
+                    <img src="images/about/polaroid-1.jpg" width="720" height="960" alt="Summer on a Brooklyn sidewalk in sunglasses">
+                    <span class="photo-caption">Summer in the summer &middot; 07/04/2025 &middot; Brooklyn, NY</span>
+                </span>
+                <span class="photo-card" data-pos="1" style="--z: 1; --pos: 1">
+                    <img src="images/about/polaroid-2.jpg" width="720" height="960" alt="Studio portrait of Summer in a white tank top" loading="lazy">
+                    <span class="photo-caption">&nbsp;</span>
+                </span>
+                <span class="photo-card" data-pos="2" style="--z: 2; --pos: 2">
+                    <img src="images/about/polaroid-4.jpg" width="720" height="960" alt="Summer outdoors with her hands on her head, in front of trees" loading="lazy">
+                    <span class="photo-caption">&nbsp;</span>
+                </span>
+                <span class="photo-card" data-pos="3" style="--z: 3; --pos: 2">
+                    <img src="images/about/polaroid-5.jpg" width="720" height="960" alt="Summer resting her head on a table next to handwritten notes" loading="lazy">
+                    <span class="photo-caption">&nbsp;</span>
+                </span>
+                <span class="photo-card" data-pos="4" style="--z: 4; --pos: 2">
+                    <img src="images/about/polaroid-6.jpg" width="720" height="960" alt="Summer holding a bouquet of flowers on a subway platform" loading="lazy">
+                    <span class="photo-caption">&nbsp;</span>
+                </span>
+            </button>
 
-            <div class="quick-links">
-                <a href="mailto:hh3683@nyu.edu">Email</a>
-                <a href="https://www.linkedin.com/in/hyejoonsummerhwang/" target="_blank">LinkedIn</a>
-                <a href="https://x.com/summerhhwang" target="_blank">Twitter</a>
-                <a href="/Summer%20Resume.pdf" target="_blank">Resume</a>
+            <!-- Icons: Lucide (mail), Simple Icons (LinkedIn, X) -->
+            <div class="social-links">
+                <a href="mailto:hh3683@nyu.edu" aria-label="Email" title="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/hyejoonsummerhwang/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a href="https://x.com/summerhhwang" target="_blank" rel="noopener" aria-label="X" title="X">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+                </a>
             </div>
 
             <div class="quick-links">
@@ -340,7 +510,7 @@
         <section class="about-right">
             <div class="about-text">
                 <p class="about-intro">
-                    <span class="cutout cutout-drop">I'm</span> a graduate student at <span class="cutout">NYU ITP</span> in Brooklyn, designing interactive products and experiences that feel clear in <span class="cutout">real life</span>, not just on a screen.
+                    <span class="cutout cutout-drop">I'm</span> a graduate student at <span class="cutout">NYU ITP</span> in Brooklyn, designing interactive products and experiences that feel clear in <span class="cutout">real life</span>.
                 </p>
 
                 <p class="about-secondary">
@@ -351,12 +521,13 @@
                     I work best when I understand the technical side behind what I'm designing, so I stay close to implementation through rapid <span class="cutout">prototyping</span> and building with code when needed.
                 </p>
 
-                <p class="about-secondary">
+                <p class="about-secondary about-reel" data-href="https://vimeo.com/1024594006" title="Watch my VFX reel on Vimeo">
                     Before UX, I worked as a <a href="https://m.imdb.com/name/nm15301350/" target="_blank">VFX compositor</a> for three years at <a href="https://www.company3.com/" target="_blank">Company3</a>, building believable shots by obsessing over light, depth, and continuity. That <span class="cutout">"make it feel real"</span> mindset still drives how I design.
+                    <a class="sr-only" href="https://vimeo.com/1024594006" target="_blank" rel="noopener">Watch my VFX reel on Vimeo</a>
                 </p>
 
                 <p class="about-secondary">
-                    Outside of design, you can usually find me in dance studios — anywhere from hip hop to ballet — or in Central Park cycling through or sunbathing.
+                    Outside of design, you can usually find me in dance studios — anywhere from <span class="hover-clip" tabindex="0" role="button" aria-label="hip hop, show a clip of me dancing" aria-expanded="false">hip hop<span class="hover-card" aria-hidden="true"><video data-src="images/about/hiphop.mp4" poster="images/about/hiphop-poster.jpg" width="360" height="594" muted loop playsinline preload="none"></video></span></span> to ballet — or in Central Park cycling through or sunbathing.
                 </p>
             </div>
 
@@ -364,6 +535,93 @@
     </main>
 
     <script src="cutout.js"></script>
+    <script>
+    // "hip hop" hover card: opens on hover or keyboard focus, and on tap for touch screens
+    (function() {
+        var trigger = document.querySelector('.hover-clip');
+        if (!trigger) return;
+        var card = trigger.querySelector('.hover-card');
+        var video = card.querySelector('video');
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function open() {
+            if (!video.src) video.src = video.dataset.src;
+            trigger.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+            // keep the card inside the screen
+            trigger.style.setProperty('--dx', '0px');
+            var r = card.getBoundingClientRect(), pad = 12, dx = 0;
+            if (r.left < pad) dx = pad - r.left;
+            else if (r.right > window.innerWidth - pad) dx = window.innerWidth - pad - r.right;
+            trigger.style.setProperty('--dx', dx + 'px');
+            if (!reduce) { var p = video.play(); if (p && p.catch) p.catch(function() {}); }
+        }
+        function close() {
+            trigger.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            video.pause();
+        }
+        trigger.addEventListener('mouseenter', open);
+        trigger.addEventListener('mouseleave', close);
+        trigger.addEventListener('focus', open);
+        trigger.addEventListener('blur', close);
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (trigger.classList.contains('is-open') && !window.matchMedia('(hover: hover)').matches) close(); else open();
+        });
+        trigger.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') { close(); trigger.blur(); }
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.classList.contains('is-open') ? close() : open(); }
+        });
+        document.addEventListener('click', function(e) { if (!trigger.contains(e.target)) close(); });
+    })();
+    </script>
+    <script>
+    // Photo stack: each click sends the top polaroid to the back of the pile
+    (function() {
+        var stack = document.querySelector('.photo-stack');
+        if (!stack) return;
+        var cards = [].slice.call(stack.querySelectorAll('.photo-card'));
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var busy = false;
+        // --z orders the whole pile; --pos offsets only the top three, so the rest hide underneath
+        function setPos(card, pos) {
+            card.dataset.pos = pos;
+            card.style.setProperty('--z', pos);
+            card.style.setProperty('--pos', Math.min(pos, 2));
+        }
+        cards.forEach(function(c, i) { setPos(c, i); });
+        stack.addEventListener('click', function() {
+            if (busy) return;
+            var top = cards.filter(function(c) { return c.dataset.pos === '0'; })[0];
+            function shuffle() {
+                cards.forEach(function(c) {
+                    var p = +c.dataset.pos;
+                    setPos(c, p === 0 ? cards.length - 1 : p - 1);
+                });
+            }
+            if (reduce) { shuffle(); return; }
+            busy = true;
+            top.classList.add('is-leaving');
+            setTimeout(function() {
+                shuffle();
+                top.classList.remove('is-leaving');
+                setTimeout(function() { busy = false; }, 250);
+            }, 320);
+        });
+    })();
+    </script>
+    <script>
+    // VFX paragraph opens the reel, except where it already links (IMDb, Company3) or when text is being selected
+    (function() {
+        var p = document.querySelector('.about-reel');
+        if (!p) return;
+        p.addEventListener('click', function(e) {
+            if (e.target.closest('a')) return;
+            if (String(window.getSelection())) return;
+            window.open(p.dataset.href, '_blank', 'noopener');
+        });
+    })();
+    </script>
     <script>
     (function() {
         var el = document.getElementById('now-playing');
