@@ -174,7 +174,9 @@
         .project-grid > :nth-child(8) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both; }
         .project-grid > :nth-child(9) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both; }
 
-        /* ═══ PLAY GRID: two interlocking columns, card height follows its thumbnail ═══ */
+        /* ═══ PLAY GRID: three interlocking columns, card height follows its thumbnail.
+           Laptop mockups stay 16:9; ShyFaceTime, moss and the Music Chat crop absorb the difference
+           so the outer columns (16/11 + 16/9) match the middle one (4/5). ═══ */
         .play-grid {
             display: flex;
             align-items: stretch;
@@ -190,13 +192,14 @@
 
         .play-grid .project-card { aspect-ratio: var(--ar, 16 / 9); }
 
-        /* The last card in each column stretches so both columns end level */
+        /* The last card in each column stretches so all columns end level */
         .play-col > .project-card:last-child { flex: 1 0 auto; }
 
-        .play-mc { --ar: 2 / 3; }
-        .play-sf { --ar: 4 / 5; }
+        .play-sf { --ar: 16 / 11; }   /* shyfacetime-wide.mp4: the square video padded to 16:11 in its own green, so the phone isn't cropped */
+        .play-mc { --ar: 4 / 5; }
         .play-dy { --ar: 16 / 9; }
         .play-df { --ar: 16 / 9; }
+        .play-tm { --ar: 16 / 11; }
 
         .play-col > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
         .play-col > :nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
@@ -301,10 +304,11 @@
             .play-grid { display: flex; flex-direction: column; gap: var(--gap); }
             .play-col { display: contents; }
             .play-col > .project-card:last-child { flex: none; }
-            .play-mc { order: 1; }
-            .play-sf { order: 2; }
+            .play-sf { order: 1; }
+            .play-mc { order: 2; }
             .play-dy { order: 3; }
             .play-df { order: 4; }
+            .play-tm { order: 5; }
 
             .project-card-info {
                 opacity: 1;
@@ -332,7 +336,6 @@
             <a href="/"><span class="cutout">work</span></a>
             <a href="/play.html" class="active"><span class="cutout">play</span></a>
             <a href="/about.html"><span class="cutout">about</span></a>
-            <a href="/blog.html"><span class="cutout">blog</span></a>
 
         </div>
         <button class="hamburger" aria-label="Menu">
@@ -344,7 +347,6 @@
         <a href="/"><span class="cutout">work</span></a>
         <a href="/play.html" class="active"><span class="cutout">play</span></a>
         <a href="/about.html"><span class="cutout">about</span></a>
-        <a href="/blog.html"><span class="cutout">blog</span></a>
 
     </div>
 
@@ -354,28 +356,10 @@
 
     <div class="project-grid play-grid">
         <div class="play-col">
-            <a href="/musicchat.html" class="project-card play-mc">
-                <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
+            <a href="/shyfacetime.html" class="project-card play-sf">
+                <video src="thumbnails/shyfacetime-wide.mp4" autoplay muted loop playsinline></video>
                 <div class="project-card-info">
                     <span class="project-card-num"><span class="cutout">01</span></span>
-                    <span class="project-card-title">Music Chat App</span>
-                </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-            </a>
-            <a href="/dearflower.html" class="project-card play-df">
-                <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
-                <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">04</span></span>
-                    <span class="project-card-title">Dear Flower</span>
-                </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-            </a>
-        </div>
-        <div class="play-col">
-            <a href="/shyfacetime.html" class="project-card play-sf">
-                <video src="thumbnails/shyfacetime.mp4" autoplay muted loop playsinline></video>
-                <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">02</span></span>
                     <span class="project-card-title">ShyFaceTime</span>
                 </div>
                 <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
@@ -389,6 +373,34 @@
                 <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
         </div>
+        <div class="play-col">
+            <a href="/musicchat.html" class="project-card play-mc">
+                <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">02</span></span>
+                    <span class="project-card-title">Music Chat App</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+        </div>
+        <div class="play-col">
+            <a href="/dearflower.html" class="project-card play-df">
+                <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">04</span></span>
+                    <span class="project-card-title">Dear Flower</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+            <a href="/touchofmoss.html" class="project-card play-tm">
+                <video src="thumbnails/touchofmoss.mp4" poster="thumbnails/touchofmoss-poster.jpg" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">05</span></span>
+                    <span class="project-card-title">Touch of Moss</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+        </div>
     </div>
 
     <div class="archive-section">
@@ -398,12 +410,6 @@
                 <a href="/library-on-wheels.html" class="archive-link">
                     <span class="archive-title">The Library on Wheels — Scroll-Driven Story</span>
                     <span class="archive-meta">2026</span>
-                </a>
-            </li>
-            <li class="archive-item">
-                <a href="/touchofmoss.html" class="archive-link">
-                    <span class="archive-title">Touch of Moss — Interactive Installation</span>
-                    <span class="archive-meta">2025</span>
                 </a>
             </li>
             <li class="archive-item">

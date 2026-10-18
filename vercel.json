@@ -9,6 +9,16 @@
       "source": "/work",
       "destination": "/",
       "permanent": false
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/blog",
+      "destination": "/",
+      "permanent": false
     }
   ],
   "headers": [
