@@ -11,12 +11,13 @@
     <!-- Rebuilt against case-study-review-guide.md, on the same template as talkspace.html.
          Process detail lives in controlmylaptop-deck/ (the interview deck). -->
     <link rel="stylesheet" href="shared.css">
-    <link rel="preload" href="fonts/BespokeSlab-Variable.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="fonts/Supreme-Variable.woff2" as="font" type="font/woff2" crossorigin>
     <style>
+        /* Supreme (Fontshare, ITF Free Font License: self-hosting allowed) */
         @font-face {
-            font-family: 'Bespoke Slab';
-            src: url('fonts/BespokeSlab-Variable.ttf') format('truetype');
-            font-weight: 100 900;
+            font-family: 'Supreme';
+            src: url('fonts/Supreme-Variable.woff2') format('woff2');
+            font-weight: 100 800;
             font-style: normal;
             font-display: swap;
         }
@@ -42,6 +43,9 @@
             :root { --s-block: 32px; --s-chapter: 64px; --s-part: 96px; --t-title: 23px; --t-hero: 32px; }
         }
 
+        /* Body font for this page only; the site nav keeps the shared font */
+        .main-content, .sidebar { font-family: 'Supreme', -apple-system, sans-serif; }
+
         h1, h2, h3 { text-wrap: balance; }
         p { text-wrap: pretty; }
 
@@ -61,7 +65,7 @@
 
         /* ═══ TYPE ═══ */
         .eyebrow { font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-label); }
-        h2 { font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); font-weight: 500; line-height: 1.25; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-body); max-width: 760px; }
+        h2 { font-family: 'Gambarino', Georgia, serif; font-size: var(--t-title); font-weight: 400; line-height: 1.25; letter-spacing: -0.3px; color: var(--text); margin-bottom: var(--s-body); max-width: 760px; }
         .body { font-size: var(--t-body); line-height: 1.6; color: var(--text-secondary); max-width: 680px; }
         .body + .body { margin-top: var(--s-body); }
         .body strong { color: var(--text); font-weight: 600; }
@@ -73,7 +77,7 @@
         /* ═══ HERO: the real UI, moving, sized so title and one-liner share the first screen ═══ */
         .hero-video { display: block; width: min(100%, calc((100svh - 270px) * 1.756)); aspect-ratio: 1440 / 820; height: auto; margin: 24px auto 0; border-radius: 10px; background: #D9DDE2; }
         .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
-        .hero h1 { font-family: 'Bespoke Slab', Georgia, serif; font-weight: 500; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -1px; color: var(--text); margin-bottom: var(--s-label); }
+        .hero h1 { font-family: 'Gambarino', Georgia, serif; font-weight: 400; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-label); }
         .hero-sub { font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); max-width: 680px; }
         .hero-links { display: flex; gap: 8px; flex-shrink: 0; }
         .btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px; border-radius: 8px; font-size: var(--t-small); font-weight: 500; text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--surface); }
@@ -97,13 +101,13 @@
         .win-bar span { margin-left: 8px; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
         .win-body { padding: 20px 20px 24px; }
         .win-body p { font-size: var(--t-body); line-height: 1.55; color: var(--text); }
-        .win-body .big { display: block; font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); font-weight: 500; letter-spacing: -0.5px; margin-bottom: 4px; }
+        .win-body .big { display: block; font-family: 'Gambarino', Georgia, serif; font-size: var(--t-title); font-weight: 400; letter-spacing: -0.3px; margin-bottom: 4px; }
         .card-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
         .card-row--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .ps { margin-top: var(--s-chapter); }
 
         /* Numbered fix cards */
-        .fix .num { display: block; font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); color: var(--accent); line-height: 1; margin-bottom: var(--s-label); }
+        .fix .num { display: block; font-family: 'Gambarino', Georgia, serif; font-size: var(--t-title); color: var(--accent); line-height: 1; margin-bottom: var(--s-label); }
         .fix h3 { font-size: var(--t-body); font-weight: 600; color: var(--text); margin-bottom: 4px; }
         .fix p { font-size: var(--t-small); line-height: 1.5; color: var(--text-secondary); }
         .fix--chosen { border-color: var(--accent); }
@@ -132,7 +136,7 @@
         /* Next project */
         .next-project { display: block; margin-top: var(--s-chapter); padding: 32px 0 80px; border-top: 1px solid var(--line); text-decoration: none; }
         .next-project .eyebrow { color: var(--text-faint); }
-        .next-project span:last-child { font-family: 'Bespoke Slab', Georgia, serif; font-size: var(--t-title); color: var(--text); }
+        .next-project span:last-child { font-family: 'Gambarino', Georgia, serif; font-size: var(--t-title); color: var(--text); }
         .next-project:hover span:last-child { color: var(--accent); }
 
         /* ═══ RESPONSIVE ═══ */
