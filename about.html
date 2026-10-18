@@ -356,14 +356,22 @@
         }
 
         /* ═══ HOVER CLIP: a small polaroid of me dancing pops up over "hip hop" ═══ */
-        .hover-clip {
+        /* Hover-only items get a marker highlight; real links keep their underline */
+        .hover-clip,
+        .np-track--hover {
             position: relative;
             cursor: pointer;
-            text-decoration: underline dashed;
-            text-decoration-color: var(--accent);
-            text-decoration-thickness: 1.5px;
-            text-underline-offset: 3px;
             outline: none;
+            text-decoration: none;
+            background-image: linear-gradient(transparent 55%, rgba(255, 60, 0, 0.16) 55%);
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+            transition: background-image 0.2s ease;
+        }
+
+        .hover-clip:hover, .hover-clip.is-open,
+        .np-track--hover:hover {
+            background-image: linear-gradient(transparent 40%, rgba(255, 60, 0, 0.26) 40%);
         }
 
         .hover-clip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
@@ -404,6 +412,63 @@
 
         @media (prefers-reduced-motion: reduce) {
             .hover-card { transition: opacity 0.2s ease; }
+        }
+
+        /* ═══ CURRENTLY covers: the book's and the song's covers pop up in a small polaroid on hover ═══ */
+        .np-track {
+            position: relative;
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: var(--accent);
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1.5px;
+        }
+
+        .np-card {
+            position: absolute;
+            left: 0;
+            bottom: calc(100% + 10px);
+            z-index: 30;
+            width: 140px;
+            padding: 6px 6px 16px;
+            background: #F8F7F5;
+            border-radius: 4px;
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.08),
+                0 8px 24px rgba(0, 0, 0, 0.14);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px) rotate(-3deg) scale(0.92);
+            transform-origin: bottom left;
+            transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .np-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #1a1a1a;
+        }
+
+        .np-track.np-track--hover { text-decoration: none; }
+
+        /* book covers keep their taller shape (cover from Open Library) */
+        .np-card--book { width: 120px; }
+        .np-card--book img { aspect-ratio: 322 / 500; }
+
+        .np-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+        .np-track:hover .np-card,
+        .np-track:focus-visible .np-card {
+            opacity: 1;
+            transform: translateY(0) rotate(-3deg) scale(1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .np-card { transition: opacity 0.2s ease; }
         }
 
         /* ═══ SOCIAL ICONS ═══ */
@@ -612,7 +677,7 @@
                 <dl class="currently-items">
                     <div class="currently-item">
                         <dt>Reading</dt>
-                        <dd><em>The Design of Everyday Things</em> by Don Norman</dd>
+                        <dd><span class="np-track np-track--hover" tabindex="0"><em>The Design of Everyday Things</em> by Don Norman<span class="np-card np-card--book" aria-hidden="true"><img src="images/about/reading-cover.jpg" width="322" height="500" alt="" loading="lazy"></span></span></dd>
                     </div>
                     <div class="currently-item">
                         <dt>Exploring</dt>
@@ -792,22 +857,43 @@
         var el = document.getElementById('now-playing');
         if (!el) return;
 
-        // Show a track as "Song — Artist", linked when there's a URL; ▶ marks something playing right now
+        // Both sources send small covers; ask for bigger ones (YouTube: =w60-h60 -> 400, Last.fm: /64s/ -> /300x300/)
+        function bigCover(url) {
+            if (!url) return '';
+            return url.replace(/=w\d+-h\d+/, '=w400-h400').replace('/u/64s/', '/u/300x300/');
+        }
+
+        // Show a track as "Song — Artist", linked when there's a URL; ▶ marks something playing right now.
+        // Hovering the song shows its cover in a small polaroid.
         function render(track, playing) {
             var label = track.name + ' — ' + track.artist;
             if (playing) label = '\u25B6 ' + label;
+            var key = label + '|' + (track.image || '');
+            if (el.dataset.key === key) return; // same song: leave it, so an open cover doesn't flicker
+            el.dataset.key = key;
+            var node = document.createElement(track.url ? 'a' : 'span');
+            node.className = 'np-track';
+            node.textContent = label;
             if (track.url) {
-                var a = document.createElement('a');
-                a.href = track.url;
-                a.target = '_blank';
-                a.rel = 'noopener';
-                a.textContent = label;
-                a.style.cssText = 'color:inherit;text-decoration-color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1.5px';
-                el.textContent = '';
-                el.appendChild(a);
-            } else {
-                el.textContent = label;
+                node.href = track.url;
+                node.target = '_blank';
+                node.rel = 'noopener';
             }
+            var cover = bigCover(track.image);
+            if (cover) {
+                var card = document.createElement('span');
+                card.className = 'np-card';
+                card.setAttribute('aria-hidden', 'true');
+                var img = document.createElement('img');
+                img.src = cover;
+                img.alt = '';
+                img.width = 300;
+                img.height = 300;
+                card.appendChild(img);
+                node.appendChild(card);
+            }
+            el.textContent = '';
+            el.appendChild(node);
         }
 
         function getJSON(url) {
@@ -823,7 +909,7 @@
                 return getJSON('/api/recently-played').then(function(hist) {
                     if (hist.track && hist.track.name) render(hist.track, false);
                     else if (live.track) render(live.track, false);
-                    else el.textContent = 'Nothing right now';
+                    else { el.textContent = 'Nothing right now'; el.dataset.key = ''; }
                 });
             });
         }
