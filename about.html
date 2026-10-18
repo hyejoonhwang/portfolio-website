@@ -68,14 +68,8 @@
         .photo-stack .photo-card:nth-child(4) { --tilt: 1.5deg; }
         .photo-stack .photo-card:nth-child(5) { --tilt: -2.5deg; }
 
-        /* the top card swings out to the left, then tucks in at the back */
-        .photo-stack .photo-card.is-leaving {
-            z-index: 20;
-            transform: translate(-58%, -4%) rotate(-14deg);
-            transition-duration: 0.32s;
-        }
-
-        .photo-stack:hover .photo-card[data-pos="0"]:not(.is-leaving) {
+        /* the top card's swing to the back is a single Web Animation (see the photo stack script) */
+        .photo-stack:hover .photo-card[data-pos="0"]:not(.is-swinging) {
             transform: translate(0, -3px) rotate(calc(var(--tilt) * 0.6));
         }
 
@@ -136,7 +130,6 @@
         }
 
         /* Left column text in Neulis (the polaroid caption stays handwritten) */
-        .about-left .quick-links a,
         .currently {
             font-family: 'Neulis', 'General Sans', sans-serif;
         }
@@ -493,43 +486,6 @@
         .social-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
         .social-links svg { width: 20px; height: 20px; }
 
-        /* ═══ QUICK LINKS ═══ */
-        .quick-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .quick-links a {
-            position: relative;
-            font-family: 'General Sans', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: var(--text-faint);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .quick-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 1px 2px 1px 2px;
-            transform: scaleX(0) rotate(-0.6deg) skewX(-1.5deg);
-            transform-origin: left;
-            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-            opacity: 0.85;
-        }
-
-        .quick-links a:hover {
-            color: var(--text);
-        }
-
-        .quick-links a:hover::after { transform: scaleX(1) rotate(-0.6deg) skewX(-1.5deg); }
-
         /* ═══ TABLET ═══ */
         @media (max-width: 900px) {
             .about {
@@ -576,12 +532,6 @@
                 text-align: center;
             }
 
-            .quick-links {
-                flex-wrap: wrap;
-                gap: 12px;
-                justify-content: center;
-                order: 2;
-            }
 
             .social-links {
                 justify-content: center;
@@ -609,7 +559,7 @@
 <body>
 
     <nav>
-        <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
+        <a href="/" class="logo"><img src="images/summer-logo.svg" alt="Summer" class="logo-img"></a>
         <div class="nav-links">
             <a href="/"><span class="cutout">work</span></a>
             <a href="/play.html"><span class="cutout">play</span></a>
@@ -655,7 +605,7 @@
                 </span>
             </button>
 
-            <!-- Icons: Lucide (mail), Simple Icons (LinkedIn, X) -->
+            <!-- Icons: Lucide (mail, calendar), Simple Icons (LinkedIn, X) -->
             <div class="social-links">
                 <a href="mailto:hh3683@nyu.edu" aria-label="Email" title="Email">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -666,11 +616,11 @@
                 <a href="https://x.com/summerhhwang" target="_blank" rel="noopener" aria-label="X" title="X">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
                 </a>
+                <a href="https://calendly.com/hh3683-nyu/30min" target="_blank" rel="noopener" aria-label="Open to new opportunities, book a call" title="Open to new opportunities, book a call">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                </a>
             </div>
 
-            <div class="quick-links">
-                <a href="https://calendly.com/hh3683-nyu/30min" target="_blank">Open to new opportunities, book a call</a>
-            </div>
 
             <div class="currently">
                 <p class="currently-label">Currently</p>
@@ -800,12 +750,30 @@
             }
             if (reduce) { shuffle(); return; }
             busy = true;
-            top.classList.add('is-leaving');
-            setTimeout(function() {
-                shuffle();
-                top.classList.remove('is-leaving');
-                setTimeout(function() { busy = false; }, 250);
-            }, 320);
+
+            // One continuous arc: the card swings out to the upper left and curves back down
+            // to the bottom of the pile. The others rise as it leaves, and it slips behind them
+            // at the far point of the swing, so there's no stop in the middle.
+            var tilt = parseFloat(getComputedStyle(top).getPropertyValue('--tilt')) || 0;
+            var start = getComputedStyle(top).transform;   // includes the hover lift, so the move starts where the card is
+            var end = { x: 6, y: 8 };                      // --pos 2: the bottom of the visible pile
+            var frames = [{ transform: start, zIndex: 20 }];
+            for (var i = 1; i <= 16; i++) {
+                var t = i / 16, arc = Math.sin(Math.PI * t);
+                frames.push({
+                    transform: 'translate(calc(' + (-64 * arc).toFixed(2) + '% + ' + (end.x * t).toFixed(2) + 'px), ' +
+                               'calc(' + (-10 * arc).toFixed(2) + '% + ' + (end.y * t).toFixed(2) + 'px)) ' +
+                               'rotate(' + (tilt - 16 * arc).toFixed(2) + 'deg)',
+                    zIndex: t < 0.5 ? 20 : 0
+                });
+            }
+            top.classList.add('is-swinging');
+            shuffle();   // the rest of the pile starts rising right away
+            var anim = top.animate(frames, { duration: 700, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' });
+            anim.onfinish = anim.oncancel = function() {
+                top.classList.remove('is-swinging');
+                busy = false;
+            };
         });
     })();
     </script>

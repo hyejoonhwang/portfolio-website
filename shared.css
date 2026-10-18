@@ -65,6 +65,10 @@
 /* ═══ BASE ═══ */
 html { scroll-behavior: smooth; }
 
+/* No visible scrollbars anywhere; scrolling still works with wheel, trackpad, keys and touch */
+html, body, * { scrollbar-width: none; }
+::-webkit-scrollbar { display: none; }
+
 body {
     font-family: 'General Sans', -apple-system, sans-serif;
     background: var(--bg);
