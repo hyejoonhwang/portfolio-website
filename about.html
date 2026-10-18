@@ -10,6 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Neulis (Typesketchbook), left column text and the polaroid caption */
+        @font-face { font-family: 'Neulis'; src: url('fonts/Neulis-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Neulis'; src: url('fonts/Neulis-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Neulis'; src: url('fonts/Neulis-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+
         /* ═══ ABOUT LAYOUT ═══ */
         .about {
             display: flex;
@@ -115,12 +120,13 @@
         .photo-caption {
             display: block;
             margin-top: 10px;
-            font-family: 'Caveat', cursive;
-            font-size: 0.82rem;
+            font-family: 'Neulis', 'General Sans', sans-serif;
+            font-size: 1rem;
             color: var(--text-muted);
             font-weight: 500;
-            letter-spacing: 0.02em;
+            letter-spacing: 0;
             white-space: nowrap;
+            text-align: center;
         }
 
 
@@ -129,11 +135,18 @@
             padding-top: 0;
         }
 
+        /* Left column text in Neulis (the polaroid caption stays handwritten) */
+        .about-left .quick-links a,
+        .currently {
+            font-family: 'Neulis', 'General Sans', sans-serif;
+        }
+
         .currently-label {
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-size: 0.75rem;
             font-weight: 500;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            text-transform: lowercase;
             color: var(--text-faint);
             margin-bottom: 16px;
         }
@@ -165,21 +178,21 @@
 
         /* ═══ RIGHT COLUMN ═══ */
         .about-text .about-intro {
-            font-family: 'Gambarino', Georgia, serif;
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-weight: 400;
             font-size: 1.65rem;
             line-height: 1.35;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
             color: var(--text);
             margin-bottom: 32px;
         }
 
         .about-text p {
-            font-family: 'Gambarino', Georgia, serif;
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-weight: 400;
             font-size: 1.15rem;
             line-height: 1.6;
-            letter-spacing: -0.01em;
+            letter-spacing: 0;
             color: var(--text);
             margin-bottom: 24px;
         }
@@ -236,6 +249,112 @@
             font-weight: 500;
         }
 
+        /* ═══ LINK TAGS: "check my IMDb" and "check Company3" pills above the two links ═══ */
+        .about-text a.tagged { position: relative; }
+
+        .link-tag {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 8px);
+            z-index: 30;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 12px 6px 14px;
+            border-radius: 999px;
+            background: var(--text);
+            color: #FFF;
+            font-family: 'General Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0;
+            line-height: 1;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(-50%) translateY(4px);
+            transition: opacity 0.18s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* small pointer under the pill */
+        .link-tag::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            border: 5px solid transparent;
+            border-top-color: var(--text);
+            transform: translateX(-50%);
+        }
+
+        .about-text a.tagged:hover .link-tag,
+        .about-text a.tagged:focus-visible .link-tag {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .logo-imdb { width: 22px; height: 22px; display: block; }
+        .logo-co3 { height: 24px; width: auto; display: block; filter: invert(1); }
+
+        /* ═══ REEL CARD: a 4-second loop from the reel (0:13–0:17) follows the cursor over the VFX paragraph ═══ */
+        .reel-card {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 40;
+            width: 220px;
+            padding: 6px 6px 16px;
+            background: #F8F7F5;
+            border-radius: 4px;
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.08),
+                0 8px 24px rgba(0, 0, 0, 0.14);
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(var(--x, 0px), var(--y, 0px)) rotate(2deg) scale(0.92);
+            transition: opacity 0.18s ease, transform 0.12s ease-out;
+        }
+
+        .reel-card.is-open {
+            opacity: 1;
+            transform: translate(var(--x, 0px), var(--y, 0px)) rotate(2deg) scale(1);
+        }
+
+        .reel-thumb { position: relative; display: block; }
+
+        .reel-thumb video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            background: #1a1a1a;
+        }
+
+        /* play button, so the card reads as a video */
+        .reel-play {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.55);
+            transform: translate(-50%, -50%);
+        }
+
+        .reel-play::after {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 12px;
+            border-style: solid;
+            border-width: 8px 0 8px 13px;
+            border-color: transparent transparent transparent #FFF;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reel-card, .link-tag { transition: opacity 0.18s ease; }
+        }
+
         /* ═══ HOVER CLIP: a small polaroid of me dancing pops up over "hip hop" ═══ */
         .hover-clip {
             position: relative;
@@ -268,11 +387,11 @@
             transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .hover-card video {
+        .hover-card video,
+        .hover-card img {
             display: block;
             width: 100%;
-            height: auto;
-            aspect-ratio: 360 / 594;
+            height: auto; /* each clip keeps its own shape from its width/height attributes */
             object-fit: cover;
             border-radius: 2px;
             background: #1a1a1a;
@@ -387,7 +506,7 @@
             }
 
             .photo-caption {
-                font-size: 0.68rem;
+                font-size: 0.85rem;
                 white-space: normal;
                 text-align: center;
             }
@@ -451,7 +570,7 @@
             <button type="button" class="photo-stack" aria-label="Show the next photo">
                 <span class="photo-card" data-pos="0" style="--z: 0; --pos: 0">
                     <img src="images/about/polaroid-1.jpg" width="720" height="960" alt="Summer on a Brooklyn sidewalk in sunglasses">
-                    <span class="photo-caption">Summer in the summer &middot; 07/04/2025 &middot; Brooklyn, NY</span>
+                    <span class="photo-caption">&nbsp;</span>
                 </span>
                 <span class="photo-card" data-pos="1" style="--z: 1; --pos: 1">
                     <img src="images/about/polaroid-2.jpg" width="720" height="960" alt="Studio portrait of Summer in a white tank top" loading="lazy">
@@ -493,11 +612,11 @@
                 <dl class="currently-items">
                     <div class="currently-item">
                         <dt>Reading</dt>
-                        <dd>Designing Design by Kenya Hara</dd>
+                        <dd><em>The Design of Everyday Things</em> by Don Norman</dd>
                     </div>
                     <div class="currently-item">
                         <dt>Exploring</dt>
-                        <dd>Generative interfaces & spatial UI</dd>
+                        <dd>Design systems for AI workflows</dd>
                     </div>
                     <div class="currently-item">
                         <dt>Listening</dt>
@@ -521,58 +640,73 @@
                     I work best when I understand the technical side behind what I'm designing, so I stay close to implementation through rapid <span class="cutout">prototyping</span> and building with code when needed.
                 </p>
 
-                <p class="about-secondary about-reel" data-href="https://vimeo.com/1024594006" title="Watch my VFX reel on Vimeo">
-                    Before UX, I worked as a <a href="https://m.imdb.com/name/nm15301350/" target="_blank">VFX compositor</a> for three years at <a href="https://www.company3.com/" target="_blank">Company3</a>, building believable shots by obsessing over light, depth, and continuity. That <span class="cutout">"make it feel real"</span> mindset still drives how I design.
+                <p class="about-secondary about-reel" data-href="https://vimeo.com/1024594006">
+                    Before UX, I worked as a <a class="tagged" href="https://m.imdb.com/name/nm15301350/" target="_blank" rel="noopener">VFX compositor<span class="link-tag" aria-hidden="true">check my <svg class="logo-imdb" viewBox="0 0 24 24"><rect width="24" height="24" rx="2" fill="#F5C518"/><path fill="#000" d="M22.3781 0H1.6218C.7411.0583.0587.7437.0018 1.5953l-.001 20.783c.0585.8761.7125 1.543 1.5559 1.6191A.337.337 0 0 0 1.6016 24h20.7971a.4579.4579 0 0 0 .0437-.002c.8727-.0768 1.5568-.8271 1.5568-1.7085V1.7098c0-.8914-.696-1.6416-1.584-1.7078A.3294.3294 0 0 0 22.3781 0zm0 .496a1.2144 1.2144 0 0 1 1.1252 1.2139v20.5797c0 .6377-.4875 1.1602-1.1045 1.2145H1.6016c-.5967-.0543-1.0645-.5297-1.1053-1.1258V1.6284C.5371 1.0185 1.0184.5364 1.6217.496h20.7564zM4.7954 8.2603v7.3636H2.8899V8.2603h1.9055zm6.5367 0v7.3636H9.6707v-4.9704l-.6711 4.9704H7.813l-.6986-4.8618-.0066 4.8618h-1.668V8.2603h2.468c.0748.4476.1492.9694.2307 1.5734l.2712 1.8713.4407-3.4447h2.4817zm2.9772 1.3289c.0742.0404.122.108.1417.2034.0279.0953.0345.3118.0345.6442v2.8548c0 .4881-.0345.7867-.0955.8954-.0609.1152-.2304.1695-.5018.1695V9.5211c.204 0 .3457.0205.4211.0681zm-.0211 6.0347c.4543 0 .8006-.0265 1.0245-.0742.2304-.0477.4204-.1357.5694-.2648.1556-.1218.2642-.298.3251-.5219.0611-.2238.1021-.6648.1021-1.3224v-2.5832c0-.6986-.0271-1.1668-.0742-1.4039-.041-.237-.1431-.4543-.3126-.6437-.1695-.1973-.4198-.3324-.7456-.421-.3191-.0808-.8542-.1285-1.7694-.1285h-1.4244v7.3636h2.3051zm5.14-1.7827c0 .3523-.0199.5762-.0544.6708-.033.0947-.1894.1424-.3046.1424-.1086 0-.19-.0477-.2238-.1351-.041-.0887-.0609-.2986-.0609-.6238v-1.9469c0-.3324.0199-.5423.0543-.6237.0338-.0808.1086-.122.2171-.122.1153 0 .2709.0412.3114.1425.041.0947.0609.2986.0609.6032v1.8926zm-2.4747-5.5809v7.3636h1.7157l.1152-.4675c.1556.1894.3251.3324.5152.4271.1828.0881.4608.1357.678.1357.3047 0 .5629-.0748.7802-.237.2165-.1562.3589-.3462.4198-.5628.0543-.2173.0887-.543.0887-.9841v-2.0675c0-.4409-.0139-.7324-.0344-.8681-.0199-.1357-.0742-.2781-.1695-.4204-.1021-.1425-.2437-.251-.4272-.3325-.1834-.0742-.3999-.1152-.6576-.1152-.2172 0-.4952.0477-.6846.1285-.1835.0887-.353.2238-.5086.4007V8.2603h-1.8309z"/></svg></span></a> for three years at <a class="tagged" href="https://www.company3.com/" target="_blank" rel="noopener">Company3<span class="link-tag" aria-hidden="true">check <img class="logo-co3" src="images/about/company3.svg" width="360" height="220" alt=""></span></a>, building believable shots by obsessing over light, depth, and continuity. That <span class="cutout">"make it feel real"</span> mindset still drives how I design.
                     <a class="sr-only" href="https://vimeo.com/1024594006" target="_blank" rel="noopener">Watch my VFX reel on Vimeo</a>
                 </p>
 
                 <p class="about-secondary">
-                    Outside of design, you can usually find me in dance studios — anywhere from <span class="hover-clip" tabindex="0" role="button" aria-label="hip hop, show a clip of me dancing" aria-expanded="false">hip hop<span class="hover-card" aria-hidden="true"><video data-src="images/about/hiphop.mp4" poster="images/about/hiphop-poster.jpg" width="360" height="594" muted loop playsinline preload="none"></video></span></span> to ballet — or in Central Park cycling through or sunbathing.
+                    Outside of design, you can usually find me in dance studios — anywhere from <span class="hover-clip" tabindex="0" role="button" aria-label="hip hop, show a clip of me dancing" aria-expanded="false">hip hop<span class="hover-card" aria-hidden="true"><video data-src="images/about/hiphop.mp4" poster="images/about/hiphop-poster.jpg" width="360" height="594" muted loop playsinline preload="none"></video></span></span> to <span class="hover-clip" tabindex="0" role="button" aria-label="ballet, show a photo of me at a ballet studio" aria-expanded="false">ballet<span class="hover-card" aria-hidden="true"><img data-src="images/about/ballet.jpg" width="360" height="640" alt=""></span></span> — or in Central Park <span class="hover-clip" tabindex="0" role="button" aria-label="cycling, show a clip of me cycling in Central Park" aria-expanded="false">cycling<span class="hover-card" aria-hidden="true"><video data-src="images/about/cycling.mp4" poster="images/about/cycling-poster.jpg" width="360" height="640" muted loop playsinline preload="none"></video></span></span> through or <span class="hover-clip" tabindex="0" role="button" aria-label="sunbathing, show a clip of me sunbathing in Central Park" aria-expanded="false">sunbathing<span class="hover-card" aria-hidden="true"><video data-src="images/about/sunbathing.mp4" poster="images/about/sunbathing-poster.jpg" width="360" height="640" muted loop playsinline preload="none"></video></span></span>.
                 </p>
             </div>
 
         </section>
     </main>
 
+    <!-- Vimeo thumbnail that follows the cursor over the VFX paragraph (mouse only) -->
+    <div class="reel-card" aria-hidden="true">
+        <span class="reel-thumb">
+            <video data-src="images/about/vfx-reel.mp4" poster="images/about/vfx-reel-poster.jpg" width="480" height="270" muted loop playsinline preload="none"></video>
+            <span class="reel-play"></span>
+        </span>
+    </div>
+
     <script src="cutout.js"></script>
     <script>
-    // "hip hop" hover card: opens on hover or keyboard focus, and on tap for touch screens
+    // Hover cards on hip hop, ballet, cycling and sunbathing: open on hover or keyboard focus, and on tap for touch screens
     (function() {
-        var trigger = document.querySelector('.hover-clip');
-        if (!trigger) return;
-        var card = trigger.querySelector('.hover-card');
-        var video = card.querySelector('video');
+        var triggers = [].slice.call(document.querySelectorAll('.hover-clip'));
+        if (!triggers.length) return;
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        function open() {
-            if (!video.src) video.src = video.dataset.src;
-            trigger.classList.add('is-open');
-            trigger.setAttribute('aria-expanded', 'true');
+        var canHover = window.matchMedia('(hover: hover)').matches;
+        function media(t) { return t.querySelector('.hover-card video, .hover-card img'); }
+        function open(t) {
+            triggers.forEach(function(o) { if (o !== t) close(o); });
+            var m = media(t), card = t.querySelector('.hover-card');
+            if (!m.getAttribute('src')) m.src = m.dataset.src;
+            t.classList.add('is-open');
+            t.setAttribute('aria-expanded', 'true');
             // keep the card inside the screen
-            trigger.style.setProperty('--dx', '0px');
+            t.style.setProperty('--dx', '0px');
             var r = card.getBoundingClientRect(), pad = 12, dx = 0;
             if (r.left < pad) dx = pad - r.left;
             else if (r.right > window.innerWidth - pad) dx = window.innerWidth - pad - r.right;
-            trigger.style.setProperty('--dx', dx + 'px');
-            if (!reduce) { var p = video.play(); if (p && p.catch) p.catch(function() {}); }
+            t.style.setProperty('--dx', dx + 'px');
+            if (m.tagName === 'VIDEO' && !reduce) { var p = m.play(); if (p && p.catch) p.catch(function() {}); }
         }
-        function close() {
-            trigger.classList.remove('is-open');
-            trigger.setAttribute('aria-expanded', 'false');
-            video.pause();
+        function close(t) {
+            t.classList.remove('is-open');
+            t.setAttribute('aria-expanded', 'false');
+            var m = media(t);
+            if (m.tagName === 'VIDEO') m.pause();
         }
-        trigger.addEventListener('mouseenter', open);
-        trigger.addEventListener('mouseleave', close);
-        trigger.addEventListener('focus', open);
-        trigger.addEventListener('blur', close);
-        trigger.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (trigger.classList.contains('is-open') && !window.matchMedia('(hover: hover)').matches) close(); else open();
+        triggers.forEach(function(t) {
+            t.addEventListener('mouseenter', function() { open(t); });
+            t.addEventListener('mouseleave', function() { close(t); });
+            t.addEventListener('focus', function() { open(t); });
+            t.addEventListener('blur', function() { close(t); });
+            t.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (t.classList.contains('is-open') && !canHover) close(t); else open(t);
+            });
+            t.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') { close(t); t.blur(); }
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.classList.contains('is-open') ? close(t) : open(t); }
+            });
         });
-        trigger.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') { close(); trigger.blur(); }
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.classList.contains('is-open') ? close() : open(); }
+        document.addEventListener('click', function(e) {
+            triggers.forEach(function(t) { if (!t.contains(e.target)) close(t); });
         });
-        document.addEventListener('click', function(e) { if (!trigger.contains(e.target)) close(); });
     })();
     </script>
     <script>
@@ -615,6 +749,37 @@
     (function() {
         var p = document.querySelector('.about-reel');
         if (!p) return;
+
+        // With a mouse, the reel thumbnail follows the cursor; it hides over the two links, which show their own tags
+        var card = document.querySelector('.reel-card');
+        if (card && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            var clip = card.querySelector('video'), frame = 0, mx = 0, my = 0;
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            function show() {
+                if (!clip.getAttribute('src')) clip.src = clip.dataset.src;
+                place();
+                card.classList.add('is-open');
+                if (!reduce) { var pr = clip.play(); if (pr && pr.catch) pr.catch(function() {}); }
+            }
+            function hide() { card.classList.remove('is-open'); clip.pause(); }
+            function place() {
+                frame = 0;
+                var w = card.offsetWidth, h = card.offsetHeight, pad = 12;
+                var x = mx + 18, y = my - h - 14;
+                if (x + w > window.innerWidth - pad) x = mx - w - 18;
+                if (y < pad) y = my + 22;
+                card.style.setProperty('--x', x + 'px');
+                card.style.setProperty('--y', y + 'px');
+            }
+            p.addEventListener('mousemove', function(e) {
+                mx = e.clientX; my = e.clientY;
+                if (e.target.closest('a')) { hide(); return; }
+                if (!card.classList.contains('is-open')) show();
+                else if (!frame) frame = requestAnimationFrame(place);
+            });
+            p.addEventListener('mouseleave', hide);
+            window.addEventListener('scroll', hide, { passive: true });
+        }
         p.addEventListener('click', function(e) {
             if (e.target.closest('a')) return;
             if (String(window.getSelection())) return;
@@ -627,30 +792,40 @@
         var el = document.getElementById('now-playing');
         if (!el) return;
 
+        // Show a track as "Song — Artist", linked when there's a URL; ▶ marks something playing right now
+        function render(track, playing) {
+            var label = track.name + ' — ' + track.artist;
+            if (playing) label = '\u25B6 ' + label;
+            if (track.url) {
+                var a = document.createElement('a');
+                a.href = track.url;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                a.textContent = label;
+                a.style.cssText = 'color:inherit;text-decoration-color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1.5px';
+                el.textContent = '';
+                el.appendChild(a);
+            } else {
+                el.textContent = label;
+            }
+        }
+
+        function getJSON(url) {
+            return fetch(url).then(function(r) { return r.json(); }).catch(function() { return {}; });
+        }
+
+        // 1. Last.fm: live when I'm listening on my laptop (it scrobbles from the browser)
+        // 2. YouTube Music history: catches what I played on my phone, a few minutes behind
+        // 3. Last.fm's last scrobble, if the history isn't available
         function update() {
-            fetch('/api/now-playing')
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (!data.track) {
-                        el.textContent = 'Nothing right now';
-                        return;
-                    }
-                    var label = data.track.name + ' — ' + data.track.artist;
-                    if (data.isPlaying) label = '\u25B6 ' + label;
-                    if (data.track.url) {
-                        var a = document.createElement('a');
-                        a.href = data.track.url;
-                        a.target = '_blank';
-                        a.rel = 'noopener';
-                        a.textContent = label;
-                        a.style.cssText = 'color:inherit;text-decoration-color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1.5px';
-                        el.textContent = '';
-                        el.appendChild(a);
-                    } else {
-                        el.textContent = label;
-                    }
-                })
-                .catch(function() {});
+            getJSON('/api/now-playing').then(function(live) {
+                if (live.isPlaying && live.track) { render(live.track, true); return; }
+                return getJSON('/api/recently-played').then(function(hist) {
+                    if (hist.track && hist.track.name) render(hist.track, false);
+                    else if (live.track) render(live.track, false);
+                    else el.textContent = 'Nothing right now';
+                });
+            });
         }
 
         update();

@@ -9,11 +9,14 @@
     <style>
 
         /* ═══ BIO SECTION ═══ */
+        /* Sticker and "based in Brooklyn" sit above the bio sentence, both centered on the page */
         .bio {
-            padding: 24px var(--gap) 16px;
+            padding: 32px var(--gap) 28px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 24px;
+            text-align: center;
+            gap: 18px;
             animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
         }
 
@@ -54,7 +57,7 @@
         }
 
         .bio-location-based {
-            font-family: 'General Sans', sans-serif;
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-size: 0.72rem;
             font-weight: 400;
             color: var(--text-muted);
@@ -67,19 +70,19 @@
         }
 
         .bio-right {
-            flex: 1;
             display: flex;
-            align-items: center;
-            gap: 16px;
+            justify-content: center;
         }
 
+        .bio-location { text-align: left; } /* keeps "based in" lined up with "Brooklyn" inside the centered group */
+
         .bio-body {
-            font-family: 'Gambarino', Georgia, serif;
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-size: 1.12rem;
             line-height: 1.35;
             color: var(--text);
             font-weight: 400;
-            letter-spacing: -0.01em;
+            letter-spacing: 0;
             flex: 1;
         }
 
@@ -165,7 +168,7 @@
             opacity: 1;
         }
 
-        .project-info, .project-arrow {
+        .project-info {
             position: relative;
             z-index: 1;
         }
@@ -188,35 +191,42 @@
             transform: translateY(0);
         }
 
-        .project-num {
+        /* Tag pills, always visible in the top-left corner */
+        .project-tags {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            z-index: 5;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+        }
+
+        .project-tags li {
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-size: 0.75rem;
             font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            line-height: 1;
+            color: var(--text);
+            padding: 6px 10px 5px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.82);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+            white-space: nowrap;
         }
 
         .project-title {
-            font-family: 'Gambarino', Georgia, serif;
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-weight: 400;
             font-size: 1.105rem;
             letter-spacing: 0.01em;
-        }
-
-        .project-arrow {
-            opacity: 0;
-            transform: translateX(-6px);
-            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.04s;
-            font-size: 1.2rem;
-            align-self: flex-end;
-        }
-
-        .project-arrow .cutout {
-            display: inline;
-        }
-
-        .project:hover .project-arrow {
-            opacity: 0.85;
-            transform: translateX(0);
         }
 
         .project-placeholder {
@@ -265,10 +275,10 @@
         .card-gutsy .g-coffee    { right: 7%;  top: 45%;    width: 28cqw; z-index: 2; }
         .card-gutsy .g-risk      { right: 5%;  bottom: -6%; width: 11cqw; }
         .card-gutsy::after { z-index: 3; }
-        .card-gutsy .project-info, .card-gutsy .project-arrow { z-index: 4; }
-        @media (max-width: 1024px) {
-            /* the label shows without the hover gradient here, so it goes white on black */
-            .card-gutsy .project-info, .card-gutsy .project-arrow { color: #fff; }
+        .card-gutsy .project-info { z-index: 4; }
+        @media (hover: none) {
+            /* touch screens show the title without the hover gradient, so it goes white on black */
+            .card-gutsy .project-info { color: #fff; }
         }
 
         /* BeeBud card: the case-study hero (lilac stage, phone and floating components), full bleed */
@@ -309,12 +319,13 @@
             nav { padding: 0 16px; }
 
             .bio {
-                flex-wrap: wrap;
-                padding: 20px 24px 16px;
+                padding: 24px 24px 20px;
             }
+        }
 
+        /* Touch screens can't hover, so their titles stay visible */
+        @media (hover: none) {
             .project-info { opacity: 1; transform: none; }
-            .project-arrow { opacity: 0.5; transform: none; }
         }
 
         /* ═══ MOBILE ═══ */
@@ -325,14 +336,7 @@
             }
 
             .bio {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 16px 20px 12px;
-            }
-
-            .bio-right {
-                flex-direction: column;
-                align-items: flex-start;
+                padding: 20px 20px 16px;
             }
 
             .bio-body { font-size: 1.15rem; }
@@ -393,43 +397,40 @@
 
         <div class="grid">
             <a href="/talkspace.html" class="card project card-talkspace">
+                <ul class="project-tags" aria-label="Tags"><li>internship</li><li>0 → 1</li><li>design system</li><li>shipped</li></ul>
                 <picture>
                     <source srcset="talkspace/hero-walkthrough-still.png" media="(prefers-reduced-motion: reduce)">
                     <img src="talkspace/hero-walkthrough.webp" alt="">
                 </picture>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">01</span></span>
                     <span class="project-title">Talkspace — Provider Reviews</span>
                 </div>
-                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
             </a>
             <a href="/beebud.html" class="card project card-beebud">
+                <ul class="project-tags" aria-label="Tags"><li>0 → 1</li><li>prototype</li><li>solo</li></ul>
                 <video src="beebud/card.mp4" poster="beebud/card-poster.webp" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">02</span></span>
                     <span class="project-title">BeeBud — Event Matching</span>
                 </div>
-                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
             </a>
             <a href="/controlmylaptop.html" class="card project">
+                <ul class="project-tags" aria-label="Tags"><li>live web app</li><li>0 → 1</li><li>solo</li></ul>
                 <video src="controlmylaptop/card.mp4" poster="controlmylaptop/card-poster.webp" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">03</span></span>
                     <span class="project-title">Control My Laptop</span>
                 </div>
-                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
             </a>
 
             <a href="/weave.html" class="card project p1">
+                <ul class="project-tags" aria-label="Tags"><li>prototype</li><li>0 → 1</li><li>team</li></ul>
                 <video src="Weave/Principle 02.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">04</span></span>
                     <span class="project-title">Weave — Global Market Entry</span>
                 </div>
-                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
             </a>
 
             <a href="/gutsy.html" class="card project card-gutsy">
+                <ul class="project-tags" aria-label="Tags"><li>designathon</li><li>speculative</li><li>prototype</li></ul>
                 <img class="g-float g-soft g-hormonal" src="gutsy/c-hormonal.jpg" width="266" height="285" alt="">
                 <img class="g-float g-immune" src="gutsy/c-immune.jpg" width="656" height="352" alt="">
                 <img class="g-float g-soft g-metabolic" src="gutsy/c-metabolic.jpg" width="270" height="306" alt="">
@@ -438,10 +439,8 @@
                 <img class="g-float g-coffee" src="gutsy/c-coffee.jpg" width="556" height="322" alt="">
                 <img class="g-float g-soft g-risk" src="gutsy/c-risk.jpg" width="268" height="280" alt="">
                 <div class="project-info">
-                    <span class="project-num"><span class="cutout">05</span></span>
                     <span class="project-title">Gutsy</span>
                 </div>
-                <span class="project-arrow"><span class="cutout">&rarr;</span></span>
             </a>
         </div>
     </main>

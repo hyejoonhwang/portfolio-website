@@ -47,7 +47,7 @@
             opacity: 1;
         }
 
-        .project-card-info, .project-card-arrow {
+        .project-card-info {
             position: relative;
             z-index: 1;
         }
@@ -68,36 +68,11 @@
             transform: translateY(0);
         }
 
-        .project-card-num {
-            font-size: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
         .project-card-title {
-            font-family: 'Gambarino', Georgia, serif;
+            font-family: 'LT Cushion', 'General Sans', sans-serif;
             font-weight: 400;
             font-size: 1.105rem;
             letter-spacing: 0.01em;
-        }
-
-        .project-card-arrow {
-            opacity: 0;
-            transform: translateX(-6px);
-            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1) 0.04s;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-            align-self: flex-end;
-        }
-
-        .project-card-arrow .cutout {
-            display: inline;
-        }
-
-        .project-card:hover .project-card-arrow {
-            opacity: 0.85;
-            transform: translateX(0);
         }
 
         .project-placeholder {
@@ -195,14 +170,12 @@
             .project-grid {
                 grid-template-columns: 1fr 1fr;
             }
+        }
 
+        /* Touch screens can't hover, so their titles stay visible */
+        @media (hover: none) {
             .project-card-info {
                 opacity: 1;
-                transform: none;
-            }
-
-            .project-card-arrow {
-                opacity: 0.5;
                 transform: none;
             }
         }
@@ -221,16 +194,6 @@
             .play-dy { order: 3; }
             .play-df { order: 4; }
             .play-tm { order: 5; }
-
-            .project-card-info {
-                opacity: 1;
-                transform: none;
-            }
-
-            .project-card-arrow {
-                opacity: 0.5;
-                transform: none;
-            }
         }
     </style>
 </head>
@@ -263,46 +226,36 @@
             <a href="/shyfacetime.html" class="project-card play-sf">
                 <video src="thumbnails/shyfacetime-wide.mp4" autoplay muted loop playsinline></video>
                 <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">01</span></span>
                     <span class="project-card-title">ShyFaceTime</span>
                 </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
             <a href="/dotyourstory.html" class="project-card play-dy">
                 <video src="thumbnails/dotyourstory-001.mp4" autoplay muted loop playsinline></video>
                 <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">03</span></span>
                     <span class="project-card-title">Dot Your Story</span>
                 </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
         </div>
         <div class="play-col">
             <a href="/musicchat.html" class="project-card play-mc">
                 <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
                 <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">02</span></span>
                     <span class="project-card-title">Music Chat App</span>
                 </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
         </div>
         <div class="play-col">
             <a href="/dearflower.html" class="project-card play-df">
                 <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
                 <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">04</span></span>
                     <span class="project-card-title">Dear Flower</span>
                 </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
             <a href="/touchofmoss.html" class="project-card play-tm">
                 <video src="thumbnails/touchofmoss.mp4" poster="thumbnails/touchofmoss-poster.jpg" autoplay muted loop playsinline></video>
                 <div class="project-card-info">
-                    <span class="project-card-num"><span class="cutout">05</span></span>
                     <span class="project-card-title">Touch of Moss</span>
                 </div>
-                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
             </a>
         </div>
     </div>

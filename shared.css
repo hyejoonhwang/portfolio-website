@@ -12,6 +12,15 @@
     font-display: swap;
 }
 
+/* LT Cushion (variable, 300–900): About text, labels and project titles. Downloads only where used. */
+@font-face {
+    font-family: 'LT Cushion';
+    src: url('fonts/LTCushion-VF.woff2') format('woff2');
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+}
+
 @font-face {
     font-family: 'General Sans';
     src: url('fonts/GeneralSans-Variable.ttf') format('truetype');
