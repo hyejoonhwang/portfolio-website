@@ -65,6 +65,9 @@
 /* ═══ BASE ═══ */
 html { scroll-behavior: smooth; }
 
+/* Selected text: white on the theme orange on every page (fixed value, since case pages redefine --accent) */
+::selection { background: #FF3C00; color: #FFFFFF; }
+
 /* No visible scrollbars anywhere; scrolling still works with wheel, trackpad, keys and touch */
 html, body, * { scrollbar-width: none; }
 ::-webkit-scrollbar { display: none; }
@@ -363,4 +366,54 @@ body.nav-open .mobile-nav a:nth-child(4) { animation: fadeUp 0.4s cubic-bezier(0
 
     .nav-links { display: none; }
     .hamburger { display: flex; }
+}
+/* ═══ FOOTER: quiet sign-off on Work, Play and About ═══ */
+/* On pages shorter than the window, the footer still sits at the bottom */
+body:has(> .site-footer) { display: flex; flex-direction: column; min-height: 100vh; }
+body:has(> .site-footer) > :has(+ .site-footer) { margin-bottom: 48px; }
+
+.site-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding: 20px 24px;
+    font-family: 'LT Cushion', 'General Sans', sans-serif;
+}
+
+.footer-who {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.94rem;
+    color: var(--text);
+}
+
+.footer-who img { height: 28px; width: auto; display: block; }
+.footer-where { color: var(--text-faint); font-size: 0.82rem; }
+
+.footer-links { display: flex; gap: 4px; margin-right: -10px; }
+
+.footer-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    color: var(--accent);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.footer-links a:hover { opacity: 0.7; transform: translateY(-2px); }
+.footer-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+.footer-links svg { width: 20px; height: 20px; }
+
+@media (max-width: 640px) {
+    .site-footer { padding: 16px 16px 24px; }
+    body:has(> .site-footer) > :has(+ .site-footer) { margin-bottom: 32px; }
+    .footer-links { margin: 0 0 0 -10px; }  /* icons wrap under the name; line the first glyph up with the logo */
+    .footer-links a { width: 44px; height: 44px; }
 }
