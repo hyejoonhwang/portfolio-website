@@ -172,7 +172,7 @@
         .phones figure { margin: 0; width: var(--phone); }
         .phones--4 { gap: 20px; }
         .phones--4 figure { width: calc((100% - 60px) / 4); max-width: var(--phone); }
-        .phones--4 .phone { width: 100%; border-radius: 22px; }
+        .phones--4 .phone { width: 100%; border-radius: 12px; }
 
         /* ═══ RESEARCH: the audit as BeeBud rows ═══ */
         .audit { background: var(--panel); border-radius: 24px; padding: 14px 16px 16px; color: #12123A; }
@@ -301,9 +301,7 @@
         @media (max-width: 760px) {
             .col { padding: 0 16px; }
             .hero-stage { --hero-h: 440px; margin-top: 8px; border-radius: 16px; }
-            .float--fitq, .float--tile, .float--mini, .float--request { display: none; }
-            .float--fit { left: 3%; top: 26%; width: 19%; }
-            .float--row { right: -5%; top: auto; bottom: 7%; width: 68%; }
+            .float { display: none; }   /* phones: just the main screen */
             .hero { flex-direction: column; align-items: flex-start; }
             .summary { font-size: var(--t-body); }
             .meta { grid-template-columns: 1fr 1fr; }
@@ -411,9 +409,9 @@
         <h2 id="summary-title">Summary</h2>
         <p class="summary">BeeBud is for people who often go to events alone. Every event gets a Fit Score based on how you like to show up, such as group size and the vibe of the room. I designed it solo: the information architecture, the UI and a clickable coded prototype I tested with five people on Maze.</p>
         <div class="meta">
-            <div><span class="meta-icon ms" aria-hidden="true">person_edit</span><span><p class="meta-label">role</p><p class="meta-value">IA, UI, prototype, testing</p></span></div>
+            <div><span class="meta-icon ms" aria-hidden="true">person_edit</span><span><p class="meta-label">role</p><p class="meta-value">End-to-end, from research to testing</p></span></div>
             <div><span class="meta-icon ms" aria-hidden="true">schedule</span><span><p class="meta-label">timeline</p><p class="meta-value">3 months, summer 2026</p></span></div>
-            <div><span class="meta-icon ms" aria-hidden="true">person</span><span><p class="meta-label">team</p><p class="meta-value">Solo, personal concept</p></span></div>
+            <div><span class="meta-icon ms" aria-hidden="true">person</span><span><p class="meta-label">team</p><p class="meta-value">Sole designer</p></span></div>
             <div><span class="meta-icon ms" aria-hidden="true">construction</span><span><p class="meta-label">tools</p><p class="meta-value">Figma, FigJam, Maze, Claude Code, HTML/CSS/JS</p></span></div>
         </div>
 
