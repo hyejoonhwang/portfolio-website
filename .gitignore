@@ -8,3 +8,6 @@ node_modules/
 package.json
 package-lock.json
 .claude/
+
+# Original fonts, raw video and photos used to build the site (large, and font licenses forbid publishing them)
+_source/
