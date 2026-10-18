@@ -40,5 +40,10 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/recently-played.py": {
+      "excludeFiles": "{Weave/**,images/**,thumbnails/**,summerlaptop/**,talkspace/**,beebud/**,controlmylaptop/**,library-on-wheels/**,gutsy/**,fonts/**,*.html,*.css,*.js,*.jpeg,*.jpg,*.png,*.pdf,*.md,*.mp4,*.mov}"
+    }
+  }
 }
