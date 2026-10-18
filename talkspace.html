@@ -174,6 +174,11 @@
         .findings .finding-title { font-family: 'Manrope', sans-serif; font-weight: 600; margin: 4px 0 var(--s-label); }
         .findings p:last-child { font-size: var(--t-small); line-height: 1.55; }
         @media (max-width: 760px) { .findings { grid-template-columns: 1fr; } }
+        /* What I'm changing: numbered changes inside two cards */
+        .changes ol { margin: 0; padding-left: 20px; }
+        .changes li { font-family: 'Inter', sans-serif; font-size: var(--t-small); line-height: 1.55; color: var(--text); }
+        .changes li + li { margin-top: var(--s-label); }
+        .changes li strong { font-weight: 600; }
 
         /* Quote */
         .quote { margin: var(--s-block) 0 0; padding-left: 20px; border-left: 3px solid var(--ts-mint); max-width: 640px; }
@@ -246,6 +251,7 @@
     <a href="#shipped" class="sidebar-link">MVP</a>
     <a href="#beyond" class="sidebar-link">Beyond</a>
     <a href="#results" class="sidebar-link">Results</a>
+    <a href="#changes" class="sidebar-link">Changes</a>
     <a href="#learned" class="sidebar-link">Learnings</a>
 </aside>
 
@@ -456,11 +462,12 @@
 </div>
 
 <!-- ═══ 06 TESTING THE REDESIGN ═══ -->
-<!-- Source: "Choosing a therapist" form responses, 9 participants, 10–14 Oct 2026 -->
+<!-- Source: "Choosing a therapist" form responses, 9 participants, 10–14 Oct 2026.
+     Full analysis: talkspace-internship/docs/usability-test-results.md -->
 <div class="col">
     <section id="results" class="chapter">
         <p class="eyebrow">06 · Testing the redesign</p>
-        <h2>Testing showed early signs it helps new providers, and one trade-off to fix</h2>
+        <h2>Testing showed new providers can win in their own words, but the card still rewarded volume and hid the open times</h2>
         <p class="body">I tested the redesign with 9 people in October. Each one picked a therapist from a list of five providers with different numbers of reviews, then answered questions about what they saw and why they chose.</p>
         <div class="visual findings">
             <div class="card card--mint ts-shape">
@@ -470,21 +477,57 @@
             </div>
             <div class="card ts-shape">
                 <p class="finding-num">7 of 9</p>
-                <p class="finding-title">could tell Sam's block was in his own words</p>
-                <p>6 of 9 read Lisa's as an AI summary of client reviews, so the labels mostly worked. Trust in that summary was mixed: 3 suspected it showed only the good reviews.</p>
+                <p class="finding-title">could tell the two green blocks apart</p>
+                <p>7 read Lisa's as an AI summary of client reviews, and 7 read Sam's as his own words. Trust in the summary was mixed: 3 suspected it showed only the good reviews.</p>
             </div>
             <div class="card card--lime ts-shape">
-                <p class="finding-num">5 of 9</p>
-                <p class="finding-title">opened a provider's page before choosing</p>
-                <p>Two chose because reviews came from people with similar issues: "the reviews related to my experiences and what I would be looking for."</p>
+                <p class="finding-num">4 of 9</p>
+                <p class="finding-title">chose without opening a single provider page</p>
+                <p>The card carried the decision, which backs putting reviews on it. Three chose on reviews from people like them: "the reviews related to my experiences and what I would be looking for."</p>
             </div>
             <div class="card card--coral ts-shape">
                 <p class="finding-num">6 of 9</p>
-                <p class="finding-title">felt surer with times shown on the card, as the current design does</p>
-                <p>All 6 pointed to the open times, which my redesign had moved behind a button, even though they had just used the redesign.</p>
+                <p class="finding-title">felt surer with open times on the card, as the current design shows them</p>
+                <p>All 6 pointed to the times, which my redesign had moved behind a button, even though they had just used the redesign.</p>
+            </div>
+            <div class="card card--coral ts-shape">
+                <p class="finding-num">5 of 9</p>
+                <p class="finding-title">chose Jane, the provider with the most clients and years</p>
+                <p>They named "experience and number of patients" and "she was popular." I meant the "200+ clients" line as quiet proof. It became a volume signal that new providers can never have.</p>
+            </div>
+            <div class="card card--coral ts-shape">
+                <p class="finding-num">2 of 9</p>
+                <p class="finding-title">read Sam's words as a client's review</p>
+                <p>One then judged him for having "one review." Quote marks usually mean a testimonial, so his own words were borrowing trust they hadn't earned.</p>
             </div>
         </div>
-        <p class="body" style="margin-top: var(--s-block);">These are early signs, not proof. It was 9 people with no comparison group, 4 of them work in UX, and Sam is a man while 5 of 9 ruled out male therapists.</p>
+        <p class="body" style="margin-top: var(--s-block);">These are early signs, not proof: 9 people, no comparison group, and 4 of them work in UX. My setup also skewed the Sam result. He's a man while 6 of 9 wanted a woman therapist, and his card was always last, which one participant read as "least popular."</p>
+    </section>
+</div>
+
+<!-- ═══ 07 WHAT I'M CHANGING ═══ -->
+<div class="col">
+    <section id="changes" class="chapter">
+        <p class="eyebrow">07 · What I'm changing</p>
+        <h2>I'm putting the open times back on the card and removing the one number new providers can't earn</h2>
+        <p class="body">Each change answers a finding above. The test also showed me what to fix in the test itself before I run it again.</p>
+        <div class="visual card-row changes">
+            <div class="card card--mint ts-shape">
+                <p class="eyebrow">In the design</p>
+                <ol>
+                    <li><strong>Show open times on the card again.</strong> 6 of 9 preferred the version that showed them.</li>
+                    <li><strong>Take "clients helped" off the card.</strong> It was the volume signal people chose on, and new providers can't have it.</li>
+                    <li><strong>Mix new providers into the list.</strong> Card order reads as a ranking, so a new provider shouldn't always be last.</li>
+                </ol>
+            </div>
+            <div class="card ts-shape">
+                <p class="eyebrow">In the next test</p>
+                <ol>
+                    <li><strong>Vary the new provider's gender and position.</strong> Then a pick, or a pass, is about the card.</li>
+                    <li><strong>Change one thing between versions.</strong> Both lists show open times, and only where the reviews sit differs.</li>
+                </ol>
+            </div>
+        </div>
     </section>
 </div>
 
@@ -501,7 +544,7 @@
             </div>
             <div class="card card--coral ts-shape">
                 <p class="eyebrow">With more time</p>
-                <p>Test my card against the current one: do new providers get picked more often?</p>
+                <p>A/B test my card against the current one with real members. Do more of them book a new provider, and actually show up for the first session?</p>
             </div>
         </div>
         <a class="next-project" href="/beebud.html">
