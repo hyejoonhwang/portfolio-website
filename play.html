@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="/favicon-02.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work — Summer</title>
+    <title>Play — Summer</title>
     <link rel="stylesheet" href="shared.css">
     <style>
         /* ═══ PAGE HEADER ═══ */
@@ -174,6 +174,33 @@
         .project-grid > :nth-child(8) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.34s both; }
         .project-grid > :nth-child(9) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.38s both; }
 
+        /* ═══ PLAY GRID: two interlocking columns, card height follows its thumbnail ═══ */
+        .play-grid {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .play-col {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--gap);
+        }
+
+        .play-grid .project-card { aspect-ratio: var(--ar, 16 / 9); }
+
+        /* The last card in each column stretches so both columns end level */
+        .play-col > .project-card:last-child { flex: 1 0 auto; }
+
+        .play-mc { --ar: 2 / 3; }
+        .play-sf { --ar: 4 / 5; }
+        .play-dy { --ar: 16 / 9; }
+        .play-df { --ar: 16 / 9; }
+
+        .play-col > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both; }
+        .play-col > :nth-child(2) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both; }
+
         /* ═══ ARCHIVE SECTION ═══ */
         .archive-section {
             padding: 32px var(--gap) 48px;
@@ -271,6 +298,14 @@
                 grid-template-columns: 1fr;
             }
 
+            .play-grid { display: flex; flex-direction: column; gap: var(--gap); }
+            .play-col { display: contents; }
+            .play-col > .project-card:last-child { flex: none; }
+            .play-mc { order: 1; }
+            .play-sf { order: 2; }
+            .play-dy { order: 3; }
+            .play-df { order: 4; }
+
             .project-card-info {
                 opacity: 1;
                 transform: none;
@@ -294,8 +329,8 @@
     <nav>
         <a href="/" class="logo"><img src="images/summerlogo.png" alt="Summer" class="logo-img"></a>
         <div class="nav-links">
-            <a href="/"><span class="cutout">home</span></a>
-            <a href="/work.html" class="active"><span class="cutout">work</span></a>
+            <a href="/"><span class="cutout">work</span></a>
+            <a href="/play.html" class="active"><span class="cutout">play</span></a>
             <a href="/about.html"><span class="cutout">about</span></a>
             <a href="/blog.html"><span class="cutout">blog</span></a>
 
@@ -306,99 +341,54 @@
     </nav>
 
     <div class="mobile-nav">
-        <a href="/"><span class="cutout">home</span></a>
-        <a href="/work.html" class="active"><span class="cutout">work</span></a>
+        <a href="/"><span class="cutout">work</span></a>
+        <a href="/play.html" class="active"><span class="cutout">play</span></a>
         <a href="/about.html"><span class="cutout">about</span></a>
         <a href="/blog.html"><span class="cutout">blog</span></a>
 
     </div>
 
     <header class="page-header">
-        <h1><span class="cutout">Selected Work</span></h1>
+        <h1><span class="cutout">Play</span></h1>
     </header>
 
-    <div class="project-grid">
-        <a href="/talkspace.html" class="project-card card-talkspace">
-            <picture>
-                <source srcset="talkspace/hero-walkthrough-still.png" media="(prefers-reduced-motion: reduce)">
-                <img src="talkspace/hero-walkthrough.webp" alt="">
-            </picture>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">01</span></span>
-                <span class="project-card-title">Talkspace — Provider Reviews</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-        <a href="/beebud.html" class="project-card card-beebud">
-            <video src="beebud/card.mp4" poster="beebud/card-poster.webp" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">02</span></span>
-                <span class="project-card-title">BeeBud — Event Matching</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-        <a href="/controlmylaptop.html" class="project-card">
-            <video src="summerlaptop/summerlaptop.thumbnail.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">03</span></span>
-                <span class="project-card-title">Control My Laptop</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-
-        <a href="/weave.html" class="project-card card-sage">
-            <video src="Weave/Principle 02.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">04</span></span>
-                <span class="project-card-title">Weave — Global Market Entry</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-
-        <a href="/musicchat.html" class="project-card">
-            <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">05</span></span>
-                <span class="project-card-title">Music Chat App</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-
-        <a href="/shyfacetime.html" class="project-card">
-            <video src="thumbnails/shyfacetime.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">06</span></span>
-                <span class="project-card-title">ShyFaceTime</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-
-        <a href="/dotyourstory.html" class="project-card">
-            <video src="thumbnails/dotyourstory-001.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">07</span></span>
-                <span class="project-card-title">Dot Your Story</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-
-        <a href="/gutsy.html" class="project-card card-gutsy">
-            <video src="gutsy/9.%20analysis%20detail.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">08</span></span>
-                <span class="project-card-title">Gutsy</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
-
-        <a href="/dearflower.html" class="project-card">
-            <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
-            <div class="project-card-info">
-                <span class="project-card-num"><span class="cutout">09</span></span>
-                <span class="project-card-title">Dear Flower</span>
-            </div>
-            <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
-        </a>
+    <div class="project-grid play-grid">
+        <div class="play-col">
+            <a href="/musicchat.html" class="project-card play-mc">
+                <video src="thumbnails/musicchatapp-v01.mp4" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">01</span></span>
+                    <span class="project-card-title">Music Chat App</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+            <a href="/dearflower.html" class="project-card play-df">
+                <video src="thumbnails/macbookmockup-dearflower.mp4" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">04</span></span>
+                    <span class="project-card-title">Dear Flower</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+        </div>
+        <div class="play-col">
+            <a href="/shyfacetime.html" class="project-card play-sf">
+                <video src="thumbnails/shyfacetime.mp4" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">02</span></span>
+                    <span class="project-card-title">ShyFaceTime</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+            <a href="/dotyourstory.html" class="project-card play-dy">
+                <video src="thumbnails/dotyourstory-001.mp4" autoplay muted loop playsinline></video>
+                <div class="project-card-info">
+                    <span class="project-card-num"><span class="cutout">03</span></span>
+                    <span class="project-card-title">Dot Your Story</span>
+                </div>
+                <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
+            </a>
+        </div>
     </div>
 
     <div class="archive-section">

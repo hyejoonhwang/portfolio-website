@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/work.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/work",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)\\.mp4",
