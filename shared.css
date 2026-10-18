@@ -76,6 +76,13 @@ nav {
     z-index: 95;
 }
 
+/* Case-study pages: the nav (and the logo in it) stays pinned while the page scrolls */
+body.case nav {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+}
+
 .logo {
     display: flex;
     align-items: center;

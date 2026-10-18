@@ -147,19 +147,8 @@
             clip-path: inset(3px 5px 3px 3px round var(--r));
         }
 
-        /* BeeBud card: the prototype recording as a phone on BeeBud cobalt, top of the phone showing */
-        .card-beebud { background: #2B2BFF; container-type: inline-size; }
-        .card-beebud video {
-            position: absolute;
-            inset: auto;
-            height: 138%;
-            width: auto;
-            top: 8%;
-            left: 50%;
-            transform: translateX(-50%);
-            object-fit: contain;
-            border-radius: clamp(10px, 5.5cqw, 24px) clamp(10px, 5.5cqw, 24px) 0 0;
-        }
+        /* BeeBud card: the case-study hero (lilac stage, phone and floating components), full bleed */
+        .card-beebud { background: #E6E2FF; }
 
         /* Talkspace card: hero walkthrough phone on Talkspace green, top of the phone showing like the case-study hero */
         .card-talkspace { background: #005C65; container-type: inline-size; }
@@ -341,7 +330,7 @@
             <span class="project-card-arrow"><span class="cutout">&rarr;</span></span>
         </a>
         <a href="/beebud.html" class="project-card card-beebud">
-            <video src="beebud/card.mp4" poster="beebud/hero-poster.webp" autoplay muted loop playsinline></video>
+            <video src="beebud/card.mp4" poster="beebud/card-poster.webp" autoplay muted loop playsinline></video>
             <div class="project-card-info">
                 <span class="project-card-num"><span class="cutout">02</span></span>
                 <span class="project-card-title">BeeBud — Event Matching</span>
