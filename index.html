@@ -145,7 +145,7 @@
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
-            padding: 20px 24px;
+            padding: 20px 24px 12px;
             text-decoration: none;
             color: var(--text);
             cursor: pointer;
@@ -222,6 +222,19 @@
             backdrop-filter: blur(8px);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
             white-space: nowrap;
+            /* Hidden until hover, then each pill slides down from the top, one after another */
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .project-tags li:nth-child(2) { transition-delay: 0.04s; }
+        .project-tags li:nth-child(3) { transition-delay: 0.08s; }
+
+        .project:hover .project-tags li,
+        .project:focus-visible .project-tags li {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .project-title {
@@ -340,6 +353,12 @@
         /* Touch screens can't hover, so their titles stay visible */
         @media (hover: none) {
             .project-info { opacity: 1; transform: none; }
+            .project-tags li { opacity: 1; transform: none; }
+        }
+
+        /* Reduced motion: the pills fade in without sliding */
+        @media (prefers-reduced-motion: reduce) {
+            .project-tags li { transform: none; }
         }
 
         /* ═══ MOBILE ═══ */
@@ -421,21 +440,21 @@
                 </div>
             </a>
             <a href="/er-wiki.html" class="card project card-erwiki">
-                <ul class="project-tags" aria-label="Tags"><li>research</li><li>prototype</li><li>solo</li></ul>
+                <ul class="project-tags" aria-label="Tags"><li>0 to 1</li><li>solo</li><li>prototype</li></ul>
                 <video src="er-wiki/card.mp4" poster="er-wiki/card-poster.webp" autoplay muted loop playsinline></video>
                 <div class="project-info">
                     <span class="project-title">ER Wiki</span>
                 </div>
             </a>
             <a href="/beebud.html" class="card project card-beebud">
-                <ul class="project-tags" aria-label="Tags"><li>0 → 1</li><li>prototype</li><li>solo</li></ul>
+                <ul class="project-tags" aria-label="Tags"><li>0 to 1</li><li>solo</li><li>prototype</li></ul>
                 <video src="beebud/card.mp4" poster="beebud/card-poster.webp" autoplay muted loop playsinline></video>
                 <div class="project-info">
                     <span class="project-title">BeeBud — Event Matching</span>
                 </div>
             </a>
             <a href="/controlmylaptop.html" class="card project">
-                <ul class="project-tags" aria-label="Tags"><li>live web app</li><li>0 → 1</li><li>solo</li></ul>
+                <ul class="project-tags" aria-label="Tags"><li>0 to 1</li><li>solo</li><li>live web app</li></ul>
                 <video src="controlmylaptop/card.mp4" poster="controlmylaptop/card-poster.webp" autoplay muted loop playsinline></video>
                 <div class="project-info">
                     <span class="project-title">Control My Laptop</span>
@@ -443,7 +462,7 @@
             </a>
 
             <a href="/weave.html" class="card project p1">
-                <ul class="project-tags" aria-label="Tags"><li>prototype</li><li>0 → 1</li><li>team</li></ul>
+                <ul class="project-tags" aria-label="Tags"><li>0 to 1</li><li>team</li><li>prototype</li></ul>
                 <video src="Weave/Principle 02.mp4" autoplay muted loop playsinline></video>
                 <div class="project-info">
                     <span class="project-title">Weave — Global Market Entry</span>
