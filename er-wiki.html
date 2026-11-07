@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Wiki — Summer</title>
+    <meta name="description" content="Helping Equipment Room staff find equipment and handle checkouts and returns.">
+    <meta property="og:title" content="ER Wiki">
+    <meta property="og:image" content="/er-wiki/hero-poster.jpg">
+    <!-- Built on the same template as controlmylaptop.html and gutsy.html, against case-study-review-guide.md.
+         Copy source: _source/er-wiki/copy.md (Summer's text). Story follows the midterm deck. -->
+    <link rel="stylesheet" href="shared.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+    <style>
+        /* Supreme (Fontshare, ITF Free Font License: self-hosting allowed). Adamina is ER Wiki's heading font. */
+        @font-face {
+            font-family: 'Supreme';
+            src: url('fonts/Supreme-Variable.woff2') format('woff2');
+            font-weight: 100 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --accent: #1E0C99;          /* ITP deep blue, ER Wiki's only action color */
+            --accent-soft: #ECEAFB;     /* selected tile fill in the prototype */
+            --text-secondary: #5C5753;
+            --line: #E8E6E3;
+            --surface: #FFFFFF;
+            --canvas: #F5F5F7;          /* ER Wiki's calm off-white sections */
+            --on-accent-muted: rgba(255, 255, 255, 0.7);
+            --on-accent-line: rgba(255, 255, 255, 0.28);
+            /* ER Wiki palette, for the specimen swatches in 07 */
+            --erw-ink: #1D1D1F;
+            --erw-muted: #6E6E73;
+            --erw-parchment: #F5F5F7;
+            --display: 'Adamina', Georgia, serif;
+            --radius-card: 20px;        /* ER Wiki's rounded cards */
+            --radius-shot: 12px;
+
+            /* One spacing scale, by role (guide §8) */
+            --s-label: 12px;
+            --s-body: 16px;
+            --s-block: 48px;
+            --s-chapter: 96px;
+            --s-part: 160px;
+
+            /* Five type sizes: 12 / 14 / 17 / 28 / 48 */
+            --t-label: 12px; --t-small: 14px; --t-body: 17px; --t-title: 28px; --t-hero: 48px;
+        }
+        @media (max-width: 760px) {
+            :root { --s-block: 32px; --s-chapter: 64px; --s-part: 96px; --t-title: 23px; --t-hero: 32px; }
+        }
+
+        /* Body font for this page only; the site nav keeps the shared font */
+        .main-content, .sidebar { font-family: 'Supreme', -apple-system, sans-serif; }
+
+        h1, h2, h3 { text-wrap: balance; }
+        p { text-wrap: pretty; }
+
+        /* ═══ SIDE NAV: one word per chapter ═══ */
+        .sidebar { position: fixed; top: 0; left: 0; width: 180px; height: 100vh; padding: 120px 16px 40px 28px; z-index: 90; }
+        .sidebar-title { font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); margin-bottom: var(--s-label); }
+        .sidebar-link { display: block; padding: 6px 0; font-size: var(--t-small); color: var(--text-faint); text-decoration: none; }
+        .sidebar-link:hover { color: var(--text); }
+        .sidebar-link.active { color: var(--accent); font-weight: 600; }
+        .sidebar-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* ═══ LAYOUT: two widths only, the full column and the side slot ═══ */
+        .main-content { margin-left: 180px; }
+        .col { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+        .chapter { padding-top: var(--s-chapter); scroll-margin-top: 80px; }
+        .part { padding-top: var(--s-part); }
+
+        /* ═══ TYPE ═══ */
+        .eyebrow { font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-label); }
+        h2 { font-family: var(--display); font-size: var(--t-title); font-weight: 400; line-height: 1.25; letter-spacing: -0.3px; color: var(--text); margin-bottom: var(--s-body); max-width: 760px; }
+        .body { font-size: var(--t-body); line-height: 1.6; color: var(--text-secondary); max-width: 680px; }
+        .body + .body { margin-top: var(--s-body); }
+        .body strong { color: var(--text); font-weight: 600; }
+
+        /* ═══ HERO: the real UI, moving, sized so title and one-liner share the first screen ═══ */
+        .hero-video { display: block; width: min(100%, calc((100svh - 270px) * 1.6)); aspect-ratio: 1600 / 1000; height: auto; margin: 24px auto 0; border-radius: var(--radius-shot); border: 1px solid var(--line); background: var(--canvas); }
+        .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
+        .hero h1 { font-family: var(--display); font-weight: 400; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-label); }
+        .hero-sub { font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); max-width: 680px; }
+        .hero-links { display: flex; gap: 8px; flex-shrink: 0; }
+        /* Pill buttons, as in the prototype */
+        .btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 20px; border-radius: 999px; font-size: var(--t-small); font-weight: 500; text-decoration: none; border: 1px solid var(--accent); color: var(--accent); background: var(--surface); }
+        .btn--primary { background: var(--accent); color: var(--surface); }
+        .btn:hover { opacity: 0.88; }
+        .btn:active { transform: scale(0.97); }
+        .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* ═══ SUMMARY + META ═══ */
+        .summary { font-size: 20px; line-height: 1.55; color: var(--text); max-width: 760px; }
+        .meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: var(--s-block); padding-top: var(--s-body); border-top: 1px solid var(--line); }
+        .meta-label { font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 6px; }
+        .meta-value { font-size: var(--t-small); line-height: 1.5; color: var(--text); }
+
+        /* ═══ ONE CARD LOOK: ER Wiki's rounded card with a small uppercase label ═══ */
+        .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 24px; }
+        .card-label { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-label); }
+        .card p { font-size: var(--t-body); line-height: 1.55; color: var(--text); }
+        .card-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .ps { margin-top: var(--s-chapter); }
+
+        /* ═══ VISUALS ═══ */
+        .visual { margin-top: var(--s-block); }
+        .visual + .body { margin-top: var(--s-block); }
+        .caption { font-size: var(--t-small); line-height: 1.5; color: var(--text-muted); margin-top: var(--s-label); }
+        .caption strong { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text); margin-bottom: 2px; }
+
+        /* 01 · Feeling line: one shift at the counter, calm at the top, stressed at the bottom */
+        .feel-card { padding: 24px 24px 28px; }
+        .feel-scroll { overflow-x: auto; }
+        .feel-inner { min-width: 0; }
+        .feel { position: relative; height: 180px; margin: 48px 0 var(--s-block); }
+        .feel svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+        .feel-mid { stroke: var(--text-faint); stroke-width: 1; stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+        .feel-line { fill: none; stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+        .feel-pt { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); }
+        .feel-pt--end { width: 22px; height: 22px; background: var(--surface); border: 5px solid var(--accent); }
+        .feel-word { position: absolute; width: 15%; transform: translate(-50%, calc(-100% - 14px)); text-align: center; font-size: var(--t-small); font-weight: 600; line-height: 1.3; color: var(--accent); }
+        .feel-word--below { transform: translate(-50%, 14px); }
+        .feel-axis { position: absolute; left: 0; font-size: var(--t-label); color: var(--text-faint); }
+        .feel-axis--top { top: -40px; }
+        .feel-axis--bottom { bottom: -4px; }
+        .feel-steps { list-style: none; padding-left: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; border-top: 1px solid var(--line); padding-top: var(--s-body); }
+        .feel-steps h3 { font-size: var(--t-small); font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .feel-steps p { font-size: var(--t-small); line-height: 1.45; color: var(--text-secondary); }
+
+        /* 01 · The same question, again and again: the "where is it?" messages cropped from the group chat.
+           Others' messages sit left in grey, mine sit right in blue, as in the chat. Shown at 66% of capture size. */
+        .asks { display: flex; flex-direction: column; gap: var(--s-label); padding: 32px 24px; }
+        .asks img { display: block; max-width: 88%; height: auto; }
+        .asks .mine { align-self: flex-end; }
+
+        /* 02 · Interview cards: role and their words */
+        .people { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+        .person { display: flex; flex-direction: column; padding: 20px; }
+        .person blockquote { margin: 0; font-family: var(--display); font-size: var(--t-body); line-height: 1.45; color: var(--text); }
+
+        /* Screenshots and photos */
+        .shot { display: block; width: 100%; height: auto; border-radius: var(--radius-shot); border: 1px solid var(--line); background: var(--surface); }
+        .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+        .pair figure, .fit-row figure { margin: 0; }
+        /* Both images in a pair share one frame shape so their captions line up */
+        .pair .shot { aspect-ratio: 2 / 1; object-fit: cover; object-position: top center; }
+        /* Full prototype screens keep their whole height, so the room map isn't cut off */
+        .pair--screen .shot { aspect-ratio: 1600 / 1000; }
+        /* A row of photos at one height: each figure grows by its aspect ratio (--ar = width / height) */
+        .fit-row { display: flex; gap: 16px; }
+        .fit-row figure { flex: var(--ar) 1 0; min-width: 0; }
+        .visual + .visual { margin-top: 16px; }
+
+        /* 03 · Problem statement, then the HMW on ITP blue: the one turn in the story where the problem becomes a question */
+        .statement p { font-family: var(--display); font-size: 20px; line-height: 1.5; color: var(--text-secondary); }
+        .statement .hl { color: var(--accent); }
+        .hmw { margin-top: 16px; padding: 40px 32px 32px; border-radius: var(--radius-card); background: var(--accent); color: var(--surface); }
+        .hmw-q { font-family: var(--display); font-size: var(--t-title); line-height: 1.3; letter-spacing: -0.3px; max-width: 760px; }
+        .hmw-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: var(--s-block); padding-top: var(--s-body); border-top: 1px solid var(--on-accent-line); }
+        .hmw-label { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--on-accent-muted); margin-bottom: 6px; }
+        .hmw-row p { font-size: var(--t-body); line-height: 1.5; }
+
+        /* 06 · Scan from anywhere: one scan, two outcomes */
+        .scan { padding: 28px 24px; }
+        .scan-start { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border-radius: 999px; background: var(--accent); color: var(--surface); font-size: var(--t-body); font-weight: 600; }
+        .scan-start svg { flex-shrink: 0; }
+        .scan-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; position: relative; }
+        .scan-branch { position: relative; padding: 18px 20px; border-radius: 14px; background: var(--canvas); }
+        .scan-branch::before { content: ''; position: absolute; left: 50%; top: -28px; width: 2px; height: 28px; background: var(--accent); }
+        .scan-branch .hmw-label { color: var(--text-muted); }
+        .scan-branch p { font-size: var(--t-body); font-weight: 600; line-height: 1.4; color: var(--text); }
+
+        /* 07 · Specimen: the four choices behind the hifi */
+        .spec { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding: 0; }
+        .spec > div { padding: 24px; border-left: 1px solid var(--line); }
+        .spec > div:first-child { border-left: 0; }
+        .spec .card-label { color: var(--text-muted); }
+        .swatches { display: flex; gap: 8px; }
+        .swatches span { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line); }
+        .spec .hex { margin-top: 8px; font-size: var(--t-small); color: var(--text-secondary); }
+        .type-pair { display: flex; align-items: baseline; gap: 20px; font-size: 44px; line-height: 1; color: var(--text); }
+        .type-pair span:first-child { font-family: var(--display); }
+        .spec .fonts { margin-top: 10px; font-size: var(--t-small); line-height: 1.45; color: var(--text-secondary); }
+        .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .pills span { display: inline-flex; align-items: center; min-height: 34px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--accent); font-size: var(--t-small); font-weight: 600; color: var(--accent); }
+        .pills span:first-child { background: var(--accent); color: var(--surface); }
+        .thumbs { display: grid; grid-template-columns: repeat(2, 56px); gap: 8px; }
+        .thumbs img { width: 56px; height: 56px; border-radius: 10px; border: 1px solid var(--line); object-fit: cover; }
+
+        /* 08 · Before and after: ITPERCH on the left, ER Wiki on the right, one frame shape */
+        .compare .shot { aspect-ratio: 1600 / 950; object-fit: cover; object-position: top left; }
+        .compare-big { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .compare-big figure, .compare-small figure { margin: 0; }
+        .compare-small { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 16px; margin-top: var(--s-block); }
+        .compare-small h3 { font-size: var(--t-small); font-weight: 600; color: var(--text); margin-bottom: var(--s-label); }
+        .compare-small figure + figure { margin-top: 8px; }
+        .tag { display: block; margin-top: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); }
+        .tag--after { color: var(--accent); }
+
+        /* 10 · Demo: the second loop loads when it comes near and plays only while visible */
+        .demo-video { display: block; width: 100%; height: auto; aspect-ratio: 1600 / 1000; border-radius: var(--radius-shot); border: 1px solid var(--line); background: var(--canvas); }
+        .demo-links { display: flex; gap: 8px; margin-top: var(--s-body); }
+
+        /* 11 · How precise each room's location goes: broad on the left, exact on the right. ER Wiki is the only full row. */
+        .reach { padding: 8px 24px 12px; }
+        .reach table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        .reach th, .reach td { padding: 14px 8px; text-align: center; border-bottom: 1px solid var(--line); }
+        .reach thead th { font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); }
+        .reach tbody th { text-align: left; font-size: var(--t-body); font-weight: 600; color: var(--text); width: 32%; }
+        .reach tbody tr:last-child th, .reach tbody tr:last-child td { border-bottom: 0; }
+        .reach .yes svg { display: inline-block; vertical-align: middle; color: var(--text); }
+        .reach .no { color: var(--text-faint); font-size: var(--t-body); }
+        .reach .erw th, .reach .erw td { background: var(--accent-soft); }
+        .reach .erw th { color: var(--accent); border-radius: 12px 0 0 12px; }
+        .reach .erw td:last-child { border-radius: 0 12px 12px 0; }
+        .reach .erw .yes svg { color: var(--accent); }
+        .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+        /* 12 · Learnings, then a plain list for what comes next */
+        .learn h3 { font-size: var(--t-body); font-weight: 600; color: var(--text); margin-bottom: 8px; }
+        .learn p { color: var(--text-secondary); }
+        .after-list { margin-top: var(--s-block); border-top: 1px solid var(--line); }
+        .after-list > div { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; padding: var(--s-body) 0; border-bottom: 1px solid var(--line); }
+        .after-list .meta-label { margin: 3px 0 0; }
+        .after-list p { font-size: var(--t-body); line-height: 1.55; color: var(--text); }
+
+        /* Next project */
+        .next-project { display: block; margin-top: var(--s-chapter); padding: 32px 0 80px; border-top: 1px solid var(--line); text-decoration: none; }
+        .next-project .eyebrow { color: var(--text-faint); }
+        .next-project span:last-child { font-family: var(--display); font-size: var(--t-title); color: var(--text); }
+        .next-project:hover span:last-child { color: var(--accent); }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; }
+        }
+        @media (max-width: 900px) {
+            .people { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (max-width: 760px) {
+            .col { padding: 0 16px; }
+            .hero-video { width: 100%; margin-top: 8px; }
+            .hero { flex-direction: column; align-items: flex-start; }
+            .summary { font-size: var(--t-body); }
+            .meta { grid-template-columns: 1fr 1fr; }
+            .card-row { grid-template-columns: 1fr; }
+            /* The feeling line keeps its shape and scrolls sideways inside its card */
+            .feel-inner { min-width: 640px; }
+            .feel-card { padding: 20px 16px; }
+            .asks { padding: 20px 16px; }
+            .people { grid-template-columns: 1fr; }
+            .pair { grid-template-columns: 1fr; }
+            .fit-row { gap: 8px; }
+            .hmw { padding: 28px 20px 24px; }
+            .hmw-row { grid-template-columns: 1fr; gap: var(--s-body); }
+            .statement p { font-size: var(--t-body); }
+            .scan-branches { gap: 8px; }
+            .scan-branch { padding: 14px; }
+            .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .spec > div { padding: 16px; }
+            .type-pair { font-size: 36px; gap: 14px; }
+            .spec > div:nth-child(3) { border-left: 0; }
+            .spec > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+            .compare-big { gap: 8px; }
+            .compare-small { grid-template-columns: 1fr; }
+            .compare-small > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 8px; }
+            .compare-small h3 { grid-column: 1 / -1; }
+            .compare-small figure + figure { margin-top: 0; }
+            .reach { padding: 4px 12px 8px; }
+            .reach th, .reach td { padding: 12px 4px; }
+            .reach tbody th { font-size: var(--t-small); }
+            .reach thead th { font-size: 10px; letter-spacing: 0.5px; }
+            .after-list > div { grid-template-columns: 1fr; gap: 4px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .btn:active { transform: none; }
+        }
+    </style>
+</head>
+<body class="case">
+
+<nav>
+    <a href="/" class="logo"><img src="images/summer-logo.svg" alt="Summer" class="logo-img"></a>
+    <div class="nav-links">
+        <a href="/"><span class="cutout">work</span></a>
+        <a href="/play.html"><span class="cutout">play</span></a>
+        <a href="/about.html"><span class="cutout">about</span></a>
+        <a href="/Summer%20Resume.pdf" target="_blank" rel="noopener"><span class="cutout">resume</span></a>
+    </div>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-nav">
+    <a href="/"><span class="cutout">work</span></a>
+    <a href="/play.html"><span class="cutout">play</span></a>
+    <a href="/about.html"><span class="cutout">about</span></a>
+    <a href="/Summer%20Resume.pdf" target="_blank" rel="noopener"><span class="cutout">resume</span></a>
+</div>
+
+<aside class="sidebar" aria-label="On this page">
+    <p class="sidebar-title">On this page</p>
+    <a href="#overview" class="sidebar-link active">Overview</a>
+    <a href="#counter" class="sidebar-link">Counter</a>
+    <a href="#interviews" class="sidebar-link">Interviews</a>
+    <a href="#problem" class="sidebar-link">Problem</a>
+    <a href="#ideas" class="sidebar-link">Ideas</a>
+    <a href="#sketches" class="sidebar-link">Sketches</a>
+    <a href="#testing" class="sidebar-link">Testing</a>
+    <a href="#visual" class="sidebar-link">Visual</a>
+    <a href="#compare" class="sidebar-link">Compare</a>
+    <a href="#iteration" class="sidebar-link">Iteration</a>
+    <a href="#demo" class="sidebar-link">Demo</a>
+    <a href="#scale" class="sidebar-link">Scale</a>
+    <a href="#learned" class="sidebar-link">Learnings</a>
+</aside>
+
+<main class="main-content">
+
+<!-- ═══ FIRST SCREEN: product moving + name + one line ═══ -->
+<div class="col" id="overview">
+    <video class="hero-video" src="er-wiki/hero.mp4" poster="er-wiki/hero-poster.jpg" width="1600" height="1000" autoplay muted loop playsinline preload="auto" aria-label="Screen recording of the ER Wiki prototype: the Find equipment search screen, then the room map, where picking the Camera cabinet lists what's in it, picking the Canon EOS R5 shows where it lives, and its item page shows the cabinet shelf it sits on"></video>
+    <header class="hero" id="hero">
+        <div>
+            <h1>ER Wiki</h1>
+            <p class="hero-sub">Helping Equipment Room staff find equipment and handle checkouts and returns.</p>
+        </div>
+        <div class="hero-links">
+            <a class="btn btn--primary" href="/er-wiki/prototype.html" target="_blank" rel="noopener">Open the live prototype &nearr;</a>
+        </div>
+    </header>
+</div>
+
+<!-- ═══ SUMMARY + META ═══ -->
+<div class="col">
+    <section style="padding-top: var(--s-chapter);" aria-label="Summary">
+        <p class="summary">I work at ITP’s equipment room, where students borrow cameras, mics, projectors, and other gear. Our website, ITPERCH, shows what an item looks like but doesn’t tell us where to find it. If nobody on shift knows, we ask the group chat while the student waits. I designed ER Wiki to put that information on the item page, with a map showing where it belongs and a scan that starts either a checkout or a return.</p>
+        <div class="meta">
+            <div><p class="meta-label">Role</p><p class="meta-value">Research, UX/UI, prototyping (solo)</p></div>
+            <div><p class="meta-label">Timeline</p><p class="meta-value">Oct 15–25, 2026</p></div>
+            <div><p class="meta-label">Context</p><p class="meta-value">UX Design, NYU ITP</p></div>
+            <div><p class="meta-label">Tools</p><p class="meta-value">Figma, Claude Code</p></div>
+        </div>
+
+        <!-- Problem + Solution -->
+        <div class="card-row ps">
+            <div class="card">
+                <span class="card-label">Problem</span>
+                <p>When a student requests an item and nobody on shift knows where it is, staff feel stuck, searching the room or waiting for a group chat reply while the student grows frustrated at the counter. Missing location information makes checkouts and returns inefficient.</p>
+            </div>
+            <div class="card">
+                <span class="card-label">Solution</span>
+                <p>ER Wiki makes checkouts and returns faster and easier by showing staff exactly where to find and put back each item, with a single scan to start either process.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 01 COUNTER ═══ -->
+<div class="col">
+    <section id="counter" class="chapter part">
+        <p class="eyebrow">01 · Counter</p>
+        <h2>A student is waiting, and I can’t find it</h2>
+        <p class="body">This happens regularly on my shifts: a student asks for something I haven’t used before. I look it up on ITPERCH and find a photo, but no location. After searching for three to five minutes, I ask the group chat. Sometimes nobody replies; sometimes nobody knows. I end up asking the student to come back when the manager is here.</p>
+
+        <!-- Feeling line: x is the step (6 equal columns), y is 0 = calm to 100 = stressed -->
+        <div class="visual card feel-card">
+            <div class="feel-scroll">
+                <div class="feel-inner">
+                    <div class="feel" role="img" aria-label="How I feel through one search: worried, then hopeful, panicking, desperate, stressed, and finally useless and bad">
+                        <span class="feel-axis feel-axis--top" aria-hidden="true">Calm</span>
+                        <span class="feel-axis feel-axis--bottom" aria-hidden="true">Stressed</span>
+                        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                            <line class="feel-mid" x1="0" y1="48" x2="100" y2="48"/>
+                            <polyline class="feel-line" points="8.33,38 25,22 41.67,64 58.33,48 75,72 91.67,86"/>
+                        </svg>
+                        <span class="feel-pt" style="left: 8.33%; top: 38%;"></span><span class="feel-word" style="left: 8.33%; top: 38%;">Worried</span>
+                        <span class="feel-pt" style="left: 25%; top: 22%;"></span><span class="feel-word" style="left: 25%; top: 22%;">Hopeful</span>
+                        <span class="feel-pt" style="left: 41.67%; top: 64%;"></span><span class="feel-word feel-word--below" style="left: 41.67%; top: 64%;">Panicking</span>
+                        <span class="feel-pt" style="left: 58.33%; top: 48%;"></span><span class="feel-word" style="left: 58.33%; top: 48%;">Desperate. Hoping someone knows</span>
+                        <span class="feel-pt" style="left: 75%; top: 72%;"></span><span class="feel-word" style="left: 75%; top: 72%;">Stressed</span>
+                        <span class="feel-pt feel-pt--end" style="left: 91.67%; top: 86%;"></span><span class="feel-word" style="left: 91.67%; top: 86%;">Useless and bad</span>
+                    </div>
+                    <ol class="feel-steps" role="list">
+                        <li><h3>1 A request</h3><p>A student asks for an item I don’t know.</p></li>
+                        <li><h3>2 ITPERCH</h3><p>I see what it looks like. No location.</p></li>
+                        <li><h3>3 Search</h3><p>3 to 5 minutes in places it might be.</p></li>
+                        <li><h3>4 Group chat</h3><p>“Does anyone know where this is?”</p></li>
+                        <li><h3>5 No answer</h3><p>Nobody replies, or nobody knows.</p></li>
+                        <li><h3>6 Send away</h3><p>“Come back when the manager is here.”</p></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <p class="body">I went back through our group chat to see how often this came up. Of the 15 threads I reviewed, 14 were about location. Replies included “might be in the cabinet” and “idk.” Four threads ended with “nvm found it,” without saying where.</p>
+
+        <!-- Cropped from five threads; names and avatars blurred -->
+        <div class="visual card asks">
+            <img src="er-wiki/ask-matrox.webp" width="403" height="90" loading="lazy" alt="Group chat message: out of curiosity does anyone know where this exists in the ER? I’ve tried looking for it a few times">
+            <img class="mine" src="er-wiki/ask-h4n.webp" width="370" height="48" loading="lazy" alt="My message: where did you take this out from?">
+            <img class="mine" src="er-wiki/ask-planar.webp" width="399" height="97" loading="lazy" alt="My messages: Does anybody know where this monitor is? It’s a planar monitor">
+            <img class="mine" src="er-wiki/ask-depower.webp" width="403" height="68" loading="lazy" alt="My message: Does anybody know where I should put this back?">
+            <img src="er-wiki/ask-power.webp" width="422" height="74" loading="lazy" alt="Group chat message: Does anyone know where’s the portable power station?">
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 02 INTERVIEWS ═══ -->
+<div class="col">
+    <section id="interviews" class="chapter">
+        <p class="eyebrow">02 · Interviews</p>
+        <h2>Most location information lives in people’s heads</h2>
+        <p class="body">I interviewed five people: two student staff members, the ER manager, someone from the ITP website team, and a staff member who also works at another NYU equipment room.</p>
+        <p class="body">I wanted to understand how staff learn where things belong, what they do when they can’t find something, and how they keep track when equipment moves.</p>
+
+        <div class="visual people">
+            <div class="card person">
+                <span class="card-label">Student staff</span>
+                <blockquote>“I’m so rushed. I’m so anxious... I’m panicking.”</blockquote>
+            </div>
+            <div class="card person">
+                <span class="card-label">Student staff</span>
+                <blockquote>“Last semester I would be very stressed out. And also a little helpless.”</blockquote>
+            </div>
+            <div class="card person">
+                <span class="card-label">ER manager</span>
+                <blockquote>“As an end user, especially people checking things in and out, it’s not very functional. It’s not intuitive.”</blockquote>
+            </div>
+            <div class="card person">
+                <span class="card-label">ITP website team</span>
+                <blockquote>“I don’t think there’s a floor mapping.”</blockquote>
+            </div>
+            <div class="card person">
+                <span class="card-label">Staff at ITP and Clive Davis</span>
+                <blockquote>“There’s pieces of equipment that I still don’t know where they are.”</blockquote>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 03 PROBLEM ═══ -->
+<div class="col">
+    <section id="problem" class="chapter">
+        <p class="eyebrow">03 · Problem</p>
+        <h2>Defining the problem</h2>
+        <div class="visual card statement">
+            <span class="card-label">Problem statement</span>
+            <p><span class="hl">ER staff don’t have a reliable place to look up where equipment is stored.</span> When nobody on shift knows, they turn to a group chat and wait for an answer. Students may have to wait at the counter or leave without the equipment.</p>
+        </div>
+        <div class="hmw">
+            <p class="hmw-q">How might we help staff quickly find and put away equipment without relying on memory or waiting for someone who might know?</p>
+            <div class="hmw-row">
+                <div><span class="hmw-label">Who I focused on</span><p>New staff working alone on an evening shift.</p></div>
+                <div><span class="hmw-label">What they need</span><p>An accurate location they can look up quickly, without having to memorize the room.</p></div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 04 IDEAS ═══ -->
+<div class="col">
+    <section id="ideas" class="chapter">
+        <p class="eyebrow">04 · Ideas</p>
+        <h2>Narrowing 23 ideas down to five</h2>
+        <p class="body">I grouped 23 ideas into eight categories, then narrowed them down using three constraints: the solution had to work through a website, keep the room’s current arrangement, and require no new hardware.</p>
+        <p class="body">That ruled out ideas like AR wayfinding, RFID tags, smart cabinets, and kit bags. I kept five to explore: an item location field, a clickable floor plan, photos of storage spots, search by description, and a shared inventory.</p>
+        <img class="visual shot" src="er-wiki/affinity-picked.webp" width="1600" height="787" loading="lazy" alt="Affinity map: 23 sticky notes in eight groups, with thumbs up on the five kept ideas: location field per item, clickable floor plan, where it lives photos, search by description, and shared inventory">
+    </section>
+</div>
+
+<!-- ═══ 05 SKETCHES ═══ -->
+<div class="col">
+    <section id="sketches" class="chapter">
+        <p class="eyebrow">05 · Sketches</p>
+        <h2>Sketching and testing the first version</h2>
+        <p class="body">My Crazy 8s sketches explored three screens: search and map, Return, and People. I developed them into grayscale wireframes in Figma, organized under two tabs: Equipment and People.</p>
+        <p class="body">I then connected the screens into a prototype with about 40 sample items for testing.</p>
+        <div class="visual fit-row">
+            <figure style="--ar: 0.75"><img class="shot" src="er-wiki/sketch-search-map.webp" width="900" height="1200" loading="lazy" alt="Crazy 8s sketch: a room map that lists the items on a picked shelf, search with category tags, search results with a detail panel, and an item detail page with location info">
+                <figcaption class="caption"><strong>Search and map</strong></figcaption>
+            </figure>
+            <figure style="--ar: 0.75"><img class="shot" src="er-wiki/sketch-return.webp" width="900" height="1200" loading="lazy" alt="Crazy 8s sketch: a Return tab with a NetID field, the items checked out under that person, and an item detail panel. Scanning an item’s barcode starts the return">
+                <figcaption class="caption"><strong>Return</strong></figcaption>
+            </figure>
+            <figure style="--ar: 1.333"><img class="shot" src="er-wiki/sketch-people.webp" width="1200" height="900" loading="lazy" alt="Crazy 8s sketch: a grid of people and a person detail page listing what they have checked out">
+                <figcaption class="caption"><strong>People</strong></figcaption>
+            </figure>
+        </div>
+        <div class="visual pair">
+            <figure>
+                <img class="shot" src="er-wiki/lofi-find-equipment.webp" width="1544" height="768" loading="lazy" alt="Lofi wireframes for the Equipment tab: find an item from search, a category, or the room map, then open the item detail page">
+                <figcaption class="caption"><strong>Equipment tab</strong></figcaption>
+            </figure>
+            <figure>
+                <img class="shot" src="er-wiki/lofi-people.webp" width="1530" height="804" loading="lazy" alt="Lofi wireframes for the People tab: find a person by search or tag, then their detail page with everything they have checked out">
+                <figcaption class="caption"><strong>People tab</strong></figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 06 TESTING ═══ -->
+<div class="col">
+    <section id="testing" class="chapter">
+        <p class="eyebrow">06 · Testing</p>
+        <h2>I was designing for the current system, not for how it should work</h2>
+        <p class="body">I tested the prototype with two new staff members, asking each to complete five tasks. Finding an item took between 9 and 69 seconds. Checkout and return tasks took as long as 114 seconds.</p>
+        <!-- Testers' faces and names blurred; my own tile stays -->
+        <div class="visual fit-row">
+            <figure style="--ar: 2.108">
+                <img class="shot" src="er-wiki/test-task2.webp" width="1585" height="752" loading="lazy" alt="Remote test session: a tester on the lofi prototype’s room map, with Cab 3 picked and its five items listed, for the task: find out what’s kept in Cab 3">
+                <figcaption class="caption"><strong>Finding an item</strong></figcaption>
+            </figure>
+            <figure style="--ar: 2.937">
+                <img class="shot" src="er-wiki/test-return.webp" width="1674" height="570" loading="lazy" alt="Remote test session: a tester on the lofi Return page for a Zoom H4n recorder, with its accessories to check off and where to put it back">
+                <figcaption class="caption"><strong>Return</strong></figcaption>
+            </figure>
+        </div>
+        <p class="body">I assumed staff would start a checkout by finding the borrower first because that’s how the current system works. Testing showed I had it wrong: both testers started with the item. I revised the user flow so staff could scan an item from any screen. The system then opens Return or Checkout based on the item’s status.</p>
+        <div class="visual card scan" role="img" aria-label="Scan any item, on any screen. If it’s checked out, Return opens. If it’s available, Checkout opens and asks who it is for.">
+            <div class="scan-start">
+                <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><g fill="currentColor"><rect x="0" width="2" height="16"/><rect x="4" width="1" height="16"/><rect x="7" width="3" height="16"/><rect x="12" width="1" height="16"/><rect x="15" width="2" height="16"/><rect x="19" width="3" height="16"/></g></svg>
+                Scan any item, on any screen
+            </div>
+            <div class="scan-branches">
+                <div class="scan-branch"><span class="hmw-label">If it’s checked out</span><p>Return opens</p></div>
+                <div class="scan-branch"><span class="hmw-label">If it’s available</span><p>Checkout opens and asks “Who is it for?”</p></div>
+            </div>
+        </div>
+        <figure class="visual" style="margin-left: 0; margin-right: 0;">
+            <img class="shot" src="er-wiki/lofi-iteration1.webp" width="1570" height="844" loading="lazy" alt="Figma board, Iteration 1: scan from anywhere. Any page is ready to scan. A checked out item goes straight to Return. An available item opens Checkout, which asks who it is for, then confirms once a person is added">
+            <figcaption class="caption"><strong>Iteration 1 in Figma</strong></figcaption>
+        </figure>
+    </section>
+</div>
+
+<!-- ═══ 07 VISUAL ═══ -->
+<div class="col">
+    <section id="visual" class="chapter">
+        <p class="eyebrow">07 · Visual</p>
+        <h2>Building the visual design with real inventory</h2>
+        <p class="body">I used Claude Code to build the prototype with data I had collected while taking inventory as ER staff: about 300 items mapped to their actual shelves, including photos from ITPERCH for about 100 of them.</p>
+        <div class="visual card spec">
+            <div>
+                <span class="card-label">Color</span>
+                <div class="swatches" aria-hidden="true">
+                    <span style="background: var(--accent);"></span><span style="background: var(--erw-ink);"></span><span style="background: var(--erw-muted);"></span><span style="background: var(--erw-parchment);"></span>
+                </div>
+                <p class="hex">ITP blue #1E0C99 is the only action color</p>
+            </div>
+            <div>
+                <span class="card-label">Type</span>
+                <div class="type-pair" aria-hidden="true"><span>Aa</span><span>Aa</span></div>
+                <p class="fonts">Adamina for headings, Supreme for body text</p>
+            </div>
+            <div>
+                <span class="card-label">Shape</span>
+                <div class="pills" aria-hidden="true"><span>Check out</span><span>Open item page</span></div>
+                <p class="fonts">Pills and rounded cards</p>
+            </div>
+            <div>
+                <span class="card-label">Real photos</span>
+                <div class="thumbs">
+                    <img src="er-wiki/photo-canon-r5.webp" width="240" height="240" loading="lazy" alt="Canon EOS R5">
+                    <img src="er-wiki/photo-zoom-h4n.webp" width="240" height="240" loading="lazy" alt="Zoom H4n recorder">
+                    <img src="er-wiki/photo-tripod.webp" width="240" height="240" loading="lazy" alt="Manfrotto 290 tripod">
+                    <img src="er-wiki/photo-projector.webp" width="240" height="240" loading="lazy" alt="Optoma projector">
+                </div>
+            </div>
+        </div>
+        <div class="visual pair">
+            <figure>
+                <img class="shot" src="er-wiki/hifi-return.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Return page: the item, what went out with it to check off, and where to put it back">
+                <figcaption class="caption"><strong>Return</strong></figcaption>
+            </figure>
+            <figure>
+                <img class="shot" src="er-wiki/hifi-checkout.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Checkout page: the scanned Zoom F8 recorder with what goes with it, and a Who is it for field matching Sam Doe as you type">
+                <figcaption class="caption"><strong>Checkout</strong></figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 08 COMPARE ═══ -->
+<div class="col">
+    <section id="compare" class="chapter">
+        <p class="eyebrow">08 · Compare</p>
+        <h2>Adding the information I need at the counter</h2>
+        <!-- Names in the ITPERCH screenshots are blurred -->
+        <div class="visual compare">
+            <div class="compare-big">
+                <figure>
+                    <img class="shot" src="er-wiki/before-item.webp" width="1509" height="812" loading="lazy" alt="ITPERCH item page for the Zoom H4n: photo, barcode, kit condition and a checkout history button, with no location">
+                    <figcaption class="caption"><strong>ITPERCH today</strong>An item’s photo, barcode, notes, and history.</figcaption>
+                </figure>
+                <figure>
+                    <img class="shot" src="er-wiki/hifi-item.webp" width="1600" height="950" loading="lazy" alt="ER Wiki item page for the Zoom H4n: where it lives on Metal shelf 1, a map of the shelf with its level marked, and what goes with it">
+                    <figcaption class="caption"><strong style="color: var(--accent);">ER Wiki</strong>Its storage location, a map showing the shelf, and the accessories that go with it.</figcaption>
+                </figure>
+            </div>
+            <div class="compare-small">
+                <div>
+                    <h3>Equipment home</h3>
+                    <figure><img class="shot" src="er-wiki/before-home.webp" width="1511" height="812" loading="lazy" alt="ITPERCH equipment home: a grid of about 40 equipment types"><span class="tag">ITPERCH</span></figure>
+                    <figure><img class="shot" src="er-wiki/hifi-search.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Find equipment: one search bar and ten tags"><span class="tag tag--after">ER Wiki</span></figure>
+                </div>
+                <div>
+                    <h3>A group of equipment</h3>
+                    <figure><img class="shot" src="er-wiki/before-tag.webp" width="1509" height="812" loading="lazy" alt="ITPERCH audio recorders type page: a grid of models, several with question mark placeholder images"><span class="tag">ITPERCH</span></figure>
+                    <figure><img class="shot" src="er-wiki/hifi-tag.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Audio tag page: subtags on the side, a list of recorders, and an item card with where it lives"><span class="tag tag--after">ER Wiki</span></figure>
+                </div>
+                <div>
+                    <h3>What’s checked out</h3>
+                    <figure><img class="shot" src="er-wiki/before-checkedout.webp" width="1509" height="812" loading="lazy" alt="ITPERCH Reports: a long table of checked out items, borrower names blurred"><span class="tag">ITPERCH</span></figure>
+                    <figure><img class="shot" src="er-wiki/hifi-person.webp" width="1600" height="950" loading="lazy" alt="ER Wiki person page: what Sam Doe has out, due dates, and checkout history"><span class="tag tag--after">ER Wiki</span></figure>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 09 ITERATION ═══ -->
+<div class="col">
+    <section id="iteration" class="chapter">
+        <p class="eyebrow">09 · Iteration</p>
+        <h2>Making room for search</h2>
+        <p class="body">I tested the high-fidelity prototype with a staff member who works at the counter every week. He found the equipment home page too crowded, so I gave search its own space at the top. The map sits one scroll below it.</p>
+        <div class="visual pair pair--screen">
+            <figure>
+                <img class="shot" src="er-wiki/iter2-before.webp" width="1600" height="950" loading="lazy" alt="Before: the equipment home with the search bar, ten tags and a grid room map all on one screen">
+                <figcaption class="caption"><strong>Before</strong></figcaption>
+            </figure>
+            <figure>
+                <video class="shot" data-src="er-wiki/search-to-map.mp4" poster="er-wiki/search-to-map-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="After: Find equipment opens on search alone. One scroll down swaps the whole view to the room map, drawn as a top view of the real room"></video>
+                <figcaption class="caption"><strong style="color: var(--accent);">After</strong></figcaption>
+            </figure>
+        </div>
+        <p class="body">I also redrew the map using my sketch of the actual room. Based on his feedback, I added checkout history showing who checked an item out and when.</p>
+        <div class="visual fit-row">
+            <figure style="--ar: 0.75">
+                <img class="shot" src="er-wiki/sketch-floor-plan.webp" width="900" height="1200" loading="lazy" alt="My hand drawn floor plan of the ER from above: front table at the top, spinning tray in the corner, cable wall and bins, cabinet rows, drawers and the door along the right wall">
+                <figcaption class="caption"><strong>My floor plan sketch</strong></figcaption>
+            </figure>
+            <figure style="--ar: 1.684">
+                <img class="shot" src="er-wiki/hifi-spot.webp" width="1600" height="950" loading="lazy" alt="The room map drawn from the sketch, with Cabinet A picked and its items listed by level">
+                <figcaption class="caption"><strong>The room map</strong></figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 10 DEMO ═══ -->
+<div class="col">
+    <section id="demo" class="chapter">
+        <p class="eyebrow">10 · Demo</p>
+        <h2>Find an item and put it back</h2>
+        <video class="visual demo-video" data-src="er-wiki/demo.mp4" poster="er-wiki/demo-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="Screen recording of the ER Wiki prototype: searching canon r5, where every result shows where it lives, picking the Canon EOS R5, starting its return, checking off the battery and charger, and confirming. ER Wiki says to put it back in the Camera cabinet, Camera bodies"></video>
+        <div class="demo-links">
+            <a class="btn btn--primary" href="/er-wiki/prototype.html" target="_blank" rel="noopener">Open the live prototype &nearr;</a>
+        </div>
+    </section>
+</div>
+
+<!-- ═══ 11 SCALE ═══ -->
+<div class="col">
+    <section id="scale" class="chapter">
+        <p class="eyebrow">11 · Scale</p>
+        <h2>Could it work beyond ITP?</h2>
+        <p class="body">I designed ER Wiki for ITP’s equipment room, which serves about 200 students and has nine staff members. But comparing ITP with Clive Davis at NYU and SVA, where I used to work, showed the same gap: all three track locations at the room or aisle level, but none records the specific shelf or storage spot.</p>
+        <div class="visual card reach">
+            <table>
+                <caption class="sr-only">How precisely each equipment room records where an item is</caption>
+                <thead><tr><td></td><th scope="col">Room</th><th scope="col">Aisle</th><th scope="col">Shelf</th><th scope="col">Exact spot</th></tr></thead>
+                <tbody>
+                    <tr><th scope="row">SVA</th><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Not tracked</span></td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Not tracked</span></td></tr>
+                    <tr><th scope="row">ITP</th><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Not tracked</span></td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Not tracked</span></td></tr>
+                    <tr><th scope="row">Clive Davis, NYU</th><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Not tracked</span></td><td class="no"><span aria-hidden="true">–</span><span class="sr-only">Not tracked</span></td></tr>
+                    <tr class="erw"><th scope="row">ER Wiki</th><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <p class="body">Even Clive Davis, NYU’s music technology department, labels every aisle and does a team inventory every weekend, but still relies on staff knowing exactly where things belong. The staff member who works there said ER Wiki could help with their workflow, too.</p>
+        <p class="body">Each equipment room could use the same website with its own inventory, floor plan, and storage locations. Clive Davis could be the next place to test it.</p>
+    </section>
+</div>
+
+<!-- ═══ 12 LEARNINGS ═══ -->
+<div class="col">
+    <section id="learned" class="chapter part">
+        <p class="eyebrow">12 · Learnings</p>
+        <h2>What I learned</h2>
+        <div class="visual card-row">
+            <div class="card learn">
+                <h3>What feels familiar to me isn’t always intuitive to others.</h3>
+                <p>I built the first checkout flow around a process I already knew. Watching new staff use it showed me where that familiarity had shaped my decisions. Their instinct to start with the item helped me simplify the flow.</p>
+            </div>
+            <div class="card learn">
+                <h3>Look beyond the room I know.</h3>
+                <p>I started with a problem from my own shifts. Comparing equipment rooms helped me see which parts were specific to ITP and which were shared.</p>
+            </div>
+        </div>
+        <div class="after-list">
+            <div><p class="meta-label">With more time</p><p>I’d refine the visual design and test ER Wiki alongside ITPERCH with ER staff, comparing how long the same checkout tasks take.</p></div>
+            <div><p class="meta-label">Next step</p><p>I’m planning to meet with the ITP website team to discuss incorporating this work into the ER website.</p></div>
+        </div>
+        <a class="next-project" href="/beebud.html">
+            <span class="eyebrow" style="display:block;">Next project</span>
+            <span>BeeBud &rarr;</span>
+        </a>
+    </section>
+</div>
+
+</main>
+
+<script src="cutout.js"></script>
+<script>
+    // Side nav: highlight the chapter currently being read
+    (function () {
+        var links = [].slice.call(document.querySelectorAll('.sidebar-link'));
+        var sections = links.map(function (l) { return document.querySelector(l.getAttribute('href')); });
+        function update() {
+            var line = window.innerHeight * 0.35, current = 0;
+            sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) current = i; });
+            if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = sections.length - 1;
+            links.forEach(function (l, i) { l.classList.toggle('active', i === current); });
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+    })();
+    // The demo loop loads when it comes near, plays while visible, pauses when not.
+    // With reduced motion, nothing autoplays and every video gets controls.
+    (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var lazy = [].slice.call(document.querySelectorAll('video[data-src]'));
+        if (reduce) { lazy.forEach(function (v) { v.src = v.dataset.src; v.controls = true; }); return; }
+        if (!('IntersectionObserver' in window)) { lazy.forEach(function (v) { v.src = v.dataset.src; v.autoplay = true; }); return; }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                var v = e.target;
+                if (e.isIntersecting) {
+                    if (!v.src) v.src = v.dataset.src;
+                    var p = v.play(); if (p && p.catch) p.catch(function () {});
+                } else if (v.src) {
+                    v.pause();
+                }
+            });
+        }, { rootMargin: '200px 0px' });
+        lazy.forEach(function (v) { io.observe(v); });
+    })();
+    // Reduced motion: stop the hero loop and hand the viewer the controls
+    (function () {
+        var v = document.querySelector('.hero-video');
+        if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            v.removeAttribute('autoplay'); v.pause(); v.controls = true;
+        }
+    })();
+</script>
+</body>
+</html>
