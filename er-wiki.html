@@ -168,15 +168,17 @@
         .hmw-label { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--on-accent-muted); margin-bottom: 6px; }
         .hmw-row p { font-size: var(--t-body); line-height: 1.5; }
 
-        /* 06 · Scan from anywhere: one scan, two outcomes */
-        .scan { padding: 28px 24px; }
-        .scan-start { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border-radius: 999px; background: var(--accent); color: var(--surface); font-size: var(--t-body); font-weight: 600; }
-        .scan-start svg { flex-shrink: 0; }
-        .scan-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; position: relative; }
-        .scan-branch { position: relative; padding: 18px 20px; border-radius: 14px; background: var(--canvas); }
-        .scan-branch::before { content: ''; position: absolute; left: 50%; top: -28px; width: 2px; height: 28px; background: var(--accent); }
-        .scan-branch .hmw-label { color: var(--text-muted); }
-        .scan-branch p { font-size: var(--t-body); font-weight: 600; line-height: 1.4; color: var(--text); }
+        /* 06 · Scan from anywhere: one scan, two outcomes, as a looping demo.
+           The video carries its own ITP-blue ground, so it gets the shot radius and no border */
+        .scan-demo { margin-left: 0; margin-right: 0; }
+        .scan-video { display: block; width: 100%; height: auto; border-radius: var(--radius-shot); }
+        .scan-video--wide { aspect-ratio: 1840 / 1200; }
+        .scan-video--phone { display: none; aspect-ratio: 1 / 1; }
+        /* Below this width the wide demo's type reads too small: switch to the phone's square crop */
+        @media (max-width: 632px) {
+            .scan-video--wide { display: none; }
+            .scan-video--phone { display: block; }
+        }
 
         /* 07 · Specimen: the four choices behind the hifi */
         .spec { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding: 0; }
@@ -263,8 +265,6 @@
             .hmw { padding: 28px 20px 24px; }
             .hmw-row { grid-template-columns: 1fr; gap: var(--s-body); }
             .statement p { font-size: var(--t-body); }
-            .scan-branches { gap: 8px; }
-            .scan-branch { padding: 14px; }
             .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .spec > div { padding: 16px; }
             .type-pair { font-size: 36px; gap: 14px; }
@@ -529,16 +529,12 @@
             </figure>
         </div>
         <p class="body">I assumed staff would start a checkout by finding the borrower first because that’s how the current system works. Testing showed I had it wrong: both testers started with the item. I revised the user flow so staff could scan an item from any screen. The system then opens Return or Checkout based on the item’s status.</p>
-        <div class="visual card scan" role="img" aria-label="Scan any item, on any screen. If it’s checked out, Return opens. If it’s available, Checkout opens and asks who it is for.">
-            <div class="scan-start">
-                <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><g fill="currentColor"><rect x="0" width="2" height="16"/><rect x="4" width="1" height="16"/><rect x="7" width="3" height="16"/><rect x="12" width="1" height="16"/><rect x="15" width="2" height="16"/><rect x="19" width="3" height="16"/></g></svg>
-                Scan any item, on any screen
-            </div>
-            <div class="scan-branches">
-                <div class="scan-branch"><span class="hmw-label">If it’s checked out</span><p>Return opens</p></div>
-                <div class="scan-branch"><span class="hmw-label">If it’s available</span><p>Checkout opens and asks “Who is it for?”</p></div>
-            </div>
-        </div>
+        <!-- Stageshow demo (_source/er-wiki/scan-demo): the wide loop on desktop, a square crop on phones -->
+        <figure class="visual scan-demo">
+            <video class="scan-video scan-video--wide" src="er-wiki/scan-demo.mp4" poster="er-wiki/scan-demo-poster.jpg" width="1840" height="1200" autoplay muted loop playsinline preload="auto" aria-label="Animated demo of ER Wiki: on the Return page for a Sony A7 III, the camera strap is ticked and the return confirmed. A scan opens Checkout for an available Zoom F8 recorder, where Sam Doe is picked and the checkout confirmed. The next scan opens Return again."></video>
+            <video class="scan-video scan-video--phone" src="er-wiki/scan-demo-phone.mp4" poster="er-wiki/scan-demo-phone-poster.jpg" width="716" height="716" autoplay muted loop playsinline preload="auto" aria-label="Animated demo of ER Wiki: the return of a Sony A7 III is confirmed, then a scan opens Checkout for an available Zoom F8 recorder, where Sam Doe is picked and the checkout confirmed."></video>
+            <figcaption class="caption"><strong>Scan any item, on any screen</strong>If it’s checked out, Return opens. If it’s available, Checkout opens and asks who it’s for.</figcaption>
+        </figure>
         <figure class="visual" style="margin-left: 0; margin-right: 0;">
             <img class="shot" src="er-wiki/lofi-iteration1.webp" width="1570" height="844" loading="lazy" alt="Figma board, Iteration 1: scan from anywhere. Any page is ready to scan. A checked out item goes straight to Return. An available item opens Checkout, which asks who it is for, then confirms once a person is added">
             <figcaption class="caption"><strong>Iteration 1 in Figma</strong></figcaption>
