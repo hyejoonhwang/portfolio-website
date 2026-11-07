@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeeBud — Summer</title>
-    <meta name="description" content="An event app that finds events where you'll feel comfortable, based on how you like to show up.">
+    <meta name="description" content="Find events that fit what you’re in the mood for.">
     <meta property="og:title" content="BeeBud">
     <meta property="og:image" content="/beebud/hero-poster.webp">
     <!-- Built against case-study-review-guide.md, on the same template as controlmylaptop.html.
@@ -120,7 +120,8 @@
 
         /* ═══ SUMMARY + META ═══ */
         .summary { font-size: 20px; line-height: 1.55; color: var(--text); max-width: 760px; }
-        .meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: var(--s-block); }
+        .summary + .summary { margin-top: var(--s-body); }
+        .meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: var(--s-block); }
         .meta > div { display: flex; flex-direction: column; gap: 10px; background: var(--panel); border-radius: 18px; padding: 14px 16px 16px; }
         .meta-icon { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; font-size: 18px; background: #fff; color: var(--bb-ink); }
         .meta-label { font: var(--bb-w-label) 12px/1 'Roboto', sans-serif; color: var(--bb-muted); margin-bottom: 4px; }
@@ -393,7 +394,7 @@
     <a href="#buddies" class="sidebar-link">Beebuddies</a>
     <a href="#structure" class="sidebar-link">Structure</a>
     <a href="#testing" class="sidebar-link">Testing</a>
-    <a href="#learned" class="sidebar-link">Learnings</a>
+    <a href="#learned" class="sidebar-link">Reflection</a>
 </aside>
 
 <main class="main-content">
@@ -414,7 +415,7 @@
     <header class="hero" id="hero">
         <div>
             <h1>BeeBud</h1>
-            <p class="hero-sub">An event app that finds events where you'll feel comfortable, based on how you like to show up.</p>
+            <p class="hero-sub">Find events that fit what you’re in the mood for.</p>
         </div>
         <div class="hero-links">
             <a class="btn btn--primary" href="https://beebud.vercel.app" target="_blank" rel="noopener">Try the prototype &nearr;</a>
@@ -426,13 +427,14 @@
 <div class="col">
     <section style="padding-top: var(--s-chapter);" aria-labelledby="summary-title">
         <p class="eyebrow">Overview</p>
-        <h2 id="summary-title">Summary</h2>
-        <p class="summary">BeeBud is for people who often go to events alone. Every event gets a Fit Score based on how you like to show up, such as group size and the vibe of the room. I designed it solo: the information architecture, the UI and a clickable coded prototype I tested with five people on Maze.</p>
+        <h2 id="summary-title">How do you know if you’ll enjoy an event before you get there?</h2>
+        <p class="summary">Two events can both be about jazz. One is a small listening session. The other is a packed show. If all you know is the genre, it’s hard to tell which one you’d rather go to.</p>
+        <p class="summary">I designed BeeBud to help people make that choice. Each event gets a Fit Score based on your interests and preferences like group size, how lively the room is, and whether there’s a set program. If you’re in the mood for something different tonight, you can change what the feed uses to rank events.</p>
+        <p class="summary">I designed and built the prototype and tested it with five people on Maze.</p>
         <div class="meta">
-            <div><span class="meta-icon ms" aria-hidden="true">person_edit</span><span><p class="meta-label">role</p><p class="meta-value">End-to-end, from research to testing</p></span></div>
-            <div><span class="meta-icon ms" aria-hidden="true">schedule</span><span><p class="meta-label">timeline</p><p class="meta-value">3 months, summer 2026</p></span></div>
-            <div><span class="meta-icon ms" aria-hidden="true">person</span><span><p class="meta-label">team</p><p class="meta-value">Sole designer</p></span></div>
-            <div><span class="meta-icon ms" aria-hidden="true">construction</span><span><p class="meta-label">tools</p><p class="meta-value">Figma, FigJam, Maze, Claude Code, HTML/CSS/JS</p></span></div>
+            <div><span class="meta-icon ms" aria-hidden="true">person_edit</span><span><p class="meta-label">role</p><p class="meta-value">Solo designer, from research through prototyping and testing</p></span></div>
+            <div><span class="meta-icon ms" aria-hidden="true">schedule</span><span><p class="meta-label">timeline</p><p class="meta-value">Three months, summer 2026</p></span></div>
+            <div><span class="meta-icon ms" aria-hidden="true">construction</span><span><p class="meta-label">tools</p><p class="meta-value">Figma, FigJam, Maze, Claude Code, HTML, CSS, and JavaScript</p></span></div>
         </div>
 
         <!-- Problem + Solution, one sentence each -->
@@ -458,8 +460,10 @@
 <div class="col">
     <section id="research" class="chapter part">
         <p class="eyebrow">01 · Research</p>
-        <h2>Every event app I studied personalizes on what you're into</h2>
-        <p class="body">I compared five apps: Meetup, Luma, Partiful, Fever and DayOfUs. Four of them rank on topics, categories or who your friends are. Meetup and Luma collect feedback after events, but there's no public sign it changes what you see next. Only DayOfUs matches on personality, and it plans every dinner itself. <strong>Nobody ranks events that independent hosts post by how people want to show up.</strong></p>
+        <h2>Event listings tell you what’s happening. What will it feel like to be there?</h2>
+        <p class="body">I compared Meetup, Luma, Partiful, Fever, and DayOfUs. The first four gave me ways to find events by things like topic, city, or what people I knew were attending. DayOfUs came closer to what I was looking for. It used a personality assessment to bring people together at dinners it organized.</p>
+        <p class="body">Meetup and Luma also collected feedback after events. From what I could see, it was unclear whether that feedback changed what someone saw next.</p>
+        <p class="body">That left me with a design question. Could I rank events from different hosts by what they’re like to attend, then use feedback from people who went to improve those rankings?</p>
         <div class="visual audit" role="table" aria-label="Competitive audit of five event apps and BeeBud">
             <div class="audit-row audit-head" role="row" aria-hidden="true"><span>app</span><span>personalizes on</span><span>knows how you want to show up</span><span>feedback changes what you see</span></div>
             <div class="audit-body">
@@ -481,9 +485,9 @@
 <!-- ═══ 02 MODEL ═══ -->
 <div class="col">
     <section id="model" class="chapter">
-        <p class="eyebrow">02 · Model</p>
-        <h2>To rank on behavior, people and events both needed a behavioral profile</h2>
-        <p class="body">I brainstormed what makes two events with the same topic feel completely different: how big the group is, how loud the room gets, how deep the talk goes, whether there's a set program. That became ten dimensions.</p>
+        <p class="eyebrow">02 · Matching model</p>
+        <h2>What goes into a Fit Score?</h2>
+        <p class="body">I started by listing what makes two events on the same topic feel different. How big is the group? How loud is the room? Is there a set program? Are people there to talk or to sit back and watch? I turned those questions into ten preferences.</p>
         <ul class="visual dims" aria-label="The ten behavioral dimensions, each a scale between two ends">
                 <li class="dim"><b>social energy</b><span class="dim-bar"><i></i><i></i><i></i><i></i><i></i></span><span class="dim-ends"><span>keep it low key</span><span>down to talk</span></span></li>
                 <li class="dim"><b>social recovery</b><span class="dim-bar"><i></i><i></i><i></i><i></i><i></i></span><span class="dim-ends"><span>need space between plans</span><span>back to back is fine</span></span></li>
@@ -496,22 +500,24 @@
                 <li class="dim"><b>novelty</b><span class="dim-bar"><i></i><i></i><i></i><i></i><i></i></span><span class="dim-ends"><span>tried and true</span><span>new activities</span></span></li>
                 <li class="dim"><b>conversation</b><span class="dim-bar"><i></i><i></i><i></i><i></i><i></i></span><span class="dim-ends"><span>deep conversations</span><span>easy small talk</span></span></li>
         </ul>
-        <p class="body" style="margin-top: var(--s-block);">People can describe themselves. Nobody fills in an event's profile by hand, so it starts as an AI guess from the title, description, category and venue, and attendee feedback corrects it over time. <strong>The hard part was trusting a brand-new event.</strong> With no feedback yet, its Fit Score leans on interest tags. As ratings come in, behavior takes over.</p>
+        <p class="body" style="margin-top: var(--s-block);">People can tell BeeBud what they like. For events, I designed the model to use AI to make an initial estimate from the title, description, category, and venue. A new event’s score leans more on shared interests because there’s less evidence about what it’s like to attend. As people rate the event, those details carry more weight.</p>
         <div class="visual trust" aria-label="How a Fit Score is weighted: a new event leans on interest tags, an event with attendee feedback leans on behavior">
             <div class="trust-row"><span>New event<small>AI guess only</small></span><span class="trust-bar"><span class="tb-int" style="flex: 3">interest tags</span><span class="tb-beh" style="flex: 1">behavior</span></span></div>
             <div class="trust-row"><span>After attendees rate it<small>feedback piles up</small></span><span class="trust-bar"><span class="tb-int" style="flex: 1">interests</span><span class="tb-beh" style="flex: 3">behavior</span></span></div>
             <p class="trust-note"><span class="ms" aria-hidden="true">info</span><span>A repeat host's new event starts from the average of their past events. A first-time host has nothing to start from, a limit I left open.</span></p>
         </div>
-        <p class="body" style="margin-top: var(--s-block);">I first split the dimensions into a fixed core and a mood layer for the day. While mapping Home, I dropped the split: every dimension has one default in Profile, and any of them can be switched off for tonight.</p>
+        <p class="body" style="margin-top: var(--s-block);">For repeat hosts, I used their past events as another starting point. First-time hosts still have no history to draw from.</p>
     </section>
 </div>
 
 <!-- ═══ 03 MATCHING ═══ -->
 <div class="col">
     <section id="matching" class="chapter">
-        <p class="eyebrow">03 · Design: Home feed</p>
-        <h2>Not feeling it tonight? Tap a tag off and every score updates</h2>
-        <p class="body">Your onboarding answers show up as tags at the top of Home. If tonight feels different, tap a tag off. My first idea was for the tap to only show more events. But those events kept their low scores for the preference you'd just turned off, so they still sank to the bottom. Now <strong>the tap does both: it shows more events and recalculates every Fit Score without that preference.</strong></p>
+        <p class="eyebrow">03 · Home feed</p>
+        <h2>What if I want something different tonight?</h2>
+        <p class="body">Your preferences appear as tags at the top of Home. If you usually like small groups but feel like going to a bigger event tonight, you can turn off the Small groups tag.</p>
+        <p class="body">In my first version, turning off a tag made more events appear, but those events still scored poorly against the preference you’d just removed. They were technically in the feed, just buried near the bottom.</p>
+        <p class="body">I changed the interaction so turning off a tag also recalculates every Fit Score. The feed reorders as soon as you tap.</p>
         <div class="flow-wrap">
             <ul class="flow" aria-label="Your profile, which holds how you show up, and the event's profile, which is inferred and refined by feedback, combine into a Fit Score that ranks the feed">
                 <li class="flow-step plus"><span class="fi fi--you ms" aria-hidden="true">person</span><span>Your profile<small>how you show up, tonight's tags</small></span></li>
@@ -536,9 +542,10 @@
 <!-- ═══ 04 BUDDIES ═══ -->
 <div class="col">
     <section id="buddies" class="chapter">
-        <p class="eyebrow">04 · Design: Beebuddies</p>
-        <h2>BeeBud finds people who enjoyed the same event. You make the first move</h2>
-        <p class="body">After an event, BeeBud asks how it went. The questions are about the event, never the people. When two people who went answer the same way, both get a suggestion to connect. My first idea was a match you just accept. But enjoying the same event doesn't mean someone wants to meet you, so <strong>a suggestion only has one button: Send request.</strong> If they accept, you become Beebuddies and can see each other's social links.</p>
+        <p class="eyebrow">04 · Beebuddies</p>
+        <h2>Enjoying the same event can give people a reason to connect</h2>
+        <p class="body">After an event, BeeBud asks attendees what they thought of it. When two people give similar positive feedback, each gets a suggestion to connect.</p>
+        <p class="body">My first design treated that suggestion like a match. I changed it to a request because liking the same event doesn’t tell me whether either person wants to meet. One person has to tap Send request, and the other can choose whether to accept. Once they’re Beebuddies, they can see each other’s social links.</p>
         <div class="flow-wrap">
             <ul class="flow" aria-label="Post-event feedback from two attendees; if it aligns, both get a suggestion; one sends a request; the other accepts and they become Beebuddies">
                 <li class="flow-step"><span class="fi fi--event ms" aria-hidden="true">rate_review</span><span>Post-event feedback<small>two people, same event</small></span></li>
@@ -564,9 +571,10 @@
 <!-- ═══ 03 STRUCTURE: zoom out ═══ -->
 <div class="col">
     <section id="structure" class="chapter">
-        <p class="eyebrow">05 · Structure</p>
-        <h2>Four tabs</h2>
-        <p class="body">I mapped the app in four sessions, one per tab. A notifications tab would only repeat what lives elsewhere, so <strong>a bell and badge dots send you to where the action is.</strong></p>
+        <p class="eyebrow">05 · App structure</p>
+        <h2>Four tabs, with notifications where you need them</h2>
+        <p class="body">Home is for discovering events. Your Events holds plans, invites, past events, and hosting. Beebuddy holds suggestions, requests, and connections. Profile is where you manage your preferences, interests, and social links.</p>
+        <p class="body">I considered a separate notifications tab. Most alerts already had a clear destination, like an invite in Your Events or a request in Beebuddy. I used a bell and badge dots to take people straight there.</p>
         <div class="visual sm" role="img" aria-label="Sitemap: BeeBud's nav bar with four tabs. Home holds tags for tonight, the feed ranked by fit, and event detail. Your Events holds going and invited, past events with feedback, and hosting. Beebuddy holds requests, suggestions and your Beebuddies. Profile holds how you show up, interests, and social links that only Beebuddies see. A bell in the corner links to Your Events and Beebuddy, which carry badge dots.">
             <div class="sm-top"><span><b>Bell</b> &rarr; links to the dotted tabs, no content of its own</span><span class="sm-bell dot"><span class="ms">notifications</span></span></div>
             <div class="sm-nav" aria-hidden="true">
@@ -609,16 +617,16 @@
 <!-- ═══ 04 TESTING: before / after ═══ -->
 <div class="col">
     <section id="testing" class="chapter">
-        <p class="eyebrow">06 · Testing</p>
-        <h2>Testers understood the Fit Score, but half of them didn't notice it</h2>
-        <p class="body">I tested the coded prototype with five people on Maze. All four who answered said the number meant how well an event matched them, but two hadn't seen it at first. Onboarding scored 3 out of 5 from tedious to worth it, and one person couldn't find a tag for a loud night out. What I changed:</p>
+        <p class="eyebrow">06 · Testing and iteration</p>
+        <h2>People understood the Fit Score once they saw it</h2>
+        <p class="body">I tested the coded prototype with five people on Maze. All four who answered the Fit Score question understood that it showed how well an event matched them. Two of those four had missed it at first.</p>
         <div class="visual changes">
             <div class="changes-head" aria-hidden="true"><span class="ps-tag t-heard"><span class="ms">forum</span>what I heard</span><span class="ps-tag t-changed"><span class="ms">check_circle</span>what I changed</span></div>
-            <div class="change"><span class="num">1</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>removing a bit of the sliders… it did feel a little tedious at times</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p>Onboarding asks five sliders now instead of ten. The other five wait in Profile.</p></div></div>
-            <div class="change"><span class="num">2</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>i was looking for a genre for loud or party at the top of the screen but didn't seem to find it</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p>I renamed the labels in everyday words. "Stimulation level" is now "vibe of the room".</p></div></div>
-            <div class="change"><span class="num">3</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>oh! i didn't see that! maybe it can be more obvious?</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p>I made the Fit Score bigger on every card and labeled it "% you".</p></div></div>
-            <div class="change"><span class="num">4</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>clicking to the beebuddies part was kind of confusing</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p>Suggestions got their own section, so they don't look like requests waiting on you.</p></div></div>
-            <div class="change"><span class="num">5</span><div class="heard heard--me"><span class="who"><span class="ms" style="font-size:16px">edit</span></span><q>My own call: the dark palette felt too poppy and contrasty.</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p>I switched the app to light mode.</p></div></div>
+            <div class="change"><span class="num">1</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>oh! i didn't see that! maybe it can be more obvious?</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p><strong>Make the score easier to spot.</strong> I made it bigger on the event card and labeled it % you.</p></div></div>
+            <div class="change"><span class="num">2</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>removing a bit of the sliders… it did feel a little tedious at times</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p><strong>Ask fewer questions up front.</strong> I cut onboarding from ten sliders to five and moved the rest into Profile.</p></div></div>
+            <div class="change"><span class="num">3</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>i was looking for a genre for loud or party at the top of the screen but didn't seem to find it</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p><strong>Use words people would look for.</strong> One tester wanted to find a louder event but couldn’t find the right tag. I renamed labels like Stimulation level to Vibe of the room.</p></div></div>
+            <div class="change"><span class="num">4</span><div class="heard"><span class="who"><span class="ms" style="font-size:16px">person</span></span><q>clicking to the beebuddies part was kind of confusing</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p><strong>Give suggestions their own space.</strong> I separated Beebuddy suggestions from incoming requests so it was clear when someone had actually reached out.</p></div></div>
+            <div class="change"><span class="num">5</span><div class="heard heard--me"><span class="who"><span class="ms" style="font-size:16px">edit</span></span><q>My own call: the dark palette felt too poppy and contrasty.</q></div><span class="to ms" aria-hidden="true">arrow_forward</span><div class="changed"><span class="ms" aria-hidden="true">check_circle</span><p>I also switched from a dark palette to a light one. The bright colors in the earlier version competed with each other, especially on the feed.</p></div></div>
         </div>
         <div class="visual phones phones--4">
             <figure>
@@ -644,9 +652,10 @@
 <!-- ═══ OUTCOME + END ═══ -->
 <div class="col">
     <section id="learned" class="chapter part">
-        <p class="eyebrow">Where it stands</p>
-        <h2>BeeBud is a clickable prototype, and its privacy rules still need a screen</h2>
-        <p class="body">The prototype is live at <a href="https://beebud.vercel.app" target="_blank" rel="noopener">beebud.vercel.app</a>. Asked if they'd use it instead of how they find events now, testers averaged 4 out of 5. But only one of four knew that people from the same event can see your profile, and nothing on screen teaches that yet.</p>
+        <p class="eyebrow">07 · Reflection</p>
+        <h2>People need to know who can see their profile</h2>
+        <p class="body">Only one of four testers understood that other attendees at the same event could see their profile. I’d make that visible in the app and test whether people understand the difference between what another attendee can see and what becomes visible when they accept a Beebuddy request.</p>
+        <p class="body">I had planned to recruit 25 to 30 people and ended up with five. Their sessions helped me find specific things to fix. In the next round, I’d recruit closer to that original target and check whether more people notice the Fit Score and understand who can see their profile.</p>
         <div class="visual card-row">
             <div class="ps-card ps-card--learned">
                 <span class="ps-tag"><span class="ms">lightbulb</span>what I learned</span>
