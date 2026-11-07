@@ -286,6 +286,18 @@
         /* BeeBud card: the case-study hero (lilac stage, phone and floating components), full bleed */
         .card-beebud { background: #E6E2FF; }
 
+        /* ER Wiki card: the room map loop as a window on ITP blue, cropped by the card's bottom edge like the Talkspace phone */
+        .card-erwiki { background: #1E0C99; container-type: inline-size; }
+        .card-erwiki video {
+            inset: auto;
+            left: 7%;
+            top: 15%;
+            width: 86%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border-radius: clamp(6px, 1.4cqw, 12px) clamp(6px, 1.4cqw, 12px) 0 0;
+        }
+
         /* Talkspace card: hero walkthrough phone on Talkspace green, top of the phone showing like the case-study hero */
         .card-talkspace { background: #E9F5F3; container-type: inline-size; } /* green block on the provider card */
         .card-talkspace picture { position: absolute; inset: 0; pointer-events: none; }
@@ -406,6 +418,13 @@
                 </picture>
                 <div class="project-info">
                     <span class="project-title">Talkspace — Provider Reviews</span>
+                </div>
+            </a>
+            <a href="/er-wiki.html" class="card project card-erwiki">
+                <ul class="project-tags" aria-label="Tags"><li>research</li><li>prototype</li><li>solo</li></ul>
+                <video src="er-wiki/card.mp4" poster="er-wiki/card-poster.webp" autoplay muted loop playsinline></video>
+                <div class="project-info">
+                    <span class="project-title">ER Wiki</span>
                 </div>
             </a>
             <a href="/beebud.html" class="card project card-beebud">
