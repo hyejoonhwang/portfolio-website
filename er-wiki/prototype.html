@@ -30,6 +30,10 @@
   --text:'Supreme',system-ui,-apple-system,'Segoe UI',sans-serif;
   --ease:cubic-bezier(.28,.11,.32,1);
   --ease-out:cubic-bezier(0,0,.2,1);
+  --dur-reveal:.6s;
+  --ease-reveal:cubic-bezier(.22,.61,.22,1);
+  --rise:12px;
+  --stagger:.08s;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
@@ -445,6 +449,13 @@ body{zoom:var(--zoom);height:calc(100dvh / var(--zoom));display:flex;flex-direct
 .gnav{flex:none;position:relative;top:0}
 main{flex:1;min-height:0;display:flex;flex-direction:column}
 main>div:not([hidden]){flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+/* a new screen's sections fade in and rise into place, one after another.
+   Only while showView() has the screen marked .enter, so redrawing a screen (ticking a checkbox) doesn't replay it */
+main>div.enter>section,main>div.enter>div>section{animation:section-in var(--dur-reveal) var(--ease-reveal) backwards}
+main>div.enter>section:nth-child(2),main>div.enter>div>section:nth-child(2){animation-delay:var(--stagger)}
+main>div.enter>section:nth-child(3),main>div.enter>div>section:nth-child(3){animation-delay:calc(var(--stagger) * 2)}
+main>div.enter>div>section:nth-child(n+4){animation-delay:calc(var(--stagger) * 3)}
+@keyframes section-in{from{opacity:0;transform:translateY(var(--rise))}}
 #person>div{display:contents}
 main>div>section:first-child,#person>div>section:first-child{flex:none}
 .phead{padding-block:22px 26px}
@@ -1125,10 +1136,19 @@ let R=null; // {name, who, due, rows:[{name,where,on}], notes, draft}
 const cabHTML=(zone,spot,slot)=>`<div class="cab" role="img" aria-label="${esc(zone)} map with ${esc(spot)} highlighted">${(ZONES[zone]||[[spot,1]]).map(([r,n])=>`<div class="crow ${r===spot?'here':''}"><span class="cl">${esc(r)}</span><span class="slots">${Array.from({length:n},(_,k)=>`<span class="slot ${r===spot&&k===slot?'on':''}"></span>`).join('')}</span></div>`).join('')}</div>`;
 const ordinal=n=>n+(['th','st','nd','rd'][(n%100-20)%10]||['th','st','nd','rd'][n%100]||'th');
 function showView(id){
+  const view=$('#'+id),arriving=view.hidden;
   ['home','person','ret','co','eq','eqres','cat','item'].forEach(v=>{$('#'+v).hidden=v!==id;});
+  if(arriving)enter(view);
   const tab=['eq','eqres','cat','item'].includes(id)?'eq':['home','person'].includes(id)?'people':null;
   if(tab)document.querySelectorAll('.tab').forEach(t=>{if(t.dataset.tab===tab)t.setAttribute('aria-current','page');else t.removeAttribute('aria-current');});
   window.scrollTo({top:0});
+}
+// plays the section reveal once on a screen that just opened, then takes .enter off so later redraws stay still
+function enter(view){
+  const n=view.enterN=(view.enterN||0)+1;
+  view.classList.remove('enter');void view.offsetWidth;view.classList.add('enter');
+  const reveals=view.getAnimations({subtree:true}).filter(a=>a.animationName==='section-in');
+  Promise.allSettled(reveals.map(a=>a.finished)).then(()=>{if(view.enterN===n)view.classList.remove('enter');});
 }
 function openReturn(name){
   const o=OUT.find(x=>x[1]===name);if(!o)return;
