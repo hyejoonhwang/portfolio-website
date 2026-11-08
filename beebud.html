@@ -239,8 +239,6 @@
         .trust-bar { display: flex; height: 38px; border-radius: 12px; overflow: hidden; font: var(--bb-w-label) 12px/1 'Roboto', sans-serif; }
         .trust-bar span { display: flex; align-items: center; padding: 0 12px; white-space: nowrap; }
         .tb-int { background: var(--bb-neutral-2); } .tb-beh { background: var(--gum); justify-content: flex-end; }
-        .trust-note { margin-top: 14px; display: flex; gap: 8px; align-items: flex-start; font: 500 13px/1.45 'Roboto', sans-serif; color: var(--bb-muted); }
-        .trust-note .ms { font-size: 18px; color: var(--bb-ink); }
 
         /* ═══ SITEMAP, drawn in BeeBud's own system (Gummy Pop tokens) ═══
            ink = nav and main buttons, cobalt = events, bubblegum = you and your people,
@@ -504,7 +502,6 @@
         <div class="visual trust" aria-label="How a Fit Score is weighted: a new event leans on interest tags, an event with attendee feedback leans on behavior">
             <div class="trust-row"><span>New event<small>AI guess only</small></span><span class="trust-bar"><span class="tb-int" style="flex: 3">interest tags</span><span class="tb-beh" style="flex: 1">behavior</span></span></div>
             <div class="trust-row"><span>After attendees rate it<small>feedback piles up</small></span><span class="trust-bar"><span class="tb-int" style="flex: 1">interests</span><span class="tb-beh" style="flex: 3">behavior</span></span></div>
-            <p class="trust-note"><span class="ms" aria-hidden="true">info</span><span>A repeat host's new event starts from the average of their past events. A first-time host has nothing to start from, a limit I left open.</span></p>
         </div>
         <p class="body" style="margin-top: var(--s-block);">For repeat hosts, I used their past events as another starting point. First-time hosts still have no history to draw from.</p>
     </section>
@@ -659,15 +656,15 @@
         <div class="visual card-row">
             <div class="ps-card ps-card--learned">
                 <span class="ps-tag"><span class="ms">lightbulb</span>what I learned</span>
-                <p>Testing caught what planning missed. I designed the Fit Score as the core of the app, and 2 of 4 testers never noticed it.</p>
+                <p>Only one of four testers understood that other attendees at the same event could see their profile. I’d make that visible in the app.</p>
                 <div class="ps-stat" aria-hidden="true">
-                    <span class="avs"><span class="av"><span class="ms">visibility</span></span><span class="av"><span class="ms">visibility</span></span><span class="av av--miss"><span class="ms">visibility_off</span></span><span class="av av--miss"><span class="ms">visibility_off</span></span></span>
-                    <span>2 saw the Fit Score, 2 missed it</span>
+                    <span class="avs"><span class="av"><span class="ms">visibility</span></span><span class="av av--miss"><span class="ms">visibility_off</span></span><span class="av av--miss"><span class="ms">visibility_off</span></span><span class="av av--miss"><span class="ms">visibility_off</span></span></span>
+                    <span>1 of 4 knew who could see their profile</span>
                 </div>
             </div>
             <div class="ps-card ps-card--next">
                 <span class="ps-tag"><span class="ms">arrow_forward</span>next time</span>
-                <p>Recruit more people. I planned for 25 to 30 and got five, too few for the pass and fail thresholds I set in advance.</p>
+                <p>I had planned to recruit 25 to 30 people and ended up with five. In the next round, I’d recruit closer to that original target.</p>
                 <div class="ps-bar" aria-hidden="true">
                     <div class="ps-bar-track"><i></i><b></b></div>
                     <div class="ps-bar-legend"><span>5 tested</span><span>planned 25 to 30</span></div>
