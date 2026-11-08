@@ -168,17 +168,15 @@
         .hmw-label { display: block; font-size: var(--t-label); font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--on-accent-muted); margin-bottom: 6px; }
         .hmw-row p { font-size: var(--t-body); line-height: 1.5; }
 
-        /* 06 · Scan from anywhere: one scan, two outcomes, as a looping demo.
-           The video carries its own ITP-blue ground, so it gets the shot radius and no border */
-        .scan-demo { margin-left: 0; margin-right: 0; }
-        .scan-video { display: block; width: 100%; height: auto; border-radius: var(--radius-shot); }
-        .scan-video--wide { aspect-ratio: 1840 / 1200; }
-        .scan-video--phone { display: none; aspect-ratio: 1 / 1; }
-        /* Below this width the wide demo's type reads too small: switch to the phone's square crop */
-        @media (max-width: 632px) {
-            .scan-video--wide { display: none; }
-            .scan-video--phone { display: block; }
-        }
+        /* 06 · Scan from anywhere: one scan, two outcomes */
+        .scan { padding: 28px 24px; }
+        .scan-start { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border-radius: 999px; background: var(--accent); color: var(--surface); font-size: var(--t-body); font-weight: 600; }
+        .scan-start svg { flex-shrink: 0; }
+        .scan-branches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 28px; position: relative; }
+        .scan-branch { position: relative; padding: 18px 20px; border-radius: 14px; background: var(--canvas); }
+        .scan-branch::before { content: ''; position: absolute; left: 50%; top: -28px; width: 2px; height: 28px; background: var(--accent); }
+        .scan-branch .hmw-label { color: var(--text-muted); }
+        .scan-branch p { font-size: var(--t-body); font-weight: 600; line-height: 1.4; color: var(--text); }
 
         /* 07 · Specimen: the four choices behind the hifi */
         .spec { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; padding: 0; }
@@ -199,11 +197,12 @@
 
         /* 08 · Before and after: ITPERCH on the left, ER Wiki on the right, one frame shape */
         .compare .shot { aspect-ratio: 1600 / 950; object-fit: cover; object-position: top left; }
-        .compare-big { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .compare-big figure, .compare-small figure { margin: 0; }
-        .compare-small { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 16px; margin-top: var(--s-block); }
-        .compare-small h3 { font-size: var(--t-small); font-weight: 600; color: var(--text); margin-bottom: var(--s-label); }
-        .compare-small figure + figure { margin-top: 8px; }
+        .compare figure { margin: 0; }
+        .compare-row + .compare-row { margin-top: var(--s-block); }
+        .compare-row h3 { font-size: var(--t-small); font-weight: 600; color: var(--text); margin-bottom: var(--s-label); }
+        /* The arrow sits on the seam, centered on the screenshots (not their captions): each shot is half the row less the gap, at 950/1600 */
+        .compare-pair { --gap: 16px; --chip: 32px; position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); container-type: inline-size; }
+        .compare-arrow { position: absolute; left: 50%; top: calc((100cqi - var(--gap)) / 2 * 950 / 1600 / 2); display: grid; place-items: center; width: var(--chip); height: var(--chip); border-radius: 999px; background: var(--surface); color: var(--accent); box-shadow: 0 0 0 1px var(--line), 0 4px 12px rgba(0, 0, 0, 0.08); translate: -50% -50%; }
         .tag { display: block; margin-top: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); }
         .tag--after { color: var(--accent); }
 
@@ -213,14 +212,16 @@
 
         /* 11 · How precise each room's location goes: broad on the left, exact on the right. ER Wiki is the only full row. */
         .reach { padding: 8px 24px 12px; }
-        .reach table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        /* Separate borders, so a row's fill can stop short of the line above it */
+        .reach table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
         .reach th, .reach td { padding: 14px 8px; text-align: center; border-bottom: 1px solid var(--line); }
         .reach thead th { font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); }
         .reach tbody th { text-align: left; font-size: var(--t-body); font-weight: 600; color: var(--text); width: 32%; }
         .reach tbody tr:last-child th, .reach tbody tr:last-child td { border-bottom: 0; }
         .reach .yes svg { display: inline-block; vertical-align: middle; color: var(--text); }
         .reach .no { color: var(--text-faint); font-size: var(--t-body); }
-        .reach .erw th, .reach .erw td { background: var(--accent-soft); }
+        /* ER Wiki's row: the fill sits half a label gap below the line above, padded evenly around its text */
+        .reach .erw th, .reach .erw td { background: var(--accent-soft); background-clip: padding-box; border-top: calc(var(--s-label) / 2) solid transparent; padding-top: 11px; padding-bottom: 11px; }
         .reach .erw th { color: var(--accent); border-radius: 12px 0 0 12px; }
         .reach .erw td:last-child { border-radius: 0 12px 12px 0; }
         .reach .erw .yes svg { color: var(--accent); }
@@ -262,6 +263,8 @@
             .people { grid-template-columns: 1fr; }
             .pair { grid-template-columns: 1fr; }
             .fit-row { gap: 8px; }
+            .scan-branches { gap: 8px; }
+            .scan-branch { padding: 14px; }
             .hmw { padding: 28px 20px 24px; }
             .hmw-row { grid-template-columns: 1fr; gap: var(--s-body); }
             .statement p { font-size: var(--t-body); }
@@ -270,13 +273,11 @@
             .type-pair { font-size: 36px; gap: 14px; }
             .spec > div:nth-child(3) { border-left: 0; }
             .spec > div:nth-child(n+3) { border-top: 1px solid var(--line); }
-            .compare-big { gap: 8px; }
-            .compare-small { grid-template-columns: 1fr; }
-            .compare-small > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 8px; }
-            .compare-small h3 { grid-column: 1 / -1; }
-            .compare-small figure + figure { margin-top: 0; }
+            .compare-pair { --gap: 8px; --chip: 24px; }
+            .compare-arrow svg { width: 12px; height: 12px; }
             .reach { padding: 4px 12px 8px; }
             .reach th, .reach td { padding: 12px 4px; }
+            .reach .erw th, .reach .erw td { padding-top: 9px; padding-bottom: 9px; }
             .reach tbody th { font-size: var(--t-small); }
             .reach thead th { font-size: 10px; letter-spacing: 0.5px; }
             .after-list > div { grid-template-columns: 1fr; gap: 4px; }
@@ -529,16 +530,20 @@
             </figure>
         </div>
         <p class="body">I assumed staff would start a checkout by finding the borrower first because that’s how the current system works. Testing showed I had it wrong: both testers started with the item. I revised the user flow so staff could scan an item from any screen. The system then opens Return or Checkout based on the item’s status.</p>
-        <!-- Stageshow demo (_source/er-wiki/scan-demo): the wide loop on desktop, a square crop on phones -->
-        <figure class="visual scan-demo">
-            <video class="scan-video scan-video--wide" src="er-wiki/scan-demo.mp4" poster="er-wiki/scan-demo-poster.jpg" width="1840" height="1200" autoplay muted loop playsinline preload="auto" aria-label="Animated demo of ER Wiki: on the Return page for a Sony A7 III, the camera strap is ticked and the return confirmed. A scan opens Checkout for an available Zoom F8 recorder, where Sam Doe is picked and the checkout confirmed. The next scan opens Return again."></video>
-            <video class="scan-video scan-video--phone" src="er-wiki/scan-demo-phone.mp4" poster="er-wiki/scan-demo-phone-poster.jpg" width="716" height="716" autoplay muted loop playsinline preload="auto" aria-label="Animated demo of ER Wiki: the return of a Sony A7 III is confirmed, then a scan opens Checkout for an available Zoom F8 recorder, where Sam Doe is picked and the checkout confirmed."></video>
-            <figcaption class="caption"><strong>Scan any item, on any screen</strong>If it’s checked out, Return opens. If it’s available, Checkout opens and asks who it’s for.</figcaption>
-        </figure>
         <figure class="visual" style="margin-left: 0; margin-right: 0;">
             <img class="shot" src="er-wiki/lofi-iteration1.webp" width="1570" height="844" loading="lazy" alt="Figma board, Iteration 1: scan from anywhere. Any page is ready to scan. A checked out item goes straight to Return. An available item opens Checkout, which asks who it is for, then confirms once a person is added">
             <figcaption class="caption"><strong>Iteration 1 in Figma</strong></figcaption>
         </figure>
+        <div class="visual card scan" role="img" aria-label="Scan any item, on any screen. If it’s checked out, Return opens. If it’s available, Checkout opens and asks who it is for.">
+            <div class="scan-start">
+                <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><g fill="currentColor"><rect x="0" width="2" height="16"/><rect x="4" width="1" height="16"/><rect x="7" width="3" height="16"/><rect x="12" width="1" height="16"/><rect x="15" width="2" height="16"/><rect x="19" width="3" height="16"/></g></svg>
+                Scan any item, on any screen
+            </div>
+            <div class="scan-branches">
+                <div class="scan-branch"><span class="hmw-label">If it’s checked out</span><p>Return opens</p></div>
+                <div class="scan-branch"><span class="hmw-label">If it’s available</span><p>Checkout opens and asks “Who is it for?”</p></div>
+            </div>
+        </div>
     </section>
 </div>
 
@@ -595,31 +600,43 @@
         <p class="eyebrow">08 · Compare</p>
         <h2>Adding the information I need at the counter</h2>
         <!-- Names in the ITPERCH screenshots are blurred -->
+        <!-- One row per screen: ITPERCH on the left, ER Wiki on the right, an arrow on the seam -->
         <div class="visual compare">
-            <div class="compare-big">
-                <figure>
-                    <img class="shot" src="er-wiki/before-item.webp" width="1509" height="812" loading="lazy" alt="ITPERCH item page for the Zoom H4n: photo, barcode, kit condition and a checkout history button, with no location">
-                    <figcaption class="caption"><strong>ITPERCH today</strong>An item’s photo, barcode, notes, and history.</figcaption>
-                </figure>
-                <figure>
-                    <img class="shot" src="er-wiki/hifi-item.webp" width="1600" height="950" loading="lazy" alt="ER Wiki item page for the Zoom H4n: where it lives on Metal shelf 1, a map of the shelf with its level marked, and what goes with it">
-                    <figcaption class="caption"><strong style="color: var(--accent);">ER Wiki</strong>Its storage location, a map showing the shelf, and the accessories that go with it.</figcaption>
-                </figure>
+            <div class="compare-row">
+                <h3>Item page</h3>
+                <div class="compare-pair">
+                    <figure>
+                        <img class="shot" src="er-wiki/before-item.webp" width="1509" height="812" loading="lazy" alt="ITPERCH item page for the Zoom H4n: photo, barcode, kit condition and a checkout history button, with no location">
+                        <figcaption class="caption"><strong>ITPERCH today</strong>An item’s photo, barcode, notes, and history.</figcaption>
+                    </figure>
+                    <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                    <figure>
+                        <img class="shot" src="er-wiki/hifi-item.webp" width="1600" height="950" loading="lazy" alt="ER Wiki item page for the Zoom H4n: where it lives on Metal shelf 1, a map of the shelf with its level marked, and what goes with it">
+                        <figcaption class="caption"><strong style="color: var(--accent);">ER Wiki</strong>Its storage location, a map showing the shelf, and the accessories that go with it.</figcaption>
+                    </figure>
+                </div>
             </div>
-            <div class="compare-small">
-                <div>
-                    <h3>Equipment home</h3>
+            <div class="compare-row">
+                <h3>Equipment home</h3>
+                <div class="compare-pair">
                     <figure><img class="shot" src="er-wiki/before-home.webp" width="1511" height="812" loading="lazy" alt="ITPERCH equipment home: a grid of about 40 equipment types"><span class="tag">ITPERCH</span></figure>
+                    <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                     <figure><img class="shot" src="er-wiki/hifi-search.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Find equipment: one search bar and ten tags"><span class="tag tag--after">ER Wiki</span></figure>
                 </div>
-                <div>
-                    <h3>A group of equipment</h3>
+            </div>
+            <div class="compare-row">
+                <h3>A group of equipment</h3>
+                <div class="compare-pair">
                     <figure><img class="shot" src="er-wiki/before-tag.webp" width="1509" height="812" loading="lazy" alt="ITPERCH audio recorders type page: a grid of models, several with question mark placeholder images"><span class="tag">ITPERCH</span></figure>
+                    <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                     <figure><img class="shot" src="er-wiki/hifi-tag.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Audio tag page: subtags on the side, a list of recorders, and an item card with where it lives"><span class="tag tag--after">ER Wiki</span></figure>
                 </div>
-                <div>
-                    <h3>What’s checked out</h3>
+            </div>
+            <div class="compare-row">
+                <h3>What’s checked out</h3>
+                <div class="compare-pair">
                     <figure><img class="shot" src="er-wiki/before-checkedout.webp" width="1509" height="812" loading="lazy" alt="ITPERCH Reports: a long table of checked out items, borrower names blurred"><span class="tag">ITPERCH</span></figure>
+                    <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                     <figure><img class="shot" src="er-wiki/hifi-person.webp" width="1600" height="950" loading="lazy" alt="ER Wiki person page: what Sam Doe has out, due dates, and checkout history"><span class="tag tag--after">ER Wiki</span></figure>
                 </div>
             </div>
@@ -686,7 +703,6 @@
                     <tr class="erw"><th scope="row">ER Wiki</th><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td><td class="yes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span class="sr-only">Tracked</span></td></tr>
                 </tbody>
             </table>
-        </div>
         </div>
         <p class="body">Even Clive Davis, NYU’s music technology department, labels every aisle and does a team inventory every weekend, but still relies on staff knowing exactly where things belong. The staff member who works there said ER Wiki could help with their workflow, too.</p>
         <p class="body">Each equipment room could use the same website with its own inventory, floor plan, and storage locations. Clive Davis could be the next place to test it.</p>
