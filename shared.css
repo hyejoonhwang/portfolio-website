@@ -60,13 +60,32 @@
     --lavender: #DDD8E4;
     --wheat: #E8E0D4;
     --gap: 6px;
+
+    /* Selected text: the page's main color on a pale tint of it. Case pages redefine --accent,
+       so each study picks up its own color; a page with its own soft tint or text shade overrides these. */
+    --select-text: var(--accent);
+    --select-bg: color-mix(in srgb, var(--accent) 14%, white);
+
+    /* Cursors: outline heart by default, filled heart on anything clickable, orange bar on readable text.
+       The SVG files carry the bio heart's color (#F5542E) since cursor images can't read CSS variables. */
+    --cursor-default: url('cursors/heart.svg') 4 5, auto;
+    --cursor-link: url('cursors/heart-filled.svg') 4 5, pointer;
+    --cursor-text: url('cursors/text.svg') 6 12, text;
 }
 
 /* ═══ BASE ═══ */
 html { scroll-behavior: smooth; }
 
-/* Selected text: white on the theme orange on every page (fixed value, since case pages redefine --accent) */
-::selection { background: #FF3C00; color: #FFFFFF; }
+/* Selected text on every page */
+::selection { background: var(--select-bg); color: var(--select-text); }
+
+/* Custom cursors (mouse only; touch screens never show them).
+   Order matters: the link rule comes last so text inside a link or card still shows the filled heart. */
+html { cursor: var(--cursor-default); }
+p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, dt, dd, td, th,
+input, textarea, [contenteditable="true"] { cursor: var(--cursor-text); }
+a, a *, button, button *, label, select, summary,
+[role="button"], [role="link"] { cursor: var(--cursor-link); }
 
 /* No visible scrollbars anywhere; scrolling still works with wheel, trackpad, keys and touch */
 html, body, * { scrollbar-width: none; }
@@ -243,7 +262,7 @@ body.case nav {
     gap: 5px;
     background: none;
     border: none;
-    cursor: pointer;
+    cursor: var(--cursor-link);
     padding: 8px;
     z-index: 1001;
 }

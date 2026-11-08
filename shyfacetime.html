@@ -46,7 +46,11 @@
             font-display: swap;
         }
 
-        :root { --accent: #8FB59A; }
+        :root {
+            --accent: #8FB59A;
+            --select-text: #45724F;     /* a deeper shade of the sage, dark enough to read on the tint */
+            --select-bg: color-mix(in srgb, var(--accent) 24%, white);  /* stronger tint so it shows on the off-white page */
+        }
 
         /* ═══ SIDEBAR ═══ */
         .sidebar {
