@@ -29,6 +29,8 @@
             --chart-done: #005C65; --chart-drop: #FFB8B2; --chart-done-soft: #9DEAB2; --chart-track: #EEF0F2;
             --surface: #FFFFFF;         /* white provider-card surface */
             --green-block: #E9F5F3;     /* the green block on the provider card */
+            --ink: #2B1613;             /* Talkspace illustration line color */
+            --illo-ground: #E3EFEC;     /* Talkspace illustration ground */
             --step: 20px;               /* stepped "care card" bottom edge */
 
             /* One spacing scale, by role (guide §8) */
@@ -104,24 +106,34 @@
         .ps .big { font-family: 'Manrope', sans-serif; font-size: var(--t-title); font-weight: 600; letter-spacing: -0.8px; display: block; margin-bottom: 4px; }
 
         /* Before / with-this-project flow (small explainer) */
-        /* One grid for both rows (label, then step / arrow / step / arrow / step / arrow / step),
-           so each step sits directly above the step it changes */
-        .flows { display: grid; grid-template-columns: max-content repeat(3, max-content max-content) max-content; align-items: center; gap: 12px 10px; margin-top: var(--s-block); }
-        .flows .flow-label { padding-right: 10px; }
+        .flows { margin-top: var(--s-block); }
         .flow-label { font-family: 'Manrope', sans-serif; font-size: var(--t-label); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
         .flow-label--new { color: var(--accent); }
-        .flow { display: contents; }
-        .flow-step { font-family: 'Manrope', sans-serif; font-size: var(--t-small); font-weight: 600; color: var(--text); background: var(--ts-blue); border-radius: 3px; padding: 8px 12px; text-align: center; }
-        /* Only the step that changes differs: grey before, teal with this project */
-        .flow .flow-step--replaced { background: #EEF0F2; color: var(--text-secondary); }
-        .flow .flow-step--focus { background: var(--accent); color: #fff; }
-        /* Narrower screens: labels move above their rows so the steps still line up */
-        @media (max-width: 1100px) {
-            .flows { grid-template-columns: repeat(3, max-content max-content) max-content; }
-            .flows .flow-label { grid-column: 1 / -1; padding-right: 0; }
-            .flows .flow-label--new { margin-top: 8px; }
+        /* Fixed 36px steps and a 12px row gap, so the fork and join drawings (84px tall) meet each row's middle */
+        .flow-step { display: flex; align-items: center; justify-content: center; height: 36px; padding: 0 12px; white-space: nowrap; font-family: 'Manrope', sans-serif; font-size: var(--t-small); font-weight: 600; color: var(--text); background: var(--ts-blue); border-radius: 3px; }
+        /* Teal is this project's step; the new path in is the green block's tint */
+        .flow-step--focus { background: var(--accent); color: var(--surface); }
+        .flow-step--new { background: var(--green-block); color: var(--accent); }
+        /* Every arrow is a line that fills its cell, ending in a small chevron */
+        .flow-arrow { display: flex; align-items: center; min-width: 24px; color: var(--text-muted); }
+        .flow-arrow::before { content: ''; flex: 1; height: 1px; background: currentColor; }
+        .flow-arrow::after { content: ''; width: 5px; height: 5px; margin-left: -6px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; transform: rotate(45deg); }
+        .flow-join { display: block; width: 40px; height: 84px; color: var(--text-muted); overflow: visible; }
+
+        /* Wide: one grid, so each step sits above the step it changes. Intake and the booking steps are shared,
+           centered between the two paths: Intake splits into both, and both join again before booking */
+        .flows--wide { display: grid; grid-template-columns: repeat(4, max-content max-content) max-content; align-items: center; gap: 12px 8px; }
+        .flows--wide .flow-label { grid-column: 1 / -1; }
+        .flows--wide .flow-label--new { margin-top: 8px; }
+        /* Narrow: each path is its own wrapping row */
+        .flows--compact { display: none; }
+        .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+        .flow-label--or { text-transform: none; letter-spacing: 0; font-size: var(--t-small); }
+        @media (max-width: 960px) {
+            .flows--wide { display: none; }
+            .flows--compact { display: grid; gap: 8px; }
+            .flows--compact .flow-label--new { margin-top: 8px; }
         }
-        .flow-arrow { color: var(--text-muted); font-size: var(--t-small); }
 
         /* ═══ VISUALS ═══ */
         .visual { margin-top: var(--s-block); }
@@ -159,15 +171,40 @@
         .relabel-old { color: var(--text-muted); text-decoration: line-through; }
         .relabel-new { color: var(--accent); }
 
-        /* 05 · The rule, branching into the three levels below (same columns as .levels) */
+        /* 05 · The rule, branching into the three columns below it */
         .rule-q { max-width: 440px; margin: 0 auto; padding: 12px 16px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font-family: 'Manrope', sans-serif; font-size: var(--t-small); font-weight: 600; color: var(--text); }
-        .rule-lines { position: relative; display: grid; grid-template-columns: repeat(3, 240px); justify-content: center; gap: 0 48px; height: 40px; }
+        .rule-lines { --col: 240px; --gap: 48px; position: relative; display: grid; grid-template-columns: repeat(3, var(--col)); justify-content: center; gap: 0 var(--gap); height: 40px; }
         .rule-lines::after { content: ''; position: absolute; left: 50%; top: 0; height: 16px; border-left: 1.5px solid var(--text-muted); }
-        .rule-lines::before { content: ''; position: absolute; top: 16px; left: calc(50% - 288px); right: calc(50% - 288px); border-top: 1.5px solid var(--text-muted); }
+        .rule-lines::before { content: ''; position: absolute; top: 16px; left: calc(50% - var(--col) - var(--gap)); right: calc(50% - var(--col) - var(--gap)); border-top: 1.5px solid var(--text-muted); }
         .rule-lines span { position: relative; }
+        .rule--blocks .rule-lines { --col: 280px; --gap: 40px; }
+        /* 05 · 1: the three green blocks, cut from the prototype at 2x, under the rule that picks them */
+        .blocks { display: grid; grid-template-columns: repeat(3, 280px); justify-content: center; gap: 0 40px; }
+        .block-col { margin: 0; display: flex; flex-direction: column; }
+        /* A piece of the phone screen: rounded, outlined, fading at its foot where the crop cuts through the page */
+        .block-loop { width: 100%; height: auto; aspect-ratio: 560 / 776; display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); -webkit-mask-image: linear-gradient(to bottom, #000 92%, transparent); mask-image: linear-gradient(to bottom, #000 92%, transparent); }
+        /* 05 is two parts: numbered titles, same teal circles as the 07 lists */
+        .part-title { display: flex; align-items: center; gap: 10px; margin: var(--s-chapter) 0 var(--s-body); font-family: 'Manrope', sans-serif; font-size: var(--t-body); font-weight: 700; color: var(--text); }
+        .part-title--first { margin-top: var(--s-block); }
+        .part-num { flex: none; }
+        /* 05 · 2: the member's concern, drawn in Talkspace's illustration style, carried onto John's card */
+        .intake { display: flex; align-items: center; justify-content: center; gap: 24px; padding: 40px 24px calc(32px + var(--step)); background: var(--illo-ground); border-radius: 4px 4px 0 0; }
+        .intake-member { position: relative; flex: 0 0 250px; margin: 0; }
+        .intake-member img { width: 100%; height: auto; display: block; }
+        .intake-bubble { position: absolute; top: -18px; left: -28px; padding: 10px 16px; background: var(--surface); border: 3px solid var(--ink); border-radius: 22px; font-family: 'Manrope', sans-serif; font-size: var(--t-small); font-weight: 700; color: var(--ink); white-space: nowrap; }
+        .intake-bubble::after { content: ''; position: absolute; right: 34px; bottom: -9px; width: 12px; height: 12px; background: var(--surface); border-right: 3px solid var(--ink); border-bottom: 3px solid var(--ink); transform: rotate(45deg); }
+        .intake-arrow { flex: 0 0 56px; }
+        .intake-card { flex: 0 0 280px; margin: 0; }
+        .intake-card img { width: 100%; height: auto; display: block; }
+        @media (max-width: 760px) {
+            .intake { flex-direction: column; gap: 16px; padding-top: 48px; }
+            .intake-member { flex: none; width: 200px; }
+            .intake-bubble { left: -8px; }
+            .intake-arrow { flex-basis: 40px; transform: rotate(90deg); }
+            .intake-card { flex-basis: auto; width: min(280px, 100%); }
+        }
         .rule-lines span::before { content: ''; position: absolute; left: 50%; top: 16px; bottom: 0; border-left: 1.5px solid var(--text-muted); }
         .level-label { text-align: center; }
-        .level-fill { align-self: center; margin-bottom: var(--s-label); padding: 4px 10px; border-radius: 100px; background: var(--green-block); font-family: 'Inter', sans-serif; font-size: var(--t-label); font-weight: 600; color: var(--accent); }
 
         /* Three directions */
         /* Subgrid: the card images differ in height, so image, title and text each share one row across the three columns */
@@ -187,16 +224,14 @@
         .phones { display: flex; justify-content: center; gap: 40px; }
         .phone { margin: 0; width: 240px; }
         .phone img { width: 100%; height: auto; display: block; }
+        /* Before → After: the arrow sits level with the middle of the phone screens (790 × 1664 images) */
+        .phones .phone-arrow { flex: 0 0 32px; align-self: flex-start; margin: calc(240px * 1664 / 790 / 2) -16px 0; }
         .phone figcaption { margin-top: var(--s-label); font-family: 'Inter', sans-serif; font-size: var(--t-small); line-height: 1.45; color: var(--text-secondary); }
         .phone figcaption strong { display: block; font-family: 'Manrope', sans-serif; font-size: var(--t-label); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
         .phone--before img { opacity: 0.55; }
         .phone--before figcaption strong { color: var(--text-muted); }
 
         /* Card above the page it opens, one column per review level */
-        .levels { display: grid; grid-template-columns: repeat(3, 240px); justify-content: center; gap: 0 48px; }
-        .level-col { margin: 0; display: flex; flex-direction: column; }
-        .level-col img { width: 100%; height: auto; display: block; }
-        .level-loop { width: 100%; height: auto; aspect-ratio: 480 / 1012; display: block; }
         .level-label { font-family: 'Manrope', sans-serif; font-size: var(--t-label); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-label); }
         .level-caption { margin-top: var(--s-label); font-family: 'Inter', sans-serif; font-size: var(--t-small); line-height: 1.45; color: var(--text-secondary); }
 
@@ -226,7 +261,7 @@
         .mark-frame { position: relative; }
         .marked img { width: 100%; height: auto; display: block; }
         .mark { position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h); border: 2px solid var(--accent); border-radius: 6px; }
-        .mark span, .numbered li::before { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--surface); font-family: 'Manrope', sans-serif; font-size: var(--t-label); font-weight: 700; }
+        .mark span, .numbered li::before, .part-num { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--surface); font-family: 'Manrope', sans-serif; font-size: var(--t-label); font-weight: 700; }
         .mark span { position: absolute; top: -12px; left: -12px; }
         .changes ol.numbered { list-style: none; padding-left: 0; counter-reset: change; }
         .numbered li { position: relative; padding-left: 34px; counter-increment: change; }
@@ -242,6 +277,11 @@
         .quote { margin: var(--s-block) 0 0; padding-left: 20px; border-left: 3px solid var(--ts-mint); max-width: 640px; }
         .quote p { font-family: 'Inter', sans-serif; font-size: var(--t-body); font-style: italic; line-height: 1.55; color: var(--text); }
         .quote cite { display: block; margin-top: 6px; font-family: 'Inter', sans-serif; font-size: var(--t-small); font-style: normal; color: var(--text-muted); }
+        /* A quote with its speaker drawn in Talkspace's illustration style, in a circle like the card avatars */
+        .quote--person { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 24px; padding-left: 0; border-left: 0; max-width: 680px; }
+        .quote-portrait { width: 112px; height: 112px; border-radius: 50%; background: var(--illo-ground); display: block; }
+        .quote--person p { font-size: 20px; }
+        @media (max-width: 760px) { .quote--person { grid-template-columns: 80px minmax(0, 1fr); gap: 16px; } .quote-portrait { width: 80px; height: 80px; } .quote--person p { font-size: var(--t-body); } }
 
         /* Next project */
         .next-project { display: block; margin-top: var(--s-chapter); padding: 32px 0 80px; border-top: 1px solid var(--line); text-decoration: none; }
@@ -263,18 +303,13 @@
             .card-row, .explore-grid { grid-template-columns: 1fr; }
             .explore-shot { max-width: 300px; }
             .explore-col + .explore-col { margin-top: var(--s-block); }
-            .flows { grid-template-columns: 1fr; gap: 8px; }
-            .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
             /* Phone screens stay side by side two per row, stack when there are three */
             .phones { flex-wrap: wrap; gap: 24px 16px; }
+            .phones .phone-arrow { display: none; }
             .phone { width: calc(50% - 8px); max-width: 240px; }
             /* Each level becomes a row: card and page side by side */
-            .levels { grid-template-columns: 1fr; gap: var(--s-block); }
-            .level-col { display: grid; grid-template-columns: 1fr; gap: 0; }
-            .level-loop { max-width: 240px; }
-            .level-label, .level-fill, .level-caption { grid-column: 1 / -1; }
             .level-label { text-align: left; }
-            .level-fill { justify-self: start; }
+            .blocks { grid-template-columns: minmax(0, 320px); justify-content: start; gap: var(--s-block); }
             .rule-lines { display: none; }
             .rule-q { margin-bottom: var(--s-block); }
             .range-row { grid-template-columns: 1fr; gap: 8px; }
@@ -309,8 +344,8 @@
 <aside class="sidebar" aria-label="On this page">
     <p class="sidebar-title">On this page</p>
     <a href="#overview" class="sidebar-link active">Overview</a>
-    <a href="#idea" class="sidebar-link">Idea</a>
-    <a href="#testing" class="sidebar-link">Directions</a>
+    <a href="#idea" class="sidebar-link">Data</a>
+    <a href="#testing" class="sidebar-link">Exploration</a>
     <a href="#constraint" class="sidebar-link">Constraint</a>
     <a href="#shipped" class="sidebar-link">MVP</a>
     <a href="#beyond" class="sidebar-link">Beyond</a>
@@ -335,7 +370,7 @@
 <div class="col">
     <section class="part" style="padding-top: var(--s-chapter);" aria-label="Overview">
         <p class="eyebrow">Overview</p>
-        <p class="summary">As a product design intern at Talkspace, I worked on what members see when they choose a provider. I wanted them to get a feel for what a session might be like before they booked. Could reviews help someone pick a therapist without making providers with few reviews look like worse options?</p>
+        <p class="summary">During onboarding, Talkspace matches every member with a provider automatically. As a product design intern at Talkspace, I worked on what members see when they choose a provider. I wanted them to get a feel for what a session might be like before they booked. Could reviews help someone pick a therapist without making providers with few reviews look like worse options?</p>
         <p class="summary">We started with a link to a reviews page, which is now in development. After the handoff, I designed and tested a card that gives providers with few or no reviews space to explain how they work.</p>
         <div class="meta">
             <div><p class="meta-label">Role</p><p class="meta-value">Product Design Intern</p></div>
@@ -348,28 +383,47 @@
         <div class="card-row ps">
             <div class="card ts-shape">
                 <p class="eyebrow">Problem</p>
-                <p><span class="big">40%</span>of members who were matched automatically didn’t make it to a first session, even with the matching method that performed best.</p>
+                <p><span class="big">40%</span>of members who were matched automatically during onboarding didn’t make it to a first session, although that was the matching method that performed best.</p>
             </div>
             <div class="card card--mint ts-shape">
                 <p class="eyebrow">Solution</p>
-                <p>Let members pick their own provider and read what clients say about them before they book.</p>
+                <p>Show members what clients say about each provider, so they can choose with confidence and more of them make it to a first session.</p>
             </div>
         </div>
-        <div class="flows">
+        <div class="flows flows--wide" role="img" aria-label="Before: intake, auto-match, book a first session, first session. With this project, intake leads to either auto-match or choosing your provider; both paths then read what clients say, and join again to book a first session and the first session.">
             <p class="flow-label">Before</p>
-            <div class="flow" role="group" aria-label="Before: intake, auto-match, book a first session, first session">
-                <span class="flow-step">Intake</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step flow-step--replaced">Auto-match</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step">Book a first session</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step">First session</span>
-            </div>
+            <span class="flow-step" style="grid-area: 2 / 1;">Intake</span>
+            <span class="flow-arrow" style="grid-area: 2 / 2;"></span>
+            <span class="flow-step" style="grid-area: 2 / 3;">Auto-match</span>
+            <span class="flow-arrow" style="grid-area: 2 / 4 / auto / span 3;"></span>
+            <span class="flow-step" style="grid-area: 2 / 7;">Book a first session</span>
+            <span class="flow-arrow" style="grid-area: 2 / 8;"></span>
+            <span class="flow-step" style="grid-area: 2 / 9;">First session</span>
+            <p class="flow-label flow-label--new" style="grid-row: 3;">With this project</p>
+            <span class="flow-step" style="grid-area: 4 / 1 / span 2;">Intake</span>
+            <svg class="flow-join" style="grid-area: 4 / 2 / span 2;" viewBox="0 0 40 84"><defs><marker id="flow-head-a" viewBox="0 0 6 6" refX="5.5" refY="3" markerWidth="6" markerHeight="6" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 .5 5.5 3 1 5.5" fill="none" stroke="currentColor"/></marker></defs><path d="M0 42H10" fill="none" stroke="currentColor"/><path d="M10 42 39 18" fill="none" stroke="currentColor" marker-end="url(#flow-head-a)"/><path d="M10 42 39 66" fill="none" stroke="currentColor" marker-end="url(#flow-head-a)"/></svg>
+            <span class="flow-step" style="grid-area: 4 / 3;">Auto-match</span>
+            <span class="flow-step flow-step--new" style="grid-area: 5 / 3;">Choose your provider</span>
+            <span class="flow-arrow" style="grid-area: 4 / 4;"></span>
+            <span class="flow-arrow" style="grid-area: 5 / 4;"></span>
+            <span class="flow-step flow-step--focus" style="grid-area: 4 / 5;">Read what clients say</span>
+            <span class="flow-step flow-step--focus" style="grid-area: 5 / 5;">Read what clients say</span>
+            <svg class="flow-join" style="grid-area: 4 / 6 / span 2;" viewBox="0 0 40 84"><defs><marker id="flow-head-b" viewBox="0 0 6 6" refX="5.5" refY="3" markerWidth="6" markerHeight="6" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 .5 5.5 3 1 5.5" fill="none" stroke="currentColor"/></marker></defs><path d="M0 18 30 42M0 66 30 42" fill="none" stroke="currentColor"/><path d="M30 42H39.5" fill="none" stroke="currentColor" marker-end="url(#flow-head-b)"/></svg>
+            <span class="flow-step" style="grid-area: 4 / 7 / span 2;">Book a first session</span>
+            <span class="flow-arrow" style="grid-area: 4 / 8 / span 2;"></span>
+            <span class="flow-step" style="grid-area: 4 / 9 / span 2;">First session</span>
+        </div>
+        <div class="flows flows--compact" role="img" aria-label="Before: intake, auto-match, book a first session, first session. With this project: intake, auto-match, read what clients say, book a first session, first session. Or: intake, choose your provider, read what clients say, book a first session, first session.">
+            <p class="flow-label">Before</p>
+            <div class="flow"><span class="flow-step">Intake</span><span class="flow-arrow"></span><span class="flow-step">Auto-match</span><span class="flow-arrow"></span><span class="flow-step">Book a first session</span><span class="flow-arrow"></span><span class="flow-step">First session</span></div>
             <p class="flow-label flow-label--new">With this project</p>
-            <div class="flow flow--new" role="group" aria-label="With this project: intake, choose your provider, book a first session, first session">
-                <span class="flow-step">Intake</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step flow-step--focus">Choose your provider</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step">Book a first session</span><span class="flow-arrow" aria-hidden="true">&rarr;</span>
-                <span class="flow-step">First session</span>
-            </div>
+            <div class="flow"><span class="flow-step">Intake</span><span class="flow-arrow"></span><span class="flow-step">Auto-match</span><span class="flow-arrow"></span><span class="flow-step flow-step--focus">Read what clients say</span><span class="flow-arrow"></span><span class="flow-step">Book a first session</span><span class="flow-arrow"></span><span class="flow-step">First session</span></div>
+            <p class="flow-label flow-label--or">or</p>
+            <div class="flow"><span class="flow-step">Intake</span><span class="flow-arrow"></span><span class="flow-step flow-step--new">Choose your provider</span><span class="flow-arrow"></span><span class="flow-step flow-step--focus">Read what clients say</span><span class="flow-arrow"></span><span class="flow-step">Book a first session</span><span class="flow-arrow"></span><span class="flow-step">First session</span></div>
+        </div>
+        </div>
+        </div>
+        </div>
         </div>
     </section>
 </div>
@@ -377,10 +431,10 @@
 <!-- ═══ 01 THE IDEA ═══ -->
 <div class="col">
     <section id="idea" class="chapter part">
-        <p class="eyebrow">01 · The idea</p>
+        <p class="eyebrow">01 · The data</p>
         <h2>More members made it to a first session when they picked their own provider</h2>
         <p class="body">Among members who switched to a provider they picked, 73–76% completed a first session. People who go out of their way to switch may already be more likely to show up, so I couldn’t say picking their own provider was what made them more likely to attend. But it made me want to look at what members needed to make that choice.</p>
-        <p class="body">Provider cards all showed the same kinds of facts. What I couldn’t tell from a card was what a session with that person might be like. <strong>A review from someone who’d already worked with them could help.</strong></p>
+        <p class="body">Every provider card listed the same things: specialties, years of experience, a degree, and open times. None of it told me what a session with that person would actually be like. <strong>I thought reviews from people who’d already worked with them could fill that gap.</strong></p>
         <div class="visual range" role="group" aria-label="Auto-matched members: 31 to 60 percent completed a first session. Members who picked their own provider: 73 to 76 percent.">
             <div class="range-row" aria-hidden="true">
                 <p class="range-name">Auto-matched<span class="range-num">31–60%</span></p>
@@ -402,10 +456,17 @@
 <!-- ═══ 02 TESTING ═══ -->
 <div class="col">
     <section id="testing" class="chapter">
-        <p class="eyebrow">02 · Three directions</p>
+        <p class="eyebrow">02 · Exploration</p>
         <h2>I tried three ways to show reviews on the card</h2>
-        <p class="body">I kept star ratings off the card and showed what clients wrote. If you see 4.4 stars next to five, it’s easy to skip over someone before you’ve read a word about what it’s like to work with them.</p>
+        <p class="body">Clients leave a star rating with each review, but I chose not to show it on the card. I showed what they wrote instead. If you see 4.4 stars next to five, it’s easy to skip over someone before you’ve read a word about what it’s like to work with them.</p>
         <p class="body">I tested three versions with <strong>18 people over three rounds</strong>. All 18 said the reviews strongly influenced who they’d choose.</p>
+        <blockquote class="quote quote--person">
+            <img class="quote-portrait" src="talkspace/participant-hopeful.svg" alt="" loading="lazy">
+            <div>
+                <p>“If they were able to help someone else with the same issues, hopefully they could help me.”</p>
+                <cite>Test participant</cite>
+            </div>
+        </blockquote>
         <div class="visual explore-grid">
             <div class="explore-col">
                 <div class="explore-shot"><img src="talkspace/explore-a-card.png" alt="Provider card with a one-sentence AI summary of client reviews highlighted" loading="lazy"></div>
@@ -433,8 +494,8 @@
 <div class="col">
     <section id="constraint" class="chapter">
         <p class="eyebrow">03 · The constraint</p>
-        <h2>Then our PM checked how many providers had enough reviews. Only 8% did.</h2>
-        <p class="body">Sixty-five percent of providers had just one review. A lot of reviews were blank or as short as “Aaron IS GREAT.” If I put a review preview on every card, most cards would look empty. <strong>I needed a design that worked whether someone had 15 reviews or none.</strong></p>
+        <h2>Then our PM found that only 8% of providers had enough reviews to fill the card.</h2>
+        <p class="body">Most providers, 65% of them, had just one review. And a lot of reviews were blank, or as short as “Aaron IS GREAT.” If every card showed a review preview, most cards would look empty, and the newer providers would look worst of all. <strong>I needed a design that worked whether someone had 15 reviews or none.</strong></p>
         <div class="visual range range--wide" role="group" aria-label="Of 1,461 providers: 65% had just one review, 27% had more than one but fewer than 3 meaningful reviews, and 8% had 3 or more meaningful written reviews">
             <div class="range-row" aria-hidden="true">
                 <p class="range-name">Just one review<span class="range-num">65%</span></p>
@@ -467,26 +528,27 @@
     <section id="shipped" class="chapter">
         <p class="eyebrow">04 · The MVP</p>
         <h2>We started with a link to the full reviews page</h2>
-        <p class="body">Our PM and I put a <strong>Client Testimonials</strong> link in the same spot on every card. Members could still read what clients wrote, and providers with fewer reviews wouldn’t have a blank space where everyone else had a preview. It meant one more tap for members, but we could give them access to reviews with the data we already had.</p>
-        <p class="body">I led a design review with PMs, engineers, and data researchers. Together we changed the link label from <strong>Read 15 reviews</strong> to <strong>Client Testimonials</strong> so it wouldn’t show a review count and decided what to show members who tap the link for a provider with no reviews.</p>
+        <p class="body">Our PM and I put a <strong>Client Testimonials</strong> link in the same spot on every card for providers with reviews. Members could still read what clients wrote, and providers with only one or two reviews wouldn’t look any different from those with 15. It meant one more tap for members, but we could give them access to reviews with the data we already had.</p>
+        <p class="body">I led a design review with PMs, engineers, and data researchers. Together we changed the link label from <strong>Read 15 reviews</strong> to <strong>Client Testimonials</strong> so it wouldn’t show a review count. We also decided to hide the link for providers with no reviews.</p>
         <div class="visual relabel" role="group" aria-label="Link label changed from Read 15 reviews to Client Testimonials">
             <p class="flow-label">Link label</p>
             <span class="relabel-old" aria-hidden="true">Read 15 reviews &rsaquo;</span>
-            <span class="flow-arrow" aria-hidden="true">&rarr;</span>
+            <span class="flow-arrow" aria-hidden="true"></span>
             <span class="relabel-new" aria-hidden="true">Client Testimonials &rsaquo;</span>
         </div>
         <div class="visual phones">
             <figure class="phone phone--before">
                 <img src="talkspace/shipped-list-before.png" alt="Choose your provider screen before: provider cards with names and no link to reviews" loading="lazy">
-                <figcaption><strong>Before</strong></figcaption>
+                <figcaption><strong>Before</strong>Members couldn’t read any reviews.</figcaption>
             </figure>
+            <span class="flow-arrow phone-arrow" aria-hidden="true"></span>
             <figure class="phone">
                 <img src="talkspace/shipped-list-after-nocount.png" alt="Choose your provider screen after: a Client Testimonials link under each provider's name" loading="lazy">
-                <figcaption><strong>After</strong>Every card gets a Client Testimonials link.</figcaption>
+                <figcaption><strong>After</strong>Providers with reviews get a Client Testimonials link.</figcaption>
             </figure>
             <figure class="phone">
                 <img src="talkspace/shipped-reviews-page.png" alt="Client Testimonials page: What clients say about Maya, with four written reviews from verified clients" loading="lazy">
-                <figcaption><strong>New page</strong></figcaption>
+                <figcaption><strong>New page</strong>Tapping the link opens the provider’s reviews.</figcaption>
             </figure>
         </div>
     </section>
@@ -497,40 +559,50 @@
     <section id="beyond" class="chapter part">
         <p class="eyebrow">05 · After the handoff</p>
         <h2>What should the card show if a provider has no reviews?</h2>
-        <p class="body">The link made sense with the reviews Talkspace had. After the handoff, I went back to the card. If we could eventually show reviews there, what would a member see when they got to a provider with only one review, or none?</p>
-        <p class="body">I put a green block in the same spot on every card. If there are at least three reviews that relate to what the member came in for, the block summarizes what those clients said. With only one or two, an AI summary would mostly rephrase what those clients already said. <strong>So when there aren’t enough reviews, the provider gets that same space to explain how they work.</strong></p>
-        <p class="body">I used the concern the member shared at intake to decide which reviews to summarize. That way, a member who came in for anxiety could see that a provider had helped other people with anxiety, even if the provider didn’t list it as a specialty. One person in testing put it this way:</p>
-        <blockquote class="quote">
-            <p>“If they were able to help someone else with the same issues, hopefully they could help me.”</p>
-            <cite>Test participant</cite>
-        </blockquote>
-        <!-- The rule first, branching into the three levels it produces -->
-        <div class="visual rule" aria-hidden="true">
+        <p class="body">The link made sense with the reviews Talkspace had, but it left providers with no reviews with nothing to show on their card. After the handoff, I went back to the card. If we could eventually show reviews there, what would a member see when they got to a provider with only one review, or none?</p>
+        <!-- 1: what fills the green block depends on how many relevant reviews there are -->
+        <h3 class="part-title part-title--first"><span class="part-num">1</span>How many reviews a provider has</h3>
+        <p class="body">I put a green block in the same spot on every card.</p>
+        <div class="visual rule rule--blocks" aria-hidden="true">
             <p class="rule-q">How many of the provider’s reviews relate to what the member came in for?</p>
             <div class="rule-lines"><span></span><span></span><span></span></div>
         </div>
-        <!-- One phone per level: the card, a tap on its link, the page it opens, back.
-             The three take turns (same length, each acts in its own third); made by _source/talkspace/levels/record.mjs -->
-        <div class="levels">
-            <figure class="level-col">
+        <!-- Each loop: the card from its name down, a tap on the block's link, the page it opens, back.
+             All three act at once (same length, 7s); made by _source/talkspace/blocks/record.mjs -->
+        <div class="blocks">
+            <figure class="block-col">
                 <figcaption class="level-label">3+ relevant reviews</figcaption>
-                <p class="level-fill">AI summary</p>
-                <video class="level-loop" src="talkspace/level-rich.mp4" poster="talkspace/level-rich-poster.png" muted playsinline preload="none" aria-label="Lisa's card, with an AI summary from clients who came in with anxiety. A tap on Read reviews from clients like you opens her reviews page: the summary, topic filters, and reviews tagged Came in with anxiety. Then back to the list."></video>
-                <p class="level-caption">An AI summary, with reviews about the member’s concern first.</p>
+                <video class="block-loop" src="talkspace/block-rich.mp4" poster="talkspace/block-rich-poster.png" muted playsinline preload="none" aria-label="Lisa's card. A tap on Read reviews from clients like you opens her reviews page: the same summary at the top, then reviews tagged Came in with anxiety. Then back to her card."></video>
+                <p class="level-caption">An AI summary of what those clients said. Her page lists reviews about the member’s concern first.</p>
             </figure>
-            <figure class="level-col">
+            <figure class="block-col">
                 <figcaption class="level-label">A few reviews</figcaption>
-                <p class="level-fill">Own words, then reviews</p>
-                <video class="level-loop" src="talkspace/level-thin.mp4" poster="talkspace/level-thin-poster.png" muted playsinline preload="none" aria-label="Priya's card, other cards dimmed, her green block in her own words. A tap on Read what clients say opens her page: her own words first, then her two reviews. Then back to the list."></video>
-                <p class="level-caption">Priya explains how she works, followed by her two reviews.</p>
+                <video class="block-loop" src="talkspace/block-thin.mp4" poster="talkspace/block-thin-poster.png" muted playsinline preload="none" aria-label="Priya's card. A tap on Read what clients say opens her page: her own words at the top, then her two reviews. Then back to her card."></video>
+                <p class="level-caption">A summary would only rephrase them, so Priya explains how she works. Her two reviews follow on her page.</p>
             </figure>
-            <figure class="level-col">
+            <figure class="block-col">
                 <figcaption class="level-label">No reviews yet</figcaption>
-                <p class="level-fill">Own words</p>
-                <video class="level-loop" src="talkspace/level-cold.mp4" poster="talkspace/level-cold-poster.png" muted playsinline preload="none" aria-label="Sam's card, other cards dimmed, his green block in his own words. A tap on Read what Sam says opens his Meet page: how he works with anxiety, what a first session looks like, and training verified by Talkspace. Then back to the list."></video>
-                <p class="level-caption">Sam explains how he works. His page also shows training verified by Talkspace.</p>
+                <video class="block-loop" src="talkspace/block-cold.mp4" poster="talkspace/block-cold-poster.png" muted playsinline preload="none" aria-label="Sam's card. A tap on Read what Sam says opens his Meet page: how he works with anxiety, then what a first session looks like. Then back to his card."></video>
+                <p class="level-caption">Sam gets the same space to explain how he works. His page also shows training verified by Talkspace.</p>
             </figure>
         </div>
+        <!-- 2: the member's intake concern decides which reviews the block draws on -->
+        <h3 class="part-title"><span class="part-num">2</span>What the member came in for</h3>
+        <p class="body">I used the member’s intake concern to choose which reviews to summarize.</p>
+        <!-- The member's concern from intake, carried onto a card that doesn't list it -->
+        <div class="visual intake ts-shape">
+            <figure class="intake-member">
+                <img src="talkspace/member-anxious.svg" alt="Illustration of a member at intake, glancing aside with raised, worried brows">
+                <p class="intake-bubble">I’m here for my anxiety.</p>
+            </figure>
+            <span class="flow-arrow intake-arrow" aria-hidden="true"></span>
+            <figure class="intake-card mark-frame">
+                <img src="talkspace/card-john.png" alt="John's card. His specialties are ADHD, Depression and Substance use, but his green block reads From clients who came in with anxiety, and summarizes them" loading="lazy">
+                <span class="mark" style="--x: 3%; --y: 24.3%; --w: 77.6%; --h: 8%;" aria-hidden="true"></span>
+                <span class="mark" style="--x: 7.4%; --y: 36.6%; --w: 79.8%; --h: 7%;" aria-hidden="true"></span>
+            </figure>
+        </div>
+        <p class="caption">John doesn’t list anxiety as a specialty, but his green block summarizes clients who came in with it.</p>
     </section>
 </div>
 
@@ -545,7 +617,7 @@
         <div class="visual findings">
             <p class="flow-label group-label">What worked</p>
             <div class="card card--mint ts-shape feature">
-                <img src="talkspace/card-cold.png" alt="Sam's card: no reviews, so the green block shows how Sam works with anxiety, in his own words" loading="lazy">
+                <img src="talkspace/card-sam.png" alt="Sam's card: no reviews, so the green block shows how Sam works with anxiety, in his own words" loading="lazy">
                 <div>
                     <p class="finding-num">4 of 9</p>
                     <span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
@@ -557,7 +629,7 @@
             <div class="card card--mint ts-shape">
                 <p class="finding-num">7 of 9</p>
                 <span class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span>
-                <p class="finding-title">understood where the text in each green block came from</p>
+                <p class="finding-title">could tell a summary of reviews from a provider’s own words</p>
                 <p>Seven recognized Lisa’s as an AI summary of client reviews, and seven recognized Sam’s as his own words. Three wondered if the summary showed only good reviews.</p>
             </div>
             <div class="card card--mint ts-shape">
@@ -589,7 +661,6 @@
             </div>
             </div>
         </div>
-        <p class="body" style="margin-top: var(--s-block);">This was a small test: nine people, four who work in UX, and no comparison group. Sam was also always last, which one person took to mean he was the least popular. Six people preferred a woman therapist, so I’d vary both the provider and the card order next time.</p>
     </section>
 </div>
 
@@ -597,8 +668,8 @@
 <div class="col">
     <section id="changes" class="chapter">
         <p class="eyebrow">07 · What I'm changing</p>
-        <h2>I’m bringing back open times and taking the client count off the card</h2>
-        <p class="body">The test gave me a few clear edits. It also showed me where the setup might have influenced people’s choices.</p>
+        <h2>Small details on the card influenced who people picked</h2>
+        <p class="body">It was a small test, with nine people, four of them in UX, and no comparison group. Still, it gave me a few clear edits, and showed me where the setup might have affected people’s choices.</p>
         <div class="visual changes">
             <figure class="marked">
                 <div class="mark-frame">
@@ -634,7 +705,7 @@
 <div class="col">
     <section id="learned" class="chapter part">
         <p class="eyebrow">Where it stands</p>
-        <h2>The reviews link is in development. I’ve tested the new card once.</h2>
+        <h2>The reviews link is still in development, and I’ve tested the new card with one group so far.</h2>
         <p class="body">We don’t have results from live use yet. Talkspace plans to track how many members make it to a first session and how many complete three sessions in 30 days.</p>
         <div class="visual card-row">
             <div class="card card--lime ts-shape">
@@ -689,10 +760,10 @@
         }, { rootMargin: '200px 0px' });
         vids.forEach(function (v) { io.observe(v); });
     })();
-    // 05: the three phones take turns inside equal-length videos, so start them together
+    // 05: the three close-ups are equal-length videos that act at once, so start them together
     // when the section is in view and restart them together; with reduced motion the posters stay
     (function () {
-        var vids = [].slice.call(document.querySelectorAll('.level-loop'));
+        var vids = [].slice.call(document.querySelectorAll('.block-loop'));
         if (!vids.length || !('IntersectionObserver' in window)) return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var ended = 0;
@@ -712,7 +783,7 @@
             } else {
                 vids.forEach(function (v) { v.pause(); });
             }
-        }, { threshold: 0.3 }).observe(document.querySelector('.levels'));
+        }, { threshold: 0.3 }).observe(document.querySelector('.blocks'));
     })();
 </script>
 </body>
