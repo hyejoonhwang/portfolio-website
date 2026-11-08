@@ -302,18 +302,9 @@
         /* ER Wiki card: the case-study hero animation, full bleed on its own pale ITP blue, so the trimmed edges never show */
         .card-erwiki { background: #ECEBF8; }
 
-        /* Talkspace card: hero walkthrough phone on Talkspace green, top of the phone showing like the case-study hero */
-        .card-talkspace { background: #E9F5F3; container-type: inline-size; } /* green block on the provider card */
-        .card-talkspace picture { position: absolute; inset: 0; pointer-events: none; }
-        .card-talkspace img {
-            position: absolute;
-            height: 138%;
-            width: auto;
-            top: 8%;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: clamp(10px, 5.5cqw, 24px) clamp(10px, 5.5cqw, 24px) 0 0;
-        }
+        /* Talkspace card: the case-study hero film (the card's pieces on Talkspace pastels), full bleed,
+           on the film's opening mint so the trimmed edges never show */
+        .card-talkspace { background: #9DEAB2; }
 
         /* ═══ STAGGER ANIMATIONS ═══ */
         .grid > :nth-child(1) { animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
@@ -422,10 +413,7 @@
         <div class="grid">
             <a href="/talkspace.html" class="card project card-talkspace">
                 <ul class="project-tags" aria-label="Tags"><li>internship</li><li>design system</li><li>shipped</li></ul>
-                <picture>
-                    <source srcset="talkspace/hero-walkthrough-still.png" media="(prefers-reduced-motion: reduce)">
-                    <img src="talkspace/hero-walkthrough.webp" alt="">
-                </picture>
+                <video src="talkspace/hero.mp4" poster="talkspace/hero-poster.jpg" autoplay muted loop playsinline></video>
                 <div class="project-info">
                     <span class="project-title">Talkspace — Provider Reviews</span>
                 </div>
