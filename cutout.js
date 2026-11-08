@@ -152,7 +152,7 @@
         'position:relative',
         'line-height:1',
         'transition:transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay), filter 0.3s ease var(--delay)',
-        'cursor:default',
+        'cursor:inherit',
       ].join(';');
 
       s._punc = /[''""".,!?;:\-–—()']/.test(ch);
