@@ -183,6 +183,7 @@
         .phones--4 { gap: 20px; }
         .phones--4 figure { width: calc((100% - 60px) / 4); max-width: var(--phone); }
         .phones--4 .phone { width: 100%; border-radius: 12px; }
+        .phones--demo .phone { border-radius: 22px; }
 
         /* ═══ RESEARCH: the audit as BeeBud rows ═══ */
         .audit { background: var(--panel); border-radius: 24px; padding: 14px 16px 16px; color: var(--bb-ink); }
@@ -381,6 +382,7 @@
     <a href="#buddies" class="sidebar-link">Beebuddies</a>
     <a href="#structure" class="sidebar-link">Structure</a>
     <a href="#testing" class="sidebar-link">Testing</a>
+    <a href="#demo" class="sidebar-link">Demo</a>
     <a href="#learned" class="sidebar-link">Reflection</a>
 </aside>
 
@@ -626,10 +628,37 @@
     </section>
 </div>
 
+<!-- ═══ 07 DEMO ═══ -->
+<div class="col">
+    <section id="demo" class="chapter">
+        <p class="eyebrow">07 · Demo</p>
+        <h2>The whole loop, in the prototype</h2>
+        <p class="body">From setting your preferences to a new Beebuddy, in four steps. Every screen is the live prototype at <a href="https://beebud.vercel.app" target="_blank" rel="noopener">beebud.vercel.app</a>.</p>
+        <div class="visual phones phones--4 phones--demo">
+            <figure>
+                <video class="phone lazy-video" data-src="beebud/demo-d1.mp4" poster="beebud/demo-d1-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of onboarding: typing a name, setting group size and vibe of the room, picking two interests, and landing on the Home feed"></video>
+                <figcaption class="caption"><strong>1 · Set up</strong>Tell BeeBud how you show up and what you’re into.</figcaption>
+            </figure>
+            <figure>
+                <video class="phone lazy-video" data-src="beebud/demo-d2.mp4" poster="beebud/demo-d2-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of the Home feed: scrolling to more that fit, opening AuthorTalk: Writing Family Stories, and tapping I’m in, which changes to You’re going"></video>
+                <figcaption class="caption"><strong>2 · Find an event</strong>Pick something from the feed and RSVP.</figcaption>
+            </figure>
+            <figure>
+                <video class="phone lazy-video" data-src="beebud/demo-d3.mp4" poster="beebud/demo-d3-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of Your plans: opening the past event Food As Medicine, rating it so my kind of thing, sending it, then a sheet saying you and Mina read it the same way, and tapping Send request"></video>
+                <figcaption class="caption"><strong>3 · Rate it</strong>Say how it went. If someone else felt the same, BeeBud suggests you connect.</figcaption>
+            </figure>
+            <figure>
+                <video class="phone lazy-video" data-src="beebud/demo-d4.mp4" poster="beebud/demo-d4-poster.webp" width="600" height="1298" muted loop playsinline preload="none" aria-label="Screen recording of the Beebuddy page: accepting Devon Kaur’s request, a sheet saying you and Devon are beebuddies, and opening Devon’s profile with their social links"></video>
+                <figcaption class="caption"><strong>4 · Connect</strong>Accept a request and your social links open to each other.</figcaption>
+            </figure>
+        </div>
+    </section>
+</div>
+
 <!-- ═══ OUTCOME + END ═══ -->
 <div class="col">
     <section id="learned" class="chapter part">
-        <p class="eyebrow">07 · Reflection</p>
+        <p class="eyebrow">08 · Reflection</p>
         <h2>People need to know who can see their profile</h2>
         <p class="body">Only one of four testers understood that other attendees at the same event could see their profile. I’d make that visible in the app and test whether people understand the difference between what another attendee can see and what becomes visible when they accept a Beebuddy request.</p>
         <p class="body">I had planned to recruit 25 to 30 people and ended up with five. Their sessions helped me find specific things to fix. In the next round, I’d recruit closer to that original target and check whether more people notice the Fit Score and understand who can see their profile.</p>
