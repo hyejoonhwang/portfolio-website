@@ -9,7 +9,7 @@
     <title>Provider Reviews, Talkspace — Summer</title>
     <meta name="description" content="Designing how client reviews help Talkspace members choose a provider, for providers with 15 reviews or none.">
     <meta property="og:title" content="Talkspace Provider Reviews">
-    <meta property="og:image" content="/talkspace/hero-walkthrough-still.png">
+    <meta property="og:image" content="/talkspace/hero-poster.jpg">
     <!-- Short case study, rebuilt against case-study-review-guide.md.
          The long version is talkspace-full.html (deck source, not linked from the site). -->
     <link rel="stylesheet" href="shared.css">
@@ -71,11 +71,11 @@
         .todo { background: #FFF3C4; outline: 1px dashed #C9A400; border-radius: 3px; padding: 0 4px; color: #6B5600; font-style: normal; }
 
         /* ═══ HERO ═══ */
-        .hero-band { background: var(--accent); padding: 32px 0 0; border-radius: 4px 4px 0 0; margin-top: 24px; }
         .ts-shape { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--step)), 75% calc(100% - var(--step)), 75% 100%, 16px 100%, 16px calc(100% - var(--step) / 2), 0 calc(100% - var(--step) / 2)); }
-        .hero-proto { display: flex; justify-content: center; margin: 0; }
-        .proto-frame { width: calc(395px * var(--proto-scale, 1)); height: calc(832px * var(--proto-scale, 1) * 0.67); overflow: hidden; }
-        .proto-frame img { width: 100%; height: auto; display: block; }
+        /* The hero film: the card's pieces one at a time, each on a Talkspace pastel, with the stepped care-card edge.
+           Sized by height too, so the title and one-liner share the first screen with it */
+        .hero-video { display: block; width: min(100%, calc((100svh - 300px) * 1.7037)); height: auto; aspect-ratio: 920 / 540; margin: 24px auto 0; border-radius: 4px 4px 0 0; background: var(--ts-mint); }
+        .hero-video--compact { display: none; aspect-ratio: 358 / 280; }
         .hero { padding: 32px 0 0; }
         .hero h1 { font-family: 'Averia Serif Libre', Georgia, serif; font-weight: 400; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-label); }
         .hero-sub { font-family: 'Inter', sans-serif; font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); max-width: 680px; }
@@ -200,6 +200,8 @@
         }
         @media (max-width: 760px) {
             .col { padding: 0 16px; }
+            .hero-video--wide { display: none; }
+            .hero-video--compact { display: block; width: 100%; margin-top: 8px; }
             .summary { font-size: var(--t-body); }
             .meta { grid-template-columns: 1fr 1fr; }
             .card-row, .explore-grid { grid-template-columns: 1fr; }
@@ -261,14 +263,8 @@
 
 <!-- ═══ FIRST SCREEN: product moving + name + one line ═══ -->
 <div class="col" id="overview">
-    <div class="hero-band ts-shape">
-        <figure class="hero-proto">
-            <div class="proto-frame">
-                <picture>
-                    <source srcset="talkspace/hero-walkthrough-still.png" media="(prefers-reduced-motion: reduce)">
-                    <img src="talkspace/hero-walkthrough.webp" alt="Walkthrough of the redesigned Choose your provider screen: the list scrolls, then a tap on Read reviews from clients like you on Lisa's card opens her reviews page">
-                </picture>
-            </div>
+    <video class="hero-video hero-video--wide ts-shape lazy-video" data-src="talkspace/hero.mp4" poster="talkspace/hero-poster.jpg" width="920" height="540" muted loop playsinline preload="none" aria-label="Animated walk through the provider card's pieces: a star marks Anxiety on Lisa's card, the concern the member gave at intake; three reviews from clients who came in with anxiety pile up and fold into the green block, where a summary of them writes itself in; the same block, at the same size, then shows Sam's own words, since he has no reviews yet; and View available times is tapped on Sam's card."></video>
+    <video class="hero-video hero-video--compact ts-shape lazy-video" data-src="talkspace/hero-phone.mp4" poster="talkspace/hero-phone-poster.jpg" width="358" height="280" muted loop playsinline preload="none" aria-label="Animated walk through the provider card's pieces: reviews from clients who came in with anxiety fold into the green block as a summary, then the same block shows Sam's own words, since he has no reviews yet."></video>
         </figure>
     </div>
     <header class="hero" id="hero">
@@ -574,19 +570,23 @@
         window.addEventListener('resize', update);
         update();
     })();
-    // Size the hero phone so the title and one-liner share the first screen with it
+    // Hero film: load and play only while on screen
     (function () {
-        var fig = document.querySelector('.hero-proto'), hero = document.getElementById('hero');
-        if (!fig || !hero) return;
-        function fit() {
-            var top = fig.getBoundingClientRect().top + window.scrollY;
-            var byHeight = (window.innerHeight - top - hero.offsetHeight - 32 - 24) / (832 * 0.67);
-            var byWidth = (document.documentElement.clientWidth - 32) / 395;
-            var s = window.innerWidth < 760 ? Math.min(0.85, byWidth) : Math.max(0.5, Math.min(1.25, byHeight, byWidth));
-            document.documentElement.style.setProperty('--proto-scale', s.toFixed(3));
+        var vids = [].slice.call(document.querySelectorAll('.lazy-video'));
+        var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (still || !('IntersectionObserver' in window)) {
+            // only the visible one: the hidden film (wide or compact) never loads
+            vids.forEach(function (v) { if (v.offsetParent) { v.src = v.dataset.src; v.controls = still; } });
+            return;
         }
-        fit();
-        window.addEventListener('resize', fit);
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                var v = e.target;
+                if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().catch(function () {}); }
+                else if (v.src) v.pause();
+            });
+        }, { rootMargin: '200px 0px' });
+        vids.forEach(function (v) { io.observe(v); });
     })();
 </script>
 </body>
