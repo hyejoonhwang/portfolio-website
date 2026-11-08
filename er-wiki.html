@@ -85,7 +85,13 @@
         .body strong { color: var(--text); font-weight: 600; }
 
         /* ═══ HERO: the real UI, moving, sized so title and one-liner share the first screen ═══ */
-        .hero-video { display: block; width: min(100%, calc((100svh - 270px) * 1.6)); aspect-ratio: 1600 / 1000; height: auto; margin: 24px auto 0; border-radius: var(--radius-shot); border: 1px solid var(--line); background: var(--canvas); }
+        .hero-video { display: block; width: min(100%, calc((100svh - 270px) * 1.6)); aspect-ratio: 1600 / 1000; height: auto; margin: 24px auto 0; border-radius: var(--radius-shot); background: var(--canvas); }
+        /* The animation carries its own ITP blue ground, so no border. Phones get its square crop */
+        .hero-video--phone { display: none; aspect-ratio: 1 / 1; }
+        @media (max-width: 632px) {
+            .hero-video--wide { display: none; }
+            .hero-video--phone { display: block; }
+        }
         .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding-top: 32px; }
         .hero h1 { font-family: var(--display); font-weight: 400; font-size: var(--t-hero); line-height: 1.1; letter-spacing: -0.5px; color: var(--text); margin-bottom: var(--s-label); }
         .hero-sub { font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); max-width: 680px; }
@@ -208,6 +214,9 @@
 
         /* 08 · Before and after: ITPERCH on the left, ER Wiki on the right, one frame shape */
         .compare .shot { aspect-ratio: 1600 / 950; object-fit: cover; object-position: top left; }
+        /* 10 · Three short real clips, stacked */
+        .demo-clips { display: grid; gap: var(--s-block); }
+        .demo-clips figure { margin: 0; }
         .compare figure { margin: 0; }
         .compare-row + .compare-row { margin-top: var(--s-block); }
         .compare-row h3 { font-size: var(--t-small); font-weight: 600; color: var(--text); margin-bottom: var(--s-label); }
@@ -218,7 +227,6 @@
         .tag--after { color: var(--accent); }
 
         /* 10 · Demo: the second loop loads when it comes near and plays only while visible */
-        .demo-video { display: block; width: 100%; height: auto; aspect-ratio: 1600 / 1000; border-radius: var(--radius-shot); border: 1px solid var(--line); background: var(--canvas); }
         .demo-links { display: flex; gap: 8px; margin-top: var(--s-body); }
 
         /* 11 · How precise each room's location goes: broad on the left, exact on the right. ER Wiki is the only full row. */
@@ -342,7 +350,9 @@
 
 <!-- ═══ FIRST SCREEN: product moving + name + one line ═══ -->
 <div class="col" id="overview">
-    <video class="hero-video" src="er-wiki/hero.mp4" poster="er-wiki/hero-poster.jpg" width="1600" height="1000" autoplay muted loop playsinline preload="auto" aria-label="Screen recording of the ER Wiki prototype: the Find equipment search screen, then the room map, where picking the Camera cabinet lists what's in it, picking the Canon EOS R5 shows where it lives, and its item page shows the cabinet shelf it sits on"></video>
+<!-- Stageshow animation (_source/er-wiki/hero-demo): the wide loop on desktop, a square crop on phones. data-src: the lazy loader plays only the one on screen -->
+    <video class="hero-video hero-video--wide" data-src="er-wiki/hero-demo.mp4" poster="er-wiki/hero-demo-poster.jpg" width="1840" height="1150" muted loop playsinline preload="none" aria-label="Animated overview of ER Wiki: searching canon r5, every result shows where it lives; the Canon EOS R5’s page zooms in on its spot in the Camera cabinet; a scan opens Checkout, which asks who it is for"></video>
+    <video class="hero-video hero-video--phone" data-src="er-wiki/hero-demo-phone.mp4" poster="er-wiki/hero-demo-phone-poster.jpg" width="716" height="716" muted loop playsinline preload="none" aria-label="Animated overview of ER Wiki: searching canon r5, every result shows where it lives; the Canon EOS R5’s spot in the Camera cabinet lights up; a scan opens Checkout, which asks who it is for"></video>
     <header class="hero" id="hero">
         <div>
             <h1>ER Wiki</h1>
@@ -646,7 +656,21 @@
     <section id="demo" class="chapter">
         <p class="eyebrow">10 · Demo</p>
         <h2>Find an item and put it back</h2>
-        <video class="visual demo-video" data-src="er-wiki/demo.mp4" poster="er-wiki/demo-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="Screen recording of the ER Wiki prototype: searching canon r5, where every result shows where it lives, picking the Canon EOS R5, starting its return, checking off the battery and charger, and confirming. ER Wiki says to put it back in the Camera cabinet, Camera bodies"></video>
+        <!-- Real recordings of the prototype, one job each; they load when near and pause when off screen -->
+        <div class="visual demo-clips">
+            <figure>
+                <video class="shot" data-src="er-wiki/demo-find.mp4" poster="er-wiki/demo-find-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="Screen recording of the ER Wiki prototype: typing canon r5, the results each showing where they live, picking the Canon EOS R5, and its item page with the Camera cabinet shelf marked"></video>
+                <figcaption class="caption"><strong>Find it</strong>Search, and every result shows where it lives. The item page shows the exact shelf.</figcaption>
+            </figure>
+            <figure>
+                <video class="shot" data-src="er-wiki/demo-return.mp4" poster="er-wiki/demo-return-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="Screen recording of the ER Wiki prototype: scanning a Sony A7 III opens Return, the battery, charger and strap are checked off, and confirming says to put it back in the Camera cabinet, Middle shelf"></video>
+                <figcaption class="caption"><strong>Return it</strong>Scan it, check off what came back, and ER Wiki says where it goes.</figcaption>
+            </figure>
+            <figure>
+                <video class="shot" data-src="er-wiki/demo-checkout.mp4" poster="er-wiki/demo-checkout-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="Screen recording of the ER Wiki prototype: scanning a Zoom F8 recorder opens Checkout, typing sa finds Sam Doe, the due date is locked, and confirming checks it out"></video>
+                <figcaption class="caption"><strong>Check it out</strong>Scan it, find who it’s for, and the due date is set for you.</figcaption>
+            </figure>
+        </div>
         <div class="demo-links">
             <a class="btn btn--primary" href="/er-wiki/prototype.html" target="_blank" rel="noopener">Open the live prototype &nearr;</a>
         </div>
@@ -742,10 +766,8 @@
     })();
     // Reduced motion: stop the hero loop and hand the viewer the controls
     (function () {
-        var v = document.querySelector('.hero-video');
-        if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            v.removeAttribute('autoplay'); v.pause(); v.controls = true;
-        }
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        [].slice.call(document.querySelectorAll('.hero-video')).forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
     })();
 </script>
 </body>
