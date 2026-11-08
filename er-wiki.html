@@ -137,23 +137,34 @@
 
         /* 01 · The same question, again and again: the "where is it?" messages cropped from the group chat.
            Others' messages sit left in grey, mine sit right in blue, as in the chat. Shown at 66% of capture size. */
-        .asks { display: flex; flex-direction: column; gap: var(--s-label); padding: 32px 24px; }
-        .asks img { display: block; max-width: 88%; height: auto; }
-        .asks .mine { align-self: flex-end; }
+        /* 01 · Three group chat threads side by side, each its own card so they read as separate conversations */
+        .threads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: start; }
 
         /* 02 · Interview cards: role and their words */
-        .people { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
-        .person { display: flex; flex-direction: column; padding: 20px; }
-        .person blockquote { margin: 0; font-family: var(--display); font-size: var(--t-body); line-height: 1.45; color: var(--text); }
+        /* 02 · Interviews, set like a magazine's quotes: no boxes or rules. The lead is large and dark,
+           the rest smaller and a step lighter. Opening quote marks hang outside the text, so the words
+           themselves sit on the column edge; the speaker reads like a byline underneath */
+        .quotes figure { margin: 0; }
+        .quote blockquote { margin: 0; font-family: var(--display); font-size: var(--t-body); line-height: 1.5; color: var(--text-secondary); text-indent: -0.42em; }
+        .quote figcaption { margin-top: var(--s-label); font-size: var(--t-small); line-height: 1.4; color: var(--text-muted); }
+        .quote--lead blockquote { font-size: var(--t-title); line-height: 1.3; letter-spacing: -0.3px; color: var(--text); text-indent: -0.38em; max-width: 22em; }
+        .quote--lead figcaption { margin-top: var(--s-body); }
+        .quote-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-block) calc(var(--s-body) * 3); margin-top: var(--s-block); }
+        /* Each quote and its speaker are two rows of the grid (subgrid), so the speakers side by side share a line */
+        .quote-grid .quote { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: var(--s-label); align-content: start; }
+        .quote-grid .quote figcaption { margin-top: 0; }
 
         /* Screenshots and photos */
-        .shot { display: block; width: 100%; height: auto; border-radius: var(--radius-shot); border: 1px solid var(--line); background: var(--surface); }
+        /* Screenshots keep square corners, so every corner of the screen shows */
+        .shot { display: block; width: 100%; height: auto; border-radius: 0; border: 1px solid var(--line); background: var(--surface); }
         .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
         .pair figure, .fit-row figure { margin: 0; }
         /* Both images in a pair share one frame shape so their captions line up */
         .pair .shot { aspect-ratio: 2 / 1; object-fit: cover; object-position: top center; }
         /* Full prototype screens keep their whole height, so the room map isn't cut off */
         .pair--screen .shot { aspect-ratio: 1600 / 1000; }
+        /* 09's before and after share 08's arrow on the seam */
+        .pair--screen { --gap: 16px; --chip: 32px; --ratio: 0.625; position: relative; container-type: inline-size; }
         /* A row of photos at one height: each figure grows by its aspect ratio (--ar = width / height) */
         .fit-row { display: flex; gap: 16px; }
         .fit-row figure { flex: var(--ar) 1 0; min-width: 0; }
@@ -200,9 +211,9 @@
         .compare figure { margin: 0; }
         .compare-row + .compare-row { margin-top: var(--s-block); }
         .compare-row h3 { font-size: var(--t-small); font-weight: 600; color: var(--text); margin-bottom: var(--s-label); }
-        /* The arrow sits on the seam, centered on the screenshots (not their captions): each shot is half the row less the gap, at 950/1600 */
-        .compare-pair { --gap: 16px; --chip: 32px; position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); container-type: inline-size; }
-        .compare-arrow { position: absolute; left: 50%; top: calc((100cqi - var(--gap)) / 2 * 950 / 1600 / 2); display: grid; place-items: center; width: var(--chip); height: var(--chip); border-radius: 999px; background: var(--surface); color: var(--accent); box-shadow: 0 0 0 1px var(--line), 0 4px 12px rgba(0, 0, 0, 0.08); translate: -50% -50%; }
+        /* The arrow sits on the seam, centered on the screenshots (not their captions): each shot is half the row less the gap, at its --ratio */
+        .compare-pair { --gap: 16px; --chip: 32px; --ratio: 0.59375; position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); container-type: inline-size; }
+        .compare-arrow { position: absolute; left: 50%; top: calc((100cqi - var(--gap)) / 2 * var(--ratio) / 2); display: grid; place-items: center; width: var(--chip); height: var(--chip); border-radius: 999px; background: var(--surface); color: var(--accent); box-shadow: 0 0 0 1px var(--line), 0 4px 12px rgba(0, 0, 0, 0.08); translate: -50% -50%; }
         .tag { display: block; margin-top: 6px; font-size: var(--t-label); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-faint); }
         .tag--after { color: var(--accent); }
 
@@ -247,7 +258,6 @@
             .main-content { margin-left: 0; }
         }
         @media (max-width: 900px) {
-            .people { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         }
         @media (max-width: 760px) {
             .col { padding: 0 16px; }
@@ -259,8 +269,8 @@
             /* The feeling line keeps its shape and scrolls sideways inside its card */
             .feel-inner { min-width: 640px; }
             .feel-card { padding: 20px 16px; }
-            .asks { padding: 20px 16px; }
-            .people { grid-template-columns: 1fr; }
+            .threads { grid-template-columns: 1fr; gap: var(--s-label); }
+            .quote-grid { grid-template-columns: 1fr; gap: calc(var(--s-body) * 2); }
             .pair { grid-template-columns: 1fr; }
             .fit-row { gap: 8px; }
             .scan-branches { gap: 8px; }
@@ -274,6 +284,7 @@
             .spec > div:nth-child(3) { border-left: 0; }
             .spec > div:nth-child(n+3) { border-top: 1px solid var(--line); }
             .compare-pair { --gap: 8px; --chip: 24px; }
+            .pair.pair--screen { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; --gap: 8px; --chip: 24px; }
             .compare-arrow svg { width: 12px; height: 12px; }
             .reach { padding: 4px 12px 8px; }
             .reach th, .reach td { padding: 12px 4px; }
@@ -407,13 +418,11 @@
 
         <p class="body">I went back through our group chat to see how often this came up. Of the 15 threads I reviewed, 14 were about location. Replies included “might be in the cabinet” and “idk.” Four threads ended with “nvm found it,” without saying where.</p>
 
-        <!-- Cropped from five threads; names and avatars blurred -->
-        <div class="visual card asks">
-            <img src="er-wiki/ask-matrox.webp" width="403" height="90" loading="lazy" alt="Group chat message: out of curiosity does anyone know where this exists in the ER? I’ve tried looking for it a few times">
-            <img class="mine" src="er-wiki/ask-h4n.webp" width="370" height="48" loading="lazy" alt="My message: where did you take this out from?">
-            <img class="mine" src="er-wiki/ask-planar.webp" width="399" height="97" loading="lazy" alt="My messages: Does anybody know where this monitor is? It’s a planar monitor">
-            <img class="mine" src="er-wiki/ask-depower.webp" width="403" height="68" loading="lazy" alt="My message: Does anybody know where I should put this back?">
-            <img src="er-wiki/ask-power.webp" width="422" height="74" loading="lazy" alt="Group chat message: Does anyone know where’s the portable power station?">
+        <!-- Three separate threads, each cropped from the question to its unsure answers -->
+        <div class="visual threads">
+            <img class="shot" src="er-wiki/ask-depower.webp" width="1002" height="737" loading="lazy" alt="Group chat thread. Me: Does anybody know where I should put this back? Replies: Near the A/V stuff I think. I think in a bag with the webcams. If that’s the one I checked out earlier today it was w the webcams but in one of the bags. If it’s not then idk">
+            <img class="shot" src="er-wiki/ask-kits.webp" width="1002" height="621" loading="lazy" alt="Group chat thread. A staff member: does anybody know where these kits are? Reply: Have to be in the cabinet beside the camera one to the right. I searched there but didn’t see it. Ohhh it should! Maybe in the cart in front of cabinet a? Otherwise idk">
+            <img class="shot" src="er-wiki/ask-planar.webp" width="1002" height="717" loading="lazy" alt="Group chat thread. Me: Does anybody know where this monitor is? It’s a planar monitor. Reply: Might be across from the cameras lower shelf? Me: i checked that shelf but it is not there">
         </div>
     </section>
 </div>
@@ -426,26 +435,14 @@
         <p class="body">I interviewed five people: two student staff members, the ER manager, someone from the ITP website team, and a staff member who also works at another NYU equipment room.</p>
         <p class="body">I wanted to understand how staff learn where things belong, what they do when they can’t find something, and how they keep track when equipment moves.</p>
 
-        <div class="visual people">
-            <div class="card person">
-                <span class="card-label">Student staff</span>
-                <blockquote>“I’m so rushed. I’m so anxious... I’m panicking.”</blockquote>
-            </div>
-            <div class="card person">
-                <span class="card-label">Student staff</span>
-                <blockquote>“Last semester I would be very stressed out. And also a little helpless.”</blockquote>
-            </div>
-            <div class="card person">
-                <span class="card-label">ER manager</span>
-                <blockquote>“As an end user, especially people checking things in and out, it’s not very functional. It’s not intuitive.”</blockquote>
-            </div>
-            <div class="card person">
-                <span class="card-label">ITP website team</span>
-                <blockquote>“I don’t think there’s a floor mapping.”</blockquote>
-            </div>
-            <div class="card person">
-                <span class="card-label">Staff at ITP and Clive Davis</span>
-                <blockquote>“There’s pieces of equipment that I still don’t know where they are.”</blockquote>
+        <!-- The quote that proves the heading leads; the rest sit two by two: how it feels, then why it happens -->
+        <div class="visual quotes">
+            <figure class="quote quote--lead"><blockquote>“There’s pieces of equipment that I still don’t know where they are.”</blockquote><figcaption>Staff at ITP and Clive Davis</figcaption></figure>
+            <div class="quote-grid">
+                <figure class="quote"><blockquote>“I’m so rushed. I’m so anxious... I’m panicking.”</blockquote><figcaption>Student staff</figcaption></figure>
+                <figure class="quote"><blockquote>“Last semester I would be very stressed out. And also a little helpless.”</blockquote><figcaption>Student staff</figcaption></figure>
+                <figure class="quote"><blockquote>“As an end user, especially people checking things in and out, it’s not very functional. It’s not intuitive.”</blockquote><figcaption>ER manager</figcaption></figure>
+                <figure class="quote"><blockquote>“I don’t think there’s a floor mapping.”</blockquote><figcaption>ITP website team</figcaption></figure>
             </div>
         </div>
     </section>
@@ -499,16 +496,10 @@
                 <figcaption class="caption"><strong>People</strong></figcaption>
             </figure>
         </div>
-        <div class="visual pair">
-            <figure>
-                <img class="shot" src="er-wiki/lofi-find-equipment.webp" width="1544" height="768" loading="lazy" alt="Lofi wireframes for the Equipment tab: find an item from search, a category, or the room map, then open the item detail page">
-                <figcaption class="caption"><strong>Equipment tab</strong></figcaption>
-            </figure>
-            <figure>
-                <img class="shot" src="er-wiki/lofi-people.webp" width="1530" height="804" loading="lazy" alt="Lofi wireframes for the People tab: find a person by search or tag, then their detail page with everything they have checked out">
-                <figcaption class="caption"><strong>People tab</strong></figcaption>
-            </figure>
-        </div>
+        <figure class="visual" style="margin-left: 0; margin-right: 0;">
+            <img class="shot" src="er-wiki/lofi-find-equipment.webp" width="1544" height="768" loading="lazy" alt="Lofi wireframes for the Equipment tab: find an item from search, a category, or the room map, then open the item detail page">
+            <figcaption class="caption"><strong>Equipment tab</strong></figcaption>
+        </figure>
     </section>
 </div>
 
@@ -530,10 +521,6 @@
             </figure>
         </div>
         <p class="body">I assumed staff would start a checkout by finding the borrower first because that’s how the current system works. Testing showed I had it wrong: both testers started with the item. I revised the user flow so staff could scan an item from any screen. The system then opens Return or Checkout based on the item’s status.</p>
-        <figure class="visual" style="margin-left: 0; margin-right: 0;">
-            <img class="shot" src="er-wiki/lofi-iteration1.webp" width="1570" height="844" loading="lazy" alt="Figma board, Iteration 1: scan from anywhere. Any page is ready to scan. A checked out item goes straight to Return. An available item opens Checkout, which asks who it is for, then confirms once a person is added">
-            <figcaption class="caption"><strong>Iteration 1 in Figma</strong></figcaption>
-        </figure>
         <div class="visual card scan" role="img" aria-label="Scan any item, on any screen. If it’s checked out, Return opens. If it’s available, Checkout opens and asks who it is for.">
             <div class="scan-start">
                 <svg width="22" height="16" viewBox="0 0 22 16" aria-hidden="true"><g fill="currentColor"><rect x="0" width="2" height="16"/><rect x="4" width="1" height="16"/><rect x="7" width="3" height="16"/><rect x="12" width="1" height="16"/><rect x="15" width="2" height="16"/><rect x="19" width="3" height="16"/></g></svg>
@@ -581,16 +568,6 @@
                 </div>
             </div>
         </div>
-        <div class="visual pair">
-            <figure>
-                <img class="shot" src="er-wiki/hifi-return.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Return page: the item, what went out with it to check off, and where to put it back">
-                <figcaption class="caption"><strong>Return</strong></figcaption>
-            </figure>
-            <figure>
-                <img class="shot" src="er-wiki/hifi-checkout.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Checkout page: the scanned Zoom F8 recorder with what goes with it, and a Who is it for field matching Sam Doe as you type">
-                <figcaption class="caption"><strong>Checkout</strong></figcaption>
-            </figure>
-        </div>
     </section>
 </div>
 
@@ -602,20 +579,6 @@
         <!-- Names in the ITPERCH screenshots are blurred -->
         <!-- One row per screen: ITPERCH on the left, ER Wiki on the right, an arrow on the seam -->
         <div class="visual compare">
-            <div class="compare-row">
-                <h3>Item page</h3>
-                <div class="compare-pair">
-                    <figure>
-                        <img class="shot" src="er-wiki/before-item.webp" width="1509" height="812" loading="lazy" alt="ITPERCH item page for the Zoom H4n: photo, barcode, kit condition and a checkout history button, with no location">
-                        <figcaption class="caption"><strong>ITPERCH today</strong>An item’s photo, barcode, notes, and history.</figcaption>
-                    </figure>
-                    <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                    <figure>
-                        <img class="shot" src="er-wiki/hifi-item.webp" width="1600" height="950" loading="lazy" alt="ER Wiki item page for the Zoom H4n: where it lives on Metal shelf 1, a map of the shelf with its level marked, and what goes with it">
-                        <figcaption class="caption"><strong style="color: var(--accent);">ER Wiki</strong>Its storage location, a map showing the shelf, and the accessories that go with it.</figcaption>
-                    </figure>
-                </div>
-            </div>
             <div class="compare-row">
                 <h3>Equipment home</h3>
                 <div class="compare-pair">
@@ -630,6 +593,20 @@
                     <figure><img class="shot" src="er-wiki/before-tag.webp" width="1509" height="812" loading="lazy" alt="ITPERCH audio recorders type page: a grid of models, several with question mark placeholder images"><span class="tag">ITPERCH</span></figure>
                     <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
                     <figure><img class="shot" src="er-wiki/hifi-tag.webp" width="1600" height="950" loading="lazy" alt="ER Wiki Audio tag page: subtags on the side, a list of recorders, and an item card with where it lives"><span class="tag tag--after">ER Wiki</span></figure>
+                </div>
+            </div>
+            <div class="compare-row">
+                <h3>Item page</h3>
+                <div class="compare-pair">
+                    <figure>
+                        <img class="shot" src="er-wiki/before-item.webp" width="1509" height="812" loading="lazy" alt="ITPERCH item page for the Zoom H4n: photo, barcode, kit condition and a checkout history button, with no location">
+                        <figcaption class="caption"><strong>ITPERCH today</strong>An item’s photo, barcode, notes, and history.</figcaption>
+                    </figure>
+                    <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                    <figure>
+                        <img class="shot" src="er-wiki/hifi-item.webp" width="1600" height="950" loading="lazy" alt="ER Wiki item page for the Zoom H4n: where it lives on Metal shelf 1, a map of the shelf with its level marked, and what goes with it">
+                        <figcaption class="caption"><strong style="color: var(--accent);">ER Wiki</strong>Its storage location, a map showing the shelf, and the accessories that go with it.</figcaption>
+                    </figure>
                 </div>
             </div>
             <div class="compare-row">
@@ -655,20 +632,10 @@
                 <img class="shot" src="er-wiki/iter2-before.webp" width="1600" height="950" loading="lazy" alt="Before: the equipment home with the search bar, ten tags and a grid room map all on one screen">
                 <figcaption class="caption"><strong>Before</strong></figcaption>
             </figure>
+            <span class="compare-arrow" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             <figure>
                 <video class="shot" data-src="er-wiki/search-to-map.mp4" poster="er-wiki/search-to-map-poster.jpg" width="1600" height="1000" muted loop playsinline preload="none" aria-label="After: Find equipment opens on search alone. One scroll down swaps the whole view to the room map, drawn as a top view of the real room"></video>
                 <figcaption class="caption"><strong style="color: var(--accent);">After</strong></figcaption>
-            </figure>
-        </div>
-        <p class="body">I also redrew the map using my sketch of the actual room. Based on his feedback, I added checkout history showing who checked an item out and when.</p>
-        <div class="visual fit-row">
-            <figure style="--ar: 0.75">
-                <img class="shot" src="er-wiki/sketch-floor-plan.webp" width="900" height="1200" loading="lazy" alt="My hand drawn floor plan of the ER from above: front table at the top, spinning tray in the corner, cable wall and bins, cabinet rows, drawers and the door along the right wall">
-                <figcaption class="caption"><strong>My floor plan sketch</strong></figcaption>
-            </figure>
-            <figure style="--ar: 1.684">
-                <img class="shot" src="er-wiki/hifi-spot.webp" width="1600" height="950" loading="lazy" alt="The room map drawn from the sketch, with Cabinet A picked and its items listed by level">
-                <figcaption class="caption"><strong>The room map</strong></figcaption>
             </figure>
         </div>
     </section>
